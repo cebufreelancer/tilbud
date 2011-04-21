@@ -37,13 +37,25 @@ code {
   clear: both;
 }
 
-#header {
-  margin: auto;
-  height: 180px;
-  width: 955px;
-  background-color: 
+#header-all {
+  width: 100%px;
+  background-image: url('../images/ui/bg_top.jpg');
 }
 
+#header {
+  height: 134px;
+  width: 955px;
+  margin: auto;
+}
+
+#content-all {
+  padding-top: 4px;
+  width: 100%px;
+  background-image: url('../images/ui/bg-mid-separator.jpg');
+  background-repeat: repeat-x;
+  background-position: 0px 320px;
+  height: 435px;
+}
 #content {
   margin: auto;
   height: 350px;

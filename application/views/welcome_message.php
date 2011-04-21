@@ -8,13 +8,26 @@
 </head>
 <body>
 
-<div id="header">
-  <img src="images/ui/logo8.png">
+<div id="header-all">
+  <div id="header">
+    <div class="logo">
+      <img src="images/ui/logo24.png">
+    </div>
+    <div class="networks">
+      <img src="images/ui/top-facebook.jpg">
+    </div>
+    <div class="menu">
+      <a href="login">Login</a>
+    </div>
+  </div>
 </div>
-<div class="clear"></div>
 
-<div id="content">
-  <p> content </p>
+
+<div id="content-all">
+  <div id="content">
+    <img src="images/ui/todays-deal.jpg">
+    <img src="images/ui/mainbg.jpg">
+  </div>
 </div>
 <div class="clear"></div>
 
