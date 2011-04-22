@@ -137,7 +137,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `email`, `username`, `password`, `logins`, `last_login`) VALUES
-(1, 'test@test.com', 'admin', '368ae03c1b3b29b8d242bc43dcbe3f0bd4755ea181adbd22ef', 0, NULL);
+(1, 'test@test.com', 'admin', '5e8bee9562e8c1aba3b1e02b1ec726bf0daaa9865266419f7dd0aa931468e4e1', 0, NULL);
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
