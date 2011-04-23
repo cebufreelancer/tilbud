@@ -1,0 +1,243 @@
+/**
+ * Tilbud I Byen
+ * Copyright &copy; Tilbud I Byen
+ * @author	Paul Winston S. Villacorta
+ * @author	Michael L. Gimena
+ *
+ */
+ 
+/** Added HTML5 Reset **/
+@import url(reset5.css);
+@import url(nav.css);
+
+html,
+body {
+  margin:0;
+  padding:0;
+  height:100%;
+}
+.centered {
+  width: 960px;
+  margin: 0 auto;
+  padding: 0;
+  display: table;
+}
+
+a { text-decoration: none; color: #FFFFFF; }
+/*	Typography presets
+	------------------	*/
+.gigantic { font-size: 110px; line-height: 120px; letter-spacing: -2px; }
+.huge 	  { font-size: 68px;  line-height: 72px;  letter-spacing: -1px; }
+.large    { font-size: 42px;  line-height: 48px; }
+.big 	 	  { font-size: 34px;  line-height: 38px; }
+.small 		{ font-size: 13px; 	line-height: 18px; } 
+h1 				{ font-size: 24px;  line-height: 26px; }
+h2 				{ font-size: 20px;  line-height: 22px; }
+h3 				{ font-size: 15px;  line-height: 18px; }
+.normal, body { font: 13px/22px "Arial", "Lucida Sans Unicode", "Lucida Grande", sans-serif; }
+
+p { margin-bottom: 10px; color: #333333; }
+
+html {
+	background: #FFFFFF;
+}
+body {
+  position:relative; /* needed for footer positioning*/
+ 	height:auto !important; /* real browsers */
+	height:100%; /* IE6: treaded as min-height*/
+	min-height:100%; /* real browsers */ 
+}
+
+/** Main HTML5 Elements **/
+header, content, footer {
+  display: block;
+}
+#main-header { 
+	border-bottom: 1px solid #EEEEEE;
+  background: #111111 url(../images/bg-header.png) top left repeat-x;
+  height: 135px;
+}
+#main-body {
+ 	background: #FFFFFF url(../images/bg-body.png) top left repeat-x;
+  min-height: 550px;
+  padding-bottom: 200px;
+}
+
+/* Header */
+.hlogo, .hcaption, .hsocial { 
+	float: left;
+  color: #9e9e9e;
+}
+.hlogo 		{ width: 350px; }
+.hcaption { width: 480px; text-align: right; padding-top: 20px; font-style: italic; }
+.hsocial 	{ width: 130px; text-align: right; font-size: 11px; }
+.hsocial img { margin-right: 5px; }
+.hsocial img:last-of-type { margin-right: 0px; }
+#header-span {
+	color: #9e9e9e;
+  margin-top: -40px;
+  padding-left: 400px;
+  border: 1px solid red;
+}
+
+#header-container {
+  height: 50px;
+  padding: 20px 0px;
+}
+#header-nav ul { display: table; }
+#header-nav ul li {
+  display: table-cell;
+	width: 140px;
+  text-align: center;
+  letter-spacing: -0.10em;
+  border-left: 1px solid #131313;
+  border-right: 1px solid #323232;
+  border-bottom: none;
+  border-top: none;
+}
+#header-nav ul li:first-child { border-left: none; }
+#header-nav ul li:last-child { border-right: none; }
+#header-nav ul li a { 
+	color: #FFFFFF; 
+  display: block;
+  padding: 10px 0px;
+}
+
+/* DEALS CONTAINER */
+#deals-container { 
+  list-style: none;
+}
+.deal-title {
+  background: #379cd0;
+  color: #FFFFFF;
+  margin: 5px 0px;
+  padding: 5px 10px;
+  min-height: 80px;
+}
+.deal-title h1 { font-size: 22px; }
+.deal-title p { 
+	font-size: 20px;
+  color: #FFFFFF;
+  margin-bottom: 0px;
+}
+.deal-banner {
+  background: #111111 url() top center no-repeat;
+ 	height: 310px;
+  width: 960px;
+  padding: 5px;
+}
+.buy-container, .offer-container,
+.social-container {
+ 	background: url(../images/bg-deals.png) repeat;
+  padding: 5px 10px;
+  margin-bottom: 5px;
+  width: 265px;
+}
+.offer-container, .social-container { 
+	background: #373737;
+  float: left;
+  margin-right: 10px;
+  height: 85px;
+}
+.social-container { 
+	width: 150px; 
+	text-align: center;  
+}
+.buy-img-cont, .clock-img-cont {
+  float: right;
+  width: 150px; 
+  margin-top: -75px; 
+  padding-right: 610px;
+}
+.save-label	{
+  float: right;
+	font-size: 60px; 
+  width: 400px;
+  margin-top: 55px;
+  padding-right: 25px;
+  text-align: right;
+}
+.discounts, .buy-label, .period, 
+.period-label, .save-label {
+  color: #FFFFFF;
+  text-shadow: 1px 1px 2px #111111;
+  -moz-text-shadow: 1px 1px 2px #111111;
+  -webkit-text-shadow: 1px 1px 2px #111111;
+  font-weight: bold;
+  padding: 0px;
+}
+.clock-img-cont { margin-top: -83px; height: 82px; }
+.buy-label			{ font-size: 62px; letter-spacing: 5px; margin-bottom: 0px; padding: 0px; }  
+.discounts 		  { font-size: 18px; text-align: center; }
+.period 			  { font-size: 27px; margin-top: -5px; }
+.period-label   { font-size: 15px; padding-top: 5px; font-weight: normal; }
+
+/** Deals Info **/
+#deals-info { 
+	display: table;
+  margin-top: 50px;
+}
+#deals-info ul { 
+	display: table-cell;
+  list-style-type: none;
+  width: 50%;
+}
+#deals-info ul li { padding-right: 25px; }
+.dhead-one, .dhead-two {
+  font-size: 20px;
+  font-weight: bold;
+  padding-bottom: 10px;
+}
+.dhead-one {
+	color: #379bce; 
+}
+.dhead-two {
+  color: #373737;
+}
+/** Post Template **/
+#body-content {
+  background: #FFFFFF url(../images/bg-content.png) top left no-repeat;
+  margin-top: 50px;
+  display: table;
+}
+.posts {
+  font: 13px/24px "Arial", "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+  display: table-cell;
+  vertical-align: top;
+	width: 710px;
+  padding: 10px 20px;
+}
+.posts-title {
+  font-size: 33px;
+  font-weight: lighter;
+  font-style: italic;
+  color: #1376aa;
+  display: block;
+  margin-bottom: 25px;
+}
+.sidebar {
+  display: table-cell;
+  vertical-align: top;
+  width: 250px;
+}
+
+/** Footer Section **/
+footer { 
+	position:absolute;
+	width:100%;
+	bottom:0; /* stick to bottom */
+  height: 120px;
+	background: #e9e9e9;
+  padding: 25px 0px;
+}
+.fwidget { 
+	display:table-cell;
+  list-style-type: none;
+  width: 240px;
+}
+.fwidget a { color: #000000; }
+.fwidget a:hover { text-decoration: underline; }
+.fwidget li:first-child { font-weight: bold; }
+
+/** Miscs **/
+.clear { clear: both; }

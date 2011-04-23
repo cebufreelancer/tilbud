@@ -80,7 +80,9 @@ if (isset($_SERVER['KOHANA_ENV']))
  * - boolean  caching     enable or disable internal caching                 FALSE
  */
 Kohana::init(array(
-	'base_url'   => '/tilbud',
+	'base_url'   => '/tilbud/',
+	'index_file' => FALSE,
+	'charset'		 => 'iso-8859-1',
 ));
 
 /**
@@ -117,6 +119,6 @@ Kohana::modules(array(
  */
 Route::set('default', '(<controller>(/<action>(/<id>)))')
 	->defaults(array(
-		'controller' => 'welcome',
+		'controller' => 'home',
 		'action'     => 'index',
 	));
