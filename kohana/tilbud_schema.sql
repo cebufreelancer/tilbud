@@ -62,8 +62,6 @@ CREATE TABLE IF NOT EXISTS `deals` (
   `date_create` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `last_update` datetime DEFAULT NULL,
   PRIMARY KEY (`ID`),
-  KEY `city_id` (`city_id`),
-  KEY `product_id` (`product_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 --
@@ -112,7 +110,6 @@ CREATE TABLE IF NOT EXISTS `products` (
   `image` varchar(255) DEFAULT NULL,
   `date_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`ID`),
-  KEY `vendor_id` (`vendor_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 --
@@ -120,7 +117,11 @@ CREATE TABLE IF NOT EXISTS `products` (
 --
 
 INSERT INTO `products` (`ID`, `vendor_id`, `title`, `description`, `price`, `image`, `date_created`) VALUES
-(1, 1, 'Super Peel', 'super peel', '5000', NULL, '2011-04-24 00:56:00');
+(1, 1, 'Super Peel', 'super peel', '5000', NULL, '2011-04-24 00:56:00'),
+(2, 1, 'Facial wash', 'facial wash', '850', NULL, '2011-04-24 22:20:36'),
+(3, 1, 'Face Lift', 'face lift', '3000', NULL, '2011-04-24 22:20:36'),
+(4, 1, 'Breast Implant', 'breast implant', '25000', NULL, '2011-04-24 22:21:53'),
+(5, 1, 'Nose Job', 'nose job', '0', NULL, '2011-04-24 22:21:53');
 
 -- --------------------------------------------------------
 
