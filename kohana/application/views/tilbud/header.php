@@ -4,9 +4,9 @@
 <head>
   <meta CONTENT="text/html; charset=ISO-8859-1"/>
   <title>TILBUD</title>
-  
 	
   <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.7/themes/base/jquery-ui.css" type="text/css" media="all" /> 
+
 	<link rel="stylesheet" media="all" href="css/main.css"/>
 
 	<meta name="viewport" content="width=device-width; initial-scale=1"/>
@@ -30,23 +30,23 @@
         <div class="hsocial">
         	<span>Del med dine venner</span><br />
             <?php 
-							echo HTML::image('images/socials/in.jpg'); 
-							echo HTML::image('images/socials/facebook.jpg'); 
-							echo HTML::image('images/socials/twitter.jpg'); 
-							echo HTML::image('images/socials/technorati.jpg'); 
+							echo HTML::anchor('', HTML::image('images/socials/in.jpg')); 
+							echo HTML::anchor('', HTML::image('images/socials/facebook.jpg')); 
+							echo HTML::anchor('', HTML::image('images/socials/twitter.jpg')); 
+							echo HTML::anchor('', HTML::image('images/socials/technorati.jpg')); 
 						?>
         </div>
         
       </div>
       <nav id="header-nav">
         <ul>
-          <li><a href="">DAGENS TILBUD</a></li>
-          <li><a href="">TIDLIGERE TILBUD</a></li>
-          <li><a href="">TILMED DIG</a></li>
-          <li><a href="">OM OS</a></li>
-          <li><a href="">KONTAKT OS</a></li>
-          <li><a href="">LOGIN</a></li>
-          <li><a href="">FAQ</a></li>
+          <li><?php echo HTML::anchor('', 'DAGENS TILBUD'); ?></li>
+          <li><?php echo HTML::anchor('', 'TIDLIGERE TILBUD'); ?></li>
+          <li><?php echo HTML::anchor('', 'TILMED DIG'); ?></li>
+          <li><?php echo HTML::anchor('', 'OM OS'); ?></li>
+          <li><?php echo HTML::anchor('', 'KONTAKT OS'); ?></li>
+          <li><?php echo HTML::anchor('login', 'LOGIN'); ?></li>
+          <li><?php echo HTML::anchor('', 'FAQ'); ?></li>
         </ul>
       </nav>
     </div>

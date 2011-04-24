@@ -14,7 +14,7 @@
           </div>
           <div class="deal-banner" style="background-image: url(images/sample-image.jpg)" >
           	<div>
-              <div class="buy-container"><p class="buy-label huge">250,-</p></div>
+              <div class="buy-container"><p class="huge buy-label">250,-</p></div>
               <div class="buy-img-cont"><img src="images/buy.png" /></div>
               <div class="clear"></div>
             </div>
@@ -37,7 +37,6 @@
               </div>
               <div class="social-container">
               	<img src="images/facebook.jpg" />
-                <p class="period-label">Del dette tilbud med dine venner</p>
               </div>
               <div class="save-label">SPAR 50%</div>
               <div class="clear"></div>

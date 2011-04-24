@@ -71,8 +71,8 @@ header, content, footer {
 .hlogo 		{ width: 350px; }
 .hcaption { width: 480px; text-align: right; padding-top: 20px; font-style: italic; }
 .hsocial 	{ width: 130px; text-align: right; font-size: 11px; }
-.hsocial img { margin-right: 5px; }
-.hsocial img:last-of-type { margin-right: 0px; }
+.hsocial a { margin-right: 5px; }
+.hsocial a:last-of-type { margin-right: 0px; }
 #header-span {
 	color: #9e9e9e;
   margin-top: -40px;
@@ -106,6 +106,7 @@ header, content, footer {
 /* DEALS CONTAINER */
 #deals-container { 
   list-style: none;
+  width: 960px;
 }
 .deal-title {
   background: #379cd0;
@@ -123,7 +124,7 @@ header, content, footer {
 .deal-banner {
   background: #111111 url() top center no-repeat;
  	height: 310px;
-  width: 960px;
+  width: 950px;
   padding: 5px;
 }
 .buy-container, .offer-container,
@@ -136,8 +137,8 @@ header, content, footer {
 .offer-container, .social-container { 
 	background: #373737;
   float: left;
-  margin-right: 10px;
-  height: 85px;
+  margin-right: 5px;
+  height: 83px;
 }
 .social-container { 
 	width: 150px; 
@@ -151,10 +152,11 @@ header, content, footer {
 }
 .save-label	{
   float: right;
-	font-size: 60px; 
+	font-size: 60px;
+  font: bolder;
   width: 400px;
-  margin-top: 55px;
-  padding-right: 25px;
+  margin-top: 40px;
+	margin-right: 15px;
   text-align: right;
 }
 .discounts, .buy-label, .period, 
@@ -167,8 +169,8 @@ header, content, footer {
   padding: 0px;
 }
 .clock-img-cont { margin-top: -83px; height: 82px; }
-.buy-label			{ font-size: 62px; letter-spacing: 5px; margin-bottom: 0px; padding: 0px; }  
-.discounts 		  { font-size: 18px; text-align: center; }
+.buy-label			{ font-size: 66px; letter-spacing: 5px; margin-bottom: 0px; padding: 0px; }  
+.discounts 		  { font-size: 20px; text-align: center; padding-top: 5px; }
 .period 			  { font-size: 27px; margin-top: -5px; }
 .period-label   { font-size: 15px; padding-top: 5px; font-weight: normal; }
 
