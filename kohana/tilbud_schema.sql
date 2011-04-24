@@ -61,7 +61,7 @@ CREATE TABLE IF NOT EXISTS `deals` (
   `status` varchar(150) NOT NULL DEFAULT 'draft',
   `date_create` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `last_update` datetime DEFAULT NULL,
-  PRIMARY KEY (`ID`),
+  PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 --
@@ -109,7 +109,7 @@ CREATE TABLE IF NOT EXISTS `products` (
   `price` decimal(10,0) NOT NULL DEFAULT '0',
   `image` varchar(255) DEFAULT NULL,
   `date_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`ID`),
+  PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 --
