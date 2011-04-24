@@ -83,6 +83,7 @@ Kohana::init(array(
 	'base_url'   => '/tilbud/',
 	'index_file' => FALSE,
 	'charset'		 => 'iso-8859-1',
+	'base_url'   => '/tilbud/tilbud/kohana',
 ));
 
 /**
