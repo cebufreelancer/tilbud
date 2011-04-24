@@ -54,8 +54,10 @@ CREATE TABLE IF NOT EXISTS `deals` (
   `min_buy` int(11) NOT NULL DEFAULT '1',
   `max_buy` int(11) NOT NULL DEFAULT '0',
   `vouchers` int(11) NOT NULL DEFAULT '0',
+  `total_sold` int(11) NOT NULL DEFAULT '0',
   `start_date` datetime DEFAULT NULL,
   `end_date` datetime DEFAULT NULL,
+  `status` varchar(150) NOT NULL DEFAULT 'draft',
   `date_create` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `last_update` datetime DEFAULT NULL,
   PRIMARY KEY (`ID`)
@@ -65,8 +67,8 @@ CREATE TABLE IF NOT EXISTS `deals` (
 -- Dumping data for table `deals`
 --
 
-INSERT INTO `deals` (`ID`, `city_id`, `product_id`, `title`, `description`, `image`, `regular_price`, `discount`, `discount_type`, `min_buy`, `max_buy`, `vouchers`, `start_date`, `end_date`, `date_create`, `last_update`) VALUES
-(1, 1, 1, 'Super Peel Sale', 'super peel sale', NULL, '5000', '50', 'percent', 1, 5, 25, '2011-05-09 00:57:51', '2011-05-14 00:58:05', '2011-04-24 00:58:14', NULL);
+INSERT INTO `deals` (`ID`, `city_id`, `product_id`, `title`, `description`, `image`, `regular_price`, `discount`, `discount_type`, `min_buy`, `max_buy`, `vouchers`, `total_sold`, `start_date`, `end_date`, `status`, `date_create`, `last_update`) VALUES
+(1, 1, 1, 'Super Peel Sale', 'super peel sale', NULL, '5000', '50', 'percent', 1, 5, 25, 0, '2011-05-09 00:57:51', '2011-05-14 00:58:05', 'draft', '2011-04-24 00:58:14', NULL);
 
 -- --------------------------------------------------------
 
