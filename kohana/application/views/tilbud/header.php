@@ -25,7 +25,7 @@
 	<header id="main-header">
   	<div class="centered">
       <div id="header-container">
-      	<div class="hlogo"><img src="images/logo.png" /></div>
+      	<div class="hlogo"><?php echo HTML::image('images/logo.png', array('alt' => 'Tilbug i Byen')); ?></div>
         <div class="hcaption">De bedste tilbud på restauranter, rejser, wellness og meget andet.</div>
         <div class="hsocial">
         	<span>Del med dine venner</span><br />
@@ -51,5 +51,3 @@
       </nav>
     </div>
   </header>
-  
-  

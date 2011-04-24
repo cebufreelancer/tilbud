@@ -12,10 +12,10 @@
             <h1><a href="">Dagens Tilbud</a></h1>
             <p>Halv pris på en stor sushi-menu til 2 personer hos Sushi.com på Sankt Annæ Plads. Del det med en du holder af - for der er mere end nok til 2.</p>
           </div>
-          <div class="deal-banner" style="background-image: url(images/sample-image.jpg)" >
+          <div class="deal-banner" style="background-image: url(<?php echo URL::base(); ?>images/sample-image.jpg)" >
           	<div>
               <div class="buy-container"><p class="huge buy-label">250,-</p></div>
-              <div class="buy-img-cont"><img src="images/buy.png" /></div>
+              <div class="buy-img-cont"><?php echo HTML::image('images/buy.png', array('alt' => '')); ?></div>
               <div class="clear"></div>
             </div>
             <div class="buy-container">
@@ -26,7 +26,7 @@
               	<p class="period-label">Tilbuddet stopper om</p>
                 <p class="period">10 : 10 : 10</p>
               </div>
-              <div class="clock-img-cont"><img src="images/clock.png" /></div>
+              <div class="clock-img-cont"><?php echo HTML::image('images/clock.png', array('alt' => '')); ?></div>
               <div class="clear"></div>
             </div>
             
@@ -36,7 +36,7 @@
                 <p class="period">1.235 har købt</p>
               </div>
               <div class="social-container">
-              	<img src="images/facebook.jpg" />
+              	<?php echo HTML::image('images/facebook.jpg', array('alt' => 'Share on facebook!')); ?>
               </div>
               <div class="save-label">SPAR 50%</div>
               <div class="clear"></div>
@@ -90,7 +90,7 @@
         </div>
         
         <div class="sidebar">
-        	<center><img src="images/sample-facebook.jpg" /></center>
+        	<center><?php echo HTML::image('images/sample-facebook.jpg', array('alt' => 'Tilbug i Byen')); ?></center>
         </div>
       </div>    	
     </div>
