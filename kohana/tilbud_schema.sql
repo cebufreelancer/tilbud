@@ -57,18 +57,21 @@ CREATE TABLE IF NOT EXISTS `deals` (
   `total_sold` int(11) NOT NULL DEFAULT '0',
   `start_date` datetime DEFAULT NULL,
   `end_date` datetime DEFAULT NULL,
+  `is_featured` tinyint(1) NOT NULL DEFAULT '0',
   `status` varchar(150) NOT NULL DEFAULT 'draft',
   `date_create` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `last_update` datetime DEFAULT NULL,
-  PRIMARY KEY (`ID`)
+  PRIMARY KEY (`ID`),
+  KEY `city_id` (`city_id`),
+  KEY `product_id` (`product_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 --
 -- Dumping data for table `deals`
 --
 
-INSERT INTO `deals` (`ID`, `city_id`, `product_id`, `title`, `description`, `image`, `regular_price`, `discount`, `discount_type`, `min_buy`, `max_buy`, `vouchers`, `total_sold`, `start_date`, `end_date`, `status`, `date_create`, `last_update`) VALUES
-(1, 1, 1, 'Super Peel Sale', 'super peel sale', NULL, '5000', '50', 'percent', 1, 5, 25, 0, '2011-05-09 00:57:51', '2011-05-14 00:58:05', 'draft', '2011-04-24 00:58:14', NULL);
+INSERT INTO `deals` (`ID`, `city_id`, `product_id`, `title`, `description`, `image`, `regular_price`, `discount`, `discount_type`, `min_buy`, `max_buy`, `vouchers`, `total_sold`, `start_date`, `end_date`, `is_featured`, `status`, `date_create`, `last_update`) VALUES
+(1, 1, 1, 'Super Peel Sale', 'super peel sale', NULL, '5000', '50', 'percent', 1, 5, 25, 0, '2011-05-09 00:57:51', '2011-05-14 00:58:05', 0, 'draft', '2011-04-24 00:58:14', NULL);
 
 -- --------------------------------------------------------
 
@@ -107,15 +110,17 @@ CREATE TABLE IF NOT EXISTS `products` (
   `description` text,
   `price` decimal(10,0) NOT NULL DEFAULT '0',
   `image` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`ID`)
+  `date_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`ID`),
+  KEY `vendor_id` (`vendor_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 --
 -- Dumping data for table `products`
 --
 
-INSERT INTO `products` (`ID`, `vendor_id`, `title`, `description`, `price`, `image`) VALUES
-(1, 1, 'Super Peel', 'super peel', '5000', NULL);
+INSERT INTO `products` (`ID`, `vendor_id`, `title`, `description`, `price`, `image`, `date_created`) VALUES
+(1, 1, 'Super Peel', 'super peel', '5000', NULL, '2011-04-24 00:56:00');
 
 -- --------------------------------------------------------
 
