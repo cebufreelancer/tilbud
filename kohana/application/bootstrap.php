@@ -118,6 +118,22 @@ Kohana::modules(array(
  * Set the routes. Each route must have a minimum of a name, a URI and a set of
  * defaults for the URI.
  */
+// Special Pages Routes
+// Ex: This turns home/login into /login
+Route::set('login', 'login')
+		->defaults(array('controller' => 'home', 'action' => 'login'));
+
+// Admin directory
+// This route enables access to admin controllers
+// Ex: admin/products, admin/vendors
+Route::set('admin', 'admin(/<controller>(/<action>(/<id>)))')
+	->defaults(array(
+		'directory'		=> 'admin',
+		'controller'	=> 'products',
+		'action'			=> 'index',
+	));
+
+// Default Routes
 Route::set('default', '(<controller>(/<action>(/<id>)))')
 	->defaults(array(
 		'controller' => 'home',
