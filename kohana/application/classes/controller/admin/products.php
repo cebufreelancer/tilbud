@@ -37,44 +37,29 @@ class Controller_Admin_Products extends Controller {
 		$products = ORM::factory('product');
 		$page->vendors = $products->get_vendors(TRUE);
 		
-		if(!empty($_POST)) {
+		$posts = $this->request->post();
+		
+		if(!empty($posts)) {
 			
-			print_r($this->request->post());
+			print_r($posts);
 			
-			$products->vendor_id 	 = 1; //(int)$this->request->param('product_vendor');
-			$products->title 			 = $this->request->param('product_name');
-			$products->description = $this->request->param('product_desc');
-			$products->price 	 		 = $this->request->param('product_price');
+			$products->vendor_id 	 = $posts['product_vendor'];
+			$products->title 			 = $posts['product_name'];
+			$products->description = $posts['product_desc'];
+			$products->price 	 		 = $posts['product_price'];
 			
 			if(isset($_FILES['product_vendor'])) {
-				//$products->image = $_FILES['product_image']['name'];
+				$products->image = $_FILES['product_image']['name'];
 			}
 			
-			//$products->save();
-			
-			echo $products->last_query();
-			// Assuming all is correct
-			Request::current()->redirect('admin/products');
-      return;
+			if($products->save()) {			
+				// Assuming all is correct
+				Request::current()->redirect('admin/products');
+				return;
+			}
 		}
 		
 		$this->response->body($page);
-		//echo "Creating a new product";
-		/*
-		$products = ORM::factory('product');
-		
-		$products->vendor_id = 1;
-		$products->title = 'Foot Scrub';
-		$products->description = 'This is a special foot scrub.';
-		$products->price = 100;
-		$products->image = '';
-		
-		$products->save();
-		
-		echo '<pre>';
-		print_r($products->as_array());
-		echo '</pre>';
-		*/
 	}
 	
 	public function action_update($id=NULL)
