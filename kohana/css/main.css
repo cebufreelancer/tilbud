@@ -103,6 +103,11 @@ header, content, footer {
   padding: 10px 0px;
 }
 
+/* MENUS */
+#amenus {
+  background: #e8e8e8;
+}
+
 /* DEALS CONTAINER */
 #deals-container { 
   list-style: none;
@@ -240,6 +245,97 @@ footer {
 .fwidget a { color: #000000; }
 .fwidget a:hover { text-decoration: underline; }
 .fwidget li:first-child { font-weight: bold; }
+
+/** Pagination **/
+.pagination { padding-bottom: 5px; }
+.pagination a, .pagination span {
+  background-color: #f4f4f4;
+  background-image: url("/img/button-background.png");
+  color: #111;
+  text-align: center;
+  min-width: 15px;
+  margin-right: 5px;
+  padding: 6px;
+  border: 1px solid #c3c4ba;
+}
+.pagination em {
+  background: #002134;
+  color: #fff;
+  border: 1px solid #002134;
+  font-weight: bold;
+}
+.pagination a {
+  color: #1a1a1a;
+  text-decoration: none;
+}
+.pagination a:hover {
+  border: 1px solid #818171;
+  -webkit-box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
+}
+.pagination a:active {
+/*  background-image: url("/img/button-background-active.png"); */
+  outline: none;
+}
+.pagination a, .pagination span, .pagination em {
+  padding: 2px 5px;
+  margin-right: 5px;
+  display: block;
+  float: left;
+  border-style: solid;
+  border-width: 1px;
+}
+.pagination a.disabled, .pagination span.disabled {
+   color: #818171;
+}
+
+/** Tables **/
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 15px;
+}
+
+.table th {
+  padding: 10px;
+  font-weight: bold;
+  text-align: left;
+}
+
+.table th.first {
+  width: 30px;
+}
+
+.table th.last {
+  width: 200px;
+}
+
+.table .checkbox {
+  margin-left: 10px;
+}
+
+.table td {
+  padding: 10px;
+}
+
+.table td.last {
+  text-align: right;
+}
+
+
+.table th {
+  background: #eaeaea;
+  color: #222;
+  font-weight: normal;
+}
+
+.table td {
+  border-bottom: 1px solid #eaeaea;
+}
+
+.table tr:nth-child(even) { background: #EEEEEE; }
+.table tr:nth-child(odd) { background: #F2F2F2; }
 
 /** Miscs **/
 .clear { clear: both; }
