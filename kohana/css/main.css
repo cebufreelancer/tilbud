@@ -62,7 +62,10 @@ header, content, footer {
   min-height: 550px;
   padding-bottom: 200px;
 }
-
+#ad-body {
+  background: #FFFFFF url(../images/bg-body-ad.png) top left repeat-x;
+  padding-bottom: 200px;
+}
 /* Header */
 .hlogo, .hcaption, .hsocial { 
 	float: left;

@@ -2,7 +2,7 @@
 <?php require_once 'header.php'; ?>
 	
   <!-- content starts here -->
-  <section id="main-body">
+  <section id="ad-body">
   	<div class="centered">
     	
       <div>
