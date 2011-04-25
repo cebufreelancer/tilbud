@@ -5,27 +5,48 @@
   <section id="ad-body">
   	<div class="centered">
     	
-      <div>
-      	<strong><a href="">Add New Product</a></strong>
+      <div id="htitle">
+      	<h2>Products</h2>
       </div>
       
-      <?php echo $paging->render(); ?>
-      
-      <table class="table">
-      <?php
-			foreach($products as $product) {
-				echo '<tr>';
-				echo '<td><a href="">Edit</a> <a href="">Delete</a></td>';
-				echo '<td>' . $product['ID'] . '</td>';
-				echo '<td>' . $product['title'] . '</td>';
-				echo '<td>' . $product['description'] . '</td>';
-				echo '<td>' . $product['date_created'] . '</td>';
-				echo '</tr>';
-			}		
-			?>
-			</table>
-      
-    	<?php echo $paging->render(); ?>
+      <div id="myforms">
+        <div id="action-button">
+          <?php echo HTML::anchor('admin/products/add', 'Add a Product', array('class' => 'addbutton')); ?>
+        </div>
+        
+        <?php echo $paging->render(); ?>
+        
+        <table class="table">
+        <thead>
+        <tr>
+          <td>Action</td>
+          <td>ID</td>
+          <td>Product</td>
+          <td>Description</td>
+          <td>Vendor</td>
+          <td>Date Created</td>
+        </tr>
+        </thead>
+        <tbody>
+        <?php
+        foreach($products as $product) {
+					$edit_url = HTML::anchor('admin/products/edit/' . $product['ID'], 'Edit');
+					$delete_url = HTML::anchor('admin/products/delete/' . $product['ID'], 'Delete');
+          echo '<tr>';
+          echo '<td>' . $edit_url . ' ' . $delete_url . '</td>';
+          echo '<td>' . $product['ID'] . '</td>';
+          echo '<td>' . $product['title'] . '</td>';
+          echo '<td>' . $product['description'] . '</td>';
+					echo '<td>' . ORM::factory('vendor', $product['vendor_id'])->name . '</td>';
+          echo '<td>' . Date::fuzzy_span(strtotime($product['date_created'])) . '</td>';
+          echo '</tr>';
+        }		
+        ?>
+        </tbody>
+        </table>
+        
+        <?php echo $paging->render(); ?>
+      </div>
     </div>
   </section>
   

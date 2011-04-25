@@ -35,4 +35,20 @@ class Model_Product extends ORM {
 		return $products;
 	}
 	
+	public function get_vendors($is_select=FALSE)
+	{
+		$vendors = ORM::factory('vendor')->find_all();
+		
+		foreach($vendors as $v) {
+			if($is_select) {
+				$vendor = $v->as_array();
+				$vends[$vendor['ID']] = $vendor['name'];
+			} else {
+				$vends[] = $v->as_array();
+			}
+		}
+		
+		return $vends;
+	}
+	
 } // End of Product Model

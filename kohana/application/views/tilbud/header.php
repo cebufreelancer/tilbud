@@ -7,7 +7,7 @@
 	
   <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.7/themes/base/jquery-ui.css" type="text/css" media="all" /> 
 
-	<link rel="stylesheet" media="all" href="<?= url::base()?>css/main.css"/>
+	<link rel="stylesheet" media="all" href="<?php echo url::base()?>css/main.css"/>
 
 	<meta name="viewport" content="width=device-width; initial-scale=1"/>
 	<!-- Add "maximum-scale=1" to fix the weird iOS auto-zoom bug on orientation changes. -->

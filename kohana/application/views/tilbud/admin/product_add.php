@@ -2,50 +2,52 @@
 <?php require_once 'header.php'; ?>
 	
   <!-- content starts here -->
-  <section id="main-body">
+  <section id="ad-body">
   	<div class="centered">
     	
-      <!-- DEALS SECTION -->
-      <ul id="deals-container">
-      	<li>
-          <div class="deal-title">
-            <h1><a href="">Dagens Tilbud</a></h1>
-            <p>Halv pris på en stor sushi-menu til 2 personer hos Sushi.com på Sankt Annæ Plads. Del det med en du holder af - for der er mere end nok til 2.</p>
-          </div>
-          <div class="deal-banner" style="background-image: url(<?php echo URL::base(); ?>images/sample-image.jpg)" >
-          	<div>
-              <div class="buy-container"><p class="huge buy-label">250,-</p></div>
-              <div class="buy-img-cont"><?php echo HTML::image('images/buy.png', array('alt' => '')); ?></div>
-              <div class="clear"></div>
-            </div>
-            <div class="buy-container">
-            	<p class="discounts">Værdi 500,-   Rabat 50%</p>
-            </div>
-            <div>
-              <div class="buy-container" style="">
-              	<p class="period-label">Tilbuddet stopper om</p>
-                <p class="period">10 : 10 : 10</p>
-              </div>
-              <div class="clock-img-cont"><?php echo HTML::image('images/clock.png', array('alt' => '')); ?></div>
-              <div class="clear"></div>
-            </div>
-            
-            <div>
-              <div class="offer-container" style="">
-              	<p class="period-label">Tilbuddet bliver aktiv ved 100 køb</p>
-                <p class="period">1.235 har købt</p>
-              </div>
-              <div class="social-container">
-              	<?php echo HTML::image('images/facebook.jpg', array('alt' => 'Share on facebook!')); ?>
-              </div>
-              <div class="save-label">SPAR 50%</div>
-              <div class="clear"></div>
-            </div>
-            
-          </div>
+      <?php
+			$username = '';
+			$about = '';
+			?>
+      <div id="htitle">
+      	<h2>Add a Product</h2>
+      </div>
+      
+      <?php
+     // output messages
+     if(Message::count() > 0) {
+       echo '<div class="block">';
+       echo '<div class="content" style="padding: 10px 15px;">';
+       echo Message::output();
+       echo '</div></div>';
+     }
+		 ?>
+      
+			<?php echo Form::open('admin/products/add', array('enctype' => 'multipart/form-data',
+																				'id'			=> 'myforms')); ?>
+      <ul>
+      	<li><?php echo Form::label('product_name', __('Product Name')); ?>
+						<?php echo Form::input('product_name', $username); ?>
+        </li>
+        <li><?php echo Form::label('product_desc', __('Description')); ?>
+        		<?php echo Form::textarea('product_desc', $about); ?>
+        </li>
+        <li><?php echo Form::label('product_vendor', __('Vendor')); ?>
+        		<?php echo Form::select('product_vendor', $vendors, NULL); ?>
+        </li>
+        <li><?php echo Form::label('product_price', __('Price')); ?>
+        		<?php echo Form::input('product_price', $username); ?>
+        </li>
+        <li><?php echo Form::label('product_image', __('Upload Image')); ?>
+        		<?php echo Form::file('product_image'); ?>
+        </li>
+        <li>
+        	<?php echo Form::submit(NULL, 'Save'); ?>
+          <?php echo Form::submit(NULL, 'Cancel'); ?>
         </li>
       </ul>
-    		
+      <?php echo Form::close(); ?>
+      
     </div>
   </section>
   

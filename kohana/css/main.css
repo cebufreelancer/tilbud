@@ -66,6 +66,7 @@ header, content, footer {
   background: #FFFFFF url(../images/bg-body-ad.png) top left repeat-x;
   padding-bottom: 200px;
 }
+#action-button { padding: 10px 0px; }
 /* Header */
 .hlogo, .hcaption, .hsocial { 
 	float: left;
@@ -250,7 +251,9 @@ footer {
 .fwidget li:first-child { font-weight: bold; }
 
 /** Pagination **/
-.pagination { padding-bottom: 5px; }
+.pagination { 
+  font-size: 11px;
+}
 .pagination a, .pagination span {
   background-color: #f4f4f4;
   background-image: url("/img/button-background.png");
@@ -282,7 +285,7 @@ footer {
   outline: none;
 }
 .pagination a, .pagination span, .pagination em {
-  padding: 2px 5px;
+  padding: 0px 5px;
   margin-right: 5px;
   display: block;
   float: left;
@@ -297,48 +300,119 @@ footer {
 .table {
   width: 100%;
   border-collapse: collapse;
-  margin-bottom: 15px;
+  margin: 15px 0px;
 }
-
-.table th {
+.table thead {
+  color: #E9E9E9;
+  font-weight: bold;
   padding: 10px;
   font-weight: bold;
   text-align: left;
 }
-
-.table th.first {
-  width: 30px;
-}
-
-.table th.last {
-  width: 200px;
-}
-
-.table .checkbox {
-  margin-left: 10px;
-}
-
-.table td {
+.table thead tr td { 
+	background: #333333;
+  text-align: center;
   padding: 10px;
 }
-
-.table td.last {
-  text-align: right;
+.table thead tr td:first-of-type,
+.table tbody tr td:first-of-type {
+  text-align: center;
+	width: 80px;
 }
-
-
+.table thead.last { width: 200px; }
+.table .checkbox { margin-left: 10px; }
+.table td { padding: 10px; }
+.table tbody td.last,
+.table tbody tr td:last-of-type {
+  text-align: center;
+}
 .table th {
   background: #eaeaea;
   color: #222;
   font-weight: normal;
 }
-
-.table td {
-  border-bottom: 1px solid #eaeaea;
-}
-
+.table td { border-bottom: 1px solid #eaeaea; }
 .table tr:nth-child(even) { background: #EEEEEE; }
 .table tr:nth-child(odd) { background: #F2F2F2; }
+.table a {
+  font-size: 10px;
+  text-decoration: underline;
+	color: #333333; 
+}
 
+/* Forms */
+#htitle { 
+	background: url(../images/bg-body-ad.png) top left repeat-x;
+  padding: 20px 0px;
+}
+#myforms {
+  padding: 25px 10px;
+  background: #FFF url(../images/bg-content.png) top left no-repeat;
+}
+#myforms ul { list-style-type: none; }
+#myforms ul li:last-of-type { 
+	text-align: left; 
+  margin-top: 10px; 
+  padding: 10px; 
+  border-top: 1px dotted #999999; 
+}
+/* Simple way to create labels-on-top */
+#myforms label { 
+	display: block;
+  font-size: 14px;
+  font-weight: bold;
+  color: #333333;
+}
+/** Error color **/
+#myforms input.error {
+  color:#CC0000;
+  border:solid 1px #de888a; background:#ffdddd;
+}
+/** When IE6 dies, replace with element-specifics. This is supposed to apply to only text, password and file. **/
+#myforms input[type="text"], 
+#myforms input[type="password"], 
+#myforms input[type="file"],
+#myforms select {
+  border:1px solid #DEDEDE;
+  color:#525151;
+  font-size:20px;
+  height:30px;
+  padding:2px 5px;
+  width:500px;
+  margin-bottom:10px;
+}
+#myforms input[type="file"] { font-size: 13px; font-weight: bold; }
+#myforms select { margin-bottom:10px; width: auto; min-width: 200px; }
+   /** Again, without IE6 these would be element type selectors. We need a small margin. **/
+   input.radio, input.checkbox {
+      margin:0 0.4em 0 0;
+   }
+#myforms textarea {
+  border:1px solid #DEDEDE;
+  color:#525151;
+  font-size:12pt;
+  padding:2px 5px;
+  width:500px;
+  margin-bottom: 10px;
+}
+
+#myforms input[type="submit"] {
+  font-size: 18px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+   
 /** Miscs **/
 .clear { clear: both; }
+.addbutton {
+  padding: 5px 15px;
+  color: #FFF;
+  font-weight: bold;
+	background: #53a3fe; /* old browsers */
+  -webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+}
+.addbutton:hover {
+	background: #2f9ad2;
+}

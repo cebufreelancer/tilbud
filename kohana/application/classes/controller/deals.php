@@ -8,7 +8,7 @@ class Controller_Deals extends Controller {
 	    $deals = ORM::factory('deal')
 	             ->order_by('ID', 'DESC')
 	             ->find_all();
-		  $this->response->body(View::factory('deals/index'));
+		  $this->response->body(View::factory('tilbud/deals'));
 		}else{
 		  
 		}

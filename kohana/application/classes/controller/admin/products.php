@@ -32,7 +32,35 @@ class Controller_Admin_Products extends Controller {
 	
 	public function action_add()
 	{
-		echo "Creating a new product";
+		$page = View::factory('tilbud/admin/product_add');
+		
+		$products = ORM::factory('product');
+		$page->vendors = $products->get_vendors(TRUE);
+		
+		if(!empty($_POST)) {
+			
+			print_r($this->request->post());
+			
+			$products->vendor_id 	 = 1; //(int)$this->request->param('product_vendor');
+			$products->title 			 = $this->request->param('product_name');
+			$products->description = $this->request->param('product_desc');
+			$products->price 	 		 = $this->request->param('product_price');
+			
+			if(isset($_FILES['product_vendor'])) {
+				//$products->image = $_FILES['product_image']['name'];
+			}
+			
+			//$products->save();
+			
+			echo $products->last_query();
+			// Assuming all is correct
+			Request::current()->redirect('admin/products');
+      return;
+		}
+		
+		$this->response->body($page);
+		//echo "Creating a new product";
+		/*
 		$products = ORM::factory('product');
 		
 		$products->vendor_id = 1;
@@ -46,6 +74,7 @@ class Controller_Admin_Products extends Controller {
 		echo '<pre>';
 		print_r($products->as_array());
 		echo '</pre>';
+		*/
 	}
 	
 	public function action_update($id=NULL)

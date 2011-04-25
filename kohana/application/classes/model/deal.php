@@ -24,7 +24,7 @@ class Model_Deal extends ORM {
 	{
 		$result = DB::select()->from($this->_table_name)
 						->order_by('ID','DESC')
-						->limit($limit)
+						->limit($limit);
 
 		$deals = array();
 		
