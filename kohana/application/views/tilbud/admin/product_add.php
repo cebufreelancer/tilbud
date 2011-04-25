@@ -5,38 +5,26 @@
   <section id="ad-body">
   	<div class="centered">
     	
-      <?php
-			$username = '';
-			$about = '';
-			?>
       <div id="htitle">
-      	<h2>Add a Product</h2>
+      	<h2><?php echo $label; ?></h2>
       </div>
+           
+      <?php //echo '<pre>'; print_r($_SERVER); echo '</pre>'; ?>
       
-      <?php
-     // output messages
-     if(Message::count() > 0) {
-       echo '<div class="block">';
-       echo '<div class="content" style="padding: 10px 15px;">';
-       echo Message::output();
-       echo '</div></div>';
-     }
-		 ?>
-      
-			<?php echo Form::open('admin/products/add', array('enctype' => 'multipart/form-data',
-																				'id'			=> 'myforms')); ?>
+			<?php echo Form::open(Request::current(), array('enctype' => 'multipart/form-data',
+																											'id'			=> 'myforms')); ?>
       <ul>
       	<li><?php echo Form::label('product_name', __('Product Name')); ?>
-						<?php echo Form::input('product_name', $username); ?>
+						<?php echo Form::input('product_name', $prod_title); ?>
         </li>
         <li><?php echo Form::label('product_desc', __('Description')); ?>
-        		<?php echo Form::textarea('product_desc', $about); ?>
+        		<?php echo Form::textarea('product_desc', $prod_desc); ?>
         </li>
         <li><?php echo Form::label('product_vendor', __('Vendor')); ?>
-        		<?php echo Form::select('product_vendor', $vendors, NULL); ?>
+        		<?php echo Form::select('product_vendor', $vendors, $prod_vid); ?>
         </li>
         <li><?php echo Form::label('product_price', __('Price')); ?>
-        		<?php echo Form::input('product_price', $username); ?>
+        		<?php echo Form::input('product_price', $prod_price); ?>
         </li>
         <li><?php echo Form::label('product_image', __('Upload Image')); ?>
         		<?php echo Form::file('product_image'); ?>
