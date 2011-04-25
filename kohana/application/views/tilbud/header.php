@@ -40,13 +40,13 @@
       </div>
       <nav id="header-nav">
         <ul>
-          <li><?php echo HTML::anchor('', 'DAGENS TILBUD'); ?></li>
-          <li><?php echo HTML::anchor('', 'TIDLIGERE TILBUD'); ?></li>
+          <li><?php echo HTML::anchor('todays-deals', 'DAGENS TILBUD'); ?></li>
+          <li><?php echo HTML::anchor('past-deals', 'TIDLIGERE TILBUD'); ?></li>
           <li><?php echo HTML::anchor('', 'TILMED DIG'); ?></li>
-          <li><?php echo HTML::anchor('', 'OM OS'); ?></li>
-          <li><?php echo HTML::anchor('', 'KONTAKT OS'); ?></li>
+          <li><?php echo HTML::anchor('about', 'OM OS'); ?></li>
+          <li><?php echo HTML::anchor('contact', 'KONTAKT OS'); ?></li>
           <li><?php echo HTML::anchor('login', 'LOGIN'); ?></li>
-          <li><?php echo HTML::anchor('', 'FAQ'); ?></li>
+          <li><?php echo HTML::anchor('faq', 'FAQ'); ?></li>
         </ul>
       </nav>
     </div>
