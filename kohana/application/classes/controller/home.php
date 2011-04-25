@@ -6,5 +6,20 @@ class Controller_Home extends Controller {
 	{	
 		$this->response->body(View::factory('tilbud/index'));
 	}
+	
+	public function action_login()
+	{	
+		$this->response->body(View::factory('tilbud/login'));
+	}
+	
+	public function action_signup()
+	{
+		echo "This is signup page";
+	}
+	
+	public function action_logout()
+	{
+		echo "This is logout page";
+	}
 
 } // End Welcome
