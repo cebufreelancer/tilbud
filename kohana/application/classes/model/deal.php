@@ -28,10 +28,6 @@ class Model_Deal extends ORM {
 
 		$deals = array();
 		
-		foreach($result as $deal) {
-			$deals[] = $deal;
-		}
-		
 		return $deals;
 	}
 	
