@@ -20,8 +20,7 @@
         <thead>
         <tr>
           <td>Action</td>
-          <td>ID</td>
-          <td>Product</td>
+          <td width="200">Product</td>
           <td>Description</td>
           <td>Vendor</td>
           <td>Date Created</td>
@@ -34,9 +33,8 @@
 					$delete_url = HTML::anchor('admin/products/delete/' . $product['ID'], 'Delete');
           echo '<tr>';
           echo '<td>' . $edit_url . ' ' . $delete_url . '</td>';
-          echo '<td>' . $product['ID'] . '</td>';
-          echo '<td>' . $product['title'] . '</td>';
-          echo '<td>' . $product['description'] . '</td>';
+          echo '<td><b>' . $product['title'] . '</b></td>';
+          echo '<td>' . substr($product['description'], 0, 50) . '</td>';
 					echo '<td>' . ORM::factory('vendor', $product['vendor_id'])->name . '</td>';
           echo '<td>' . Date::fuzzy_span(strtotime($product['date_created'])) . '</td>';
           echo '</tr>';
