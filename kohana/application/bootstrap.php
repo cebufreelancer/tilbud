@@ -123,6 +123,13 @@ Kohana::modules(array(
 Route::set('login', 'login')
 		->defaults(array('controller' => 'home', 'action' => 'login'));
 
+Route::set('alldeals', 'alldeals(<controller>(/<action>(/<id>)))')
+		->defaults(array('controller' => 'deals', 'action' => 'index'));
+		
+Route::set('view', 'view(<controller>(/<action>(/<id>)))')
+		->defaults(array('controller' => 'deals', 'action' => 'view'));
+
+
 // Admin directory
 // This route enables access to admin controllers
 // Ex: admin/products, admin/vendors
@@ -133,7 +140,8 @@ Route::set('admin', 'admin(/<controller>(/<action>(/<id>)))')
 		'action'			=> 'index',
 	));
 
-// Default Routes
+
+// Default Routes - must be at the bottom
 Route::set('default', '(<controller>(/<action>(/<id>)))')
 	->defaults(array(
 		'controller' => 'home',

@@ -7,7 +7,7 @@
 	
   <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.7/themes/base/jquery-ui.css" type="text/css" media="all" /> 
 
-	<link rel="stylesheet" media="all" href="css/main.css"/>
+	<link rel="stylesheet" media="all" href="<?= url::base()?>css/main.css"/>
 
 	<meta name="viewport" content="width=device-width; initial-scale=1"/>
 	<!-- Add "maximum-scale=1" to fix the weird iOS auto-zoom bug on orientation changes. -->
@@ -41,7 +41,7 @@
       <nav id="header-nav">
         <ul>
           <li><?php echo HTML::anchor('todays-deals', 'DAGENS TILBUD'); ?></li>
-          <li><?php echo HTML::anchor('past-deals', 'TIDLIGERE TILBUD'); ?></li>
+          <li><?php echo HTML::anchor('alldeals', 'TIDLIGERE TILBUD'); ?></li>
           <li><?php echo HTML::anchor('', 'TILMED DIG'); ?></li>
           <li><?php echo HTML::anchor('about', 'OM OS'); ?></li>
           <li><?php echo HTML::anchor('contact', 'KONTAKT OS'); ?></li>
