@@ -20,15 +20,23 @@ class Model_Deal extends ORM {
 		);
 */
 	
-	public function alldeals($limit=NULL, $offset=NULL)
+	public function get_alldeals($limit=NULL, $offset=NULL)
 	{
-		$result = DB::select()->from($this->_table_name)
-						->order_by('ID','DESC')
-						->limit($limit);
-
+    $result = ORM::factory('deal')
+             ->order_by('ID', 'DESC')
+             ->find_all();
 		$deals = array();
 		
+    foreach($result as $d) {
+      $deals[] = $d->as_array();
+    }
+		
 		return $deals;
+	}
+	
+	public function get_deal($id){
+    $deal = ORM::factory('deal')->find($id);
+		return $deal;
 	}
 	
 } // End of Product Model

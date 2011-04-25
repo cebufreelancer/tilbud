@@ -2,16 +2,21 @@
 
 class Controller_Deals extends Controller {
 
-	public function action_index($id = NULL)
+	public function action_index()
 	{	
-	  if ($id == NULL) {
-	    $deals = ORM::factory('deal')
-	             ->order_by('ID', 'DESC')
-	             ->find_all();
-		  $this->response->body(View::factory('tilbud/deals'));
-		}else{
-		  
-		}
+    $deals = ORM::factory('deal')->get_alldeals();
+    $this->response->body(View::factory('tilbud/deals')
+                   ->set('deals', $deals));
+	}
+	
+	public function action_view($id){
+    $deal = ORM::factory('deal')->get_deal($id);
+    $orders = ORM::factory('order')->get_orders($deal->ID);
+    
+    $this->response->body(View::factory('tilbud/view-deal')
+                   ->set('deal', $deal)
+                   ->set('orders', $orders));
+	  
 	}
 
 

@@ -25,7 +25,7 @@
 	<header id="main-header">
   	<div class="centered">
       <div id="header-container">
-      	<div class="hlogo"><?php echo HTML::image('images/logo.png', array('alt' => 'Tilbug i Byen')); ?></div>
+      	<a href="<?= url::base();?>"><div class="hlogo"><?php echo HTML::image('images/logo.png', array('alt' => 'Tilbug i Byen')); ?></div></a>
         <div class="hcaption">De bedste tilbud på restauranter, rejser, wellness og meget andet.</div>
         <div class="hsocial">
         	<span>Del med dine venner</span><br />
@@ -40,7 +40,7 @@
       </div>
       <nav id="header-nav">
         <ul>
-          <li><?php echo HTML::anchor('todays-deals', 'DAGENS TILBUD'); ?></li>
+          <li><?php echo HTML::anchor(url::base(true), 'DAGENS TILBUD'); ?></li>
           <li><?php echo HTML::anchor('alldeals', 'TIDLIGERE TILBUD'); ?></li>
           <li><?php echo HTML::anchor('', 'TILMED DIG'); ?></li>
           <li><?php echo HTML::anchor('about', 'OM OS'); ?></li>

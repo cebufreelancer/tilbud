@@ -416,3 +416,7 @@ footer {
 .addbutton:hover {
 	background: #2f9ad2;
 }
+.deals {
+  color: #3366FF;
+  font-size: 18px;
+}
