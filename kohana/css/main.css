@@ -30,6 +30,7 @@ a { text-decoration: none; color: #FFFFFF; }
 .huge 	  { font-size: 68px;  line-height: 72px;  letter-spacing: -1px; }
 .large    { font-size: 42px;  line-height: 48px; }
 .big 	 	  { font-size: 34px;  line-height: 38px; }
+.medium 	{ font-size: 28px;  line-height: 32px; }
 .small 		{ font-size: 13px; 	line-height: 18px; } 
 h1 				{ font-size: 24px;  line-height: 26px; }
 h2 				{ font-size: 20px;  line-height: 22px; }
@@ -316,6 +317,7 @@ footer {
 }
 .table thead tr td:first-of-type,
 .table tbody tr td:first-of-type {
+  vertical-align: middle;
   text-align: center;
 	width: 80px;
 }
@@ -382,12 +384,16 @@ footer {
   margin-bottom:10px;
 }
 #myforms input[type="file"] { font-size: 13px; font-weight: bold; }
-#myforms select { margin-bottom:10px; width: auto; min-width: 200px; }
+#myforms select { 
+	margin-bottom:10px; 
+  width: auto; min-width: 200px;
+}
    /** Again, without IE6 these would be element type selectors. We need a small margin. **/
    input.radio, input.checkbox {
       margin:0 0.4em 0 0;
    }
 #myforms textarea {
+  font: 16px/20px Arial, Helvetica, sans-serif;
   border:1px solid #DEDEDE;
   color:#525151;
   font-size:12pt;
@@ -401,7 +407,11 @@ footer {
   padding-left: 10px;
   padding-right: 10px;
 }
-   
+#myforms .record-value {
+  padding: 10px;
+  color: #666666;
+}
+
 /** Miscs **/
 .clear { clear: both; }
 .addbutton {
