@@ -8,6 +8,17 @@ class Model_Product extends ORM {
 	protected $_primary_key = 'ID';
 	protected $_primary_val = 'ID';
 	
+	protected $_has_many = array(
+    'deals' => array(
+        'model'       => 'deal',
+        'foreign_key' => 'product_id',
+    ),
+);
+	/*
+	protected $_has_many = array(
+    'deals'	=> array('through' => 'deals')
+		);
+	*/
 	//protected $_belongs_to = array('vendor' => array());
 	
 	protected $_table_columns = array(
@@ -49,6 +60,16 @@ class Model_Product extends ORM {
 		}
 		
 		return $vends;
+	}
+	
+	public function get_deals($prod)
+	{
+		//$products = parent::loaded();
+		foreach($prod->deals->find_all() as $deal) {
+			$deals[] = $deal->as_array();
+		}
+		
+		return $deals;
 	}
 	
 } // End of Product Model

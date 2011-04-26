@@ -8,18 +8,19 @@ class Model_Deal extends ORM {
 	protected $_primary_key = 'ID';
 	protected $_primary_val = 'ID';
 	
-/*	protected $_table_columns = array(
+	protected $_has_one = array('product' => array());
+	
+	protected $_table_columns = array(
 		'ID'						=> array('data_type' => 'int'),
 		'city_id'		  	=> array('data_type' => 'int', 'is_nullable' => FALSE),
-		'product_id'		=> array('data_type' => 'string'),
-		'title' 	      => array('data_type' => 'string', 'is_nullable' => TRUE),
+		'product_id'		=> array('data_type' => 'int'),
+		'title' 	      => array('data_type' => 'string'),
 		'description' 	=> array('data_type' => 'string', 'is_nullable' => TRUE),
-		'image' 				=> array('data_type' => 'decimal'), 
-		'regular_price'	=> array('data_type' => 'string', 'is_nullable' => TRUE),
+		'image' 				=> array('data_type' => 'string', 'is_nullable' => TRUE), 
+		'regular_price'	=> array('data_type' => 'decimal'),
 		'date_created' 	=> array('data_type' => 'string'),
 		);
-*/
-	
+
 	public function get_alldeals($limit=NULL, $offset=NULL)
 	{
     $result = ORM::factory('deal')

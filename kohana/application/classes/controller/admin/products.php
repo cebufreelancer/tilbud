@@ -32,7 +32,7 @@ class Controller_Admin_Products extends Controller {
 	
 	public function action_add()
 	{
-		$page = View::factory('tilbud/admin/product_add');
+		$page = View::factory('tilbud/admin/product_form');
 		$page->label = 'Add a Product';
 		
 		$products = ORM::factory('product');
@@ -73,7 +73,7 @@ class Controller_Admin_Products extends Controller {
 	
 	public function action_edit($id=NULL)
 	{
-		$page = View::factory('tilbud/admin/product_add');
+		$page = View::factory('tilbud/admin/product_form');
 		$page->label = 'Edit a Product';
 		
 		$products = ORM::factory('product', $id);
@@ -107,26 +107,43 @@ class Controller_Admin_Products extends Controller {
 		$page->prod_price = isset($posts['product_price']) ? $posts['product_price'] : $products->price;
 		
 		$this->response->body($page);
-		/*
-		echo '<pre>';
-		print_r($products->as_array());
-		echo '</pre>';
 		
-		$products->price = 15000;
-		$products->description = 'this is a nose job FYI';
-		$products->save();
-		
-		echo '<pre>';
-		print_r($products->as_array());
-		echo '</pre>';
-		*/
 	}
 	
 	public function action_delete($id=NULL)
 	{
-		echo "Removing last entry";
+		$page = View::factory('tilbud/admin/confirm_delete');
+		$page->label = 'Delete Product';
+	
 		$products = ORM::factory('product', $id);
-		$products->delete();
+		
+		// Get posts
+		$posts = $this->request->post();
+		
+		// This will check if submitted
+		if(!empty($posts)) {
+			
+			if(strcmp($posts['submit'], 'Ok') == 0) {
+				if($products->loaded()) {
+					$products->delete();
+				}
+			}
+						
+			// Assuming all is correct
+			Request::current()->redirect('admin/products');
+			return;
+
+		} else {
+		
+			$rec['product'] = $products->title;
+			$rec['description'] = $products->description;
+			$rec['price'] = $products->price;
+			$rec['vendor'] = ORM::factory('vendor',$products->vendor_id)->name;
+			
+			$page->records = $rec;
+		}
+		$this->response->body($page);
+
 	}
 
 } // End Welcome
