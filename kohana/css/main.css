@@ -401,6 +401,12 @@ footer {
   width:500px;
   margin-bottom: 10px;
 }
+#myforms textarea.display {
+ 	border: none;
+  width: 100%;
+  height: auto;
+  font-size: 13px;
+}
 
 #myforms input[type="submit"] {
   font-size: 18px;

@@ -17,6 +17,9 @@
         <?php
 				foreach($records as $key => $val) {
 					echo '<li>' . Form::label($key, __(ucfirst($key))) . '</li>';
+					if($key == 'description') {
+						$val = Form::textarea('vendor_desc', $val, array('readonly' => true, 'class' => 'display'));
+					}
 					echo '<li class="record-value">' . __($val) . '</li>';
 				}
 				?>

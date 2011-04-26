@@ -32,11 +32,10 @@ class Controller_Admin_Vendors extends Controller {
 	
 	public function action_add()
 	{
-		$page = View::factory('tilbud/admin/product_form');
-		$page->label = 'Add a Product';
+		$page = View::factory('tilbud/admin/vendors/vendor_form');
+		$page->label = 'Add a Vendor';
 		
-		$products = ORM::factory('product');
-		$page->vendors = $products->get_vendors(TRUE);
+		$vendors = ORM::factory('vendor');
 		
 		// Get posts
 		$posts = $this->request->post();
@@ -44,40 +43,42 @@ class Controller_Admin_Vendors extends Controller {
 		// This will check if submitted
 		if(!empty($posts)) {
 					
-			$products->vendor_id 	 = $posts['product_vendor'];
-			$products->title 			 = htmlentities($posts['product_name']);
-			$products->description = htmlentities($posts['product_desc']);
-			$products->price 	 		 = $posts['product_price'];
-			
-			if(isset($_FILES['product_vendor'])) {
-				$products->image = $_FILES['product_image']['name'];
-			}
-			
-			if($products->save()) {
+			$vendors->name 			 	= htmlentities($posts['vendor_name']);
+			$vendors->description = htmlentities($posts['vendor_desc']);
+			$vendors->address 	 	= htmlentities($posts['vendor_address']);
+			$vendors->phone 			= htmlentities($posts['vendor_phone']);
+			$vendors->url  				= htmlentities($posts['vendor_website']);
+			$vendors->email 	 		= htmlentities($posts['vendor_email']);
+			$vendors->office_hours = htmlentities($posts['vendor_office_hours']);
+			$vendors->status  		= 'active';
+					
+			if($vendors->save()) {
 				// message: save success
-        Message::add('success', __('Values saved.'));
+        Message::add('success', __('Vendor ' . $vendors->name . 'has been successfully added.'));
 						
 				// Assuming all is correct
-				Request::current()->redirect('admin/products');
+				Request::current()->redirect('admin/vendors');
 				return;
 			}
 		}
 		
-		$page->prod_vid = isset($posts['product_vendor']) ? $posts['product_vendor'] : '';
-		$page->prod_title = isset($posts['product_name']) ? $posts['product_name'] : '';
-		$page->prod_desc = isset($posts['product_desc']) ? $posts['product_desc'] : '';
-		$page->prod_price = isset($posts['product_price']) ? $posts['product_price'] : '';
+		$page->vendor_name 		= isset($posts['vendor_name']) ? $posts['vendor_name'] : '';
+		$page->vendor_desc 		= isset($posts['vendor_desc']) ? $posts['vendor_desc'] : '';
+		$page->vendor_address = isset($posts['vendor_address']) ? $posts['vendor_address'] : '';
+		$page->vendor_phone 	= isset($posts['vendor_phone']) ? $posts['vendor_phone'] : '';
+		$page->vendor_website = isset($posts['vendor_website']) ? $posts['vendor_website'] : '';
+		$page->vendor_email 	= isset($posts['vendor_email']) ? $posts['vendor_email'] : '';
+		$page->vendor_office_hours = isset($posts['vendor_office_hours']) ? $posts['vendor_office_hours'] : '';
 		
 		$this->response->body($page);
 	}
 	
 	public function action_edit($id=NULL)
 	{
-		$page = View::factory('tilbud/admin/product_form');
-		$page->label = 'Edit a Product';
+		$page = View::factory('tilbud/admin/vendors/vendor_form');
+		$page->label = 'Edit a Vendor';
 		
-		$products = ORM::factory('product', $id);
-		$page->vendors = $products->get_vendors(TRUE);
+		$vendors = ORM::factory('vendor', $id);
 		
 		// Get posts
 		$posts = $this->request->post();
@@ -85,37 +86,42 @@ class Controller_Admin_Vendors extends Controller {
 		// This will check if submitted
 		if(!empty($posts)) {
 					
-			$products->vendor_id 	 = $posts['product_vendor'];
-			$products->title 			 = htmlentities($posts['product_name']);
-			$products->description = htmlentities($posts['product_desc']);
-			$products->price 	 		 = $posts['product_price'];
-			
-			if(isset($_FILES['product_vendor'])) {
-				$products->image = $_FILES['product_image']['name'];
-			}
-			
-			if($products->save()) {			
+			$vendors->name 			 	= htmlentities($posts['vendor_name']);
+			$vendors->description = htmlentities($posts['vendor_desc']);
+			$vendors->address 	 	= htmlentities($posts['vendor_address']);
+			$vendors->phone 			= htmlentities($posts['vendor_phone']);
+			$vendors->url  				= htmlentities($posts['vendor_website']);
+			$vendors->email 	 		= htmlentities($posts['vendor_email']);
+			$vendors->office_hours = htmlentities($posts['vendor_office_hours']);
+			$vendors->status  		= 'active';
+					
+			if($vendors->save()) {
+				// message: save success
+        Message::add('success', __('Vendor ' . $vendors->name . 'has been successfully updated.'));
+						
 				// Assuming all is correct
-				Request::current()->redirect('admin/products');
+				Request::current()->redirect('admin/vendors');
 				return;
 			}
 		}
 		
-		$page->prod_vid = isset($posts['product_vendor']) ? $posts['product_vendor'] : $products->vendor_id;
-		$page->prod_title = isset($posts['product_name']) ? $posts['product_name'] : html_entity_decode($products->title);
-		$page->prod_desc = isset($posts['product_desc']) ? $posts['product_desc'] : html_entity_decode($products->description);
-		$page->prod_price = isset($posts['product_price']) ? $posts['product_price'] : $products->price;
+		$page->vendor_name 		= isset($posts['vendor_name']) ? $posts['vendor_name'] : html_entity_decode($vendors->name);
+		$page->vendor_desc 		= isset($posts['vendor_desc']) ? $posts['vendor_desc'] : html_entity_decode($vendors->description);
+		$page->vendor_address = isset($posts['vendor_address']) ? $posts['vendor_address'] : html_entity_decode($vendors->address);
+		$page->vendor_phone 	= isset($posts['vendor_phone']) ? $posts['vendor_phone'] : html_entity_decode($vendors->phone);
+		$page->vendor_website = isset($posts['vendor_website']) ? $posts['vendor_website'] : html_entity_decode($vendors->url);
+		$page->vendor_email 	= isset($posts['vendor_email']) ? $posts['vendor_email'] : html_entity_decode($vendors->email);
+		$page->vendor_office_hours = isset($posts['vendor_office_hours']) ? $posts['vendor_office_hours'] : html_entity_decode($vendors->office_hours);
 		
 		$this->response->body($page);
-		
 	}
 	
 	public function action_delete($id=NULL)
 	{
 		$page = View::factory('tilbud/admin/confirm_delete');
-		$page->label = 'Delete Product';
+		$page->label = 'Delete Vendor';
 	
-		$products = ORM::factory('product', $id);
+		$vendors = ORM::factory('vendor', $id);
 		
 		// Get posts
 		$posts = $this->request->post();
@@ -124,21 +130,24 @@ class Controller_Admin_Vendors extends Controller {
 		if(!empty($posts)) {
 			
 			if(strcmp($posts['submit'], 'Ok') == 0) {
-				if($products->loaded()) {
-					$products->delete();
+				if($vendors->loaded()) {
+					$vendors->delete();
 				}
 			}
 						
 			// Assuming all is correct
-			Request::current()->redirect('admin/products');
+			Request::current()->redirect('admin/vendors');
 			return;
 
 		} else {
 		
-			$rec['product'] = $products->title;
-			$rec['description'] = $products->description;
-			$rec['price'] = $products->price;
-			$rec['vendor'] = ORM::factory('vendor',$products->vendor_id)->name;
+			$rec['vendor'] 			= html_entity_decode($vendors->name);
+			$rec['description'] = html_entity_decode($vendors->description);
+			$rec['address'] 		= html_entity_decode($vendors->address);
+			$rec['telephone'] 	= html_entity_decode($vendors->phone);
+			$rec['website'] 		= html_entity_decode($vendors->url);
+			$rec['email'] 			= html_entity_decode($vendors->email);
+			$rec['office'] 			= html_entity_decode($vendors->office_hours);
 			
 			$page->records = $rec;
 		}
