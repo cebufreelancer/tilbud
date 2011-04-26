@@ -42,7 +42,7 @@
         <ul>
           <li><?php echo HTML::anchor(url::base(true), 'DAGENS TILBUD'); ?></li>
           <li><?php echo HTML::anchor('alldeals', 'TIDLIGERE TILBUD'); ?></li>
-          <li><?php echo HTML::anchor('', 'TILMED DIG'); ?></li>
+          <li><?php echo HTML::anchor('signup', 'TILMED DIG'); ?></li>
           <li><?php echo HTML::anchor('about', 'OM OS'); ?></li>
           <li><?php echo HTML::anchor('contact', 'KONTAKT OS'); ?></li>
           <li><?php echo HTML::anchor('login', 'LOGIN'); ?></li>

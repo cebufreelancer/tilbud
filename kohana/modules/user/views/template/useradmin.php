@@ -9,7 +9,7 @@
 </head>
 <body>
    <div id="page">
-      <div id="header"><h1>Useradmin for Kohana</h1></div>
+      <div id="header"><h1>Tilbudibyen Login</h1></div>
       <div id="navigation">
          <ul class="menu">
 

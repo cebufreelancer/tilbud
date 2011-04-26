@@ -25,8 +25,8 @@ $form->info_class = 'info block';
 <?php
 echo $form->open('user/login');
 echo '<table><tr><td style="vertical-align: top;">';
-echo '<ul>';
-echo '<li>'.$form->label('username', __('Email or Username')).'</li>';
+echo '<ul style="list-style-type: none">';
+echo '<li style="list-style-type: none">'.$form->label('username', __('Email or Username')).'</li>';
 echo $form->input('username', null, array('class' => 'text twothirds'));
 echo '<li>'.$form->label('password', __('Password')).'</li>';
 echo $form->password('password', null, array('class' => 'text twothirds'));
@@ -36,11 +36,10 @@ echo '<small> '.Html::anchor('user/forgot', __('Forgot your password?')).'<br></
 echo $form->close();
 echo '</td><td width="5" style="border-right: 1px solid #DDD;">&nbsp;</td><td><td style="padding-left: 2px; vertical-align: top;">';
 
-echo '<ul>';
-echo '<li style="height: 61px">'.__('Don\'t have an account?').' '.Html::anchor('user/register', __('Register a new account')).'.</li>';
+echo '<ul style="list-style-type: none">';
+echo '<li style="height: 61px; list-style-type: none">'.__('Don\'t have an account?').' '.Html::anchor('user/register', __('Register a new account')).'.</li>';
 $options = array_filter(Kohana::config('useradmin.providers'));
 if(!empty($options)) {
-   echo '<li style="padding-bottom: 8px;"><label>'.__('To register / log in using another account, please click your provider').':</label></li>';
    echo '<li>';
    if(isset($options['facebook']) && $options['facebook']) {
       echo '<a class="login_provider" style="background: #FFF url(/img/facebook.png) no-repeat center center" href="'.URL::site('/user/provider/facebook').'"></a>';

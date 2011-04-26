@@ -41,7 +41,7 @@
       <nav id="header-nav">
         <ul>
           <li><?php echo HTML::anchor('', 'USERS'); ?></li>
-          <li><?php echo HTML::anchor('', 'VENDORS'); ?></li>
+          <li><?php echo HTML::anchor('admin/vendors', 'VENDORS'); ?></li>
           <li><?php echo HTML::anchor('admin/products', 'PRODUCTS'); ?></li>
           <li><?php echo HTML::anchor('', 'DEALS'); ?></li>
           <li><?php echo HTML::anchor('', 'ORDERS'); ?></li>

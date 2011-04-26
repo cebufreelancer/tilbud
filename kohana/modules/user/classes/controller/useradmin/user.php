@@ -265,7 +265,8 @@ class Controller_Useradmin_User extends Controller_App {
          // If user already signed-in
          if(Auth::instance()->logged_in() != 0){
             // redirect to the user account
-            $this->request->redirect('user/profile');
+            //$this->request->redirect('user/profile');
+            $this->request->redirect('admin/products');
          }
          $view = View::factory('user/login');
          // If there is a post and $_POST is not empty
@@ -274,7 +275,8 @@ class Controller_Useradmin_User extends Controller_App {
             // Check Auth if the post data validates using the rules setup in the user model
             if ( Auth::instance()->login($_REQUEST['username'], $_REQUEST['password']) ) {
                // redirect to the user account
-               $this->request->redirect('user/profile');
+               // modify to check user permission. if regular user, redirect to /user/deals
+               $this->request->redirect('admin/products');
                return;
             } else {
                $view->set('username', $_REQUEST['username']);
@@ -308,7 +310,7 @@ class Controller_Useradmin_User extends Controller_App {
       Auth::instance()->logout();
 
       // redirect to the user account and then the signin page if logout worked as expected
-      $this->request->redirect('user/profile');
+      $this->request->redirect('/');
    }
 
    /**
