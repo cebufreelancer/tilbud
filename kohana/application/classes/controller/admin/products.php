@@ -135,10 +135,10 @@ class Controller_Admin_Products extends Controller {
 
 		} else {
 		
-			$rec['product'] = $products->title;
-			$rec['description'] = $products->description;
-			$rec['price'] = $products->price;
-			$rec['vendor'] = ORM::factory('vendor',$products->vendor_id)->name;
+			$rec['product'] = html_entity_decode($products->title);
+			$rec['description'] = html_entity_decode($products->description);
+			$rec['price'] = html_entity_decode($products->price);
+			$rec['vendor'] = html_entity_decode(ORM::factory('vendor',$products->vendor_id)->name);
 			
 			$page->records = $rec;
 		}

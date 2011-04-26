@@ -10,17 +10,17 @@
       	<h2>Vendors</h2>
       </div>
       
-      <?php
-     // output messages
-     if(Message::count() > 0) {
-       echo '<div class="block">';
-       echo '<div class="content" style="padding: 10px 15px;">';
-       echo Message::output();
-       echo '</div></div>';
-     }
-		 ?>
-      
       <div id="myforms">
+      	<?php
+				// output messages
+				if(Message::count() > 0) {
+				 	echo '<div class="block">';
+				 	echo '<div class="content" style="padding: 10px 15px;">';
+				 	echo Message::output();
+					echo '</div></div>';
+				}
+				?>
+        
         <div id="action-button">
           <?php echo HTML::anchor('admin/vendors/add', 'Add a Vendor', array('class' => 'addbutton')); ?>
         </div>
@@ -31,7 +31,7 @@
         <thead>
         <tr>
           <td>Action</td>
-          <td width="200">Name</td>
+          <td>Name</td>
           <td>Address</td>
           <td>Email</td>
           <td>Website</td>
