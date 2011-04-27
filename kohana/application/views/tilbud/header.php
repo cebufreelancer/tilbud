@@ -40,17 +40,27 @@
       </div>
       <nav id="header-nav">
         <ul>
-          <li><?php echo HTML::anchor(url::base(true), 'DAGENS TILBUD'); ?></li>
-          <li><?php echo HTML::anchor('alldeals', 'TIDLIGERE TILBUD'); ?></li>
-          <li><?php echo HTML::anchor('signup', 'TILMED DIG'); ?></li>
-          <li><?php echo HTML::anchor('about', 'OM OS'); ?></li>
-          <li><?php echo HTML::anchor('contact', 'KONTAKT OS'); ?></li>
-          <?php if (Auth::instance()->logged_in() == 1){?>
-          <li><?php echo HTML::anchor('user/logout', 'LOGOUT'); ?></li>
-          <? }else {?>
-          <li><?php echo HTML::anchor('user/login', 'LOGIN'); ?></li>
-          <? } ?>
-          <li><?php echo HTML::anchor('faq', 'FAQ'); ?></li>
+					<?php
+					$is_admin = Auth::instance()->logged_in('admin');
+					$log_txt  = Auth::instance()->logged_in() ? 'logout' : 'login';
+				
+					if($is_admin) { ?>
+						<li><?php echo HTML::anchor('admin/users', 'USERS'); ?></li>
+						<li><?php echo HTML::anchor('admin/cities', 'CITIES'); ?></li>
+						<li><?php echo HTML::anchor('admin/vendors', 'VENDORS'); ?></li>
+						<li><?php echo HTML::anchor('admin/products', 'PRODUCTS'); ?></li>
+						<li><?php echo HTML::anchor('', 'DEALS'); ?></li>
+						<li><?php echo HTML::anchor('', 'ORDERS'); ?></li>
+						<li><?php echo HTML::anchor('user/logout', 'LOGOUT'); ?></li>
+					<?php } else { ?>
+						<li><?php echo HTML::anchor(url::base(true), 'DAGENS TILBUD'); ?></li>
+						<li><?php echo HTML::anchor('alldeals', 'TIDLIGERE TILBUD'); ?></li>
+						<li><?php echo HTML::anchor('signup', 'TILMED DIG'); ?></li>
+						<li><?php echo HTML::anchor('about', 'OM OS'); ?></li>
+						<li><?php echo HTML::anchor('contact', 'KONTAKT OS'); ?></li>
+						<li><?php echo HTML::anchor('user/' . $log_txt, strtoupper($log_txt)); ?></li>
+						<li><?php echo HTML::anchor('faq', 'FAQ'); ?></li>
+					<?php } ?>
         </ul>
       </nav>
       <?php if (Auth::instance()->logged_in() == 1){?>
@@ -60,5 +70,4 @@
       </div>
       <? } ?>
     </div>
-    
   </header>

@@ -14,7 +14,7 @@
           </div>
           <div class="deal-banner" style="background-image: url(<?php echo URL::base(); ?>uploads/<?= $deal->ID?>/<?= $deal->image?>)" >
           	<div>
-              <div class="buy-container"><p class="huge buy-label"><?= ($deal->regular_price - ($deal->regular_price * ($deal->discount / 100) ))?>,-</p></div>
+              <div class="buy-container"><p class="huge buy-label">250,-</p></div>
               <div class="buy-img-cont"><?php echo HTML::image('images/buy.png', array('alt' => '')); ?></div>
               <div class="clear"></div>
             </div>
@@ -32,7 +32,7 @@
             
             <div>
               <div class="offer-container" style="">
-              	<p class="period-label">Tilbuddet bliver aktiv ved <?= $deal->min_buy?> køb</p>
+              	<p class="period-label">Tilbuddet bliver aktiv ved 100 køb</p>
                 <p class="period"><?= sizeof($orders)?> har købt</p>
               </div>
               <div class="social-container">
@@ -48,22 +48,21 @@
     	
     	<div id="body-content">
       	<div class="posts">
-        	<h1><a href="" class="posts-title"><?= $deal->contents_title ?></a></h1>
+        	<h1><a href="" class="posts-title"><?= $deal->title ?></a></h1>
           
-          <p><?= str_replace("\n", "<br/>", $deal->contents) ?></p>
+          <p><?= str_replace("\n", "<br/>", $deal->description) ?></p>
 
 					<div id="deals-info">
             <ul>
               <li class="dhead-one">Det får du</li>
-              <li><p><?= $deal->whatyouget?>   </p>
+              <li><p><?php //$deal->whatyouget?>   </p>
               </li>
             </ul>
             <ul>
             	<li class="dhead-two ">Praktiske oplysninger</li>
-              <li><p> <?= $deal->information?></p></li>
+              <li><p> <?php //$deal->information?></p></li>
             </ul>
-        	</div>
-          
+        	</div>  
         </div>
         
         <div class="sidebar">
