@@ -10,16 +10,16 @@
       	<li>
           <div class="deal-title">
             <h1><a href="">Dagens Tilbud</a></h1>
-            <p><?= $deal->description ?></p>
+            <p><?php echo $deal->description; ?></p>
           </div>
-          <div class="deal-banner" style="background-image: url(<?php echo URL::base(); ?>uploads/<?= $deal->ID?>/<?= $deal->image?>)" >
+          <div class="deal-banner" style="background-image: url(<?php echo URL::base(TRUE); ?>uploads/<?php echo "$deal->ID/$deal->image"; ?>)" >
           	<div>
               <div class="buy-container"><p class="huge buy-label">250,-</p></div>
               <div class="buy-img-cont"><?php echo HTML::image('images/buy.png', array('alt' => '')); ?></div>
               <div class="clear"></div>
             </div>
             <div class="buy-container">
-            	<p class="discounts">Værdi <?= $deal->regular_price?>,-   Rabat <?= $deal->discount ?>%</p>
+            	<p class="discounts">Værdi <?php echo $deal->regular_price; ?>,-   Rabat <?php echo $deal->discount; ?>%</p>
             </div>
             <div>
               <div class="buy-container" style="">
@@ -33,12 +33,12 @@
             <div>
               <div class="offer-container" style="">
               	<p class="period-label">Tilbuddet bliver aktiv ved 100 køb</p>
-                <p class="period"><?= sizeof($orders)?> har købt</p>
+                <p class="period"><?php echo sizeof($orders); ?> har købt</p>
               </div>
               <div class="social-container">
               	<?php echo HTML::image('images/facebook.jpg', array('alt' => 'Share on facebook!')); ?>
               </div>
-              <div class="save-label">SPAR <?= $deal->discount?>%</div>
+              <div class="save-label">SPAR <?php echo $deal->discount; ?>%</div>
               <div class="clear"></div>
             </div>
             
@@ -48,19 +48,19 @@
     	
     	<div id="body-content">
       	<div class="posts">
-        	<h1><a href="" class="posts-title"><?= $deal->title ?></a></h1>
+        	<h1><a href="" class="posts-title"><?php echo $deal->contents_title; ?></a></h1>
           
-          <p><?= str_replace("\n", "<br/>", $deal->description) ?></p>
+          <p><?php echo str_replace("\n", "<br/>", $deal->content); ?></p>
 
 					<div id="deals-info">
             <ul>
               <li class="dhead-one">Det får du</li>
-              <li><p><?php //$deal->whatyouget?>   </p>
+              <li><p><?php echo $deal->whatyouget; ?>   </p>
               </li>
             </ul>
             <ul>
             	<li class="dhead-two ">Praktiske oplysninger</li>
-              <li><p> <?php //$deal->information?></p></li>
+              <li><p> <?php echo $deal->information; ?></p></li>
             </ul>
         	</div>  
         </div>
