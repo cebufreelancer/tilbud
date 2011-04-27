@@ -351,6 +351,10 @@ footer {
   padding: 25px 10px;
   background: #FFF url(../images/bg-content.png) top left no-repeat;
 }
+#myforms a.homelink { 
+	color: #2f9ad2;
+  border-bottom: 1px dotted #2f9ad2;
+}
 #myforms ul { list-style-type: none; }
 #myforms ul li:last-of-type { 
 	text-align: left; 
@@ -370,6 +374,7 @@ footer {
   color:#CC0000;
   border:solid 1px #de888a; background:#ffdddd;
 }
+
 /** When IE6 dies, replace with element-specifics. This is supposed to apply to only text, password and file. **/
 #myforms input[type="text"], 
 #myforms input[type="password"], 
@@ -416,6 +421,44 @@ footer {
 #myforms .record-value {
   padding: 10px;
   color: #666666;
+}
+
+/** Error and info spans **/
+span.error, li.error {
+  padding: 5px;
+  color:#CC0000;
+  border:solid 2px #de888a; background:#ffdddd;
+  margin-top: 0px; margin-bottom: 0px;
+  margin-left: 4px;
+  display: inline-block;
+  vertical-align: top;
+  font-size: smaller;
+  max-width: 465px;
+  /* IE7: haslayout to get inline-block */
+  zoom: 1;
+  *display: inline;
+}
+li.error { width: 100%; }
+
+span.info {
+  padding: 5px;
+  color:#5C5C5C;
+  border:solid 2px #CBDFE7; background:#DEF1F8;
+  margin-top: 0px; margin-bottom: 0px;
+  margin-left: 4px; 
+  display: inline-block;
+  vertical-align: top;
+  font-size: smaller;
+  max-width: 465px;
+  /* IE7: haslayout to get inline-block */
+  zoom: 1;
+  *display: inline;
+}
+
+span.block {
+   display: block;
+   margin-left: 0px;
+   margin-bottom: 4px;
 }
 
 /** Miscs **/
