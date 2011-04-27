@@ -53,9 +53,6 @@
           <li><?php echo HTML::anchor('faq', 'FAQ'); ?></li>
         </ul>
       </nav>
-      <?php
-      print_r(Auth::instance());
-      ?>
       <?php if (Auth::instance()->logged_in() == 1){?>
       <div style="position: relative; text-align: right; float: right; top: 10px; top: -130px">
         <?php echo HTML::anchor('account', 'My Account'); ?> |
