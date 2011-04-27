@@ -45,9 +45,23 @@
           <li><?php echo HTML::anchor('signup', 'TILMED DIG'); ?></li>
           <li><?php echo HTML::anchor('about', 'OM OS'); ?></li>
           <li><?php echo HTML::anchor('contact', 'KONTAKT OS'); ?></li>
-          <li><?php echo HTML::anchor('login', 'LOGIN'); ?></li>
+          <?php if (Auth::instance()->logged_in() == 1){?>
+          <li><?php echo HTML::anchor('user/logout', 'LOGOUT'); ?></li>
+          <? }else {?>
+          <li><?php echo HTML::anchor('user/login', 'LOGIN'); ?></li>
+          <? } ?>
           <li><?php echo HTML::anchor('faq', 'FAQ'); ?></li>
         </ul>
       </nav>
+      <?php
+      print_r(Auth::instance());
+      ?>
+      <?php if (Auth::instance()->logged_in() == 1){?>
+      <div style="position: relative; text-align: right; float: right; top: 10px; top: -130px">
+        <?php echo HTML::anchor('account', 'My Account'); ?> |
+        <?php echo HTML::anchor('account', 'My Deals'); ?>
+      </div>
+      <? } ?>
     </div>
+    
   </header>

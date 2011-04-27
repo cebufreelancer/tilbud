@@ -25,7 +25,7 @@
 	<header id="main-header">
   	<div class="centered">
       <div id="header-container">
-      	<div class="hlogo"><?php echo HTML::image('images/logo.png', array('alt' => 'Tilbug i Byen')); ?></div>
+      	<a href="<?= url::base(true)?>"><div class="hlogo"><?php echo HTML::image('images/logo.png', array('alt' => 'Tilbug i Byen')); ?></div></a>
         <div class="hcaption">De bedste tilbud på restauranter, rejser, wellness og meget andet.</div>
         <div class="hsocial">
         	<span>Del med dine venner</span><br />
@@ -40,13 +40,13 @@
       </div>
       <nav id="header-nav">
         <ul>
-          <li><?php echo HTML::anchor('', 'USERS'); ?></li>
+          <li><?php echo HTML::anchor('user', 'USERS'); ?></li>
           <li><?php echo HTML::anchor('admin/cities', 'CITIES'); ?></li>
           <li><?php echo HTML::anchor('admin/vendors', 'VENDORS'); ?></li>
           <li><?php echo HTML::anchor('admin/products', 'PRODUCTS'); ?></li>
-          <li><?php echo HTML::anchor('', 'DEALS'); ?></li>
-          <li><?php echo HTML::anchor('', 'ORDERS'); ?></li>
-          <li><?php echo HTML::anchor('', 'LOGOUT'); ?></li>
+          <li><?php echo HTML::anchor('admin/deals', 'DEALS'); ?></li>
+          <li><?php echo HTML::anchor('admin/orders', 'ORDERS'); ?></li>
+          <li><?php echo HTML::anchor('user/logout', 'LOGOUT'); ?></li>
         </ul>
       </nav>
     </div>
