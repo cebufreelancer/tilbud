@@ -42,34 +42,38 @@ INSERT INTO `cities` (`id`, `name`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `deals` (
-  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `ID` int(11) NOT NULL auto_increment,
   `city_id` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
-  `title` varchar(255) DEFAULT NULL,
+  `title` varchar(255) default NULL,
   `description` text,
-  `image` varchar(255) DEFAULT NULL,
-  `regular_price` decimal(10,0) DEFAULT '0',
-  `discount` decimal(10,0) DEFAULT '0',
-  `discount_type` varchar(50) DEFAULT 'percent',
-  `min_buy` int(11) NOT NULL DEFAULT '1',
-  `max_buy` int(11) NOT NULL DEFAULT '0',
-  `vouchers` int(11) NOT NULL DEFAULT '0',
-  `total_sold` int(11) NOT NULL DEFAULT '0',
-  `start_date` datetime DEFAULT NULL,
-  `end_date` datetime DEFAULT NULL,
-  `is_featured` tinyint(1) NOT NULL DEFAULT '0',
-  `status` varchar(150) NOT NULL DEFAULT 'draft',
-  `date_create` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `last_update` datetime DEFAULT NULL,
-  PRIMARY KEY (`ID`)
+  `contents` text,
+  `contents_title` varchar(255) NOT NULL,
+  `whatyouget` text,
+  `information` text,
+  `image` varchar(255) default NULL,
+  `regular_price` decimal(10,0) default '0',
+  `discount` decimal(10,0) default '0',
+  `discount_type` varchar(50) default 'percent',
+  `min_buy` int(11) NOT NULL default '1',
+  `max_buy` int(11) NOT NULL default '0',
+  `vouchers` int(11) NOT NULL default '0',
+  `total_sold` int(11) NOT NULL default '0',
+  `start_date` datetime default NULL,
+  `end_date` datetime default NULL,
+  `is_featured` tinyint(1) NOT NULL default '0',
+  `status` varchar(150) NOT NULL default 'draft',
+  `date_create` timestamp NOT NULL default CURRENT_TIMESTAMP,
+  `last_update` datetime default NULL,
+  PRIMARY KEY  (`ID`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 --
 -- Dumping data for table `deals`
 --
 
-INSERT INTO `deals` (`ID`, `city_id`, `product_id`, `title`, `description`, `image`, `regular_price`, `discount`, `discount_type`, `min_buy`, `max_buy`, `vouchers`, `total_sold`, `start_date`, `end_date`, `is_featured`, `status`, `date_create`, `last_update`) VALUES
-(1, 1, 1, 'Super Peel Sale', 'super peel sale', NULL, '5000', '50', 'percent', 1, 5, 25, 0, '2011-05-09 00:57:51', '2011-05-14 00:58:05', 0, 'draft', '2011-04-24 00:58:14', NULL);
+INSERT INTO `deals` (`ID`, `city_id`, `product_id`, `title`, `description`, `contents`, `contents_title`, `whatyouget`, `information`, `image`, `regular_price`, `discount`, `discount_type`, `min_buy`, `max_buy`, `vouchers`, `total_sold`, `start_date`, `end_date`, `is_featured`, `status`, `date_create`, `last_update`) VALUES
+(1, 1, 1, 'Super Peel Sale', 'Halv pris p&aring; en stor sushi-menu til 2 personer hos Sushi.com p&aring; Sankt Ann&aelig; Plads. Del det med en du holder af - for der er mere end nok til 2.', 'I en k&aelig;lder p&aring; Sankt Ann&aelig; Plads ligger en skjult sushi-perle. S&aring; snart du tr&aelig;der ind hos Sushi.com, kan den hyggelige atmosf&aelig;re m&aelig;rkes, og betjeningen er s&oslash;d og &aring;ben.\r\n\r\nHos Sushi.com kan du f&aring; en anderledes sushi-oplevelse midt i byen. Det er de perfekte rammer om en hyggelig aften med &eacute;n, du holder af. Restauranten laver sushi efter alle kunstens regler og originale japanske opskrifter.\r\n\r\nIndehaveren Yadi har over fem &aring;rs erfaring som sushi-kok, og han er derfor rustet til at servicere sushi-glade k&oslash;benhavnere p&aring; allerbedste vis.\r\n\r\nDer bliver naturligvis kr&aelig;set for detaljerne med friske og sunde r&aring;varer. Med dagens tilbud f&aring;r du sushi til to personer best&aring;ende af:\r\n\r\n38 stk. sushi: \r\n- Nigiri: 2 stk. laks, 2 stk. tun, 2 stk. laks med peber, 2 stk. reje \r\n- Hoso maki: 4 stk. agurk, 4 stk. spicy reje \r\n- Insideout maki: 4 stk. hawaian, 4 stk. green laks \r\n- Futo maki: 6 stk. california \r\n- Rispapir maki: 4 stk. crispy rejer, 4 stk. laks \r\nVed hvert bord i restauranten finder du en knap, og n&aring;r du trykker p&aring; den, kommer der straks en tjener - for hos Sushi.com er betjeningen vigtig. Du beh&oslash;ver derfor aldrig at sidde og vifte forg&aelig;ves efter &oslash;jenkontakt. Du kan spise sushi-menuen i den hyggelige restaurant eller tage den med hjem.', 'Nyd en skr&aelig;ddersyet sushi couple menu', 'Max. 1 v&aelig;rdibevis pr. person.\r\nMax. 1500 v&aelig;rdibeviser til salg.\r\nBestilling af maden skal ske senest 2 timer f&oslash;r afhentning p&aring; tlf.: 3333 8088.\r\nKan tidligst afhentes fra kl 14. &AElig;ndringer i menu kan ikke foretages.\r\nV&aelig;rdibeviset kan indl&oslash;ses fra 18. februar 2011 til 30. april 2011', '&Aring;bningstider & hjemmeside:\r\nMandag-torsdag: 11-21\r\nFredag-l&oslash;rdag: 11-22\r\nS&oslash;ndag: 12-21\r\nwww.sushicom.dkapril 2011', 'sample-image.jpg', 500, 50, 'percent', 20, 100, 25, 0, '2011-05-09 00:57:51', '2011-05-14 00:58:05', 1, 'draft', '2011-04-24 00:58:14', NULL);
 
 -- --------------------------------------------------------
 
