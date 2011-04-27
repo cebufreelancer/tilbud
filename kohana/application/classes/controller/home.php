@@ -62,7 +62,7 @@ class Controller_Home extends Controller {
 		}
 
 
-	  $this->response->body(View::factory('tilbud/signup')->set('cities', $citylist));
+	  $this->response->body(View::factory('tilbud/signup')->set('cities', $citylist)->set('header', 'Sign Up'));
 	}
 
 	public function action_about()
