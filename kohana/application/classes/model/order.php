@@ -8,7 +8,7 @@ class Model_Order extends ORM {
 	protected $_primary_key = 'ID';
 	protected $_primary_val = 'ID';
 	
-/*	protected $_table_columns = array(
+	protected $_table_columns = array(
 		'ID'						=> array('data_type' => 'int'),
 		'city_id'		  	=> array('data_type' => 'int', 'is_nullable' => FALSE),
 		'product_id'		=> array('data_type' => 'string'),
@@ -16,9 +16,12 @@ class Model_Order extends ORM {
 		'description' 	=> array('data_type' => 'string', 'is_nullable' => TRUE),
 		'image' 				=> array('data_type' => 'decimal'), 
 		'regular_price'	=> array('data_type' => 'string', 'is_nullable' => TRUE),
+		'min_buy'	      => array('data_type' => 'int', 'is_nullable' => FALSE),
+		'max_buy'	      => array('data_type' => 'int', 'is_nullable' => FALSE),
+		'regular_price'	=> array('data_type' => 'string', 'is_nullable' => TRUE),
 		'date_created' 	=> array('data_type' => 'string'),
 		);
-*/
+
 	
 	public function get_orders($deal_id)
 	{
