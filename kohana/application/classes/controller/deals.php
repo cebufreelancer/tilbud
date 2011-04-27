@@ -10,10 +10,10 @@ class Controller_Deals extends Controller {
 	}
 	
 	public function action_view($id){
-    $deal = ORM::factory('deal')->get_deal($id);
+    $deal = ORM::factory('deal', $id);
     $orders = ORM::factory('order')->get_orders($deal->ID);
     
-    $this->response->body(View::factory('tilbud/view-deal')
+    $this->response->body(View::factory('tilbud/index')
                    ->set('deal', $deal)
                    ->set('orders', $orders));
 	  
