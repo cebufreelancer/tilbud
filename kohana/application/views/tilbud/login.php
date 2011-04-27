@@ -1,11 +1,37 @@
 <?php defined('SYSPATH') OR die('No direct access allowed.'); ?>
 <?php require_once 'header.php'; ?>
-	
+		
   <!-- content starts here -->
-  <section id="main-body">
+  <section id="ad-body">
   	<div class="centered">
-    	   	
+    	
+      <div id="htitle">
+      	<h2><?php echo $label; ?></h2>
+      </div>
+           
+      <?php //echo '<pre>'; print_r($_SERVER); echo '</pre>'; ?>
+      
+			<?php echo Form::open(Request::current(), array('id' => 'myforms')); ?>
+      <ul>
+      	<li>Enter your username and password below to login.</li>
+      	<li><?php echo Form::label('username', __('Username')); ?>
+						<?php echo Form::input('username', ''); ?>
+        </li>
+        <li><?php echo Form::label('password', __('Password')); ?>
+						<?php echo Form::password('password'); ?>
+        </li>
+        <li>Forgot your password?</li>
+        <li>
+        	<?php echo Form::submit(NULL, 'Login'); ?>
+        </li>
+      </ul>
+      <?php echo Form::close(); ?>
+      
+    </div>
+  </section>
+         
     	<?php
+			/*
 $form = new Appform();
 if(isset($errors)) {
    $form->errors = $errors;
@@ -58,10 +84,11 @@ if(!empty($options)) {
 }
 echo '</ul>';
 echo '</td></tr></table>';
+*/
 ?>
-      </div>
+  <!--     </div>
    </div>
-</div>    	
+</div>  -->   	
     </div>
   </section>
   
