@@ -50,7 +50,7 @@
       	<div class="posts">
         	<h1><a href="" class="posts-title"><?php echo $deal->contents_title; ?></a></h1>
           
-          <p><?php echo str_replace("\n", "<br/>", $deal->content); ?></p>
+          <p><?php echo str_replace("\n", "<br/>", $deal->contents); ?></p>
 
 					<div id="deals-info">
             <ul>
