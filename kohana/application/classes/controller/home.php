@@ -64,14 +64,16 @@ class Controller_Home extends Controller {
           $insert->execute();
       
     		  $message = "
-    Hi, \n
-    \n
-    To complete signup for Groupon, you must verify your email address.
+    Hi, 
+    <br/>
+    <br/>
+    To complete signup for TilbudiByen, you must verify your email address.<br/><br/>
     <a href=\"http://www.tilbudibyen.com/verify?e=$to\">Click here to verify your account</a>
 
-    \n\n
-    The Tilbudibyen Team\n
-    http://www.tilbudibyen.com
+    <br/><br/>
+    The Tilbudibyen Team
+    <br/>
+    <a href=\"http://www.tilbudibyen.com\">http://www.tilbudibyen.com</a>
     ";
 
     		  mail($to, $subject, $message, $headers);
