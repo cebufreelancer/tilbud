@@ -18,6 +18,7 @@
 					}
 				});
 			});
+			
 			</script>
 
 			<div style="display:none">
@@ -32,18 +33,24 @@
             <p><?php echo $deal->description; ?></p>
           </div>
           <div class="deal-banner" style="background-image: url(<?php echo URL::base(TRUE); ?>uploads/<?php echo "$deal->ID/$deal->image"; ?>)" >
-          	<div>
-              <div class="buy-container"><p class="huge buy-label">250,-</p></div>
-              <div class="buy-img-cont"><?php echo HTML::image('images/buy.png', array('alt' => '')); ?></div>
-              <div class="clear"></div>
-            </div>
+              <div class="buy-container">
+              	<?php $price = ($deal->regular_price * (100 - $deal->discount)) / 100; ?>
+              	<p class="huge buy-label" style="width: 600px;"><?php echo $price . ',-' . HTML::image('images/buy.png', array('title' => 'Buy Now!', 'style' => 'margin-bottom: -10px;')); ?></p>
+              </div>
             <div class="buy-container">
             	<p class="discounts">Værdi <?php echo $deal->regular_price; ?>,-   Rabat <?php echo $deal->discount; ?>%</p>
             </div>
             <div>
               <div class="buy-container" style="">
+              	<script type="text/javascript">
+								jQuery(document).ready(function() {
+									var newYear = new Date(); 
+									newYear = new Date("<?php echo $deal->end_date; ?>");
+									$('#noDays').countdown({until: newYear, format: 'HMS', compact: true, description: '', timeSeparator: ' : '});
+								});
+								</script>
               	<p class="period-label">Tilbuddet stopper om</p>
-                <p class="period">10 : 10 : 10</p>
+                <p id="noDays" class="period">Promo Ended</p>
               </div>
               <div class="clock-img-cont"><?php echo HTML::image('images/clock.png', array('alt' => '')); ?></div>
               <div class="clear"></div>
@@ -51,7 +58,7 @@
             
             <div>
               <div class="offer-container" style="">
-              	<p class="period-label">Tilbuddet bliver aktiv ved 100 køb</p>
+              	<p class="period-label">Tilbuddet bliver aktiv ved <?php echo $deal->vouchers; ?> køb</p>
                 <p class="period"><?php echo sizeof($orders); ?> har købt</p>
               </div>
               <div class="social-container">
