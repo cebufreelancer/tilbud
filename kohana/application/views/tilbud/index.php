@@ -38,7 +38,7 @@
               	<p class="huge buy-label" style="width: 600px;"><?php echo $price . ',-' . HTML::image('images/buy.png', array('title' => 'Buy Now!', 'style' => 'margin-bottom: -10px;')); ?></p>
               </div>
             <div class="buy-container">
-            	<p class="discounts">Værdi <?php echo $deal->regular_price; ?>,-   Rabat <?php echo $deal->discount; ?>%</p>
+            	<p class="discounts" style="text-align: left">Værdi <?php echo $deal->regular_price; ?>,- &nbsp; &nbsp; &nbsp;Rabat <?php echo $deal->discount; ?>%</p>
             </div>
             <div>
               <div class="buy-container" style="">

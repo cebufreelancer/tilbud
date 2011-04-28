@@ -44,7 +44,7 @@ class Controller_Home extends Controller {
     
 		// This will check if submitted
 		if(!empty($posts)) {
-
+		  
 		  $to = $posts['email'];
 		  $subject = "Confirm your registration to TilbudiByen newsletter.";
 		  $headers = 'MIME-Version: 1.0' . "\r\n";
@@ -52,14 +52,32 @@ class Controller_Home extends Controller {
 		  $headers .= "From: no-reply@tilbudibyen.com" . "\r\n".
 		              "Reply-To: no-reply@tilbudibyen.com" . "\r\n".
 		              "X-Mailer: PHP/" . phpversion();
-		  $message = "test";
 
-		  mail($to, $subject, $message, $headers);
-      Message::add('success', __('You have successfully subscribed to our newsletter.'));
-					
-			// Assuming all is correct
-			//Request::current()->redirect('/');
-//			return;
+      $duplicates = ORM::factory('user')->email_exist($to);
+      
+      if ($duplicates) {
+        Message::add('success', __('Email already exists.'));
+      }else { 
+          $insert = DB::insert('users')
+              ->columns(array('email'))
+              ->values(array($to));
+          $insert->execute();
+      
+    		  $message = "
+    Hi, \n
+    \n
+    To complete signup for Groupon, you must verify your email address.
+    <a href=\"http://www.tilbudibyen.com/verify?e=$to\">Click here to verify your account</a>
+
+    \n\n
+    The Tilbudibyen Team\n
+    http://www.tilbudibyen.com
+    ";
+
+    		  mail($to, $subject, $message, $headers);
+          Message::add('success', __('You have successfully subscribed to our newsletter.'));
+		 }
+		 
 		}
 
 
