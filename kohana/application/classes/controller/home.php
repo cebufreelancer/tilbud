@@ -58,11 +58,18 @@ class Controller_Home extends Controller {
       if ($duplicates > 0 ) {
         Message::add('success', __('Email already exists.'));
       }else { 
-        
 
-        $query = DB::query(Database::INSERT, 'INSERT INTO users (email) VALUES (:email)')
+        $dbconfig = Kohana::config('database.default');
+        $conn = mysql_connect('localhost', $dbconfig['connection']['username'], $dbconfig['connection']['password']  );
+        mysql_select_db($dbconfig['connection']['database']);
+        $sql = "Insert into users (email) values('$to')";
+        mysql_query($sql, $conn);
+        mysql_close($conn);
+        
+        /*$query = DB::query(Database::INSERT, 'INSERT INTO users (email) VALUES (:email)')
             ->bind(':email', $to);
         $query->execute();            
+        */
         
   		  $message = "
     Hi, 
@@ -85,6 +92,44 @@ class Controller_Home extends Controller {
 
 
 	  $this->response->body(View::factory('tilbud/signup')->set('cities', $citylist)->set('header', 'Sign Up'));
+	}
+	
+	public function action_verify()
+	{ 
+	  
+	  $dbconfig = Kohana::config('database.default');
+    $conn = mysql_connect('localhost', $dbconfig['connection']['username'], $dbconfig['connection']['password']  );
+    mysql_select_db($dbconfig['connection']['database']);
+  
+    $email = $_GET['e'];
+	  $sql = "select * from users where email='$email'";
+	  $res = mysql_query($sql, $conn);
+	  $rec = mysql_fetch_assoc($res);
+	  $success  = false;
+	  
+	  if (mysql_num_rows($res) > 0) {
+	    $sql = "Update users set status='active', username='$email' where email='$email'";
+	    mysql_query($sql, $conn) or die(mysql_error());
+	    $success = true;
+	    Message::add('success', __('Your account has been verified. '));
+	  }else{
+	    Message::add('success', __('Email does not exists'));
+	  }
+
+		  $this->response->body(View::factory('tilbud/verify')->set('success', $success)->set('email', $email));	
+	  
+	}
+	
+	public function action_password_udpate()
+	{
+	  $posts = $this->request->post();
+	  if (!empty($posts)) {
+	    $email = $_POST['email'];
+	    
+	    if ($_POST['password'] == $_POST['confirm_password']){
+	      
+	    }
+	  }
 	}
 
 	public function action_about()

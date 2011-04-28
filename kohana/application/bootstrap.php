@@ -121,6 +121,7 @@ Kohana::modules(array(
 // Special Pages Routes
 // Ex: This turns home/login into /login
 Route::set('login', 'login')->defaults(array('controller' => 'home', 'action' => 'login'));
+Route::set('verify', 'verify')->defaults(array('controller' => 'home', 'action' => 'verify'));
 Route::set('signup', 'signup')->defaults(array('controller' => 'home', 'action' => 'signup'));
 Route::set('about', 'about')->defaults(array('controller' => 'home', 'action' => 'about'));
 Route::set('faq', 'faq')->defaults(array('controller' => 'home', 'action' => 'faq'));
