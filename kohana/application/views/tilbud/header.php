@@ -15,6 +15,8 @@
   
   <script type="text/javascript" src="<?php echo url::base()?>js/fancybox/jquery.fancybox-1.3.4.js"></script> 
 	<link rel="stylesheet" type="text/css" href="<?php echo url::base()?>js/fancybox/jquery.fancybox-1.3.4.css" media="screen" />
+  <script type="text/javascript" src="<?php echo url::base()?>js/jquery.countdown.pack.js"></script>
+  
   <!--[if lt IE 9]>
   	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
