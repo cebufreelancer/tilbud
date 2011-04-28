@@ -6,14 +6,15 @@
   <title>TILBUD</title>
 	
   <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.7/themes/base/jquery-ui.css" type="text/css" media="all" /> 
-
 	<link rel="stylesheet" media="all" href="<?php echo url::base()?>css/main.css"/>
 
 	<meta name="viewport" content="width=device-width; initial-scale=1"/>
 	<!-- Add "maximum-scale=1" to fix the weird iOS auto-zoom bug on orientation changes. -->
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script> 
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.7/jquery-ui.min.js"></script>
-    
+  
+  <script type="text/javascript" src="<?php echo url::base()?>js/fancybox/jquery.fancybox-1.3.4.js"></script> 
+	<link rel="stylesheet" type="text/css" href="<?php echo url::base()?>js/fancybox/jquery.fancybox-1.3.4.css" media="screen" />
   <!--[if lt IE 9]>
   	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
@@ -38,31 +39,9 @@
         </div>
         
       </div>
-      <nav id="header-nav">
-        <ul>
-					<?php
-					$is_admin = Auth::instance()->logged_in('admin');
-					$log_txt  = Auth::instance()->logged_in() ? 'logout' : 'login';
-				
-					if($is_admin) { ?>
-						<li><?php echo HTML::anchor('admin/users', 'USERS'); ?></li>
-						<li><?php echo HTML::anchor('admin/cities', 'CITIES'); ?></li>
-						<li><?php echo HTML::anchor('admin/vendors', 'VENDORS'); ?></li>
-						<li><?php echo HTML::anchor('admin/products', 'PRODUCTS'); ?></li>
-						<li><?php echo HTML::anchor('', 'DEALS'); ?></li>
-						<li><?php echo HTML::anchor('', 'ORDERS'); ?></li>
-						<li><?php echo HTML::anchor('user/logout', 'LOGOUT'); ?></li>
-					<?php } else { ?>
-						<li><?php echo HTML::anchor(url::base(true), 'DAGENS TILBUD'); ?></li>
-						<li><?php echo HTML::anchor('alldeals', 'TIDLIGERE TILBUD'); ?></li>
-						<li><?php echo HTML::anchor('signup', 'TILMED DIG'); ?></li>
-						<li><?php echo HTML::anchor('about', 'OM OS'); ?></li>
-						<li><?php echo HTML::anchor('contact', 'KONTAKT OS'); ?></li>
-						<li><?php echo HTML::anchor('user/' . $log_txt, strtoupper($log_txt)); ?></li>
-						<li><?php echo HTML::anchor('faq', 'FAQ'); ?></li>
-					<?php } ?>
-        </ul>
-      </nav>
+      
+      <?php include_once 'menu.php'; ?>
+      
       <?php if (Auth::instance()->logged_in() == 1){?>
       <div style="position: relative; text-align: right; float: right; top: 10px; top: -130px">
         <?php echo HTML::anchor('account', 'My Account'); ?> |

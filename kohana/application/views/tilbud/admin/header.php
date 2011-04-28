@@ -38,16 +38,8 @@
         </div>
         
       </div>
-      <nav id="header-nav">
-        <ul>
-          <li><?php echo HTML::anchor('admin/users', 'USERS'); ?></li>
-          <li><?php echo HTML::anchor('admin/cities', 'CITIES'); ?></li>
-          <li><?php echo HTML::anchor('admin/vendors', 'VENDORS'); ?></li>
-          <li><?php echo HTML::anchor('admin/products', 'PRODUCTS'); ?></li>
-          <li><?php echo HTML::anchor('admin/deals', 'DEALS'); ?></li>
-          <li><?php echo HTML::anchor('admin/orders', 'ORDERS'); ?></li>
-          <li><?php echo HTML::anchor('user/logout', 'LOGOUT'); ?></li>
-        </ul>
-      </nav>
-    </div>
+      
+			<?php include_once APPPATH .'views/tilbud/menu.php'; ?>
+
+		</div>
   </header>
