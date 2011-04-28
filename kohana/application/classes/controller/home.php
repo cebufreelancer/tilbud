@@ -54,7 +54,7 @@ class Controller_Home extends Controller {
 		              "X-Mailer: PHP/" . phpversion();
 
       $duplicates = ORM::factory('user')->email_exist($to);
-      die($duplicates);
+      
       if ($duplicates > 0 ) {
         Message::add('success', __('Email already exists.'));
       }else { 
