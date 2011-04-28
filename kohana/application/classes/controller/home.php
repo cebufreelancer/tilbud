@@ -55,7 +55,7 @@ class Controller_Home extends Controller {
 
       $duplicates = ORM::factory('user')->email_exist($to);
       
-      if ($duplicates == 0 ) {
+      if ($duplicates > 0 ) {
         Message::add('success', __('Email already exists.'));
       }else { 
           $insert = DB::insert('users')
