@@ -44,9 +44,10 @@ class Controller_User extends Controller_App {
 					//$this->request->redirect('user/profile');
 					$this->request->redirect('admin/');
 			 }
-			 
+
 			 $view = View::factory('tilbud/login');
 			 $view->label = 'Login';
+			 $view->is_simple = 'true';
 			 // If there is a post and $_POST is not empty
 			 if ($_REQUEST && isset($_REQUEST['username'], $_REQUEST['password'])) {
 
@@ -75,6 +76,7 @@ class Controller_User extends Controller_App {
 			 }
 			 //$providers = Kohana::config('useradmin.providers');
 			 //$view->set('facebook_enabled', isset($providers['facebook']) ? $providers['facebook'] : false);
+			 //$this->template->content = $view;
 			 $this->template->content = $view;
 		}
 	}

@@ -13,11 +13,12 @@ class Controller_Home extends Controller {
 		                      ->set('deal', $deal)
 		                      ->set('orders', $orders));
 	}
-	
+	/*
 	public function action_login()
 	{	
-		$this->response->body(View::factory('tilbud/login'));
-	}
+		$this->response->body(View::factory('tilbud/login')
+														->set('label', 'Login'));
+	}*/
 
 	public function action_page($c = NULL)
 	{
@@ -84,5 +85,5 @@ class Controller_Home extends Controller {
 	{
 		echo "This is logout page";
 	}
-
+	
 } // End Welcome
