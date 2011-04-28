@@ -114,7 +114,7 @@ header, content, footer {
 #mymenu { color: #FFF; font-weight: bold; }
 #mymenu:hover { cursor: pointer; }
 #subnav {
-  z-index: 50px;
+  position: relative;
   margin-top: 1px;
   display: none;
   float: right;

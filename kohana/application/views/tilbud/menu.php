@@ -42,7 +42,7 @@
   <nav id="subnav">
     <ul>
       <li>My Stuff</li>
-      <li><?php echo HTML::anchor('#', 'My Account'); ?></li>
+      <li><?php echo HTML::anchor('user/myaccount', 'My Account'); ?></li>
       <li><?php echo HTML::anchor('#', 'My Deals'); ?></li>
       <li><?php echo HTML::anchor('user/logout', 'Logout'); ?></li>
     </ul>
