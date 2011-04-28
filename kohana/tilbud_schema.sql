@@ -188,3 +188,8 @@ ALTER TABLE `products`
 ALTER TABLE `deals`
 	ADD CONSTRAINT FOREIGN KEY (`city_id`) REFERENCES `cities` (`ID`) ON DELETE CASCADE,
 	ADD CONSTRAINT FOREIGN KEY (`product_id`) REFERENCES `products` (`ID`) ON DELETE CASCADE;
+	
+ALTER TABLE `users` 
+	ADD `firstname` VARCHAR( 100 ) NULL ,
+	ADD `lastname` VARCHAR( 100 ) NULL ,
+	ADD `mobile` VARCHAR( 20 ) NULL;

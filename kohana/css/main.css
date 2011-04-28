@@ -379,6 +379,9 @@ footer {
 	color: #2f9ad2;
   border-bottom: 1px dotted #2f9ad2;
 }
+#myforms h2 { margin: 10px 0px; }
+#myforms span.username { padding-left: 50px; color: #999999; }
+
 #myforms ul { list-style-type: none; }
 #myforms ul li:last-of-type { 
 	text-align: left; 

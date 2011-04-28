@@ -98,13 +98,88 @@ class Controller_User extends Controller_App {
 			 // No user is currently logged in
 			 $this->request->redirect('user/login');
 		}
+		
+		$posts = $this->request->post();
+		
+		if(!empty($posts)) {
+			 if(empty($_POST['password']) || empty($_POST['password_confirm'])) {
+					// force unsetting the password! Otherwise Kohana3 will 
+					// automatically hash the empty string - preventing logins
+					unset($_POST['password'], $_POST['password_confirm']);
+			 }
 
+			 try {
+					Auth::instance()->get_user()->update_user($_POST, array(
+						 'firstname',
+						 'lastname',
+						 'mobile',
+						 'password',
+						 'email',
+					));
+					
+					Message::add('success', __('Your profile has been updated.'));
+					$this->request->redirect('user/myaccount');
+					return;
+					
+			 } catch (ORM_Validation_Exception $e) {
+					Message::add('error', __('Error: Values could not be saved.'));
+					$errors = $e->errors('register');
+					$errors = array_merge($errors, (isset($errors['_external']) ? $errors['_external'] : array()));
+					$view->set('errors', $errors);
+					// Pass on the old form values
+					$user->password = '';
+					$view->set('data', $user->as_array());
+			 }
+			 $view->set('posts', $posts);
+		}
+		
 		$view = View::factory('tilbud/myaccount');
 		$view->set('user', Auth::instance()->get_user());
 		
 		$this->template->content = $view;
 	}
 
+	public function action_billing()
+	{
+		if ( Auth::instance()->logged_in() == false ){
+			 $this->request->redirect('user/login');
+		}
+		
+		$posts = $this->request->post();
+		
+		if(!empty($posts)) {
+
+			 try {
+					Auth::instance()->get_user()->update_user($_POST, array(
+						 'firstname',
+						 'lastname',
+						 'mobile',
+						 'password',
+						 'email',
+					));
+					
+					Message::add('success', __('Your profile has been updated.'));
+					$this->request->redirect('user/myaccount');
+					return;
+					
+			 } catch (ORM_Validation_Exception $e) {
+					Message::add('error', __('Error: Values could not be saved.'));
+					$errors = $e->errors('register');
+					$errors = array_merge($errors, (isset($errors['_external']) ? $errors['_external'] : array()));
+					$view->set('errors', $errors);
+					// Pass on the old form values
+					$user->password = '';
+					$view->set('data', $user->as_array());
+			 }
+			 $view->set('posts', $posts);
+		}
+		
+		$view = View::factory('tilbud/myaccount');
+		$view->set('user', Auth::instance()->get_user());
+		
+		$this->template->content = $view;
+	}
+	
 	public function action_signup()
 	{
 		if (Auth::instance()->logged_in()) {
