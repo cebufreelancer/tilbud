@@ -120,55 +120,29 @@ Kohana::modules(array(
  */
 // Special Pages Routes
 // Ex: This turns home/login into /login
-Route::set('login', 'login')
-		->defaults(array('controller' => 'home', 'action' => 'login'));
-
-Route::set('signup', 'signup')
-		->defaults(array('controller' => 'home', 'action' => 'signup'));
-
-Route::set('about', 'about')
-		->defaults(array('controller' => 'home', 'action' => 'about'));
-
-Route::set('faq', 'faq')
-		->defaults(array('controller' => 'home', 'action' => 'faq'));
-
-Route::set('contact', 'contact')
-		->defaults(array('controller' => 'home', 'action' => 'contact'));
-
-Route::set('page', 'page')
-		->defaults(array('controller' => 'home', 'action' => 'page'));
+Route::set('login', 'login')->defaults(array('controller' => 'home', 'action' => 'login'));
+Route::set('signup', 'signup')->defaults(array('controller' => 'home', 'action' => 'signup'));
+Route::set('about', 'about')->defaults(array('controller' => 'home', 'action' => 'about'));
+Route::set('faq', 'faq')->defaults(array('controller' => 'home', 'action' => 'faq'));
+Route::set('contact', 'contact')->defaults(array('controller' => 'home', 'action' => 'contact'));
+Route::set('page', 'page')->defaults(array('controller' => 'home', 'action' => 'page'));
+Route::set('users', 'users')->defaults(array('controller' => 'users', 'action' => 'index'));
 
 Route::set('alldeals', 'alldeals(<controller>(/<action>(/<id>)))')
 		->defaults(array('controller' => 'deals', 'action' => 'index'));
-		
 Route::set('view', 'view(<controller>(/<action>(/<id>)))')
 		->defaults(array('controller' => 'deals', 'action' => 'view'));
-
-
+		
 // Admin directory
 // This route enables access to admin controllers
 // Ex: admin/products, admin/vendors
 
-Route::set('admin/products', 'admin(/<controller>(/<action>(/<id>)))')
+Route::set('admin', 'admin(/<controller>(/<action>(/<id>)))')
 	->defaults(array(
 		'directory'		=> 'admin',
+		'controller'	=> 'products',
 		'action'			=> 'index',
 	));
-
-Route::set('admin/vendors', 'admin(/<controller>(/<action>(/<id>)))')
-	->defaults(array(
-		'directory'		=> 'admin',
-		'action'			=> 'index',
-	));
-
-Route::set('admin/deals', 'admin(/<controller>(/<action>(/<id>)))')
-	->defaults(array(
-		'directory'		=> 'admin',
-		'action'			=> 'index',
-	));
-
-
-
 // Default Routes - must be at the bottom
 Route::set('default', '(<controller>(/<action>(/<id>)))')
 	->defaults(array(
