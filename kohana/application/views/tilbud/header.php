@@ -52,3 +52,23 @@
       <? } ?>
     </div>
   </header>
+
+  	<script type="text/javascript">
+  	jQuery(document).ready(function() {
+  		$("#tip5").fancybox({
+  			'scrolling'		: 'true',
+  			'titleShow'		: false,
+  			'hideOnOverlayClick' : false,
+  			'hideOnContentClick' : false,
+  			'showCloseButton' : true,
+  			'onClosed'		: function() {
+  					$("#login_error").hide();
+  			}
+  		});
+  	});
+	
+  	</script>
+
+  	<div style="display:none">
+    	<div id="loginform"><?php require_once 'login.php'; ?></div>
+    </div>

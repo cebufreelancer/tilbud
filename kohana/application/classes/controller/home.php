@@ -58,12 +58,13 @@ class Controller_Home extends Controller {
       if ($duplicates > 0 ) {
         Message::add('success', __('Email already exists.'));
       }else { 
-          $insert = DB::insert('users')
-              ->columns(array('email'))
-              ->values(array($to));
-          $insert->execute();
-      
-    		  $message = "
+        
+
+        $query = DB::query(Database::INSERT, 'INSERT INTO users (email) VALUES (:email)')
+            ->bind(':email', $to);
+        $query->execute();            
+        
+  		  $message = "
     Hi, 
     <br/>
     <br/>
