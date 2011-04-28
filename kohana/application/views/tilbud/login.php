@@ -1,12 +1,12 @@
 <?php defined('SYSPATH') OR die('No direct access allowed.'); ?>
     
   <div id="htitle">
-    <h2><?php echo $label; ?></h2>
+    <h2>Login</h2>
   </div>
        
   <?php //echo '<pre>'; print_r($errors); echo '</pre>'; ?>
   
-  <?php echo Form::open(Request::current(), array('id' => 'myforms')); ?>
+  <?php echo Form::open('user/login', array('id' => 'myforms')); ?>
   <ul>
     <li>Enter your username and password below to login.</li>
     <?php
