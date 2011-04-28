@@ -15,6 +15,7 @@
   
   <div id="action-button">
   	<?php echo HTML::anchor('user/myaccount', 'My Account', array('class' => 'addbutton')); ?>
+    <?php echo HTML::anchor('user/billing', 'Billing Info', array('class' => 'addbutton')); ?>
     <?php echo HTML::anchor('#', 'My Orders', array('class' => 'addbutton')); ?>
     <?php echo HTML::anchor('#', 'My Deals', array('class' => 'addbutton')); ?>
   </div>

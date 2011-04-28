@@ -175,6 +175,29 @@ CREATE TABLE `pages` (
 --
 
 --
+-- Table structure for table `billing`
+--
+
+CREATE TABLE IF NOT EXISTS `billings` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `cardname` varchar(50) DEFAULT NULL,
+  `cardnumber` varchar(16) DEFAULT NULL,
+  `cardcode` int(4) DEFAULT NULL,
+  `expiry_year` int(11) DEFAULT NULL,
+  `expiry_month` int(11) DEFAULT NULL,
+  `address` varchar(255) DEFAULT NULL,
+  `city` varchar(50) DEFAULT NULL,
+  `state` varchar(50) DEFAULT NULL,
+  `zipcode` int(5) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `billing`
+--
+
+--
 -- Constraints for dumped tables
 --
 
@@ -193,3 +216,6 @@ ALTER TABLE `users`
 	ADD `firstname` VARCHAR( 100 ) NULL ,
 	ADD `lastname` VARCHAR( 100 ) NULL ,
 	ADD `mobile` VARCHAR( 20 ) NULL;
+	
+ALTER TABLE `billings`
+  ADD CONSTRAINT FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;

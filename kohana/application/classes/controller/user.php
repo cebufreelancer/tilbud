@@ -145,37 +145,32 @@ class Controller_User extends Controller_App {
 			 $this->request->redirect('user/login');
 		}
 		
+		$id = Auth::instance()->get_user()->id;
+		$billing = ORM::factory('billing')->where('user_id', '=', $id)->find();
 		$posts = $this->request->post();
 		
 		if(!empty($posts)) {
-
-			 try {
-					Auth::instance()->get_user()->update_user($_POST, array(
-						 'firstname',
-						 'lastname',
-						 'mobile',
-						 'password',
-						 'email',
-					));
-					
-					Message::add('success', __('Your profile has been updated.'));
-					$this->request->redirect('user/myaccount');
-					return;
-					
-			 } catch (ORM_Validation_Exception $e) {
-					Message::add('error', __('Error: Values could not be saved.'));
-					$errors = $e->errors('register');
-					$errors = array_merge($errors, (isset($errors['_external']) ? $errors['_external'] : array()));
-					$view->set('errors', $errors);
-					// Pass on the old form values
-					$user->password = '';
-					$view->set('data', $user->as_array());
-			 }
-			 $view->set('posts', $posts);
+			try {
+				$posts['user_id'] = $id;
+				//print_r($posts);
+				$billing->values($posts);
+				$billing->save();
+			
+				Message::add('success', __('Your billing information has been updated.'));
+				$this->request->redirect('user/billing');
+				return;
+				
+			} catch (ORM_Validation_Exception $e) {
+				Message::add('error', __('Error: Values could not be saved.'));
+				$errors = $e->errors('register');
+				$errors = array_merge($errors, (isset($errors['_external']) ? $errors['_external'] : array()));
+				$view->set('errors', $errors);
+			}
+			$view->set('posts', $posts);
 		}
 		
-		$view = View::factory('tilbud/myaccount');
-		$view->set('user', Auth::instance()->get_user());
+		$view = View::factory('tilbud/billing');
+		$view->set('billing', $billing);
 		
 		$this->template->content = $view;
 	}
