@@ -16,7 +16,7 @@
       <li><?php echo HTML::anchor('admin/pages', 'PAGES'); ?></li>
       <li><?php echo HTML::anchor('', 'ORDERS'); ?></li>
       <li><?php echo HTML::anchor('user/logout', 'LOGOUT'); ?></li>
-       
+
     <?php } else { ?>
       <li><?php echo HTML::anchor(url::base(true), 'DAGENS TILBUD'); ?></li>
       <li><?php echo HTML::anchor('alldeals', 'TIDLIGERE TILBUD'); ?></li>
@@ -24,6 +24,8 @@
       <li><a id="iabout" href="<?= url::base(true)?>ipages?p=about">OM OS</a></li>
       <li><a id="icontact" href="<?= url::base(true)?>ipages?p=contact">KONTAKT OS</a></li>      
       <li><a id="ifaq" href="<?= url::base(true)?>ipages?p=faq">FAQ</a></li>
+      <li><?php echo HTML::anchor('#loginform', 'LOGIN', array('id' => 'tip5')); ?></li>
+
 
       <?php if($is_logged) { ?>
       	<li style="border-right: none;">&nbsp;</li>
