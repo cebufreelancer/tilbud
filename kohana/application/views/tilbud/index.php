@@ -4,7 +4,7 @@
   <!-- content starts here -->
   <section id="main-body">
   	<div class="centered">
-	      
+      
       <!-- DEALS SECTION -->
       <ul id="deals-container">
       	<li>
@@ -71,9 +71,8 @@
         	</div>  
         </div>
         
-        <div class="sidebar">
-        	<center><?php echo HTML::image('images/sample-facebook.jpg', array('alt' => 'Tilbug i Byen')); ?></center>
-        </div>
+        <!-- footer starts here -->
+			  <?php require_once 'sidebar.php'; ?>
       </div>    	
     </div>
   </section>
