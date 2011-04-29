@@ -24,7 +24,9 @@
       <li><a id="iabout" href="<?= url::base(true)?>ipages?p=about">OM OS</a></li>
       <li><a id="icontact" href="<?= url::base(true)?>ipages?p=contact">KONTAKT OS</a></li>      
       <li><a id="ifaq" href="<?= url::base(true)?>ipages?p=faq">FAQ</a></li>
+      <?php if (!$is_logged){?>
       <li><?php echo HTML::anchor('#loginform', 'LOGIN', array('id' => 'tip5')); ?></li>
+      <?php } ?>
 
 
       <?php if($is_logged) { ?>
