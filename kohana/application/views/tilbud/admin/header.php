@@ -20,7 +20,6 @@
   
 </head>
 <body>
-
 	<!-- header starts here -->
 	<header id="main-header">
   	<div class="centered">
@@ -29,13 +28,18 @@
         <div class="hcaption">De bedste tilbud på restauranter, rejser, wellness og meget andet.</div>
         <div class="hsocial">
         	<span>Del med dine venner</span><br />
+  					<!-- AddThis Button BEGIN --> 
+            <div class="addthis_toolbox addthis_default_style "><a class="addthis_button_preferred_4"><img src="images/socials/in.jpg" alt="" /></a></div> 
+            <script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script> 
+            <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=ra-4d6e3a782d6e35f6"></script> 
+            <!-- AddThis Button END -->
+        	
             <?php 
-							echo HTML::anchor('', HTML::image('images/socials/in.jpg')); 
-							echo HTML::anchor('', HTML::image('images/socials/facebook.jpg')); 
-							echo HTML::anchor('', HTML::image('images/socials/twitter.jpg')); 
+							echo HTML::anchor('http://www.addthis.com/bookmark.php?v=250&winname=addthis&pub=ra-4d6e3a782d6e35f6&source=tbx-250&lng=da&s=facebook&url=http%3A%2F%2Ftilbudibyen.dk%2F&title=Tilbud%20i%20Byen%20-%20Spar%2050%25%20p%C3%A5%20alt%20i%20byen!&ate=AT-ra-4d6e3a782d6e35f6/-/fs-0/4d6e50716ec654ce/1/4cc81af600857552&ips=1&uid=4cc81af600857552&sms_ss=1&at_xt=1&CXNID=2000001.5215456080540439074NXC&tt=0', HTML::image('images/socials/facebook.jpg')); 
+							echo HTML::anchor('http://twitter.com/share?url=http%3A%2F%2Ftilbudibyen.dk%2F%3Fsms_ss%3Dtwitter%26at_xt%3D4d6e55361b58d8b5%2C0&via=AddThis&text=Tilbud%20i%20Byen%20-%20Spar%2050%25%20p%C3%A5%20alt%20i%20byen!&', HTML::image('images/socials/twitter.jpg')); 
 							echo HTML::anchor('', HTML::image('images/socials/technorati.jpg')); 
 						?>
-        </div>
+	        </div>
         
       </div>
       

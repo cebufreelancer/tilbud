@@ -144,6 +144,14 @@ Route::set('view', 'view(<controller>(/<action>(/<id>)))')
 Route::set('admin', 'admin(/<controller>(/<action>(/<id>)))')
 	->defaults(array(
 		'directory'		=> 'admin',
+		'controller'	=> 'pages',
+		'action'			=> 'index',
+	));
+
+
+Route::set('admin', 'admin(/<controller>(/<action>(/<id>)))')
+	->defaults(array(
+		'directory'		=> 'admin',
 		'controller'	=> 'products',
 		'action'			=> 'index',
 	));
