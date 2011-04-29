@@ -33,10 +33,10 @@
         <div class="hsocial">
         	<span>Del med dine venner</span><br />
             <?php 
-							echo HTML::anchor('', HTML::image('images/socials/in.jpg')); 
+							echo HTML::anchor('', HTML::image('images/socials/email.jpg')); 
 							echo HTML::anchor('', HTML::image('images/socials/facebook.jpg')); 
 							echo HTML::anchor('', HTML::image('images/socials/twitter.jpg')); 
-							echo HTML::anchor('', HTML::image('images/socials/technorati.jpg')); 
+							echo HTML::anchor('', HTML::image('images/socials/myspace.jpg')); 
 						?>
         </div>
         
@@ -44,31 +44,32 @@
       
       <?php include_once 'menu.php'; ?>
       
-      <?php if (Auth::instance()->logged_in() == 1){?>
-      <div style="position: relative; text-align: right; float: right; top: 10px; top: -130px">
-        <?php echo HTML::anchor('account', 'My Account'); ?> |
-        <?php echo HTML::anchor('account', 'My Deals'); ?>
-      </div>
-      <? } ?>
     </div>
   </header>
 
-  	<script type="text/javascript">
-  	jQuery(document).ready(function() {
-  		$("#tip5").fancybox({
-  			'scrolling'		: 'true',
-  			'titleShow'		: false,
-  			'hideOnOverlayClick' : false,
-  			'hideOnContentClick' : false,
-  			'showCloseButton' : true,
-  			'onClosed'		: function() {
-  					$("#login_error").hide();
-  			}
-  		});
-  	});
-	
-  	</script>
+	<script type="text/javascript">
+	jQuery(document).ready(function() {
+		$("#tip5").fancybox({
+			'scrolling'		: false,
+			'titleShow'		: false,
+			'autoScale'	: false,
+			'frameWidth'		: 900,
+			'frameHeight'		: 460,
+			'overlayOpacity' : 0.7,
+			'centerOnScroll' : true,
+			'transitionIn' : 'elastic',
+			'showCloseButton' : false,
+			'hideOnOverlayClick' : false,
+			'hideOnContentClick' : false,
+			'onClosed'		: function() {
+					$("#login_error").hide();
+			}
+		});
+	});
 
-  	<div style="display:none">
-    	<div id="loginform"><?php require_once 'login.php'; ?></div>
-    </div>
+	</script>
+
+	<div style="display:none">
+		<div id="loginform"><?php require_once 'login.php'; ?></div>
+	</div>
+  

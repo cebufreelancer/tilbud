@@ -15,18 +15,24 @@
       <li><?php echo HTML::anchor('', 'DEALS'); ?></li>
       <li><?php echo HTML::anchor('', 'ORDERS'); ?></li>
       <li><?php echo HTML::anchor('user/logout', 'LOGOUT'); ?></li>
-    <?php } else { ?>
-      <li><?php echo HTML::anchor(url::base(true), 'DAGENS TILBUD'); ?></li>
-      <li><?php echo HTML::anchor('alldeals', 'TIDLIGERE TILBUD'); ?></li>
-      <li><?php echo HTML::anchor('signup', 'TILMED DIG'); ?></li>
+    <?php } else { ?> 
+       
+      <?php if(!$is_logged) { ?>
+    		<li><?php echo HTML::anchor('signup', 'TILMED DIG'); ?></li>
+      <?php } ?>
       <li><?php echo HTML::anchor('about', 'OM OS'); ?></li>
-      <li><?php echo HTML::anchor('contact', 'KONTAKT OS'); ?></li>
+      <?php if(!$is_logged) { ?>
+      	<li><?php echo HTML::anchor('#loginform', 'LOGIN', array('id' => 'tip5')); ?></li>
+      <?php } ?>
+     	<li><?php echo HTML::anchor('contact', 'KONTAKT OS'); ?></li>
       <li><?php echo HTML::anchor('faq', 'FAQ'); ?></li>
       <?php if($is_logged) { ?>
+      	<li style="border-right: none;">&nbsp;</li>
+        <li style="border: none;">&nbsp;</li>
+        <li style="border: none;">&nbsp;</li>
       	<li id="mymenu"><?php echo strtoupper($user) . HTML::image('images/down.png', array('style' => 'margin-left: 10px;')); ?></li>
-      <?php } else { ?>
-      	<li><?php echo HTML::anchor('#loginform', 'LOGIN', array('id' => 'tip5')); ?></li>
-      <?php } ?> 
+      <?php } ?>
+      
     <?php } ?>
   </ul>
 </nav>
