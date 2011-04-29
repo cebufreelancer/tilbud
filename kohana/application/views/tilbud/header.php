@@ -47,29 +47,145 @@
     </div>
   </header>
 
-	<script type="text/javascript">
-	jQuery(document).ready(function() {
-		$("#tip5").fancybox({
-			'scrolling'		: false,
-			'titleShow'		: false,
-			'autoScale'	: false,
-			'frameWidth'		: 900,
-			'frameHeight'		: 460,
-			'overlayOpacity' : 0.7,
-			'centerOnScroll' : true,
-			'transitionIn' : 'elastic',
-			'showCloseButton' : false,
-			'hideOnOverlayClick' : false,
-			'hideOnContentClick' : false,
-			'onClosed'		: function() {
-					$("#login_error").hide();
-			}
-		});
-	});
 
-	</script>
+  	<script type="text/javascript">
 
-	<div style="display:none">
-		<div id="loginform"><?php require_once 'login.php'; ?></div>
-	</div>
-  
+  	jQuery(document).ready(function() {
+
+  		$("#tip5-new").fancybox({
+  			'scrolling'		: false,
+  			'titleShow'		: false,
+  			'autoScale'	: false,
+  			'frameWidth'		: 900,
+  			'frameHeight'		: 460,
+  			'overlayOpacity' : 0.7,
+  			'centerOnScroll' : true,
+  			'transitionIn' : 'elastic',
+  			'showCloseButton' : false,
+  			'hideOnOverlayClick' : false,
+  			'hideOnContentClick' : false,
+  			'onClosed'		: function() {
+  					$("#login_error").hide();
+  			}
+  		});
+
+  		$("#tip5").fancybox({
+  			'scrolling'		: 'true',
+  			'titleShow'		: false,
+  			'hideOnOverlayClick' : false,
+  			'hideOnContentClick' : false,
+  			'showCloseButton' : true,
+  			'onClosed'		: function() {
+  					$("#login_error").hide();
+  			}
+  		});
+  		
+  		$("#ifaq").fancybox({
+      		'width'				: '80%',
+      		'height'			: '95%',
+              'autoScale'     	: false,
+              'transitionIn'		: 'none',
+      		'transitionOut'		: 'none',
+      		'type'				: 'iframe'
+      });
+  		$("#ifaq2").fancybox({
+      		'width'				: '80%',
+      		'height'			: '95%',
+              'autoScale'     	: false,
+              'transitionIn'		: 'none',
+      		'transitionOut'		: 'none',
+      		'type'				: 'iframe'
+      });
+
+  		$("#icontact").fancybox({
+      		'width'				: '80%',
+      		'height'			: '95%',
+              'autoScale'     	: false,
+              'transitionIn'		: 'none',
+      		'transitionOut'		: 'none',
+      		'type'				: 'iframe'
+      });
+
+  		$("#icontact2").fancybox({
+      		'width'				: '80%',
+      		'height'			: '95%',
+              'autoScale'     	: false,
+              'transitionIn'		: 'none',
+      		'transitionOut'		: 'none',
+      		'type'				: 'iframe'
+      });
+      
+      $("#iabout").fancybox({
+      		'width'				: '80%',
+      		'height'			: '95%',
+              'autoScale'     	: false,
+              'transitionIn'		: 'none',
+      		'transitionOut'		: 'none',
+      		'type'				: 'iframe'
+      });
+
+      $("#iabout2").fancybox({
+      		'width'				: '80%',
+      		'height'			: '95%',
+              'autoScale'     	: false,
+              'transitionIn'		: 'none',
+      		'transitionOut'		: 'none',
+      		'type'				: 'iframe'
+      });
+      
+      
+      $("#ihow").fancybox({
+      		'width'				: '80%',
+      		'height'			: '95%',
+              'autoScale'     	: false,
+              'transitionIn'		: 'none',
+      		'transitionOut'		: 'none',
+      		'type'				: 'iframe'
+      });
+      
+      $("#iterms").fancybox({
+      		'width'				: '80%',
+      		'height'			: '95%',
+              'autoScale'     	: false,
+              'transitionIn'		: 'none',
+      		'transitionOut'		: 'none',
+      		'type'				: 'iframe'
+      });
+  		
+  		$("#isuggest").fancybox({
+      		'width'				: '80%',
+      		'height'			: '95%',
+              'autoScale'     	: false,
+              'transitionIn'		: 'none',
+      		'transitionOut'		: 'none',
+      		'type'				: 'iframe'
+      });
+  		$("#iwhy").fancybox({
+      		'width'				: '80%',
+      		'height'			: '95%',
+              'autoScale'     	: false,
+              'transitionIn'		: 'none',
+      		'transitionOut'		: 'none',
+      		'type'				: 'iframe'
+      });
+      $("#igetyourbusiness").fancybox({
+      		'width'				: '80%',
+      		'height'			: '95%',
+              'autoScale'     	: false,
+              'transitionIn'		: 'none',
+      		'transitionOut'		: 'none',
+      		'type'				: 'iframe'
+      });
+  		
+  		
+  		
+  		
+
+  		
+  	});
+	
+  	</script>
+
+  	<div style="display:none">
+    	<div id="loginform"><?php require_once 'login.php'; ?></div>
+    </div>

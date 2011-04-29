@@ -42,6 +42,7 @@
                 <p class="period"><?php echo sizeof($orders); ?> har købt</p>
               </div>
               <div class="social-container">
+              	
               	<?php echo HTML::image('images/facebook.jpg', array('alt' => 'Share on facebook!')); ?>
               </div>
               <div class="save-label">SPAR <?php echo $deal->discount; ?>%</div>
@@ -71,8 +72,10 @@
         	</div>  
         </div>
         
+
         <!-- footer starts here -->
 			  <?php require_once 'sidebar.php'; ?>
+
       </div>    	
     </div>
   </section>

@@ -24,7 +24,7 @@
 
           <?php if ($success){?>
             
-        		<?php echo Form::open(Request::current(), array('id'			=> 'myforms')); ?>
+        		<form action="password_update" method="post" id="myforms">
               <?php echo Form::hidden('email', $email)?>
               <ul>
                 <li><?php echo Form::label('password', __('Password')); ?>
@@ -38,8 +38,9 @@
                   <?php echo Form::submit(NULL, 'Cancel'); ?>
                 </li>
               </ul>
+            </form>
 
-            <?php echo Form::close(); ?>
+
 
             
           <? } ?>

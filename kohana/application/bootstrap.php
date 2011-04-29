@@ -121,6 +121,7 @@ Kohana::modules(array(
 // Special Pages Routes
 // Ex: This turns home/login into /login
 Route::set('login', 'login')->defaults(array('controller' => 'home', 'action' => 'login'));
+Route::set('password_update', 'password_update')->defaults(array('controller' => 'home', 'action' => 'password_update'));
 Route::set('verify', 'verify')->defaults(array('controller' => 'home', 'action' => 'verify'));
 Route::set('signup', 'signup')->defaults(array('controller' => 'home', 'action' => 'signup'));
 Route::set('about', 'about')->defaults(array('controller' => 'home', 'action' => 'about'));
@@ -129,6 +130,8 @@ Route::set('contact', 'contact')->defaults(array('controller' => 'home', 'action
 Route::set('page', 'page')->defaults(array('controller' => 'home', 'action' => 'page'));
 Route::set('users', 'users')->defaults(array('controller' => 'users', 'action' => 'index'));
 
+Route::set('ipages', 'ipages(<controller>(/<action>(/<id>)))')
+		->defaults(array('controller' => 'ipages', 'action' => 'index'));
 Route::set('alldeals', 'alldeals(<controller>(/<action>(/<id>)))')
 		->defaults(array('controller' => 'deals', 'action' => 'index'));
 Route::set('view', 'view(<controller>(/<action>(/<id>)))')

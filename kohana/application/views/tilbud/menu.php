@@ -12,20 +12,19 @@
       <li><?php echo HTML::anchor('admin/cities', 'CITIES'); ?></li>
       <li><?php echo HTML::anchor('admin/vendors', 'VENDORS'); ?></li>
       <li><?php echo HTML::anchor('admin/products', 'PRODUCTS'); ?></li>
-      <li><?php echo HTML::anchor('', 'DEALS'); ?></li>
+      <li><?php echo HTML::anchor('admin/deals', 'DEALS'); ?></li>      
+      <li><?php echo HTML::anchor('admin/pages', 'PAGES'); ?></li>
       <li><?php echo HTML::anchor('', 'ORDERS'); ?></li>
       <li><?php echo HTML::anchor('user/logout', 'LOGOUT'); ?></li>
-    <?php } else { ?> 
        
-      <?php if(!$is_logged) { ?>
-    		<li><?php echo HTML::anchor('signup', 'TILMED DIG'); ?></li>
-      <?php } ?>
-      <li><?php echo HTML::anchor('about', 'OM OS'); ?></li>
-      <?php if(!$is_logged) { ?>
-      	<li><?php echo HTML::anchor('#loginform', 'LOGIN', array('id' => 'tip5')); ?></li>
-      <?php } ?>
-     	<li><?php echo HTML::anchor('contact', 'KONTAKT OS'); ?></li>
-      <li><?php echo HTML::anchor('faq', 'FAQ'); ?></li>
+    <?php } else { ?>
+      <li><?php echo HTML::anchor(url::base(true), 'DAGENS TILBUD'); ?></li>
+      <li><?php echo HTML::anchor('alldeals', 'TIDLIGERE TILBUD'); ?></li>
+      <li><?php echo HTML::anchor('signup', 'TILMED DIG'); ?></li>
+      <li><a id="iabout" href="<?= url::base(true)?>ipages?p=about">OM OS</a></li>
+      <li><a id="icontact" href="<?= url::base(true)?>ipages?p=contact">KONTAKT OS</a></li>      
+      <li><a id="ifaq" href="<?= url::base(true)?>ipages?p=faq">FAQ</a></li>
+
       <?php if($is_logged) { ?>
       	<li style="border-right: none;">&nbsp;</li>
         <li style="border: none;">&nbsp;</li>

@@ -120,14 +120,19 @@ class Controller_Home extends Controller {
 	  
 	}
 	
-	public function action_password_udpate()
+	public function action_password_update()
 	{
 	  $posts = $this->request->post();
 	  if (!empty($posts)) {
 	    $email = $_POST['email'];
-	    
+
 	    if ($_POST['password'] == $_POST['confirm_password']){
+	      $clean_posts['password'] = "mike";
+	      Auth::instance()->get_user()->update_user($clean_posts, array('password'));
 	      
+		    $this->response->body(View::factory('tilbud/password_update'));
+	    }else{
+		    $this->request->redirect('verify?e=' . $email);
 	    }
 	  }
 	}
