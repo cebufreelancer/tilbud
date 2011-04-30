@@ -10,16 +10,14 @@ class Model_Order extends ORM {
 	
 	protected $_table_columns = array(
 		'ID'						=> array('data_type' => 'int'),
-		'city_id'		  	=> array('data_type' => 'int', 'is_nullable' => FALSE),
-		'product_id'		=> array('data_type' => 'string'),
-		'title' 	      => array('data_type' => 'string', 'is_nullable' => TRUE),
-		'description' 	=> array('data_type' => 'string', 'is_nullable' => TRUE),
-		'image' 				=> array('data_type' => 'decimal'), 
-		'regular_price'	=> array('data_type' => 'string', 'is_nullable' => TRUE),
-		'min_buy'	      => array('data_type' => 'int', 'is_nullable' => FALSE),
-		'max_buy'	      => array('data_type' => 'int', 'is_nullable' => FALSE),
-		'regular_price'	=> array('data_type' => 'string', 'is_nullable' => TRUE),
-		'date_created' 	=> array('data_type' => 'string'),
+		'user_id'		  	=> array('data_type' => 'int', 'is_nullable' => FALSE),
+		'deal_id'		  	=> array('data_type' => 'int', 'is_nullable' => FALSE),
+		'quantity'	    => array('data_type' => 'int', 'is_nullable' => FALSE),
+		'total_count'	  => array('data_type' => 'int', 'is_nullable' => FALSE),
+		'payment_type'	=> array('data_type' => 'string', 'is_nullable' => TRUE),
+		'status' 				=> array('data_type' => 'string'),
+		'date_paid' 		=> array('data_type' => 'datetime'),
+		'date_created' 	=> array('data_type' => 'datetime'),
 		);
 
 	
