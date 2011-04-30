@@ -10,12 +10,12 @@
       	<li>
           <div class="deal-title">
             <h1><a href="">Dagens Tilbud</a></h1>
-            <p><?php echo $deal->description; ?></p>
+            <p><?php echo html_entity_decode($deal->description); ?></p>
           </div>
           <div class="deal-banner" style="background-image: url(<?php echo URL::base(TRUE); ?>uploads/<?php echo "$deal->ID/$deal->image"; ?>)" >
               <div class="buy-container">
               	<?php $price = ($deal->regular_price * (100 - $deal->discount)) / 100; ?>
-              	<p class="huge buy-label" style="width: 600px;"><?php echo $price . ',-' . HTML::image('images/buy.png', array('title' => 'Buy Now!', 'style' => 'margin-bottom: -10px;')); ?></p>
+              	<p class="huge buy-label" style="width: 600px;"><?php echo $price . ',-' . HTML::anchor('deals/buy?did=' . $deal->ID, HTML::image('images/buy.png', array('title' => 'Buy Now!', 'style' => 'margin-bottom: -10px;'))); ?></p>
               </div>
             <div class="buy-container">
             	<p class="discounts" style="text-align: left">Værdi <?php echo $deal->regular_price; ?>,- &nbsp; &nbsp; &nbsp;Rabat <?php echo $deal->discount; ?>%</p>

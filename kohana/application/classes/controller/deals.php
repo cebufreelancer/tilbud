@@ -16,8 +16,18 @@ class Controller_Deals extends Controller {
     $this->response->body(View::factory('tilbud/index')
                    ->set('deal', $deal)
                    ->set('orders', $orders));
-	  
 	}
 
-
+	public function action_buy()
+	{
+		$get = $_GET;
+		$did = isset($get['did']) ? $get['did'] : 0;
+		if($did > 0) {
+			$deal = ORM::factory('deal', $did);
+			$this->response->body(View::factory('tilbud/order-deal')
+														 ->set('deal', $deal));
+		} else {
+			$this->request->redirect('/');
+		}
+	}
 } // End Welcome

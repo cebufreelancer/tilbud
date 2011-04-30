@@ -198,6 +198,33 @@ CREATE TABLE IF NOT EXISTS `billings` (
 --
 
 --
+-- Table structure for table `pages`
+--
+
+CREATE TABLE IF NOT EXISTS `pages` (
+  `id` int(11) NOT NULL auto_increment,
+  `page_code` varchar(255) NOT NULL,
+  `content` text NOT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
+
+--
+-- Dumping data for table `pages`
+--
+
+INSERT INTO `pages` (`id`, `page_code`, `content`, `created_at`, `updated_at`) VALUES
+(1, 'about', 'about us content', '2011-04-26 00:00:00', '2011-04-26 00:00:00'),
+(2, 'contact', 'contact us content', '2011-04-26 00:00:00', '2011-04-26 00:00:00'),
+(3, 'faq', 'faq content', '2011-04-26 16:17:28', '2011-04-26 16:17:32'),
+(4, 'terms', 'terms and conditions', '2011-04-26 16:17:28', '2011-04-26 16:17:32'),
+(5, 'how', 'how tilbud', '2011-04-26 16:17:28', '2011-04-26 16:17:32'),
+(6, 'suggest', 'suggest  tilbud', '2011-04-26 16:17:28', '2011-04-26 16:17:32'),
+(7, 'getyourbusiness', 'get your business on tilbudiyen', '2011-04-26 16:17:28', '2011-04-26 16:17:32'),
+(8, 'why', 'why tilbudibyen', '2011-04-26 16:17:28', '2011-04-26 16:17:32');
+
+--
 -- Constraints for dumped tables
 --
 

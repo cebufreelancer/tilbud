@@ -25,14 +25,11 @@
       <li><a id="icontact" href="<?= url::base(true)?>ipages?p=contact">KONTAKT OS</a></li>      
       <li><a id="ifaq" href="<?= url::base(true)?>ipages?p=faq">FAQ</a></li>
       <?php if (!$is_logged){?>
-      <li><?php echo HTML::anchor('#loginform', 'LOGIN', array('id' => 'tip5')); ?></li>
+      	<li><?php echo HTML::anchor('#loginform', 'LOGIN', array('id' => 'tip5')); ?></li>
       <?php } ?>
 
 
       <?php if($is_logged) { ?>
-      	<li style="border-right: none;">&nbsp;</li>
-        <li style="border: none;">&nbsp;</li>
-        <li style="border: none;">&nbsp;</li>
       	<li id="mymenu"><?php echo strtoupper($user) . HTML::image('images/down.png', array('style' => 'margin-left: 10px;')); ?></li>
       <?php } ?>
       
