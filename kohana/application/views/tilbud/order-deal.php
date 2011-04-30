@@ -34,6 +34,7 @@
 					 $form->errors = $errors;
 				}
 				
+				$deal = $deal->title;
 				$qmin = isset($deal->min_buy) ? $deal->min_buy : 1;
 				$qmax = isset($deal->max_buy) ? $deal->max_buy : 1;
 				for($i=$qmin; $i<=$qmax; $i++) { $quantity[$i] = $i; }
@@ -47,7 +48,7 @@
 				$tamount = number_format($total, 2, '.', '');
 				
 				?>
-				<?php echo Form::open('user/login', array('id' => 'myforms')); ?>
+				<?php echo Form::open(Request::current(), array('id' => 'myforms')); ?>
 				<table id="order-deal">
 								<thead>
 					<tr>
@@ -59,8 +60,8 @@
 				</thead>
 				<tbody>
 					<tr>
-						<td><?php echo 'Two Tickets to Lehigh Valley Steelhawks in Bethlehem. Six Options Available.'; ?></td>
-						<td><?php echo Form::select('quantity', isset($quantity) ? $quantity : array(1=>1)); ?> </td>
+						<td><?php echo $deal; ?></td>
+						<td><?php echo Form::select('quantity', isset($quantity) ? $quantity : array(1=>1), 0, array('autofocus' => true)); ?> </td>
             <td style="width:5px; font-size: 13px;">x</td>
 						<td>$ <span id="price"><?php echo $price; ?></span>
 									<?php echo Form::hidden('price', isset($price) ? $price : 1); ?></td>
@@ -96,19 +97,26 @@
 				
         <?php if(Auth::instance()->logged_in() == false) { ?>
           <h3 style="margin-bottom: 10px;"><span class="special-headers">Personal Information</span></h3>
+          <p>We noticed that you don't have an account yet. You can register here on the fly!</p>
           <ul>
             <li><?php echo $form->label('fullname', __('Full Name')); ?>
-                <?php echo $form->input('fullname', ucwords($fullname)); ?>
+                <?php echo $form->input('fullname', ucwords($fullname), array('placeholder' => 'Your Name Here',
+																																							'required' => true)); ?>
             </li>
             <li><?php echo $form->label('email', __('Email')); ?>
-                <?php echo $form->input('email', $email); ?>
+                <?php echo $form->input('email', $email, array('placeholder' => 'youremail@website.com',
+																															 'required' => true)); ?>
             </li>
             <li><?php echo $form->label('password', __('Password')); ?>
-                <?php echo Form::password('password', NULL, array('style' => 'width: 215px;')); ?> (confirm) <?php echo Form::password('confirm_password', NULL, array('style' => 'width: 215px;')); ?>
+                <?php echo Form::password('password', NULL, array('style' => 'width: 215px;',
+																																	'required' => true)); ?> (confirm) 
+								<?php echo Form::password('confirm_password', NULL, array('style' => 'width: 215px;',
+																																					'required' => true)); ?>
             </li>
             <li>&nbsp;</li>
           </ul>
         <?php } ?>
+				
 				<?php
 				$cardname = '';
 				$cardnumber = '';
@@ -127,34 +135,42 @@
 				<h3 style="margin-bottom: 10px;"><span class="special-headers">Billing Information</span></h3>
 				<ul>
           <li><?php echo $form->label('cardname', __('Cardholder Name')); ?>
-              <?php echo $form->input('cardname', ucwords($cardname)); ?>
+              <?php echo $form->input('cardname', ucwords($cardname), array('required' => true)); ?>
           </li>
           <li><?php echo $form->label('cardnumber', __('Card Number')); ?>
-              <?php echo Form::input('cardnumber', ucwords($cardnumber), array('style' => 'width: 348px; letter-spacing: 5px;')) .  
+              <?php echo Form::input('cardnumber', ucwords($cardnumber), array('style' => 'width: 348px; letter-spacing: 5px;',
+																																							 'required' => true)) .  
                     ' Security Code ' . 
                     Form::input('cardcode', $cardcode, array('style' => 'width: 50px',
                                                              'maxlength' => 3,
-                                                             'size' => 3)); ?>
+                                                             'size' => 3,
+																														 'required' => true)); ?>
           </li>
           <li><?php echo $form->label('expiry_year', __('Expiration Date')); ?>
               <?php echo Form::select('expiry_month', $mo, $expiry_month) . ' ' . Form::select('expiry_year', $years, $expiry_year); ?>
           </li>
           <li><?php echo $form->label('address', __('Billing Address')); ?>
-              <?php echo $form->input('address', ucwords($address)); ?>
+              <?php echo $form->input('address', ucwords($address), array('required' => true)); ?>
           </li>
           <li><?php echo $form->label('city', __('City')); ?>
-              <?php echo $form->input('city', ucwords($city)); ?>
+              <?php echo $form->input('city', ucwords($city), array('required' => true)); ?>
           </li>
           <li><?php echo $form->label('state', __('State/Province')); ?>
               <?php echo Form::input('state', ucwords($state), array('style' => 'width: 375px;')) .
                     ' Zipcode ' .
-                    Form::input('zipcode', ucwords($zipcode), array('size' => 5, 'maxlength' => 5, 'style' => 'width: 60px;')); ?>
+                    Form::input('zipcode', ucwords($zipcode), array('size' => 5, 
+																																		'maxlength' => 5, 
+																																		'style' => 'width: 60px;',
+																																		'required' => true)); ?>
           </li>
           <li>
             <?php echo $form->submit(NULL, __('Complete Order')); ?>
           </li>
         </ul>
-        <?php echo $form->close(); ?>
+        <?php 
+				echo $form->hidden('did', $deal->ID);
+				echo $form->close(); 
+				?>
 				
 			</div>
 
