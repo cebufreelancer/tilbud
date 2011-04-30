@@ -19,10 +19,11 @@
 
   <!-- for live -->
   <?php
-  $s = '<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=true&amp;key=ABQIAAAAbQlC_gF4H7R0hbKr8QVz5xTh1Xu1DCtyDZLHCop3sXObMWlGYBRqFcGWz0zY_HTPH9tdC_yHU2a-Ag" type="text/javascript"></script>';
+  $live = '<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=true&amp;key=ABQIAAAAbQlC_gF4H7R0hbKr8QVz5xTh1Xu1DCtyDZLHCop3sXObMWlGYBRqFcGWz0zY_HTPH9tdC_yHU2a-Ag" type="text/javascript"></script>';
+  $local = '<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=true&amp;key=ABQIAAAAbQlC_gF4H7R0hbKr8QVz5xTb-vLQlFZmc2N8bgWI8YDPp5FEVBR0fbtPlG0ajsdbFHG0Bo4Nt1JTHA" type="text/javascript"></script>';
   ?>
-  <!-- for localhost:8888 -->
-  <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=true&amp;key=ABQIAAAAbQlC_gF4H7R0hbKr8QVz5xTb-vLQlFZmc2N8bgWI8YDPp5FEVBR0fbtPlG0ajsdbFHG0Bo4Nt1JTHA" type="text/javascript"></script>
+  
+  <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=true&amp;key=ABQIAAAAbQlC_gF4H7R0hbKr8QVz5xTh1Xu1DCtyDZLHCop3sXObMWlGYBRqFcGWz0zY_HTPH9tdC_yHU2a-Ag" type="text/javascript"></script>
 
   <script>
   	jQuery(document).ready(function() {  
