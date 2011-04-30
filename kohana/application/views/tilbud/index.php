@@ -69,7 +69,19 @@
             	<li class="dhead-two ">Praktiske oplysninger</li>
               <li><p> <?php echo $deal->information; ?></p></li>
             </ul>
-        	</div>  
+        	</div>
+        	
+        	<div id="deals-info">
+            <ul>
+              <li class="dhead-one"> Where to find us </li>
+              <li><p> <?= str_replace("\n", "<br/>", $vendor->address)?></p> </li>
+            </ul>            
+            <ul>
+              <li class="dhead-two"> MAP </li>
+              <li><center><div id="map_canvas" style="width: 390px; height: 300px;"></div></center>  </li>
+            </ul>
+        	
+        	</div>
         </div>
         
 
