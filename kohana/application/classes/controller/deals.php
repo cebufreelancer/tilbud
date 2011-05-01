@@ -5,8 +5,10 @@ class Controller_Deals extends Controller {
 	public function action_index()
 	{	
     $deals = ORM::factory('deal')->get_alldeals();
+		$orders = ORM::factory('order');
     $this->response->body(View::factory('tilbud/deals')
-                   ->set('deals', $deals));
+                   ->set('deals', $deals)
+									 ->set('orders', $orders));
 	}
 	
 	public function action_view($id){
@@ -67,6 +69,7 @@ class Controller_Deals extends Controller {
 			
 			
 			$this->response->body(View::factory('tilbud/order-thankyou')
+															->set('deal_id', $deals->ID)
 															->set('title', $deals->title)
 															->set('quantity', $order->quantity)
 															->set('price', $deals->regular_price * ((100 - $deals->discount) / 100))
@@ -81,8 +84,7 @@ class Controller_Deals extends Controller {
 			$deal = ORM::factory('deal', $did);
 			$this->response->body(View::factory('tilbud/order-deal')
 														 ->set('deal', $deal));
-		} else {
-			//$this->request->redirect('/');
+			return;
 		}
 	}
 } // End Welcome

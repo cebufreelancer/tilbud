@@ -27,7 +27,7 @@
                   <img src="<?= url::base(true);?>uploads/<?= $deal['ID'];?>/<?= $deal['image'];?>" width="165" height="105">
                 </div>
                 <div style="float :left">
-                  <div class="sold">458 Sold</div>
+                  <div class="sold"><?php echo count($orders->get_orders($deal['ID'])); ?> Sold</div>
                   <div class="widget-label">Price <span><?= $discounted_price; ?></span></div>
                   <div class="widget-label">Value <span><?= $deal['regular_price']?></span></div>
                   <div class="widget-label">Savings <span><?= $deal['discount']?> %</span></div>
@@ -36,9 +36,7 @@
               </div>
             </div>
           <?php } ?>
-
-          
-          
+                    
         </div>
         
         <div class="sidebar">
