@@ -21,5 +21,11 @@ class Model_Page extends ORM {
 
 	  return $result;
 	}
+	
+  public function get_page_byid($id){
+    $page = ORM::factory('page')->find($id);
+		return $page;
+	}
+	
 
 } // End of Product Model

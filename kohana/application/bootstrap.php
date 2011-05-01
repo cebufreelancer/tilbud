@@ -141,13 +141,6 @@ Route::set('view', 'view(<controller>(/<action>(/<id>)))')
 // This route enables access to admin controllers
 // Ex: admin/products, admin/vendors
 
-Route::set('admin', 'admin(/<controller>(/<action>(/<id>)))')
-	->defaults(array(
-		'directory'		=> 'admin',
-		'controller'	=> 'pages',
-		'action'			=> 'index',
-	));
-
 
 Route::set('admin', 'admin(/<controller>(/<action>(/<id>)))')
 	->defaults(array(
