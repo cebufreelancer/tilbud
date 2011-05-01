@@ -43,6 +43,23 @@
 
       	return false;
       });
+
+      $("#signupform-footer").bind("submit", function() {
+      	$.fancybox.showActivity();
+
+      	$.ajax({
+      		type		: "POST",
+      		cache	: false,
+      		url		: "home/signup",
+      		data		: $(this).serializeArray(),
+      		success: function(data) {
+      			$.fancybox(data);
+      		}
+      	});
+
+      	return false;
+      });
+
       
     });
   </script>
@@ -271,6 +288,21 @@
   					$("#login_error").hide();
   			}
   		});
+
+  		$("#signup-footer").fancybox({
+  			'scrolling'		: false,
+  			'titleShow'		: false,
+  			'autoScale'	: true,
+  			'overlayOpacity' : 0.7,
+  			'centerOnScroll' : true,
+  			'transitionIn' : 'elastic',
+  			'showCloseButton' : true,
+  			'hideOnOverlayClick' : false,
+  			'hideOnContentClick' : false,
+  			'onClosed'		: function() {
+  					$("#login_error").hide();
+  			}
+  		});
   		
   		
   		
@@ -285,4 +317,7 @@
     </div>
   	<div style="display:none">
     	<div id="signup-form"><?php require_once 'signupform.php'; ?></div>
+    </div>
+  	<div style="display:none">
+    	<div id="signup-form-footer">testing<?php require_once 'signupform-footer.php'; ?></div>
     </div>    

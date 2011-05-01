@@ -14,10 +14,15 @@ class Controller_Deals extends Controller {
 	public function action_view($id){
     $deal = ORM::factory('deal', $id);
     $orders = ORM::factory('order')->get_orders($deal->ID);
-    
-    $this->response->body(View::factory('tilbud/index')
-                   ->set('deal', $deal)
-                   ->set('orders', $orders));
+    $product = ORM::factory('product')->get_product($deal->product_id);
+    $vendor = ORM::factory('vendor')->get_vendor($product->vendor_id);
+    $address = $vendor->address;
+
+		$this->response->body(View::factory('tilbud/index')
+		                      ->set('deal', $deal)
+		                      ->set('orders', $orders)
+		                      ->set('vendor', $vendor)
+		                      ->set('address', $address));
 	}
 
 	public function action_buy()
