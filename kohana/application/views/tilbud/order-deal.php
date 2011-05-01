@@ -34,7 +34,7 @@
 					 $form->errors = $errors;
 				}
 				
-				$deal = $deal->title;
+				$deal_title = $deal->title;
 				$qmin = isset($deal->min_buy) ? $deal->min_buy : 1;
 				$qmax = isset($deal->max_buy) ? $deal->max_buy : 1;
 				for($i=$qmin; $i<=$qmax; $i++) { $quantity[$i] = $i; }
@@ -60,7 +60,7 @@
 				</thead>
 				<tbody>
 					<tr>
-						<td><?php echo $deal; ?></td>
+						<td><?php echo $deal_title; ?></td>
 						<td><?php echo Form::select('quantity', isset($quantity) ? $quantity : array(1=>1), 0, array('autofocus' => true)); ?> </td>
             <td style="width:5px; font-size: 13px;">x</td>
 						<td>$ <span id="price"><?php echo $price; ?></span>

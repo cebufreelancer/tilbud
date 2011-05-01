@@ -260,9 +260,7 @@
   		$("#signup").fancybox({
   			'scrolling'		: false,
   			'titleShow'		: false,
-  			'autoScale'	: false,
-  			'frameWidth'		: 900,
-  			'frameHeight'		: 460,
+  			'autoScale'	: true,
   			'overlayOpacity' : 0.7,
   			'centerOnScroll' : true,
   			'transitionIn' : 'elastic',
