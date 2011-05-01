@@ -8,18 +8,31 @@
       <!-- DEALS SECTION -->    	
     	<div id="body-content">
       	<div class="posts">
-        	<h1><a href="" class="posts-title">All Deals</a></h1>
+        	<h1><a href="" class="posts-title">TIDLIGERE TILBUD</a></h1>
 
 
           <?php foreach($deals as $deal){ ?>
-            <div>
-              <div class="image" style="float: left">
-                <img src="<?= url::base(true);?>uploads/<?= $deal['ID'];?>/<?= $deal['image'];?>" width="261" height="156">
-              </div>
-              <div style="float :left">
-                <div class="price"><?= $deal['regular_price']?> </div>                
-                <a href="<?= url::base(true); ?>deals/view/<?= $deal['ID'];?>" class="deals"><h3><?= $deal['title']?></h3></a>
-                <p><?= $deal['description']; ?></p>
+            <div class="deals-widget">
+            	<?php
+							$title = strlen($deal['title']) > 65 ? substr($deal['title'],0,65) . ' ...' : $deal['title'];
+							$title_url = HTML::anchor('deals/view/' . $deal['ID'], $title, array('title' => $deal['title'],
+																																									 'class' => 'widget-title'));
+							$regular_price    = $deal['regular_price'];
+							$discount					= $deal['discount'];
+							$discounted_price = ( $regular_price * (100 - $discount)) / 100;
+							?>
+            	<h2><?php echo  $title_url; ?></h2>
+              <div style="margin-top: 10px;">
+                <div class="image" style="float: right">
+                  <img src="<?= url::base(true);?>uploads/<?= $deal['ID'];?>/<?= $deal['image'];?>" width="165" height="105">
+                </div>
+                <div style="float :left">
+                  <div class="sold">458 Sold</div>
+                  <div class="widget-label">Price <span><?= $discounted_price; ?></span></div>
+                  <div class="widget-label">Value <span><?= $deal['regular_price']?></span></div>
+                  <div class="widget-label">Savings <span><?= $deal['discount']?> %</span></div>
+                  <div class="price"></div>                
+                </div>
               </div>
             </div>
           <?php } ?>
