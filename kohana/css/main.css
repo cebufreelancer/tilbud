@@ -8,7 +8,6 @@
  
 /** Added HTML5 Reset **/
 @import url(reset5.css);
-@import url(960_8_0.css);
 
 html,
 body {
@@ -230,6 +229,30 @@ header, content, footer {
 .dhead-two {
   color: #373737;
 }
+
+/** Deals Widget **/
+.deals-widget {
+  margin-right: 5px;
+  width: 330px; 
+  float: left;
+  height: 200px; 
+}
+.deals-widget .sold {
+	background: url(../images/bg-button.png) center top repeat-x;
+  color: #FFF;
+  padding: 5px 25px;
+  margin-bottom: 10px;
+  font-weight: bold;
+  -webkit-border-radius: 15px;
+	-moz-border-radius: 15px;
+	border-radius: 15px;
+  text-align: center;
+}
+.widget-label { color: #999; width: 150px; font-size: 11px; }
+.widget-label span { float: right; font-weight: bold; font-size: 13px; color: #2f9ad2; }
+.widget-title { font-size: 18px; margin-top: 10px; color: #000; }
+.widget-title:hover { color: #2f9ad2; }
+
 /** Post Template **/
 #body-content {
   background: #FFFFFF url(../images/bg-content.png) top left no-repeat;
