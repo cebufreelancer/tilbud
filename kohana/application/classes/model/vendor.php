@@ -39,4 +39,8 @@ class Model_Vendor extends ORM {
 		return $vendors;
 	}	
 	
+	public function get_vendor($id){
+    $vendor = ORM::factory('vendor')->find($id);
+		return $vendor;
+	}	
 } // End of Product Model

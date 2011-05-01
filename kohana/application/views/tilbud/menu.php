@@ -20,7 +20,12 @@
     <?php } else { ?>
       <li><?php echo HTML::anchor(url::base(true), 'DAGENS TILBUD'); ?></li>
       <li><?php echo HTML::anchor('alldeals', 'TIDLIGERE TILBUD'); ?></li>
-      <li><?php echo HTML::anchor('signup', 'TILMED DIG'); ?></li>
+
+      <?php if (!$is_logged){?>
+      	<li><?php echo HTML::anchor('#signup-form', 'TILMED DIG', array('id' => 'signup')); ?></li>
+      <?php } ?>
+
+      
       <li><a id="iabout" href="<?= url::base(true)?>ipages?p=about">OM OS</a></li>
       <li><a id="icontact" href="<?= url::base(true)?>ipages?p=contact">KONTAKT OS</a></li>      
       <li><a id="ifaq" href="<?= url::base(true)?>ipages?p=faq">FAQ</a></li>

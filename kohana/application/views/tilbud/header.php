@@ -16,13 +16,82 @@
   <script type="text/javascript" src="<?php echo url::base()?>js/fancybox/jquery.fancybox-1.3.4.js"></script> 
 	<link rel="stylesheet" type="text/css" href="<?php echo url::base()?>js/fancybox/jquery.fancybox-1.3.4.css" media="screen" />
   <script type="text/javascript" src="<?php echo url::base()?>js/jquery.countdown.pack.js"></script>
+
+  <!-- for live -->
+  <?php
+  $live = '<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=true&amp;key=ABQIAAAAbQlC_gF4H7R0hbKr8QVz5xTh1Xu1DCtyDZLHCop3sXObMWlGYBRqFcGWz0zY_HTPH9tdC_yHU2a-Ag" type="text/javascript"></script>';
+  $local = '<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=true&amp;key=ABQIAAAAbQlC_gF4H7R0hbKr8QVz5xTb-vLQlFZmc2N8bgWI8YDPp5FEVBR0fbtPlG0ajsdbFHG0Bo4Nt1JTHA" type="text/javascript"></script>';
+  ?>
+  
+  <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=true&amp;key=ABQIAAAAbQlC_gF4H7R0hbKr8QVz5xQYncROD2BDKvWqEuo4PwsE_DGQgRS20trX2PsZLb7gtB92IP55joerMA" type="text/javascript"></script>  
+
+  <script>
+  	jQuery(document).ready(function() {  
+
+      $("#signupform").bind("submit", function() {
+      	$.fancybox.showActivity();
+
+      	$.ajax({
+      		type		: "POST",
+      		cache	: false,
+      		url		: "home/signup",
+      		data		: $(this).serializeArray(),
+      		success: function(data) {
+      			$.fancybox(data);
+      		}
+      	});
+
+      	return false;
+      });
+      
+    });
+  </script>
+    
   
   <!--[if lt IE 9]>
   	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
   
 </head>
-<body>
+<body onload="initialize()" onunload="GUnload()">
+
+    <?php
+      $map_address = "";
+      if (isset($address)) {
+        $address = strtolower($address);
+        $map_address = str_replace("\n", " ", $address);
+    ?>
+      <script type="text/javascript">
+          var map = null;
+          var geocoder = null;
+
+          function initialize() {
+            if (GBrowserIsCompatible()) {
+              map = new GMap2(document.getElementById("map_canvas"));
+              map.addControl(new GLargeMapControl());
+              map.setCenter(new GLatLng(10.3455617, 123.8969328), 15);
+              geocoder = new GClientGeocoder();
+              showAddress("<?= $map_address . " denmark " ?>");
+            }
+          }
+
+          function showAddress(address) {
+            geocoder.getLatLng(
+              address,
+              function(point) {
+                if (!point) {
+                  //alert(address + " not found");
+                } else {
+                  map.setCenter(point, 15);
+                  var marker = new GMarker(point);
+                  map.addOverlay(marker);
+                  //marker.openInfoWindowHtml(address);
+                }
+              }
+            );
+          }
+      </script>
+  <?php } ?>
 
 	<!-- header starts here -->
 	<header id="main-header">
@@ -63,7 +132,7 @@
 
   	jQuery(document).ready(function() {
 
-  		$("#tip5-new").fancybox({
+  		$("#tip5").fancybox({
   			'scrolling'		: false,
   			'titleShow'		: false,
   			'autoScale'	: false,
@@ -72,7 +141,7 @@
   			'overlayOpacity' : 0.7,
   			'centerOnScroll' : true,
   			'transitionIn' : 'elastic',
-  			'showCloseButton' : false,
+  			'showCloseButton' : true,
   			'hideOnOverlayClick' : false,
   			'hideOnContentClick' : false,
   			'onClosed'		: function() {
@@ -80,7 +149,7 @@
   			}
   		});
 
-  		$("#tip5").fancybox({
+  		$("#tip5-old").fancybox({
   			'scrolling'		: 'true',
   			'titleShow'		: false,
   			'hideOnOverlayClick' : false,
@@ -92,53 +161,53 @@
   		});
   		
   		$("#ifaq").fancybox({
-      		'width'				: '712',
-      		'height'			: '458',
-              'autoScale'     	: false,
-              'transitionIn'		: 'none',
+      		'width'				: 712,
+      		'height'			: 458,
+          'autoDimensions' : false,
+          'transitionIn'		: 'none',
       		'transitionOut'		: 'none',
       		'type'				: 'iframe'
       });
   		$("#ifaq2").fancybox({
-      		'width'				: '712',
-      		'height'			: '458',
-              'autoScale'     	: false,
+      		'width'				: 712,
+      		'height'			: 458,
+          'autoDimensions' : false,
               'transitionIn'		: 'none',
       		'transitionOut'		: 'none',
       		'type'				: 'iframe'
       });
 
   		$("#icontact").fancybox({
-      		'width'				: '712',
-      		'height'			: '458',
-              'autoScale'     	: false,
+      		'width'				: 712,
+      		'height'			: 458,
+          'autoDimensions' : false,
               'transitionIn'		: 'none',
       		'transitionOut'		: 'none',
       		'type'				: 'iframe'
       });
 
   		$("#icontact2").fancybox({
-      		'width'				: '712',
-      		'height'			: '458',
-              'autoScale'     	: false,
+      		'width'				: 712,
+      		'height'			: 458,
+          'autoDimensions' : false,
               'transitionIn'		: 'none',
       		'transitionOut'		: 'none',
       		'type'				: 'iframe'
       });
       
       $("#iabout").fancybox({
-      		'width'				: '712',
-      		'height'			: '458',
-              'autoScale'     	: false,
+      		'width'				: 712,
+      		'height'			: 458,
+          'autoDimensions' : false,
               'transitionIn'		: 'none',
       		'transitionOut'		: 'none',
       		'type'				: 'iframe'
       });
 
       $("#iabout2").fancybox({
-      		'width'				: '712',
-      		'height'			: '458',
-              'autoScale'     	: false,
+      		'width'				: 712,
+      		'height'			: 458,
+          'autoDimensions' : false,
               'transitionIn'		: 'none',
       		'transitionOut'		: 'none',
       		'type'				: 'iframe'
@@ -146,48 +215,62 @@
       
       
       $("#ihow").fancybox({
-      		'width'				: '712',
-      		'height'			: '458',
-              'autoScale'     	: false,
+      		'width'				: 712,
+      		'height'			: 458,
+          'autoDimensions' : false,
               'transitionIn'		: 'none',
       		'transitionOut'		: 'none',
       		'type'				: 'iframe'
       });
       
       $("#iterms").fancybox({
-      		'width'				: '712',
-      		'height'			: '458',
-              'autoScale'     	: false,
+      		'width'				: 712,
+      		'height'			: 458,
+          'autoDimensions' : false,
               'transitionIn'		: 'none',
       		'transitionOut'		: 'none',
       		'type'				: 'iframe'
       });
   		
   		$("#isuggest").fancybox({
-      		'width'				: '712',
-      		'height'			: '458',
-              'autoScale'     	: false,
+      		'width'				: 712,
+      		'height'			: 458,
+          'autoDimensions' : false,
               'transitionIn'		: 'none',
       		'transitionOut'		: 'none',
       		'type'				: 'iframe'
       });
   		$("#iwhy").fancybox({
-      		'width'				: '712',
-      		'height'			: '458',
-              'autoScale'     	: false,
+      		'width'				: 712,
+      		'height'			: 458,
+          'autoDimensions' : false,
               'transitionIn'		: 'none',
       		'transitionOut'		: 'none',
       		'type'				: 'iframe'
       });
       $("#igetyourbusiness").fancybox({
-      		'width'				: '712',
-      		'height'			: '458',
-              'autoScale'     	: false,
+      		'width'				: 712,
+      		'height'			: 458,
+          'autoDimensions' : false,
               'transitionIn'		: 'none',
       		'transitionOut'		: 'none',
       		'type'				: 'iframe'
       });
-  		
+
+  		$("#signup").fancybox({
+  			'scrolling'		: false,
+  			'titleShow'		: false,
+  			'autoScale'	: true,
+  			'overlayOpacity' : 0.7,
+  			'centerOnScroll' : true,
+  			'transitionIn' : 'elastic',
+  			'showCloseButton' : true,
+  			'hideOnOverlayClick' : false,
+  			'hideOnContentClick' : false,
+  			'onClosed'		: function() {
+  					$("#login_error").hide();
+  			}
+  		});
   		
   		
   		
@@ -200,3 +283,6 @@
   	<div style="display:none">
     	<div id="loginform"><?php require_once 'login.php'; ?></div>
     </div>
+  	<div style="display:none">
+    	<div id="signup-form"><?php require_once 'signupform.php'; ?></div>
+    </div>    

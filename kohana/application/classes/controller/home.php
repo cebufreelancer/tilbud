@@ -6,12 +6,15 @@ class Controller_Home extends Controller {
 	{	
     $deal = ORM::factory('deal')->get_featured();
     $orders = ORM::factory('order')->get_orders($deal->ID);
-//    $product = ORM::factory('product')->get_product($deal->ID);
-//    $vendor = ORM::factory('vendor')->get_orders($deal->ID);
+    $product = ORM::factory('product')->get_product($deal->product_id);
+    $vendor = ORM::factory('vendor')->get_vendor($product->vendor_id);
+    $address = $vendor->address;
 
 		$this->response->body(View::factory('tilbud/index')
 		                      ->set('deal', $deal)
-		                      ->set('orders', $orders));
+		                      ->set('orders', $orders)
+		                      ->set('vendor', $vendor)
+		                      ->set('address', $address));
 	}
 	/*
 	public function action_login()
@@ -41,11 +44,11 @@ class Controller_Home extends Controller {
 		}
 
     $posts = $this->request->post();
-    
 		// This will check if submitted
+
 		if(!empty($posts)) {
-		  
-		  $to = $posts['email'];
+
+		  $to = $posts['semail'];
 		  $subject = "Confirm your registration to TilbudiByen newsletter.";
 		  $headers = 'MIME-Version: 1.0' . "\r\n";
 		  $headers .= "Content-type: text/html; charset=UTF-8" . "\r\n";
@@ -56,7 +59,7 @@ class Controller_Home extends Controller {
       $duplicates = ORM::factory('user')->email_exist($to);
       
       if ($duplicates > 0 ) {
-        Message::add('success', __('Email already exists.'));
+        echo "Email already exists.";
       }else { 
 
         $dbconfig = Kohana::config('database.default');
@@ -66,10 +69,6 @@ class Controller_Home extends Controller {
         mysql_query($sql, $conn);
         mysql_close($conn);
         
-        /*$query = DB::query(Database::INSERT, 'INSERT INTO users (email) VALUES (:email)')
-            ->bind(':email', $to);
-        $query->execute();            
-        */
         
   		  $message = "
     Hi, 
@@ -83,15 +82,14 @@ class Controller_Home extends Controller {
     <br/>
     <a href=\"http://www.tilbudibyen.com\">http://www.tilbudibyen.com</a>
     ";
-
     		  mail($to, $subject, $message, $headers);
-          Message::add('success', __('You have successfully subscribed to our newsletter.'));
+          echo 'You have successfully subscribed to our newsletter.';
 		 }
 		 
 		}
 
 
-	  $this->response->body(View::factory('tilbud/signup')->set('cities', $citylist)->set('header', 'Sign Up'));
+	  //$this->response->body(View::factory('tilbud/signup')->set('cities', $citylist)->set('header', 'Sign Up'));
 	}
 	
 	public function action_verify()
