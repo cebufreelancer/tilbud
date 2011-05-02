@@ -181,8 +181,12 @@ class Controller_Admin_Vendors extends Controller {
 		// Check user auth and role
 		$action_name = Request::current()->action();
 
-		if (Auth::instance()->logged_in() === FALSE) {
-			Request::current()->redirect('user/login?u=' . urlencode($_SERVER['REDIRECT_URL']));
+		if(Auth::instance()->logged_in('admin') === FALSE) {
+			if(Auth::instance()->logged_in()) {
+				Request::current()->redirect('user/myaccount');
+			} else {
+				Request::current()->redirect('user/login?u=' . urlencode($_SERVER['REDIRECT_URL']));
+			}
 		}
 	}
 
