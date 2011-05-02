@@ -319,5 +319,5 @@
     	<div id="signup-form"><?php require_once 'signupform.php'; ?></div>
     </div>
   	<div style="display:none">
-    	<div id="signup-form-footer">testing<?php require_once 'signupform-footer.php'; ?></div>
+    	<div id="signup-form-footer"><?php require_once 'signupform-footer.php'; ?></div>
     </div>    
