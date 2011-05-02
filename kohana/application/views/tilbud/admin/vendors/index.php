@@ -25,40 +25,47 @@
           <?php echo HTML::anchor('admin/vendors/add', 'Add a Vendor', array('class' => 'addbutton')); ?>
         </div>
 
-        <?php echo $paging->render(); ?>
+       <?php 
+				
+				if(!empty($vendors)) {
+					echo ($show_pager) ? $paging->render() : ''; ?>
 
-        <table class="table">
-        <thead>
-        <tr>
-          <td>Action</td>
-          <td>Name</td>
-          <td>Address</td>
-          <td>Email</td>
-          <td>Website</td>
-          <td>Status</td>
-          <td>Date Created</td>
-        </tr>
-        </thead>
-        <tbody>
-        <?php
-        foreach($vendors as $vendor) {
-					$edit_url = HTML::anchor('admin/vendors/edit/' . $vendor['ID'], 'Edit');
-					$delete_url = HTML::anchor('admin/vendors/delete/' . $vendor['ID'], 'Delete');
-          echo '<tr>';
-          echo '<td>' . $edit_url . ' ' . $delete_url . '</td>';
-          echo '<td><b>' . $vendor['name'] . '</b></td>';
-					echo '<td>' . $vendor['address'] . '</td>';
-					echo '<td>' . $vendor['email'] . '</td>';
-					echo '<td>' . $vendor['url'] . '</td>';
-					echo '<td>' . $vendor['status'] . '</td>';
-          echo '<td>' . Date::fuzzy_span(strtotime($vendor['date_created'])) . '</td>';
-          echo '</tr>';
-        }		
-        ?>
-        </tbody>
-        </table>
+          <table class="table">
+          <thead>
+          <tr>
+            <td>Action</td>
+            <td>Name</td>
+            <td>Address</td>
+            <td>Email</td>
+            <td>Website</td>
+            <td>Status</td>
+            <td>Date Created</td>
+          </tr>
+          </thead>
+          <tbody>
+          <?php
+          foreach($vendors as $vendor) {
+            $edit_url = HTML::anchor('admin/vendors/edit/' . $vendor['ID'], 'Edit');
+            $delete_url = HTML::anchor('admin/vendors/delete/' . $vendor['ID'], 'Delete');
+            echo '<tr>';
+            echo '<td>' . $edit_url . ' ' . $delete_url . '</td>';
+            echo '<td><b>' . $vendor['name'] . '</b></td>';
+            echo '<td>' . $vendor['address'] . '</td>';
+            echo '<td>' . $vendor['email'] . '</td>';
+            echo '<td>' . $vendor['url'] . '</td>';
+            echo '<td>' . $vendor['status'] . '</td>';
+            echo '<td>' . Date::fuzzy_span(strtotime($vendor['date_created'])) . '</td>';
+            echo '</tr>';
+          }		
+          ?>
+          </tbody>
+          </table>
         
-        <?php echo $paging->render(); ?>
+        <?php 
+					echo ($show_pager) ? $paging->render() : ''; 
+				} else { ?>
+        	<p>There are currently no vendors as of the moment</p>
+        <?php } ?>
       </div>
     </div>
   </section>
