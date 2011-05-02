@@ -146,7 +146,8 @@ header, content, footer {
   color: #FFFFFF;
   margin: 5px 0px;
   padding: 5px 10px;
-  min-height: 80px;
+  height: 80px;
+  overflow: hidden;
 }
 .deal-title h1 { font-size: 22px; }
 .deal-title p { 
@@ -429,6 +430,7 @@ footer {
 #myforms input[type="text"], 
 #myforms input[type="password"], 
 #myforms input[type="file"],
+#myforms input[type="email"],
 #myforms select {
   border:1px solid #DEDEDE;
   color:#525151;
