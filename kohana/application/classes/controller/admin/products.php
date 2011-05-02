@@ -61,7 +61,7 @@ class Controller_Admin_Products extends Controller {
 			
 			if($products->save()) {
 				// message: save success
-        Message::add('success', __('Values saved.'));
+        Message::add('success', __('Product ' . $products->title . 'has been successfully added.'));
 						
 				// Assuming all is correct
 				Request::current()->redirect('admin/products');
