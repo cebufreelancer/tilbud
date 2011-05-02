@@ -48,13 +48,14 @@
 				<?php echo $form->input('cardname', ucwords($cardname)); ?>
 		</li>
     <li><?php echo $form->label('cardnumber', __('Card Number')); ?>
-				<?php echo $form->input('cardnumber', ucwords($cardnumber)); ?>
-		</li>
-		<li><?php echo $form->label('cardcode', __('Security Code')); ?>
-				<?php echo $form->input('cardcode', $cardcode); ?>        
+				<?php echo Form::input('cardnumber', ucwords($cardnumber), array('style' => 'width: 348px; letter-spacing: 5px;')) .  
+							' Security Code ' . 
+							Form::input('cardcode', $cardcode, array('style' => 'width: 50px',
+																											 'maxlength' => 3,
+																											 'size' => 3)); ?>
 		</li>
     <li><?php echo $form->label('expiry_year', __('Expiration Date')); ?>
-				<?php echo $form->select('expiry_year', $years, $expiry_year) . $form->select('expiry_month', $mo, $expiry_month); ?>
+				<?php echo Form::select('expiry_month', $mo, $expiry_month) . ' ' . Form::select('expiry_year', $years, $expiry_year); ?>
 		</li>
     <li><?php echo $form->label('address', __('Billing Address')); ?>
 				<?php echo $form->input('address', ucwords($address)); ?>
@@ -63,10 +64,9 @@
 				<?php echo $form->input('city', ucwords($city)); ?>
 		</li>
     <li><?php echo $form->label('state', __('State/Province')); ?>
-				<?php echo $form->input('state', ucwords($state)); ?>
-		</li>
-    <li><?php echo $form->label('zipcode', __('Postal Code')); ?>
-				<?php echo $form->input('zipcode', ucwords($zipcode)); ?>
+				<?php echo Form::input('state', ucwords($state), array('style' => 'width: 375px;')) .
+							' Zipcode ' .
+							Form::input('zipcode', ucwords($zipcode), array('size' => 5, 'maxlength' => 5, 'style' => 'width: 60px;')); ?>
 		</li>
 		<li>
 			<?php echo $form->submit(NULL, __('Save')); ?>

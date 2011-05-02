@@ -87,31 +87,33 @@
 					});
 				});
 				</script>
-				
-        <?php
-				$fullname = '';
-				$email = '';
-				?>
         
 				<h2>Select Payment Method<br />&nbsp;</h2>
 				
-        <?php if(Auth::instance()->logged_in() == false) { ?>
+        <?php if(Auth::instance()->logged_in() == false) { 
+								$fullname = isset($_POST['fullname']) ? $_POST['fullname'] : '';
+								$email = isset($_POST['email']) ? $_POST['email'] : '';
+				?>
           <h3 style="margin-bottom: 10px;"><span class="special-headers">Personal Information</span></h3>
           <p>We noticed that you don't have an account yet. You can register here on the fly!</p>
           <ul>
             <li><?php echo $form->label('fullname', __('Full Name')); ?>
                 <?php echo $form->input('fullname', ucwords($fullname), array('placeholder' => 'Your Name Here',
 																																							'required' => true)); ?>
+                <?php echo isset($errors['fullname']) ? $errors['fullname'] : ''; ?>
             </li>
             <li><?php echo $form->label('email', __('Email')); ?>
                 <?php echo $form->input('email', $email, array('placeholder' => 'youremail@website.com',
-																															 'required' => true)); ?>
+																															 'required' => true,
+																															 'type' => 'email')); ?>
+                <?php echo isset($errors['fullname']) ? $errors['fullname'] : ''; ?>
             </li>
             <li><?php echo $form->label('password', __('Password')); ?>
                 <?php echo Form::password('password', NULL, array('style' => 'width: 215px;',
 																																	'required' => true)); ?> (confirm) 
-								<?php echo Form::password('confirm_password', NULL, array('style' => 'width: 215px;',
+								<?php echo Form::password('password_confirm', NULL, array('style' => 'width: 215px;',
 																																					'required' => true)); ?>
+                <?php echo isset($errors['password_confirm']) ? '<br />' . $errors['password_confirm'] : ''; ?>
             </li>
             <li>&nbsp;</li>
           </ul>
@@ -123,13 +125,13 @@
 				$cardcode = '';
 				$year = (int)date("Y");
 				$years = range($year, $year+10);
-				$expiry_year = 2002;
+				$expiry_year = $year;
 				$mo = range(1,12);
-				$expiry_month = 5;
-				$address = '';
-				$city = '';
-				$state = '';
-				$zipcode = '';
+				$expiry_month = 1;
+				$address = isset($_POST['address']) ? $_POST['address'] : '';
+				$city = isset($_POST['city']) ? $_POST['city'] : '';;
+				$state = isset($_POST['state']) ? $_POST['state'] : '';
+				$zipcode = isset($_POST['zipcode']) ? $_POST['zipcode'] : '';
 				?>
 				
 				<h3 style="margin-bottom: 10px;"><span class="special-headers">Billing Information</span></h3>
@@ -144,7 +146,8 @@
                     Form::input('cardcode', $cardcode, array('style' => 'width: 50px',
                                                              'maxlength' => 3,
                                                              'size' => 3,
-																														 'required' => true)); ?>
+																														 'required' => true,
+																														 'pattern' => '[0-9]*')); ?>
           </li>
           <li><?php echo $form->label('expiry_year', __('Expiration Date')); ?>
               <?php echo Form::select('expiry_month', $mo, $expiry_month) . ' ' . Form::select('expiry_year', $years, $expiry_year); ?>
@@ -161,7 +164,8 @@
                     Form::input('zipcode', ucwords($zipcode), array('size' => 5, 
 																																		'maxlength' => 5, 
 																																		'style' => 'width: 60px;',
-																																		'required' => true)); ?>
+																																		'required' => true,
+																																		'pattern' => '[0-9]*')); ?>
           </li>
           <li>
             <?php echo $form->submit(NULL, __('Complete Order')); ?>
