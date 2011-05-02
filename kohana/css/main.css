@@ -431,6 +431,8 @@ footer {
 #myforms input[type="password"], 
 #myforms input[type="file"],
 #myforms input[type="email"],
+#myforms input[type="url"],
+#myforms input[type="tel"],
 #myforms select {
   border:1px solid #DEDEDE;
   color:#525151;
@@ -439,6 +441,11 @@ footer {
   padding:2px 5px;
   width:500px;
   margin-bottom:10px;
+}
+#myforms input[type="email"],
+#myforms input[type="url"],
+#myforms input[type="tel"] {
+  width: 300px;
 }
 #myforms input[type="file"] { font-size: 13px; font-weight: bold; }
 #myforms select { 

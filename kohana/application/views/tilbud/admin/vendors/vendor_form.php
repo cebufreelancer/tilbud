@@ -15,7 +15,8 @@
 																											'id'			=> 'myforms')); ?>
       <ul>
       	<li><?php echo Form::label('vendor_name', __('Vendor Name')); ?>
-						<?php echo Form::input('vendor_name', $vendor_name); ?>
+						<?php echo Form::input('vendor_name', $vendor_name, array('autofocus' => 1,
+																																			'required' => true)); ?>
         </li>
         <li><?php echo Form::label('vendor_desc', __('Description')); ?>
         		<?php echo Form::textarea('vendor_desc', $vendor_desc); ?>
@@ -24,13 +25,16 @@
         		<?php echo Form::input('vendor_address', $vendor_address); ?>
         </li>
         <li><?php echo Form::label('vendor_phone', __('Phone')); ?>
-        		<?php echo Form::input('vendor_phone', $vendor_phone); ?>
+        		<?php echo Form::input('vendor_phone', $vendor_phone, array('type' => 'tel',
+																																				'placeholder' => '+639228888888')); ?>
         </li>
         <li><?php echo Form::label('vendor_website', __('Website')); ?>
-        		<?php echo Form::input('vendor_website', $vendor_website); ?>
+        		<?php echo Form::input('vendor_website', $vendor_website, array('type' => 'url',
+																																						'placeholder' => 'www.yourwebsite.com')); ?>
         </li>
         <li><?php echo Form::label('vendor_email', __('Email Address')); ?>
-        		<?php echo Form::input('vendor_email', $vendor_email); ?>
+        		<?php echo Form::input('vendor_email', $vendor_email, array('type' => 'email',
+																																				'placeholder' => 'youremail@yourwebsite.com')); ?>
         </li>
         <li><?php echo Form::label('vendor_office_hours', __('Office Hours')); ?>
         		<?php echo Form::textarea('vendor_office_hours', $vendor_office_hours); ?>
