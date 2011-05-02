@@ -38,10 +38,11 @@
         <div class="hcaption">De bedste tilbud på restauranter, rejser, wellness og meget andet.</div>
         <div class="hsocial">
         	<span>Del med dine venner</span><br />
-  					<!-- AddThis Button BEGIN --> 
-            <div class="addthis_toolbox addthis_default_style "><a class="addthis_button_preferred_4"><img src="images/socials/in.jpg" alt="" /></a></div> 
+  					
+            <!-- AddThis Button BEGIN --> 
             <script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script> 
             <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=ra-4d6e3a782d6e35f6"></script> 
+            <a class="addthis_button_preferred_4"><img src="<?= url::base(true)?>images/socials/in.jpg" alt="" /></a>  
             <!-- AddThis Button END -->
         	
             <?php 
