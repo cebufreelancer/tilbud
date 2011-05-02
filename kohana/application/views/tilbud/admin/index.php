@@ -24,38 +24,44 @@
           <?php echo HTML::anchor('admin/products/add', 'Add a Product', array('class' => 'addbutton')); ?>
         </div>
         
-        <?php echo $paging->render(); ?>
+        <?php 
+        if(!empty($products)) {
+					echo $paging->render(); ?>
+
+          <table class="table">
+          <thead>
+          <tr>
+            <td>Action</td>
+            <td width="200">Product</td>
+            <td>Description</td>
+            <td># of Deals</td>
+            <td>Vendor</td>
+            <td>Date Created</td>
+          </tr>
+          </thead>
+          <tbody>
+          <?php
+          foreach($products as $product) {
+            $edit_url = HTML::anchor('admin/products/edit/' . $product['ID'], 'Edit');
+            $delete_url = HTML::anchor('admin/products/delete/' . $product['ID'], 'Delete');
+            echo '<tr>';
+            echo '<td>' . $edit_url . ' ' . $delete_url . '</td>';
+            echo '<td><b>' . $product['title'] . '</b></td>';
+            echo '<td>' . substr($product['description'], 0, 50) . '</td>';
+            echo '<td align="center">' . ORM::factory('product', $product['ID'])->deals->count_all() . '</td>';
+            echo '<td>' . ORM::factory('vendor', $product['vendor_id'])->name . '</td>';
+            echo '<td>' . Date::fuzzy_span(strtotime($product['date_created'])) . '</td>';
+            echo '</tr>';
+          }		
+          ?>
+          </tbody>
+          </table>
         
-        <table class="table">
-        <thead>
-        <tr>
-          <td>Action</td>
-          <td width="200">Product</td>
-          <td>Description</td>
-          <td># of Deals</td>
-          <td>Vendor</td>
-          <td>Date Created</td>
-        </tr>
-        </thead>
-        <tbody>
-        <?php
-        foreach($products as $product) {
-					$edit_url = HTML::anchor('admin/products/edit/' . $product['ID'], 'Edit');
-					$delete_url = HTML::anchor('admin/products/delete/' . $product['ID'], 'Delete');
-          echo '<tr>';
-          echo '<td>' . $edit_url . ' ' . $delete_url . '</td>';
-          echo '<td><b>' . $product['title'] . '</b></td>';
-          echo '<td>' . substr($product['description'], 0, 50) . '</td>';
-					echo '<td align="center">' . ORM::factory('product', $product['ID'])->deals->count_all() . '</td>';
-					echo '<td>' . ORM::factory('vendor', $product['vendor_id'])->name . '</td>';
-          echo '<td>' . Date::fuzzy_span(strtotime($product['date_created'])) . '</td>';
-          echo '</tr>';
-        }		
-        ?>
-        </tbody>
-        </table>
-        
-        <?php echo $paging->render(); ?>
+        <?php 
+					echo $paging->render(); 
+				} else { ?>
+        	<p>There are currently no products as of the moment</p>
+        <?php } ?>
       </div>
     </div>
   </section>

@@ -3,31 +3,37 @@
 class Controller_Admin_Products extends Controller {
 
 	public function action_index()
-	{		
+	{	
+		$page = View::factory('tilbud/admin/index');
 		$products = ORM::factory('product');
 		
 		// This is an example of how to use Kohana pagination
     // Get the total count for the pagination
 		$total = $products->count_all();
-		
-		$pagination = new Pagination(array(
-									 'total_items' 		=> $total,
-									 'items_per_page'	=> 15, 
-									 'auto_hide' 			=> false,
-									 'view'           => 'pagination/useradmin',));
-		$sort = isset($_GET['sort']) ? $_GET['sort'] : 'title'; // set default sorting direction here
-    $dir  = isset($_GET['dir']) ? 'DESC' : 'ASC';
-		$result = $products->limit($pagination->items_per_page)->offset($pagination->offset)->order_by($sort, $dir)
-              ->find_all();
-							
-		foreach($result as $prods) {
-			$res[] = $prods->as_array();
+		if($total > 0) {
+			$pagination = new Pagination(array(
+										 'total_items' 		=> $total,
+										 'items_per_page'	=> 15, 
+										 'auto_hide' 			=> false,
+										 'view'           => 'pagination/useradmin',));
+			$sort = isset($_GET['sort']) ? $_GET['sort'] : 'title'; // set default sorting direction here
+			$dir  = isset($_GET['dir']) ? 'DESC' : 'ASC';
+			$result = $products->limit($pagination->items_per_page)->offset($pagination->offset)->order_by($sort, $dir)
+								->find_all();
+								
+			foreach($result as $prods) {
+				$res[] = $prods->as_array();
+			}
+			
+			// Show Pager
+			$show_page = ($total > $pagination->items_per_page) ? TRUE : FALSE;
+			
+			$page->paging = $pagination;
+			$page->products = $res;
+			$page->show_pager = $show_page;
 		}
-
-		$this->response->body(View::factory('tilbud/admin/index')
-													->set('paging', $pagination)
-													->set('products', $res)
-											);
+		
+		$this->response->body($page);
 	}
 	
 	public function action_add()
