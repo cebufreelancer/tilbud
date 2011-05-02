@@ -33,10 +33,8 @@ class Controller_Admin_Deals extends Controller {
 			$page->deals = $res;
 			$page->show_pager = $show_page;
 		}
-			
-
-			$this->response->body($page);
 		
+		$this->response->body($page);
 	}
 	
 	public function action_add()
@@ -183,6 +181,30 @@ class Controller_Admin_Deals extends Controller {
 		}
 		$this->response->body($page);
 
+	}
+	
+	public function before() 
+	{
+		// This codeblock is very useful in development sites:
+		// What it does is get rid of invalid sessions which cause exceptions, which may happen
+		// 1) when you make errors in your code.
+		// 2) when the session expires!
+		try {
+			 $this->session = Session::instance();
+		} catch(ErrorException $e) {
+			 session_destroy();
+		}
+		// Execute parent::before first
+		parent::before();
+		// Open session
+		$this->session = Session::instance();
+
+		// Check user auth and role
+		$action_name = Request::current()->action();
+
+		if (Auth::instance()->logged_in() === FALSE) {
+			Request::current()->redirect('user/login?u=' . urlencode($_SERVER['REDIRECT_URL']));
+		}
 	}
 
 } // End Welcome
