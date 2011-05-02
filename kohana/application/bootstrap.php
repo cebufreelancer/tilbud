@@ -96,6 +96,8 @@ Kohana::$log->attach(new Log_File(APPPATH.'logs'));
  */
 Kohana::$config->attach(new Config_File);
 
+// Attach Tilbud Global Configuration
+Kohana::$config->attach(new Config_File('global'));
 /**
  * Enable modules. Modules are referenced by a relative or absolute path.
  */
