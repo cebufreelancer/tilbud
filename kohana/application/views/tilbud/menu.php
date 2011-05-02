@@ -14,7 +14,7 @@
       <li><?php echo HTML::anchor('admin/products', 'PRODUCTS'); ?></li>
       <li><?php echo HTML::anchor('admin/deals', 'DEALS'); ?></li>      
       <li><?php echo HTML::anchor('admin/pages', 'PAGES'); ?></li>
-      <li><?php echo HTML::anchor('', 'ORDERS'); ?></li>
+      <li><?php echo HTML::anchor('admin/orders', 'ORDERS'); ?></li>
       <li><?php echo HTML::anchor('user/logout', 'LOGOUT'); ?></li>
 
     <?php } else { ?>
