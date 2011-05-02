@@ -16,6 +16,10 @@ class Model_Deal extends ORM {
 		'product_id'		=> array('data_type' => 'int', 'is_nullable' => FALSE),
 		'title' 	      => array('data_type' => 'string'),
 		'description' 	=> array('data_type' => 'string', 'is_nullable' => TRUE),
+		'contents' 			=> array('data_type' => 'string', 'is_nullable' => TRUE),
+		'contents_title' => array('data_type' => 'string', 'is_nullable' => TRUE),
+		'information' 	=> array('data_type' => 'string', 'is_nullable' => TRUE),
+		'whatyouget' 		=> array('data_type' => 'string', 'is_nullable' => TRUE),
 		'image' 				=> array('data_type' => 'string', 'is_nullable' => TRUE), 
 		'regular_price'	=> array('data_type' => 'decimal'),
 		'discount'    	=> array('data_type' => 'decimal', 'is_nullable' => TRUE),
@@ -23,7 +27,10 @@ class Model_Deal extends ORM {
 		'min_buy'    	  => array('data_type' => 'int', 'is_nullable' => TRUE),
 		'max_buy'    	  => array('data_type' => 'int', 'is_nullable' => TRUE),
 		'status'    	  => array('data_type' => 'string', 'is_nullable' => TRUE),
+		'start_date' 		=> array('data_type' => 'string'),
+		'end_date' 			=> array('data_type' => 'string'),
 		'date_create' 	=> array('data_type' => 'string'),
+		'last_update' 	=> array('data_type' => 'string'),
 		);
 
 	public function get_alldeals($limit=NULL, $offset=NULL)

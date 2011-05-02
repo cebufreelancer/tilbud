@@ -67,17 +67,22 @@ class Controller_Admin_Deals extends Controller {
 
 		// This will check if submitted
 		if(!empty($posts)) {
-		  $deals->product_id 			 	= htmlentities($posts['deal_product']);
-			$deals->title 			 	= htmlentities($posts['deal_title']);
+		  $deals->product_id 	= htmlentities($posts['deal_product']);
+			$deals->title 			= htmlentities($posts['deal_title']);
 			$deals->description = htmlentities($posts['deal_desc']);
+			$deals->contents_title = htmlentities($posts['deal_content_title']);
+			$deals->contents		= htmlentities($posts['deal_desc_long']);
+			$deals->whatyouget	= htmlentities($posts['deal_whatyouget']);
+			$deals->information	= htmlentities($posts['deal_information']);
 			$deals->city_id 	 	= htmlentities($posts['deal_city']);
-			$deals->regular_price 			= htmlentities($posts['deal_regular_price']);
-			$deals->discount  			= htmlentities($posts['deal_discount']);
-			$deals->vouchers 	 		= htmlentities($posts['deal_vouchers']);
-			$deals->min_buy 	 		= htmlentities($posts['deal_min_buy']);
-			$deals->max_buy 	 		= htmlentities($posts['deal_max_buy']);
+			$deals->regular_price = htmlentities($posts['deal_regular_price']);
+			$deals->discount  	= htmlentities($posts['deal_discount']);
+			$deals->vouchers 	 	= htmlentities($posts['deal_vouchers']);
+			$deals->min_buy 	 	= htmlentities($posts['deal_min_buy']);
+			$deals->max_buy 	 	= htmlentities($posts['deal_max_buy']);
 			$deals->status  		= htmlentities($posts['deal_status']);
-			$deals->date_create = Date("Y-m-d H:i:S");
+			$deals->start_date	= date("Y-m-d H:i:S", strtotime($posts['deal_start_date']));
+			$deals->end_date		= date("Y-m-d H:i:S", strtotime($posts['deal_end_date'] . " 23:59:00"));
 
 			if($deals->save()) {
 				// message: save success
@@ -89,16 +94,22 @@ class Controller_Admin_Deals extends Controller {
 			}
 		}
 		
-		$page->deal_product 		= isset($posts['deal_product']) ? $posts['deal_product'] : '';
+		$page->deal_product 	= isset($posts['deal_product']) ? $posts['deal_product'] : '';
 		$page->deal_title 		= isset($posts['deal_title']) ? $posts['deal_title'] : '';
-		$page->deal_desc 		= isset($posts['deal_desc']) ? $posts['deal_desc'] : '';
-		$page->deal_city = isset($posts['deal_city']) ? $posts['deal_city'] : '';
-		$page->deal_regular_price 	= isset($posts['deal_regular_price']) ? $posts['deal_regular_price'] : '';
-		$page->deal_discount = isset($posts['deal_discount']) ? $posts['deal_discount'] : '';
+		$page->deal_desc 			= isset($posts['deal_desc']) ? $posts['deal_desc'] : '';
+		$page->deal_desc_long = isset($posts['deal_desc_long']) ? $posts['deal_desc_long'] : '';
+		$page->deal_whatyouget = isset($posts['deal_whatyouget']) ? $posts['deal_whatyouget'] : '';
+		$page->deal_content_title = isset($posts['deal_content_title']) ? $posts['deal_content_title'] : '';
+		$page->deal_information = isset($posts['deal_information']) ? $posts['deal_information'] : '';
+		$page->deal_city 			= isset($posts['deal_city']) ? $posts['deal_city'] : '';
+		$page->deal_regular_price = isset($posts['deal_regular_price']) ? $posts['deal_regular_price'] : '';
+		$page->deal_discount 	= isset($posts['deal_discount']) ? $posts['deal_discount'] : '';
 		$page->deal_vouchers 	= isset($posts['deal_vouchers']) ? $posts['deal_vouchers'] : '';
-		$page->deal_min_buy 	= isset($posts['deal_min_buy']) ? $posts['deal_min_buy'] : '';
-		$page->deal_max_buy 	= isset($posts['deal_max_buy']) ? $posts['deal_max_buy'] : '';
-		$page->deal_status = isset($posts['deal_status']) ? $posts['deal_status'] : '';
+		$page->deal_min_buy 	= isset($posts['deal_min_buy']) ? $posts['deal_min_buy'] : 1;
+		$page->deal_max_buy 	= isset($posts['deal_max_buy']) ? $posts['deal_max_buy'] : 1;
+		$page->start_date 		= isset($posts['deal_start_date']) ? $posts['deal_start_date'] : date("Y/m/d");
+		$page->end_date 			= isset($posts['deal_end_date']) ? $posts['deal_end_date'] : date("Y/m/d");
+		$page->deal_status 		= isset($posts['deal_status']) ? $posts['deal_status'] : '';
 
 		$page->cities = $citylist;
 		$page->products = $products;
@@ -108,44 +119,77 @@ class Controller_Admin_Deals extends Controller {
 	
 	public function action_edit($id=NULL)
 	{
-		$page = View::factory('tilbud/admin/vendors/vendor_form');
-		$page->label = 'Edit a Vendor';
+		$page = View::factory('tilbud/admin/deals/deal_form');
+		$page->label = 'Edit a Deal';
 		
-		$vendors = ORM::factory('vendor', $id);
+		$deals = ORM::factory('deal', $id);
 		
+		$allproducts = ORM::factory('product');
+		$result_products = $allproducts->order_by('ID', 'ASC')->find_all();
+
+		$products = array();
+		foreach($result_products as $p) {
+		  $p_arr = $p->as_array();
+		  $products[$p_arr['ID']] = $p_arr['title'];
+		}
+
+
 		// Get posts
 		$posts = $this->request->post();
-		
+
 		// This will check if submitted
 		if(!empty($posts)) {
-					
-			$vendors->name 			 	= htmlentities($posts['vendor_name']);
-			$vendors->description = htmlentities($posts['vendor_desc']);
-			$vendors->address 	 	= htmlentities($posts['vendor_address']);
-			$vendors->phone 			= htmlentities($posts['vendor_phone']);
-			$vendors->url  				= htmlentities($posts['vendor_website']);
-			$vendors->email 	 		= htmlentities($posts['vendor_email']);
-			$vendors->office_hours = htmlentities($posts['vendor_office_hours']);
-			$vendors->status  		= 'active';
-					
-			if($vendors->save()) {
+			//echo '<pre>'; print_r($posts); echo '</pre>'; exit;
+		  $deals->product_id 	= htmlentities($posts['deal_product']);
+			$deals->title 			= htmlentities($posts['deal_title']);
+			$deals->description = htmlentities($posts['deal_desc']);
+			$deals->contents_title = htmlentities($posts['deal_content_title']);
+			$deals->contents		= htmlentities($posts['deal_desc_long']);
+			$deals->whatyouget	= htmlentities($posts['deal_whatyouget']);
+			$deals->information	= htmlentities($posts['deal_information']);
+			$deals->city_id 	 	= htmlentities($posts['deal_city']);
+			$deals->regular_price = htmlentities($posts['deal_regular_price']);
+			$deals->discount  	= htmlentities($posts['deal_discount']);
+			$deals->vouchers 	 	= htmlentities($posts['deal_vouchers']);
+			$deals->min_buy 	 	= htmlentities($posts['deal_min_buy']);
+			$deals->max_buy 	 	= htmlentities($posts['deal_max_buy']);
+			$deals->status  		= htmlentities($posts['deal_status']);
+			$deals->start_date	= date("Y-m-d H:i:S", strtotime($posts['deal_start_date']));
+			$deals->end_date		= date("Y-m-d H:i:S", strtotime($posts['deal_end_date'] . " 23:59:00"));
+			$deals->last_update = date("Y-m-d H:i:S");
+
+			
+
+			if($deals->save()) {
 				// message: save success
-        Message::add('success', __('Vendor ' . $vendors->name . 'has been successfully updated.'));
+        Message::add('success', __('Deal ' . $deals->title . 'has been successfully added.'));
 						
 				// Assuming all is correct
-				Request::current()->redirect('admin/vendors');
+				Request::current()->redirect('admin/deals');
 				return;
 			}
 		}
 		
-		$page->vendor_name 		= isset($posts['vendor_name']) ? $posts['vendor_name'] : html_entity_decode($vendors->name);
-		$page->vendor_desc 		= isset($posts['vendor_desc']) ? $posts['vendor_desc'] : html_entity_decode($vendors->description);
-		$page->vendor_address = isset($posts['vendor_address']) ? $posts['vendor_address'] : html_entity_decode($vendors->address);
-		$page->vendor_phone 	= isset($posts['vendor_phone']) ? $posts['vendor_phone'] : html_entity_decode($vendors->phone);
-		$page->vendor_website = isset($posts['vendor_website']) ? $posts['vendor_website'] : html_entity_decode($vendors->url);
-		$page->vendor_email 	= isset($posts['vendor_email']) ? $posts['vendor_email'] : html_entity_decode($vendors->email);
-		$page->vendor_office_hours = isset($posts['vendor_office_hours']) ? $posts['vendor_office_hours'] : html_entity_decode($vendors->office_hours);
-		
+		$page->deal_product 	= isset($posts['deal_product']) ? $posts['deal_product'] : $deals->product_id;
+		$page->deal_title 		= isset($posts['deal_title']) ? $posts['deal_title'] : html_entity_decode($deals->title);
+		$page->deal_desc 			= isset($posts['deal_desc']) ? $posts['deal_desc'] : html_entity_decode($deals->description);
+		$page->deal_desc_long = isset($posts['deal_desc_long']) ? $posts['deal_desc_long'] : html_entity_decode($deals->contents);
+		$page->deal_whatyouget = isset($posts['deal_whatyouget']) ? $posts['deal_whatyouget'] : html_entity_decode($deals->whatyouget);
+		$page->deal_content_title = isset($posts['deal_content_title']) ? $posts['deal_content_title'] : html_entity_decode($deals->contents_title);
+		$page->deal_information = isset($posts['deal_information']) ? $posts['deal_information'] : html_entity_decode($deals->information);
+		$page->deal_city = isset($posts['deal_city']) ? $posts['deal_city'] : $deals->city_id;
+		$page->deal_regular_price 	= isset($posts['deal_regular_price']) ? $posts['deal_regular_price'] : $deals->regular_price;
+		$page->deal_discount 	= isset($posts['deal_discount']) ? $posts['deal_discount'] : $deals->discount;
+		$page->deal_vouchers 	= isset($posts['deal_vouchers']) ? $posts['deal_vouchers'] : $deals->vouchers;
+		$page->deal_min_buy 	= isset($posts['deal_min_buy']) ? $posts['deal_min_buy'] : $deals->min_buy;
+		$page->deal_max_buy 	= isset($posts['deal_max_buy']) ? $posts['deal_max_buy'] : $deals->max_buy;
+		$page->deal_status 		= isset($posts['deal_status']) ? $posts['deal_status'] : $deals->status;
+		$page->start_date 		= isset($posts['deal_start_date']) ? $posts['deal_start_date'] : date("Y/m/d", strtotime($deals->start_date));
+		$page->end_date 			= isset($posts['deal_end_date']) ? $posts['deal_end_date'] : date("Y/m/d", strtotime($deals->end_date));
+
+		$page->cities = Kohana::config('global.cities');
+		$page->products = $products;
+
 		$this->response->body($page);
 	}
 	
