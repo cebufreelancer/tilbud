@@ -3,18 +3,23 @@
 class Controller_Home extends Controller {
 
 	public function action_index()
-	{	
+	{
+		$page = View::factory('tilbud/index');
     $deal = ORM::factory('deal')->get_featured();
-    $orders = ORM::factory('order')->get_orders($deal->ID);
-    $product = ORM::factory('product')->get_product($deal->product_id);
-    $vendor = ORM::factory('vendor')->get_vendor($product->vendor_id);
-    $address = $vendor->address;
-
-		$this->response->body(View::factory('tilbud/index')
-		                      ->set('deal', $deal)
-		                      ->set('orders', $orders)
-		                      ->set('vendor', $vendor)
-		                      ->set('address', $address));
+		
+		if(!empty($deal)) {
+			$orders = ORM::factory('order')->get_orders($deal->ID);
+			$product = ORM::factory('product')->get_product($deal->product_id);
+			$vendor = ORM::factory('vendor')->get_vendor($product->vendor_id);
+			$address = $vendor->address;
+			
+			$page->deal = $deal;
+			$page->orders = $orders;
+			$page->vendor = $vendor;
+			$page->address = $address;
+		}
+		
+		$this->response->body($page);
 	}
 	/*
 	public function action_login()

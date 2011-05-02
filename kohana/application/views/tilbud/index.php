@@ -5,6 +5,8 @@
   <section id="main-body">
   	<div class="centered">
       
+      <?php if(isset($deal)) { ?>
+      
       <!-- DEALS SECTION -->
       <ul id="deals-container">
       	<li>
@@ -15,7 +17,7 @@
           <div class="deal-banner" style="background-image: url(<?php echo URL::base(TRUE); ?>uploads/<?php echo "$deal->ID/$deal->image"; ?>)" >
               <div class="buy-container">
               	<?php $price = ($deal->regular_price * (100 - $deal->discount)) / 100; ?>
-              	<p class="huge buy-label" style="width: 600px;"><?php echo $price . ',-' . HTML::anchor('deals/buy?did=' . $deal->ID, HTML::image('images/buy.png', array('title' => 'Buy Now!', 'style' => 'margin-bottom: -10px;'))); ?></p>
+              	<p class="huge buy-label" style="width: 600px;"><?php echo $price . ',-' . HTML::anchor('deals/buy/' . $deal->ID, HTML::image('images/buy.png', array('title' => 'Buy Now!', 'style' => 'margin-bottom: -10px;'))); ?></p>
               </div>
             <div class="buy-container">
             	<p class="discounts" style="text-align: left">Værdi <?php echo $deal->regular_price; ?>,- &nbsp; &nbsp; &nbsp;Rabat <?php echo $deal->discount; ?>%</p>
@@ -88,7 +90,11 @@
         <!-- footer starts here -->
 			  <?php require_once 'sidebar.php'; ?>
 
-      </div>    	
+      </div>	
+
+      <?php } else { ?>
+      	<p style="text-align: center; padding: 80px 40px;"> No Deals has been created yet. Please login then go to Deals Menu and  Create a deal. </p>
+      <?php } ?>      
     </div>
   </section>
   
