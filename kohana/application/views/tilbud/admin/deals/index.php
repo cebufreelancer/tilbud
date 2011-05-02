@@ -28,7 +28,7 @@
         <?php 
 				
 				if(!empty($deals)) {
-					echo $paging->render(); ?>
+					echo ($show_pager) ? $paging->render() : ''; ?>
 	
 					<table class="table">
 					<thead>
@@ -62,7 +62,7 @@
 					</table>
         
         <?php 
-					echo $paging->render(); 
+					echo ($show_pager) ? $paging->render() : ''; ?>
 				} else { ?>
         
         	<p>There are currently no deals as of the moment</p>
