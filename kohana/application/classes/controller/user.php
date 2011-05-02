@@ -41,7 +41,6 @@ class Controller_User extends Controller_App {
 			 // If user already signed-in
 			 if(Auth::instance()->logged_in() != 0){
 					// redirect to the user account
-					//$this->request->redirect('user/profile');
 					$this->request->redirect('admin/');
 			 }
 
