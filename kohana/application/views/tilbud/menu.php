@@ -35,6 +35,7 @@
 
 
       <?php if($is_logged) { ?>
+      	<li style="border: none;">&nbsp;</li>
       	<li id="mymenu"><?php echo strtoupper($user) . HTML::image('images/down.png', array('style' => 'margin-left: 10px;')); ?></li>
       <?php } ?>
       
