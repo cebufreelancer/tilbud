@@ -27,6 +27,7 @@ class Model_Deal extends ORM {
 		'min_buy'    	  => array('data_type' => 'int', 'is_nullable' => TRUE),
 		'max_buy'    	  => array('data_type' => 'int', 'is_nullable' => TRUE),
 		'status'    	  => array('data_type' => 'string', 'is_nullable' => TRUE),
+		'is_featured'   => array('data_type' => 'string'),
 		'start_date' 		=> array('data_type' => 'string'),
 		'end_date' 			=> array('data_type' => 'string'),
 		'date_create' 	=> array('data_type' => 'string'),
