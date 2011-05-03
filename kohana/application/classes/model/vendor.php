@@ -21,6 +21,7 @@ class Model_Vendor extends ORM {
 		'email'					=> array('data_type' => 'string', 'is_nullable' => TRUE),
 		'office_hours'	=> array('data_type' => 'string', 'is_nullable' => TRUE),
 		'status'				=> array('data_type' => 'string', 'is_nullable' => TRUE),
+		'notes' 				=> array('data_type' => 'string', 'is_nullable' => TRUE),
 		'date_created' 	=> array('data_type' => 'string'),
 		);
 	
