@@ -3,7 +3,7 @@
   	<div class="centered">
     	
       <div id="htitle">
-      	<h2>My Account</h2>
+      	<h2><?= LBL_MY_ACCOUNT ?></h2>
       </div>
 
       <div id="myforms">
@@ -18,8 +18,8 @@
 				?>
         
         <div id="action-button">
-          <?php echo HTML::anchor('#', 'My Orders', array('class' => 'addbutton')); ?>
-          <?php echo HTML::anchor('#', 'My Deals', array('class' => 'addbutton')); ?>
+          <?php echo HTML::anchor('#', LBL_My_Orders, array('class' => 'addbutton')); ?>
+          <?php echo HTML::anchor('#', LBL_My_Deals, array('class' => 'addbutton')); ?>
         </div>
          
         <p class="intro">This is your user information, <?php echo $user->username ?>.</p>

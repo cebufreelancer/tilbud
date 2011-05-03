@@ -621,3 +621,172 @@ span.block {
 	-moz-border-radius: 15px;
 	border-radius: 15px;
 }
+
+
+
+
+
+
+
+#signupform {
+  padding: 25px 10px;
+  background: #FFF url(../images/bg-content.png) top left no-repeat;
+}
+#signupform a.homelink { 
+	color: #2f9ad2;
+  border-bottom: 1px dotted #2f9ad2;
+}
+#signupform h2 { margin: 10px 0px; }
+#signupform span.username { padding-left: 50px; color: #999999; }
+
+#signupform ul { list-style-type: none; }
+#signupform ul li:last-of-type { 
+	text-align: left; 
+  margin-top: 10px; 
+  padding: 10px; 
+}
+/* Simple way to create labels-on-top */
+#signupform label { 
+	display: block;
+  font-size: 14px;
+  font-weight: bold;
+  color: #333333;
+}
+/** Error color **/
+#signupform input.error {
+  color:#CC0000;
+  border:solid 1px #de888a; background:#ffdddd;
+}
+
+/** When IE6 dies, replace with element-specifics. This is supposed to apply to only text, password and file. **/
+#signupform input[type="text"], 
+#signupform input[type="password"], 
+#signupform input[type="file"],
+#signupform select {
+  border:1px solid #DEDEDE;
+  color:#525151;
+  font-size:20px;
+  height:30px;
+  padding:2px 5px;
+  width:500px;
+  margin-bottom:10px;
+}
+#signupform input[type="file"] { font-size: 13px; font-weight: bold; }
+#signupform select { 
+	margin-bottom:10px; 
+  width: auto; 
+}
+   /** Again, without IE6 these would be element type selectors. We need a small margin. **/
+   input.radio, input.checkbox {
+      margin:0 0.4em 0 0;
+   }
+#signupform textarea {
+  font: 16px/20px Arial, Helvetica, sans-serif;
+  border:1px solid #DEDEDE;
+  color:#525151;
+  font-size:12pt;
+  padding:2px 5px;
+  width:500px;
+  margin-bottom: 10px;
+}
+#signupform textarea.display {
+ 	border: none;
+  width: 100%;
+  height: auto;
+  font-size: 13px;
+}
+
+#signupform input[type="submit"] {
+  font-size: 18px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+#signupform .record-value {
+  padding: 10px;
+  color: #666666;
+}
+
+
+
+
+
+
+
+#signupform-footer {
+  padding: 25px 10px;
+  background: #FFF url(../images/bg-content.png) top left no-repeat;
+}
+#signupform-footer a.homelink { 
+	color: #2f9ad2;
+  border-bottom: 1px dotted #2f9ad2;
+}
+#signupform-footer h2 { margin: 10px 0px; }
+#signupform-footer span.username { padding-left: 50px; color: #999999; }
+
+#signupform-footer ul { list-style-type: none; }
+#signupform-footer ul li:last-of-type { 
+	text-align: left; 
+  margin-top: 10px; 
+  padding: 10px; 
+}
+/* Simple way to create labels-on-top */
+#signupform-footer label { 
+	display: block;
+  font-size: 14px;
+  font-weight: bold;
+  color: #333333;
+}
+/** Error color **/
+#signupform-footer input.error {
+  color:#CC0000;
+  border:solid 1px #de888a; background:#ffdddd;
+}
+
+/** When IE6 dies, replace with element-specifics. This is supposed to apply to only text, password and file. **/
+#signupform-footer input[type="text"], 
+#signupform-footer input[type="password"], 
+#signupform-footer input[type="file"],
+#signupform-footer select {
+  border:1px solid #DEDEDE;
+  color:#525151;
+  font-size:20px;
+  height:30px;
+  padding:2px 5px;
+  width:500px;
+  margin-bottom:10px;
+}
+#signupform-footer input[type="file"] { font-size: 13px; font-weight: bold; }
+#signupform-footer select { 
+	margin-bottom:10px; 
+  width: auto; 
+}
+   /** Again, without IE6 these would be element type selectors. We need a small margin. **/
+   input.radio, input.checkbox {
+      margin:0 0.4em 0 0;
+   }
+#signupform-footer textarea {
+  font: 16px/20px Arial, Helvetica, sans-serif;
+  border:1px solid #DEDEDE;
+  color:#525151;
+  font-size:12pt;
+  padding:2px 5px;
+  width:500px;
+  margin-bottom: 10px;
+}
+#signupform-footer textarea.display {
+ 	border: none;
+  width: 100%;
+  height: auto;
+  font-size: 13px;
+}
+
+#signupform-footer input[type="submit"] {
+  font-size: 18px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+#signupform-footer .record-value {
+  padding: 10px;
+  color: #666666;
+}
+

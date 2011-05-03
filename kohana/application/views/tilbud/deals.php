@@ -8,7 +8,7 @@
       <!-- DEALS SECTION -->    	
     	<div id="body-content">
       	<div class="posts">
-        	<h1><a href="" class="posts-title">TIDLIGERE TILBUD</a></h1>
+        	<h1><a href="" class="posts-title"><?= LBL_ALLDEALS ?></a></h1>
 
 
           <?php foreach($deals as $deal){ ?>
@@ -27,10 +27,10 @@
                   <img src="<?= url::base(true);?>uploads/<?= $deal['ID'];?>/<?= $deal['image'];?>" width="165" height="105">
                 </div>
                 <div style="float :left">
-                  <div class="sold"><?php echo count($orders->get_orders($deal['ID'])); ?> Sold</div>
-                  <div class="widget-label">Price <span><?= $discounted_price; ?></span></div>
-                  <div class="widget-label">Value <span><?= $deal['regular_price']?></span></div>
-                  <div class="widget-label">Savings <span><?= $deal['discount']?> %</span></div>
+                  <div class="sold"><?php echo count($orders->get_orders($deal['ID'])); ?> <?= LBL_SOLD?></div>
+                  <div class="widget-label"><?= LBL_PRICE?> <span><?= $discounted_price; ?></span></div>
+                  <div class="widget-label"><?= LBL_VALUE?> <span><?= $deal['regular_price']?></span></div>
+                  <div class="widget-label"><?= LBL_SAVINGS ?><span><?= $deal['discount']?> %</span></div>
                   <div class="price"></div>                
                 </div>
               </div>

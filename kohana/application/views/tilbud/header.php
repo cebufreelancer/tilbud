@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
   <meta CONTENT="text/html; charset=ISO-8859-1"/>
-  <title>TILBUD</title>
+  <title>TilbudiByen</title>
 	
   <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.7/themes/base/jquery-ui.css" type="text/css" media="all" /> 
 	<link rel="stylesheet" media="all" href="<?php echo url::base()?>css/main.css"/>
@@ -115,9 +115,9 @@
   	<div class="centered">
       <div id="header-container">
       	<a href="<?= url::base();?>"><div class="hlogo"><?php echo HTML::image('images/logo.png', array('alt' => 'Tilbug i Byen')); ?></div></a>
-        <div class="hcaption">De bedste tilbud på restauranter, rejser, wellness og meget andet.</div>
+        <div class="hcaption"><?= LBL_TAG_LINE ?></div>
         <div class="hsocial">
-        	<span>Del med dine venner</span><br />
+        	<span><?= LBL_SHARE_LINKS ?></span><br />
 
 
           <div class="addthis_toolbox addthis_default_style ">
@@ -320,4 +320,4 @@
     </div>
   	<div style="display:none">
     	<div id="signup-form-footer"><?php require_once 'signupform-footer.php'; ?></div>
-    </div>    
+    </div>

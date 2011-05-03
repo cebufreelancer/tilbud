@@ -1,5 +1,5 @@
 <div id="htitle">
-  <h2>My Account</h2>
+  <h2><?= LBL_MY_ACCOUNT ?></h2>
 </div>
 
 <div id="myforms">
@@ -14,10 +14,10 @@
   ?>
   
   <div id="action-button">
-  	<?php echo HTML::anchor('user/myaccount', 'My Account', array('class' => 'addbutton')); ?>
-    <?php echo HTML::anchor('user/billing', 'Billing Info', array('class' => 'addbutton')); ?>
-    <?php echo HTML::anchor('#', 'My Orders', array('class' => 'addbutton')); ?>
-    <?php echo HTML::anchor('#', 'My Deals', array('class' => 'addbutton')); ?>
+  	<?php echo HTML::anchor('user/myaccount', LBL_My_Account, array('class' => 'addbutton')); ?>
+    <?php echo HTML::anchor('user/billing', LBL_Billing_Info, array('class' => 'addbutton')); ?>
+    <?php echo HTML::anchor('#', LBL_My_Orders, array('class' => 'addbutton')); ?>
+    <?php echo HTML::anchor('#', LBL_My_Deals, array('class' => 'addbutton')); ?>
   </div>
     
   <?php //echo '<pre>'; print_r($_SERVER); echo '</pre>'; 

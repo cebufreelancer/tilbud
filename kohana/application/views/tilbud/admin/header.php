@@ -18,7 +18,8 @@
   <script type="text/javascript">
   	tinyMCE.init({
   		mode : "textareas",
-  		theme : "simple"
+  		theme : "simple",
+  		editor_deselector : "mceNoEditor"
   	});
   </script>
   <!-- /TinyMCE -->

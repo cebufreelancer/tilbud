@@ -8,29 +8,30 @@
 		$user = $is_logged ? Auth::instance()->get_user()->username : '';
   
     if($is_admin) { ?>
-      <li><?php echo HTML::anchor('admin/users', 'USERS'); ?></li>
-      <li><?php echo HTML::anchor('admin/cities', 'CITIES'); ?></li>
-      <li><?php echo HTML::anchor('admin/vendors', 'VENDORS'); ?></li>
-      <li><?php echo HTML::anchor('admin/products', 'PRODUCTS'); ?></li>
-      <li><?php echo HTML::anchor('admin/deals', 'DEALS'); ?></li>      
-      <li><?php echo HTML::anchor('admin/pages', 'PAGES'); ?></li>
-      <li><?php echo HTML::anchor('admin/orders', 'ORDERS'); ?></li>
-      <li><?php echo HTML::anchor('user/logout', 'LOGOUT'); ?></li>
+      <li><?php echo HTML::anchor('admin/users', LBL_USERS); ?></li>
+      <li><?php echo HTML::anchor('admin/cities', LBL_CITIES); ?></li>
+      <li><?php echo HTML::anchor('admin/vendors', LBL_VENDORS); ?></li>
+      <li><?php echo HTML::anchor('admin/products', LBL_PRODUCTS); ?></li>
+      <li><?php echo HTML::anchor('admin/deals', LBL_DEALS); ?></li>      
+      <li><?php echo HTML::anchor('admin/pages', LBL_PAGES); ?></li>
+      <li><?php echo HTML::anchor('admin/orders', LBL_ORDERS); ?></li>
+      <li><?php echo HTML::anchor('admin/labels', LBL_LABELS); ?></li>
+      <li><?php echo HTML::anchor('user/logout', LBL_LOGOUT); ?></li>
 
     <?php } else { ?>
-      <li><?php echo HTML::anchor(url::base(true), 'DAGENS TILBUD'); ?></li>
-      <li><?php echo HTML::anchor('alldeals', 'TIDLIGERE TILBUD'); ?></li>
+      <li><?php echo HTML::anchor(url::base(true), LBL_FEATURED_DEAL); ?></li>
+      <li><?php echo HTML::anchor('alldeals', LBL_ALLDEALS); ?></li>
 
       <?php if (!$is_logged){?>
-      	<li><?php echo HTML::anchor('#signup-form', 'TILMED DIG', array('id' => 'signup')); ?></li>
+      	<li><?php echo HTML::anchor('#signup-form', LBL_SIGNUP, array('id' => 'signup')); ?></li>
       <?php } ?>
 
       
-      <li><a id="iabout" href="<?= url::base(true)?>ipages?p=about">OM OS</a></li>
-      <li><a id="icontact" href="<?= url::base(true)?>ipages?p=contact">KONTAKT OS</a></li>      
-      <li><a id="ifaq" href="<?= url::base(true)?>ipages?p=faq">FAQ</a></li>
+      <li><a id="iabout" href="<?= url::base(true)?>ipages?p=about"><?= LBL_ABOUTUS?></a></li>
+      <li><a id="icontact" href="<?= url::base(true)?>ipages?p=contact"><?= LBL_CONTACTUS ?></a></li>      
+      <li><a id="ifaq" href="<?= url::base(true)?>ipages?p=faq"><?= LBL_FAQ?></a></li>
       <?php if (!$is_logged){?>
-      	<li><?php echo HTML::anchor('#loginform', 'LOGIN', array('id' => 'tip5')); ?></li>
+      	<li><?php echo HTML::anchor('#loginform', LBL_LOGIN, array('id' => 'tip5')); ?></li>
       <?php } ?>
 
 
@@ -54,9 +55,9 @@
   <nav id="subnav">
     <ul>
       <li>My Stuff</li>
-      <li><?php echo HTML::anchor('user/myaccount', 'My Account'); ?></li>
-      <li><?php echo HTML::anchor('#', 'My Deals'); ?></li>
-      <li><?php echo HTML::anchor('user/logout', 'Logout'); ?></li>
+      <li><?php echo HTML::anchor('user/myaccount', LBL_My_Account); ?></li>
+      <li><?php echo HTML::anchor('#', LBL_My_Deals); ?></li>
+      <li><?php echo HTML::anchor('user/logout', LBL_LOGOUT); ?></li>
     </ul>
   </nav>
 <?php } ?>
