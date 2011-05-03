@@ -39,9 +39,6 @@
         <li><?php echo Form::label('vendor_office_hours', __('Office Hours')); ?>
         		<?php echo Form::textarea('vendor_office_hours', $vendor_office_hours); ?>
         </li>
-        <li><?php echo Form::label('vendor_notes', __('Admin Notes')); ?>
-        		<?php echo Form::textarea('vendor_notes', $vendor_notes); ?>
-        </li>
         <li>
         	<?php echo Form::submit(NULL, 'Save'); ?>
           <?php echo Form::submit(NULL, 'Cancel'); ?>

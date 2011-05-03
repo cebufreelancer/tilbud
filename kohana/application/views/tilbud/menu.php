@@ -14,7 +14,7 @@
       <li><?php echo HTML::anchor('admin/products', 'PRODUCTS'); ?></li>
       <li><?php echo HTML::anchor('admin/deals', 'DEALS'); ?></li>      
       <li><?php echo HTML::anchor('admin/pages', 'PAGES'); ?></li>
-      <li><?php echo HTML::anchor('', 'ORDERS'); ?></li>
+      <li><?php echo HTML::anchor('admin/orders', 'ORDERS'); ?></li>
       <li><?php echo HTML::anchor('user/logout', 'LOGOUT'); ?></li>
 
     <?php } else { ?>
@@ -35,6 +35,7 @@
 
 
       <?php if($is_logged) { ?>
+      	<li style="border: none;">&nbsp;</li>
       	<li id="mymenu"><?php echo strtoupper($user) . HTML::image('images/down.png', array('style' => 'margin-left: 10px;')); ?></li>
       <?php } ?>
       

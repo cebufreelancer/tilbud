@@ -26,7 +26,7 @@
         
         <?php 
         if(!empty($products)) {
-					echo $paging->render(); ?>
+					echo ($show_pager) ? $paging->render() : ''; ?>
 
           <table class="table">
           <thead>
@@ -58,7 +58,7 @@
           </table>
         
         <?php 
-					echo $paging->render(); 
+					echo ($show_pager) ? $paging->render() : '';
 				} else { ?>
         	<p>There are currently no products as of the moment</p>
         <?php } ?>

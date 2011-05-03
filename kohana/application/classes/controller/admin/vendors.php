@@ -57,6 +57,7 @@ class Controller_Admin_Vendors extends Controller {
 			$vendors->url  				= htmlentities($posts['vendor_website']);
 			$vendors->email 	 		= htmlentities($posts['vendor_email']);
 			$vendors->office_hours = htmlentities($posts['vendor_office_hours']);
+			$vendors->notes				= htmlentities($posts['vendor_notes']);
 			$vendors->status  		= 'active';
 					
 			if($vendors->save()) {
@@ -76,6 +77,7 @@ class Controller_Admin_Vendors extends Controller {
 		$page->vendor_website = isset($posts['vendor_website']) ? $posts['vendor_website'] : '';
 		$page->vendor_email 	= isset($posts['vendor_email']) ? $posts['vendor_email'] : '';
 		$page->vendor_office_hours = isset($posts['vendor_office_hours']) ? $posts['vendor_office_hours'] : '';
+		$page->vendor_notes		= isset($posts['vendor_notes']) ? $posts['vendor_notes'] : '';
 		
 		$this->response->body($page);
 	}
@@ -100,6 +102,7 @@ class Controller_Admin_Vendors extends Controller {
 			$vendors->url  				= htmlentities($posts['vendor_website']);
 			$vendors->email 	 		= htmlentities($posts['vendor_email']);
 			$vendors->office_hours = htmlentities($posts['vendor_office_hours']);
+			$vendors->notes				= htmlentities($posts['vendor_notes']);
 			$vendors->status  		= 'active';
 					
 			if($vendors->save()) {
@@ -119,6 +122,7 @@ class Controller_Admin_Vendors extends Controller {
 		$page->vendor_website = isset($posts['vendor_website']) ? $posts['vendor_website'] : html_entity_decode($vendors->url);
 		$page->vendor_email 	= isset($posts['vendor_email']) ? $posts['vendor_email'] : html_entity_decode($vendors->email);
 		$page->vendor_office_hours = isset($posts['vendor_office_hours']) ? $posts['vendor_office_hours'] : html_entity_decode($vendors->office_hours);
+		$page->vendor_notes		= isset($posts['vendor_notes']) ? $posts['vendor_notes'] : html_entity_decode($vendors->notes);
 		
 		$this->response->body($page);
 	}
@@ -160,6 +164,34 @@ class Controller_Admin_Vendors extends Controller {
 		}
 		$this->response->body($page);
 
+	}
+	
+	public function before() 
+	{
+		// This codeblock is very useful in development sites:
+		// What it does is get rid of invalid sessions which cause exceptions, which may happen
+		// 1) when you make errors in your code.
+		// 2) when the session expires!
+		try {
+			 $this->session = Session::instance();
+		} catch(ErrorException $e) {
+			 session_destroy();
+		}
+		// Execute parent::before first
+		parent::before();
+		// Open session
+		$this->session = Session::instance();
+
+		// Check user auth and role
+		$action_name = Request::current()->action();
+
+		if(Auth::instance()->logged_in('admin') === FALSE) {
+			if(Auth::instance()->logged_in()) {
+				Request::current()->redirect('user/myaccount');
+			} else {
+				Request::current()->redirect('user/login?u=' . urlencode($_SERVER['REDIRECT_URL']));
+			}
+		}
 	}
 
 } // End Welcome

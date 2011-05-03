@@ -146,7 +146,8 @@ header, content, footer {
   color: #FFFFFF;
   margin: 5px 0px;
   padding: 5px 10px;
-  min-height: 80px;
+  height: 80px;
+  overflow: hidden;
 }
 .deal-title h1 { font-size: 22px; }
 .deal-title p { 
@@ -412,6 +413,8 @@ footer {
   margin-top: 10px; 
   padding: 10px; 
 }
+#myforms ul li div.quarter { width: 25%; }
+#myforms ul li div.half { width: 50%; }
 /* Simple way to create labels-on-top */
 #myforms label { 
 	display: block;
@@ -429,6 +432,9 @@ footer {
 #myforms input[type="text"], 
 #myforms input[type="password"], 
 #myforms input[type="file"],
+#myforms input[type="email"],
+#myforms input[type="url"],
+#myforms input[type="tel"],
 #myforms select {
   border:1px solid #DEDEDE;
   color:#525151;
@@ -437,6 +443,11 @@ footer {
   padding:2px 5px;
   width:500px;
   margin-bottom:10px;
+}
+#myforms input[type="email"],
+#myforms input[type="url"],
+#myforms input[type="tel"] {
+  width: 300px;
 }
 #myforms input[type="file"] { font-size: 13px; font-weight: bold; }
 #myforms select { 
@@ -471,6 +482,27 @@ footer {
 #myforms .record-value {
   padding: 10px;
   color: #666666;
+}
+
+#deals-content-form {
+ 	width: 600px;
+  display: table-cell;
+  vertical-align: top;
+}
+#deals-content-form input[type="text"],
+#deals-content-form textarea { width: 570px; }
+#deals-detail-form {
+  width: 325px;
+  display: table-cell;
+}
+#deals-detail-form-inner {
+  margin-top: 145px;
+  background: #e9e9e9;
+  border: 1px solid #ddd;
+ 	padding: 25px 15px;
+  -webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
 }
 
 /** Deals Order Table **/
@@ -564,6 +596,8 @@ span.block {
 
 /** Miscs **/
 .clear { clear: both; }
+.left { float: left; }
+.right { float: right; }
 .addbutton {
   padding: 5px 15px;
   color: #FFF;

@@ -62,7 +62,7 @@
 					</table>
         
         <?php 
-					echo ($show_pager) ? $paging->render() : ''; ?>
+					echo ($show_pager) ? $paging->render() : '';
 				} else { ?>
         
         	<p>There are currently no deals as of the moment</p>
