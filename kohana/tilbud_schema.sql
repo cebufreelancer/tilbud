@@ -246,3 +246,6 @@ ALTER TABLE `users`
 	
 ALTER TABLE `billings`
   ADD CONSTRAINT FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+	
+ALTER TABLE `vendors`
+	ADD `notes` TEXT NULL;
