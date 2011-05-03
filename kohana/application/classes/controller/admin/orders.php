@@ -65,4 +65,41 @@ class Controller_Admin_Orders extends Controller {
 		}
 	}
 
+	public function action_edit($id)
+	{	
+		$page = View::factory('tilbud/admin/orders/order_form');
+		$page->label = LBL_ORDER_EDIT;
+		
+		$order = ORM::factory('order', $id);
+		
+		// Get posts
+		$posts = $this->request->post();
+		
+		if(!empty($posts)) {
+			$order->status = $posts['order_status'];
+			
+			if($order->save()) {
+				// message: save success
+        Message::add('success', sprintf(LBL_Successfully, LBL_ORDER, $order->ID));
+				
+				Request::current()->redirect('admin/orders');
+				return;
+			}
+		}
+		
+		$deal = ORM::factory('deal', $order->deal_id);
+		
+		$page->order_user = ORM::factory('user', $order->user_id)->firstname . ' ' . ORM::factory('user', $order->user_id)->lastname;
+		$page->order_deal_title = $deal->title;
+		$page->order_product_name = ORM::factory('product', $deal->product_id)->title; 
+		$page->order_quantity = $order->quantity;
+		$page->order_amount_paid = $order->total_count;
+		$page->order_status = $order->status;
+		$page->order_date_paid = $order->date_paid;
+		$page->order_date_created = $order->date_created;
+		
+		//print_r($order);
+		
+		$this->response->body($page);
+	}
 } // End Welcome

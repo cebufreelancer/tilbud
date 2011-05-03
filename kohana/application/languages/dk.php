@@ -64,8 +64,6 @@ define("LBL_RETYPE_PASSWORD","Re-type Password");
 define("LBL_FIRSTNAME","Firstname");
 define("LBL_LASTNAME","Lastname");
 
-
-
 define("LBL_LOGIN","LOGIN");
 define("LBL_USERS","USERS");
 define("LBL_CITIES","CITIES");
@@ -76,9 +74,29 @@ define("LBL_PAGES","PAGES");
 define("LBL_ORDERS","ORDERS");
 define("LBL_LABELS","LABELS");
 define("LBL_LOGOUT","LOGOUT");
+define("LBL_TOTAL", "TOTAL");
 
+define("LBL_PAID", "Paid");
+define("LBL_STATUS", "Status");
+define("LBL_DATE_CREATED", "Date Created");
+define("LBL_ORDERED_DEAL", "Ordered Deal");
+define("LBL_QUANTITY", "Quantity");
 
+define("LBL_ORDER", "Order");
+define("LBL_ORDER_EDIT", "Edit an Order");
+define("LBL_ORDER_NEW", "New");
+define("LBL_ORDER_DELIVERED", "Delivered");
+define("LBL_ORDER_CANCELLED", "Cancelled");
+define("LBL_ORDER_NOTREACHED", "Not Reached");
+define("LBL_USER", "User");
+define("LBL_PRODUCT_DEAL", "Product Deal");
+define("LBL_AMOUNT_PAID", "Amount Paid");
+define("LBL_PRODUCT_NAME", "Product Name");
 
 //Notification message
-define("LBL_Successfully_saved", "Successfully saved");
+define("LBL_Successfully", "%s %s has been successfully updated.");
+define("LBL_Successfully_added", "Successfully added.");
+define("LBL_Successfully_saved", "Successfully saved.");
+define("LBL_Successfully_updated", "Successfully updated.");
+define("LBL_Successfully_deleted", "Successfully deleted.");
 ?>
