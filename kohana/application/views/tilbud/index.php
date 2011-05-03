@@ -27,7 +27,7 @@
               	<script type="text/javascript">
 								jQuery(document).ready(function() {
 									var newYear = new Date(); 
-									newYear = new Date("<?php echo $deal->end_date; ?>");
+									newYear = new Date("<?php echo date("F d, Y") . " 23:59:59"; ?>");
 									$('#noDays').countdown({until: newYear, format: 'HMS', compact: true, description: '', timeSeparator: ' : '});
 								});
 								</script>
