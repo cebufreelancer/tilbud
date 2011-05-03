@@ -370,6 +370,11 @@ footer {
 	width: 80px;
 
 }
+.table tbody.order-table tr td { vertical-align: middle; }
+.table tbody.order-table tr td:first-of-type {
+  text-align: left;
+ 	width: 550px; 
+}
 .table thead.last { width: 200px; }
 .table .checkbox { margin-left: 10px; }
 .table td { padding: 10px; }
@@ -377,6 +382,7 @@ footer {
 .table tbody tr td:last-of-type {
   text-align: center;
 }
+.table tfoot { color: #390; }
 .table th {
   background: #eaeaea;
   color: #222;
@@ -390,6 +396,9 @@ footer {
   text-decoration: underline;
 	color: #333333; 
 }
+
+.table .delete { color: #D00216; }
+.table .delete:hover { font-weight: bold; }
 
 /* Forms */
 #htitle { 
@@ -421,6 +430,14 @@ footer {
   font-size: 14px;
   font-weight: bold;
   color: #333333;
+}
+#myforms .label { display: block; float: left; width: 150px; }
+#myforms span.lavalue { 
+	font-size: 14px;
+  font-weight: bold;
+  color: #999;
+  float:left;
+  width: 75%;
 }
 /** Error color **/
 #myforms input.error {
@@ -504,6 +521,8 @@ footer {
 	-moz-border-radius: 3px;
 	border-radius: 3px;
 }
+
+#order-view li { padding: 5px 0px; }
 
 /** Deals Order Table **/
 #order-deal { 
@@ -706,12 +725,6 @@ span.block {
   color: #666666;
 }
 
-
-
-
-
-
-
 #signupform-footer {
   padding: 25px 10px;
   background: #FFF url(../images/bg-content.png) top left no-repeat;
@@ -789,4 +802,3 @@ span.block {
   padding: 10px;
   color: #666666;
 }
-
