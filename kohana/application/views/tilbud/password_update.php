@@ -6,12 +6,12 @@
   	<div class="centered">
     	
       <div id="htitle">
-      	<h2>Account verification</h2>
+      	<h2><?= LBL_ACCOUNT_VERIFICATION?></h2>
       </div>
       
 
       <p>
-        Your password has been updated. 
+        <?= LBL_YOUR_PASSWORD_HAS_BEEN_UPDATED ?>
       </p>
 
     </div>

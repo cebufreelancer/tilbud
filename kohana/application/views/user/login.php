@@ -12,19 +12,19 @@ $form->info_class = 'info block';
 
 ?>
   <div id="htitle">
-    <h2><?php echo __('Login'); ?></h2>
+    <h2><?php echo LBL_LOGIN; ?></h2>
   </div>
 <?php
 echo $form->open('user/login', array('id' => 'myforms'));
 echo '<table><tr><td style="vertical-align: top;">';
 echo '<ul>';
-echo '<li>'.$form->label('username', __('Email or Username')).'</li>';
+echo '<li>'.$form->label('username', LBL_EMAIL_OR_USERNAME).'</li>';
 echo $form->input('username', null, array('class' => 'text twothirds'));
-echo '<li>'.$form->label('password', __('Password')).'</li>';
+echo '<li>'.$form->label('password', LBL_PASSWORD).'</li>';
 echo $form->password('password', null, array('class' => 'text twothirds'));
 echo '</ul>';
-echo $form->submit(NULL, __('Login'));
-echo '<small> '.Html::anchor('user/forgot', __('Forgot your password?')).'<br></small>';
+echo $form->submit(NULL, LBL_LOGIN);
+echo '<small> '.Html::anchor('user/forgot', LBL_FORGOT_PASSWORD).'<br></small>';
 echo $form->close();
 echo '</td><td width="5" style="border-right: 1px solid #DDD;">&nbsp;</td><td><td style="padding-left: 2px; vertical-align: top;">';
 

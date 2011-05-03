@@ -5,6 +5,8 @@
 // Load the core Kohana class
 require SYSPATH.'classes/kohana/core'.EXT;
 
+require APPPATH.'languages/dk'.EXT;
+
 if (is_file(APPPATH.'classes/kohana'.EXT))
 {
 	// Application extends the core

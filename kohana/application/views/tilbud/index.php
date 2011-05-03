@@ -11,13 +11,13 @@
       <ul id="deals-container">
       	<li>
           <div class="deal-title">
-            <h1><a href="">Dagens Tilbud</a></h1>
+            <h1><a href=""><?= LBL_Featured_Deal ?></a></h1>
             <p><?php echo html_entity_decode($deal->description); ?></p>
           </div>
           <div class="deal-banner" style="background-image: url(<?php echo URL::base(TRUE); ?>uploads/<?php echo "$deal->ID/$deal->image"; ?>)" >
               <div class="buy-container">
               	<?php $price = ($deal->regular_price * (100 - $deal->discount)) / 100; ?>
-              	<p class="huge buy-label" style="width: 600px;"><?php echo $price . ',-' . HTML::anchor('deals/buy/' . $deal->ID, HTML::image('images/buy.png', array('title' => 'Buy Now!', 'style' => 'margin-bottom: -10px;'))); ?></p>
+              	<p class="huge buy-label" style="width: 600px;"><?php echo $price . ',-' . HTML::anchor('deals/buy/' . $deal->ID, HTML::image('images/buy.png', array('title' => LBL_Buy_now, 'style' => 'margin-bottom: -10px;'))); ?></p>
               </div>
             <div class="buy-container">
             	<p class="discounts" style="text-align: left">Værdi <?php echo $deal->regular_price; ?>,- &nbsp; &nbsp; &nbsp;Rabat <?php echo $deal->discount; ?>%</p>
@@ -31,8 +31,8 @@
 									$('#noDays').countdown({until: newYear, format: 'HMS', compact: true, description: '', timeSeparator: ' : '});
 								});
 								</script>
-              	<p class="period-label">Tilbuddet stopper om</p>
-                <p id="noDays" class="period">Promo Ended</p>
+              	<p class="period-label"><?= LBL_OFFER_ENDS ?></p>
+                <p id="noDays" class="period"><?= LBL_PROMO_ENDED ?></p>
               </div>
               <div class="clock-img-cont"><?php echo HTML::image('images/clock.png', array('alt' => '')); ?></div>
               <div class="clear"></div>
@@ -40,14 +40,14 @@
             
             <div>
               <div class="offer-container" style="">
-              	<p class="period-label">Tilbuddet bliver aktiv ved <?php echo $deal->vouchers; ?> køb</p>
-                <p class="period"><?php echo sizeof($orders); ?> har købt</p>
+              	<p class="period-label"><?= LBL_OFFER_ACTIVE_WHEN ?> <?php echo $deal->vouchers; ?> <?= LBL_BUY ?></p>
+                <p class="period"><?php echo sizeof($orders); ?> <?= LBL_BOUGHT ?></p>
               </div>
               <div class="social-container">
               	
-              	<?php echo HTML::image('images/facebook.jpg', array('alt' => 'Share on facebook!')); ?>
+              	<?php echo HTML::image('images/facebook.jpg', array('alt' => LBL_SHARE_ON_FACEBOOK)); ?>
               </div>
-              <div class="save-label">SPAR <?php echo $deal->discount; ?>%</div>
+              <div class="save-label"><?= LBL_SPAR ?> <?php echo $deal->discount; ?>%</div>
               <div class="clear"></div>
             </div>
             
@@ -63,23 +63,23 @@
 
 					<div id="deals-info">
             <ul>
-              <li class="dhead-one">Det får du</li>
+              <li class="dhead-one"><?= LBL_WHAT_YOU_GET?></li>
               <li><p><?php echo $deal->whatyouget; ?>   </p>
               </li>
             </ul>
             <ul>
-            	<li class="dhead-two ">Praktiske oplysninger</li>
+            	<li class="dhead-two "><?= LBL_INFORMATION ?></li>
               <li><p> <?php echo $deal->information; ?></p></li>
             </ul>
         	</div>
         	
         	<div id="deals-info">
             <ul>
-              <li class="dhead-one"> Where to find us </li>
+              <li class="dhead-one"> <?= LBL_ADDRESS?> </li>
               <li><p> <?= str_replace("\n", "<br/>", $vendor->address)?></p> </li>
             </ul>            
             <ul>
-              <li class="dhead-two"> MAP </li>
+              <li class="dhead-two"> <?= LBL_MAP ?> </li>
               <li><center><div id="map_canvas" style="width: 390px; height: 300px;"></div></center>  </li>
             </ul>
         	
@@ -93,7 +93,7 @@
       </div>	
 
       <?php } else { ?>
-      	<p style="text-align: center; padding: 80px 40px;"> No Deals has been created yet. Please login then go to Deals Menu and  Create a deal. </p>
+      	<p style="text-align: center; padding: 80px 40px;"> <?= LBL_NO_DEALS_CREATED ?> </p>
       <?php } ?>      
     </div>
   </section>

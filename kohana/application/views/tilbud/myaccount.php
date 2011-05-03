@@ -1,5 +1,5 @@
 <div id="htitle">
-  <h2>My Account</h2>
+  <h2><?= LBL_My_Account ?></h2>
 </div>
 
 <div id="myforms">
@@ -14,10 +14,10 @@
   ?>
   
   <div id="action-button">
-  	<?php echo HTML::anchor('user/myaccount', 'My Account', array('class' => 'addbutton')); ?>
-    <?php echo HTML::anchor('user/billing', 'Billing Info', array('class' => 'addbutton')); ?>
-    <?php echo HTML::anchor('#', 'My Orders', array('class' => 'addbutton')); ?>
-    <?php echo HTML::anchor('#', 'My Deals', array('class' => 'addbutton')); ?>
+  	<?php echo HTML::anchor('user/myaccount', LBL_My_Account, array('class' => 'addbutton')); ?>
+    <?php echo HTML::anchor('user/billing', LBL_Billing_Info, array('class' => 'addbutton')); ?>
+    <?php echo HTML::anchor('#', LBL_My_Orders, array('class' => 'addbutton')); ?>
+    <?php echo HTML::anchor('#', LBL_My_Deals, array('class' => 'addbutton')); ?>
   </div>
     
   <?php //echo '<pre>'; print_r($_SERVER); echo '</pre>'; 
@@ -38,28 +38,28 @@
 	<ul>
   	<li><?php echo $form->label('firstname', __('Username: <span class="username">' . $username . '</span>')); ?></li>
     <li>&nbsp;</li>
-  	<li><?php echo $form->label('firstname', __('Firstname')); ?>
+  	<li><?php echo $form->label('firstname', LBL_FIRSTNAME); ?>
 				<?php echo $form->input('firstname', ucwords($firstname)); ?>
 		</li>
-    <li><?php echo $form->label('lastname', __('Lastname')); ?>
+    <li><?php echo $form->label('lastname', LBL_LASTNAME); ?>
 				<?php echo $form->input('lastname', ucwords($lastname)); ?>
 		</li>
-		<li><?php echo $form->label('email', __('Email Address')); ?>
+		<li><?php echo $form->label('email', LBL_EMAIL_ADDRESS); ?>
 				<?php echo $form->input('email', $email); ?>
         <span style="font-size: 10px; padding-left: 380px;"><?php echo HTML::anchor('#', 'Manage email subscription', array('class' => 'homelink')); ?></span>
 		</li>
-    <li><?php echo $form->label('mobile', __('Mobile')); ?>
+    <li><?php echo $form->label('mobile', LBL_MOBILE); ?>
 				<?php echo $form->input('mobile', ucwords($mobile)); ?>
 		</li>
     <li><h2>Change Your Password</h2></li>
-		<li><?php echo $form->label('password', __('Password')); ?>
+		<li><?php echo $form->label('password', LBL_PASSWORD); ?>
 				<?php echo $form->password('password', null); ?>
 		</li>
-		<li><?php echo $form->label('password_confirm', __('Re-type Password')); ?>
+		<li><?php echo $form->label('password_confirm', LBL_RETYPE_PASSWORD); ?>
 				<?php echo $form->password('password_confirm'); ?>
 		</li>
 		<li>
-			<?php echo $form->submit(NULL, __('Save')); ?>
+			<?php echo $form->submit(NULL, LBL_SAVE); ?>
 		</li>
 	</ul>
 	<?php echo $form->close(); ?>
