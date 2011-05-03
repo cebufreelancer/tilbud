@@ -71,7 +71,13 @@ class Controller_Deals extends Controller {
 									 ->rule('password_confirm', 'matches', array(':validation', ':field', 'password'));
 									 
 				if($valid_user->check()) {
-					
+					$user->firstname = $new_user['firstname'];
+					$user->lastname = $new_user['lastname'];
+					$user->email = $new_user['email'];
+					$user->password = Auth::instance()->hash($new_user['password']);
+					if($user->save()) {
+						$user_id = $user->id;
+					}
 				} else {
 					$errors = $valid_user->errors('user');
 				}
@@ -102,6 +108,31 @@ class Controller_Deals extends Controller {
 				$proc_order = ORM::factory('order');
 				$proc_order->values($order);
 				if($proc_order->save()) {
+
+						/************************
+						 *    Email the user
+						************************/ 
+						$to = $posts['semail'];
+						$subject = "Confirm your registration to TilbudiByen newsletter.";
+						$headers = 'MIME-Version: 1.0' . "\r\n";
+						$headers .= "Content-type: text/html; charset=UTF-8" . "\r\n";
+						$headers .= "From: no-reply@tilbudibyen.com" . "\r\n".
+												"Reply-To: no-reply@tilbudibyen.com" . "\r\n".
+												"X-Mailer: PHP/" . phpversion();
+												
+						$message = "
+Hello, 
+<br/>
+<br/>
+You have made an order to tilbudibyen.com.  Please do make the payment now.<br/><br/>
+
+<br/><br/>
+The Tilbudibyen Team
+<br/>
+<a href=\"http://www.tilbudibyen.com\">http://www.tilbudibyen.com</a>
+";
+						mail($to, $subject, $message, $headers);
+					
 						$url = sprintf('deals/buy?did=%d&oid=%d&payment=success', $proc_order->deal_id, $proc_order->ID);
 						$this->request->redirect($url);
 						return;

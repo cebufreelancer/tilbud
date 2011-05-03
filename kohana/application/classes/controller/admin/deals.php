@@ -83,6 +83,7 @@ class Controller_Admin_Deals extends Controller {
 			$deals->status  		= htmlentities($posts['deal_status']);
 			$deals->start_date	= date("Y-m-d H:i:S", strtotime($posts['deal_start_date']));
 			$deals->end_date		= date("Y-m-d H:i:S", strtotime($posts['deal_end_date'] . " 23:59:00"));
+			$deals->is_featured = 1;
 
 			if($deals->save()) {
 				// message: save success
@@ -157,8 +158,7 @@ class Controller_Admin_Deals extends Controller {
 			$deals->start_date	= date("Y-m-d H:i:S", strtotime($posts['deal_start_date']));
 			$deals->end_date		= date("Y-m-d H:i:S", strtotime($posts['deal_end_date'] . " 23:59:00"));
 			$deals->last_update = date("Y-m-d H:i:S");
-
-			
+			$deals->is_featured = 1;
 
 			if($deals->save()) {
 				// message: save success
