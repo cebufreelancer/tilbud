@@ -119,7 +119,10 @@ class Controller_Home extends Controller {
 			}
 			
 			$user->status = 'active';
-			
+		 	$user->username = $email;
+	
+		// Automatically login the current user
+		Auth::instance()->force_login($email);
 			if($user->save()) {
 				Message::add('success', __('Your account has been verified. '));
 				$success = true;
@@ -141,10 +144,17 @@ class Controller_Home extends Controller {
 	  if (!empty($posts)) {
 	    $email = $_POST['email'];
 
-	    if ($_POST['password'] == $_POST['confirm_password']){
-	      $clean_posts['password'] = "mike";
-	      Auth::instance()->get_user()->update_user($clean_posts, array('password'));
-	      
+	    if ($_POST['password'] == $_POST['password_confirm']){
+
+		
+	      $clean_posts['password'] = $_POST['password'];
+		try {
+	      Auth::instance()->get_user()->update_user($_POST, array('password'));
+	      } catch (ORM_Validation_Exception $e) {
+			$errors = $e->errors('register');
+					$errors = array_merge($errors, (isset($errors['_external']) ? $errors['_external'] : array()));
+			print_r($errors);
+		}
 		    $this->response->body(View::factory('tilbud/password_update'));
 	    }else{
 		    $this->request->redirect('verify?e=' . $email);

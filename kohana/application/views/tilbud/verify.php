@@ -30,8 +30,8 @@
                 <li><?php echo Form::label('password', LBL_PASSWORD); ?>
                 		<?php echo Form::password('password', ''); ?>
                 </li>
-              	<li><?php echo Form::label('confirm_password', LBL_CONFIRM_PASSWORD); ?>
-        						<?php echo Form::password('confirm_password', ''); ?>
+              	<li><?php echo Form::label('password_confirm', LBL_CONFIRM_PASSWORD); ?>
+        						<?php echo Form::password('password_confirm', ''); ?>
                 </li>
                 <li>
                 	<?php echo Form::submit(NULL, LBL_UPDATE); ?>
