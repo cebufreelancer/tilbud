@@ -4,6 +4,7 @@ class Controller_Admin_Deals extends Controller {
 
 	public function action_index()
 	{		
+
 		$page = View::factory('tilbud/admin/deals/index');
 		$deals = ORM::factory('deal');
 		
@@ -86,8 +87,15 @@ class Controller_Admin_Deals extends Controller {
 			$deals->start_date	= date("Y-m-d H:i:S", strtotime($posts['deal_start_date']));
 			$deals->end_date		= date("Y-m-d H:i:S", strtotime($posts['deal_start_date'] . " 23:59:59"));
 			$deals->is_featured = 1;
-
+			
+			if (isset($_FILES['deal_image'])) {
+			  $deals->image = $_FILES['deal_image']['name'];
+			}
+			
 			if($deals->save()) {
+			  mkdir(APPPATH . "../uploads/". $deals->ID);
+			  move_uploaded_file($_FILES["deal_image"]["tmp_name"], APPPATH . "../uploads/" . $deals->ID . "/" . $_FILES["deal_image"]["name"]);
+			  
 				// message: save success
         Message::add('success', __(sprintf(LBL_SUCCESS_ADD, LBL_DEAL,$deals->title)));
 				

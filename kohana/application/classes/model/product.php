@@ -71,10 +71,21 @@ class Model_Product extends ORM {
 		
 		return $deals;
 	}
-	
-  public function get_product($id){
-    $product = ORM::factory('product')->find($id);
-		return $product;
+
+	public function get_product($id)
+	{
+    $result = ORM::factory('product')
+             ->where('ID', '=', $id)
+             ->find_all();
+
+		$orders = array();
+
+    foreach($result as $d) {
+      $orders[] = $d->as_array();
+    }
+	  
+		return $orders;
 	}
+	
 	
 } // End of Product Model

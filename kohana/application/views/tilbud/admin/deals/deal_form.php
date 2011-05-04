@@ -32,7 +32,7 @@
               <?php echo Form::input('deal_title', $deal_title, array('autofocus' => 1,
 																																			'style' => 'width: 570px;')); ?>
           </li>
-          <li><?php echo Form::label('deal_desc', __(LBL_TITLE)); ?>
+          <li><?php echo Form::label('deal_desc', __(LBL_TITLE_DESC)); ?>
               <?php echo Form::textarea('deal_desc', $deal_desc, array('rows' => 5,
 																																			 'style' => 'width: 97%;')); ?>
           </li>
@@ -89,7 +89,7 @@
             <div class="half left">
               <?php echo Form::label('deal_discount', __(LBL_DISCOUNT)); ?>
               <?php echo Form::input('deal_discount', $deal_discount, array('style' => 'width: 100px;',
-                                                                            'placeholder' => '0')); ?>
+                                                                            'placeholder' => '50')); ?>
               <span style="font-size: 20px;"> % </span>
             </div>
             <div class="clear"></div>
@@ -109,7 +109,7 @@
           </li>
           <li><?php echo Form::label('deal_vouchers', __(LBL_NUMBER_OF_VOUCHERS)); ?>
               <?php echo Form::input('deal_vouchers', $deal_vouchers, array('style' => 'width: 100px;',
-                                                                            'placeholder' => '1')); ?>
+                                                                            'placeholder' => '100')); ?>
           </li> 
           <li><?php echo Form::label('deal_status', __(LBL_STATUS)); ?>
               <?php echo Form::select('deal_status', $status); ?>

@@ -49,13 +49,12 @@ class Controller_Admin_Products extends Controller {
 		
 		// This will check if submitted
 		if(!empty($posts)) {
-					
 			$products->vendor_id 	 = $posts['product_vendor'];
 			$products->title 			 = htmlentities($posts['product_name']);
 			$products->description = htmlentities($posts['product_desc']);
 			$products->price 	 		 = $posts['product_price'];
 			
-			if(isset($_FILES['product_vendor'])) {
+			if(isset($_FILES['product_image'])) {
 				$products->image = $_FILES['product_image']['name'];
 			}
 			

@@ -26,9 +26,11 @@
         <li><?php echo Form::label('product_price', __('Price')); ?>
         		<?php echo Form::input('product_price', $prod_price, array('style' => 'width: 100px;')); ?>
         </li>
+        <!--
         <li><?php echo Form::label('product_image', __('Upload Image')); ?>
         		<?php echo Form::file('product_image'); ?>
         </li>
+        -->
         <li>
         	<?php echo Form::submit(NULL, 'Save'); ?>
           <?php echo Form::submit(NULL, 'Cancel'); ?>
