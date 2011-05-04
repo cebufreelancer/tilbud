@@ -33,27 +33,29 @@
 					<table class="table">
 					<thead>
 					<tr>
-						<td>Action</td>
 						<td>Title</td>
-						<td>Image</td>
 						<td>Start date</td>
-						<td>End date</td>
+						<td>Sold</td>
 						<td>Status</td>
 						<td>Date Created</td>
 					</tr>
 					</thead>
-					<tbody>
+					<tbody class="order-table">
 					<?php
 					foreach($deals as $deal) {
 						$edit_url = HTML::anchor('admin/deals/edit/' . $deal['ID'], 'Edit');
-						$delete_url = HTML::anchor('admin/deals/delete/' . $deal['ID'], 'Delete');
+						$delete_url = HTML::anchor('admin/deals/delete/' . $deal['ID'], 'Delete', array('class' => 'delete'));
+						$vendor_id = ORM::factory('product', $deal['product_id'])->vendor_id;
 						echo '<tr>';
-						echo '<td>' . $edit_url . ' ' . $delete_url . '</td>';
-						echo '<td><b>' . $deal['title'] . '</b></td>';
-						echo '<td>' . $deal['image'] . '</td>';
-						echo '<td>' . $deal['start_date'] . '</td>';
-						echo '<td>' . $deal['end_date'] . '</td>';
-						echo '<td>' . $deal['status'] . '</td>';
+						echo '<td><b>' . $deal['title'] . '</b>' .
+						     '<div>' . ORM::factory('vendor', $vendor_id)->name . 
+						     ' -> ' . ORM::factory('product', $deal['product_id'])->title . '</div>' . 
+						     '<div>' . $edit_url . ' | ' . $delete_url . '</div>' .
+						     '</td>';
+						echo '<td>' . date("F d, Y", strtotime($deal['start_date'])) . '</td>';
+						echo '<td>' . $deal['total_sold'] . '</td>';
+						//echo '<td>' . $deal['end_date'] . '</td>';
+						echo '<td>' . ucwords($deal['status']) . '</td>';
 						echo '<td>' . Date::fuzzy_span(strtotime($deal['date_create'])) . '</td>';
 						echo '</tr>';
 					}		
