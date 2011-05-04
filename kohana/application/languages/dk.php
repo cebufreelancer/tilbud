@@ -75,12 +75,21 @@ define("LBL_ORDERS","ORDERS");
 define("LBL_LABELS","LABELS");
 define("LBL_LOGOUT","LOGOUT");
 define("LBL_TOTAL", "TOTAL");
+define("LBL_CATEGORIES", "CATEGORIES");
 
 define("LBL_PAID", "Paid");
 define("LBL_STATUS", "Status");
 define("LBL_DATE_CREATED", "Date Created");
 define("LBL_ORDERED_DEAL", "Ordered Deal");
 define("LBL_QUANTITY", "Quantity");
+define("LBL_DISCOUNT", "Discount");
+define("LBL_REGULAR_PRICE", "Regular Price");
+define("LBL_MINIMUM_BUY", "Minimum Buy");
+define("LBL_MAXIMUM_BUY", "Maximum Buy");
+define("LBL_NUMBER_OF_VOUCHERS", "Number of Vouchers");
+define("LBL_DEAL_START_DATE", "Deal Start Date");
+
+define("LBL_CATEGORY", "Category");
 
 define("LBL_ORDER", "Order");
 define("LBL_ORDER_EDIT", "Edit an Order");
