@@ -21,34 +21,34 @@
 																						 					'style' => 'display: table;')); ?>
       <div id="deals-content-form">
         <ul>
-          <li><?php echo Form::label('deal_city', __('City')); ?>
+          <li><?php echo Form::label('deal_city', __(LBL_CITY)); ?>
               <?php echo Form::select('deal_city', $cities); ?>
           </li>
-          <li><?php echo Form::label('deal_product', __('Product')); ?>
+          <li><?php echo Form::label('deal_product', __(LBL_PRODUCT)); ?>
               <?php echo Form::select('deal_product', $products); ?>
           </li>
   
-          <li><?php echo Form::label('deal_title', __('Title')); ?>
+          <li><?php echo Form::label('deal_title', __(LBL_TITLE)); ?>
               <?php echo Form::input('deal_title', $deal_title, array('autofocus' => 1,
 																																			'style' => 'width: 570px;')); ?>
           </li>
-          <li><?php echo Form::label('deal_desc', __('Title Description')); ?>
+          <li><?php echo Form::label('deal_desc', __(LBL_TITLE)); ?>
               <?php echo Form::textarea('deal_desc', $deal_desc, array('rows' => 5,
 																																			 'style' => 'width: 97%;')); ?>
           </li>
-          <li><?php echo Form::label('deal_content_title', __('Content Title')); ?>
+          <li><?php echo Form::label('deal_content_title', __(LBL_CONTENT_TITLE)); ?>
               <?php echo Form::input('deal_content_title', $deal_content_title, array('style' => 'width: 570px;')); ?>
           </li>
-          <li><?php echo Form::label('deal_desc_long', __('Content Description')); ?>
+          <li><?php echo Form::label('deal_desc_long', __(LBL_CONTENT_DESC)); ?>
               <?php echo Form::textarea('deal_desc_long', $deal_desc_long); ?>
           </li>
-          <li><?php echo Form::label('deal_whatyouget', __('What you get')); ?>
+          <li><?php echo Form::label('deal_whatyouget', __(LBL_WHAT_YOU_GET)); ?>
               <?php echo Form::textarea('deal_whatyouget', $deal_whatyouget, array('rows' => 5)); ?>
           </li>
-          <li><?php echo Form::label('deal_information', __('Information')); ?>
+          <li><?php echo Form::label('deal_information', __(LBL_INFORMATION)); ?>
               <?php echo Form::textarea('deal_information', $deal_information, array('rows' => 5)); ?>
           </li>
-          <li><?php echo Form::label('deal_image', __('Upload image')); ?>
+          <li><?php echo Form::label('deal_image', __(LBL_UPLOAD_IMAGE)); ?>
               <?php echo Form::file('deal_image'); ?>
           </li>
         </ul>
@@ -117,18 +117,15 @@
           <li><?php echo Form::label('deal_status', __(LBL_CATEGORY)); ?>
           		<?php
 							foreach($categories as $k => $cat) {
+								$is_checked = in_array($k, $deal_categories) ? TRUE : NULL;
 								echo '<div class="deals-category-container">';
 								echo Form::label("category_$k", $cat);
-								echo Form::checkbox("category", $k, NULL ,array('id' => "category_$k"));
+								echo Form::checkbox("category[]", $k, $is_checked ,array('id' => "category_$k"));
 								echo '<div class="clear"></div>';
 								echo '</div>';
-              
-								//echo '<li style="padding: 2px 5px; background: #FFFFFF; text-align: right;"><span class="cat-label">' . $cat . '</span>' . Form::checkbox('category[]', $k) . '</li>';
-							}
-							
+ 							}
 							?>              
           </li>
-          <?php //print_r($categories); ?>
           <?php
 					/*
 					Not needed anymore

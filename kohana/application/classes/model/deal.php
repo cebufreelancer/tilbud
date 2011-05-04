@@ -21,8 +21,8 @@ class Model_Deal extends ORM {
 		'information' 	=> array('data_type' => 'string', 'is_nullable' => TRUE),
 		'whatyouget' 		=> array('data_type' => 'string', 'is_nullable' => TRUE),
 		'image' 				=> array('data_type' => 'string', 'is_nullable' => TRUE), 
-		'regular_price'	=> array('data_type' => 'decimal'),
-		'discount'    	=> array('data_type' => 'decimal', 'is_nullable' => TRUE),
+		'regular_price'	=> array('data_type' => 'float'),
+		'discount'    	=> array('data_type' => 'float', 'is_nullable' => TRUE),
 		'vouchers'  	  => array('data_type' => 'int', 'is_nullable' => TRUE),
 		'min_buy'    	  => array('data_type' => 'int', 'is_nullable' => TRUE),
 		'max_buy'    	  => array('data_type' => 'int', 'is_nullable' => TRUE),
@@ -67,5 +67,19 @@ class Model_Deal extends ORM {
     
     return $d;
 
+	}
+	
+	public function get_categories($deal_id)
+	{
+		$query = DB::select()->from('category_relationships')
+												 ->where('deal_id', '=', $deal_id)
+												 ->execute()
+												 ->as_array();
+		$categories = array();
+		foreach($query as $q) {
+			$categories[] = $q['category_id'];
+		}
+		
+		return $categories;
 	}
 } // End of Product Model
