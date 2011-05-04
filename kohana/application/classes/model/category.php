@@ -21,14 +21,16 @@ class Model_Category extends ORM {
 		$query = DB::delete('category_relationships')
 										->where('deal_id','=',$deal_id)
 										->execute();
-				
-		// Insert new categories
-		$query = DB::query(Database::INSERT, 'INSERT INTO category_relationships (category_id, deal_id) VALUES (:cat_id, :deal_id)')
-    										->bind(':cat_id', $cat)
-												->bind(':deal_id', $deal_id);
 		
-		foreach($categories as $cat) {
-			$query->execute();	
+		if(!empty($categories)) {				
+			// Insert new categories
+			$query = DB::query(Database::INSERT, 'INSERT INTO category_relationships (category_id, deal_id) VALUES (:cat_id, :deal_id)')
+    										->bind(':cat_id', $cat)
+										->bind(':deal_id', $deal_id);
+		
+			foreach($categories as $cat) {
+				$query->execute();	
+			}
 		}
 		
 		return true;

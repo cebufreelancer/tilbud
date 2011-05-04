@@ -98,8 +98,9 @@ class Controller_Admin_Deals extends Controller {
 			  
 				// message: save success
         Message::add('success', __(sprintf(LBL_SUCCESS_ADD, LBL_DEAL,$deals->title)));
-				
+		
 				// Update all the Category Relationships
+				$posts['category'] = !empty($posts['category']) ? $posts['category'] : array();		
 				ORM::factory('category')->update_relationship($deals->ID, $posts['category']);
 				
 				// Assuming all is correct
@@ -179,6 +180,7 @@ class Controller_Admin_Deals extends Controller {
         Message::add('success', __('Deal ' . $deals->title . 'has been successfully added.'));
 				
 				// Update all the Category Relationships
+				$posts['category'] = !empty($posts['category']) ? $posts['category'] : array();		
 				ORM::factory('category')->update_relationship($deals->ID, $posts['category']);
 				
 				// Assuming all is correct
