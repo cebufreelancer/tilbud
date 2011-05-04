@@ -112,7 +112,7 @@ class Controller_Deals extends Controller {
 						/************************
 						 *    Email the user
 						************************/ 
-						$to = $posts['semail'];
+						$to = Auth::instance()->get_user()->email;
 						$subject = "Confirm your registration to TilbudiByen newsletter.";
 						$headers = 'MIME-Version: 1.0' . "\r\n";
 						$headers .= "Content-type: text/html; charset=UTF-8" . "\r\n";
