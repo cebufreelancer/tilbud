@@ -13,10 +13,8 @@
       <li><?php echo HTML::anchor('admin/vendors', LBL_VENDORS); ?></li>
       <li><?php echo HTML::anchor('admin/products', LBL_PRODUCTS); ?></li>
       <li><?php echo HTML::anchor('admin/deals', LBL_DEALS); ?></li>      
-      <li><?php echo HTML::anchor('admin/pages', LBL_PAGES); ?></li>
       <li><?php echo HTML::anchor('admin/orders', LBL_ORDERS); ?></li>
-      <li><?php echo HTML::anchor('admin/labels', LBL_LABELS); ?></li>
-      <li><?php echo HTML::anchor('user/logout', LBL_LOGOUT); ?></li>
+      <li id="mymenu"><?php echo strtoupper("more") . HTML::image('images/down.png', array('style' => 'margin-left: 10px;')); ?></li>
 
     <?php } else { ?>
       <li><?php echo HTML::anchor(url::base(true), LBL_FEATURED_DEAL); ?></li>
@@ -43,7 +41,7 @@
     <?php } ?>
   </ul>
 </nav>
-<?php if($is_logged && !$is_admin) { ?>
+<?php if($is_logged) { ?>
 	<script type="text/javascript">
 		$(document).ready(function(){	
 			$("#mymenu").click(function(){
@@ -54,10 +52,17 @@
   
   <nav id="subnav">
     <ul>
-      <li>My Stuff</li>
-      <li><?php echo HTML::anchor('user/myaccount', LBL_My_Account); ?></li>
-      <li><?php echo HTML::anchor('#', LBL_My_Deals); ?></li>
-      <li><?php echo HTML::anchor('user/logout', LBL_LOGOUT); ?></li>
+      <?php if(!$is_admin) { ?>
+      	<li>My Stuff</li>
+        <li><?php echo HTML::anchor('user/myaccount', LBL_My_Account); ?></li>
+        <li><?php echo HTML::anchor('#', LBL_My_Deals); ?></li>
+      <?php } else { ?>
+      	<li>Settings</li>
+        <li><?php echo HTML::anchor('admin/labels', ucwords(strtolower(LBL_LABELS))); ?></li>
+        <li><?php echo HTML::anchor('admin/pages', ucwords(strtolower(LBL_PAGES))); ?></li>
+        <li><?php echo HTML::anchor('', ucwords(strtolower(LBL_CATEGORIES))); ?></li>
+      <?php } ?>
+      <li><?php echo HTML::anchor('user/logout', ucwords(strtolower(LBL_LOGOUT))); ?></li>
     </ul>
   </nav>
 <?php } ?>

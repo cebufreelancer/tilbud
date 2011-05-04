@@ -251,3 +251,30 @@ ALTER TABLE `vendors`
 	ADD `notes` TEXT NULL;
 	
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_orders` AS select `orders`.`ID` AS `ID`,`orders`.`user_id` AS `user_id`,`orders`.`deal_id` AS `deal_id`,`orders`.`quantity` AS `quantity`,`orders`.`payment_type` AS `payment_type`,`orders`.`total_count` AS `total_count`,`orders`.`status` AS `status`,`orders`.`date_paid` AS `date_paid`,`orders`.`date_created` AS `date_created`,`deals`.`title` AS `dtitle`,`deals`.`regular_price` AS `regular_price`,`deals`.`discount` AS `discount`,`deals`.`start_date` AS `start_date`,`deals`.`end_date` AS `end_date`,`deals`.`total_sold` AS `total_sold`,`deals`.`image` AS `dimage`,`products`.`title` AS `ptitle`,`products`.`price` AS `price`,`products`.`image` AS `pimage`,`cities`.`name` AS `name`,`deals`.`city_id` AS `city_id`,`users`.`firstname` AS `firstname`,`users`.`lastname` AS `lastname`,`users`.`email` AS `email`,`users`.`username` AS `username` from ((((`orders` join `deals`) join `products`) join `cities`) join `users`) where ((`orders`.`deal_id` = `deals`.`ID`) and (`deals`.`product_id` = `products`.`ID`) and (`deals`.`city_id` = `cities`.`ID`) and (`orders`.`user_id` = `users`.`id`)) order by `orders`.`date_paid`,`orders`.`date_created`;
+
+--
+-- Table structure for table `categories`
+--
+
+CREATE TABLE IF NOT EXISTS `categories` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL,
+  `url_code` varchar(100) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `categories`
+--
+
+INSERT INTO `categories` (`ID`, `name`, `url_code`) VALUES
+(1, 'Example Category', 'example-category');
+
+--
+-- Table structure for table `category_relationships`
+--
+
+CREATE TABLE IF NOT EXISTS `category_relationships` (
+  `category_id` int(11) NOT NULL,
+  `deal_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;

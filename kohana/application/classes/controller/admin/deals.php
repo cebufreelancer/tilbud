@@ -46,6 +46,7 @@ class Controller_Admin_Deals extends Controller {
 		$result = ORM::factory('city');
 		$cities = $result->order_by('name', 'ASC')->find_all();
 		
+		
 		$allproducts = ORM::factory('product');
 		$result_products = $allproducts->order_by('ID', 'ASC')->find_all();
 
@@ -82,7 +83,7 @@ class Controller_Admin_Deals extends Controller {
 			$deals->max_buy 	 	= htmlentities($posts['deal_max_buy']);
 			$deals->status  		= htmlentities($posts['deal_status']);
 			$deals->start_date	= date("Y-m-d H:i:S", strtotime($posts['deal_start_date']));
-			$deals->end_date		= date("Y-m-d H:i:S", strtotime($posts['deal_end_date'] . " 23:59:00"));
+			$deals->end_date		= date("Y-m-d H:i:S", strtotime($posts['deal_start_date'] . " 23:59:59"));
 			$deals->is_featured = 1;
 
 			if($deals->save()) {
@@ -109,11 +110,12 @@ class Controller_Admin_Deals extends Controller {
 		$page->deal_min_buy 	= isset($posts['deal_min_buy']) ? $posts['deal_min_buy'] : 1;
 		$page->deal_max_buy 	= isset($posts['deal_max_buy']) ? $posts['deal_max_buy'] : 1;
 		$page->start_date 		= isset($posts['deal_start_date']) ? $posts['deal_start_date'] : date("Y/m/d");
-		$page->end_date 			= isset($posts['deal_end_date']) ? $posts['deal_end_date'] : date("Y/m/d");
+		//$page->end_date 			= isset($posts['deal_end_date']) ? $posts['deal_end_date'] : date("Y/m/d");
 		$page->deal_status 		= isset($posts['deal_status']) ? $posts['deal_status'] : '';
 
 		$page->cities = $citylist;
 		$page->products = $products;
+		$page->categories = $cities = Kohana::config('global.categories');
 
 		$this->response->body($page);
 	}
@@ -156,7 +158,7 @@ class Controller_Admin_Deals extends Controller {
 			$deals->max_buy 	 	= htmlentities($posts['deal_max_buy']);
 			$deals->status  		= htmlentities($posts['deal_status']);
 			$deals->start_date	= date("Y-m-d H:i:S", strtotime($posts['deal_start_date']));
-			$deals->end_date		= date("Y-m-d H:i:S", strtotime($posts['deal_end_date'] . " 23:59:00"));
+			$deals->end_date		= date("Y-m-d H:i:S", strtotime($posts['deal_start_date'] . " 23:59:59"));
 			$deals->last_update = date("Y-m-d H:i:S");
 			$deals->is_featured = 1;
 
@@ -185,7 +187,7 @@ class Controller_Admin_Deals extends Controller {
 		$page->deal_max_buy 	= isset($posts['deal_max_buy']) ? $posts['deal_max_buy'] : $deals->max_buy;
 		$page->deal_status 		= isset($posts['deal_status']) ? $posts['deal_status'] : $deals->status;
 		$page->start_date 		= isset($posts['deal_start_date']) ? $posts['deal_start_date'] : date("Y/m/d", strtotime($deals->start_date));
-		$page->end_date 			= isset($posts['deal_end_date']) ? $posts['deal_end_date'] : date("Y/m/d", strtotime($deals->end_date));
+		//$page->end_date 			= isset($posts['deal_end_date']) ? $posts['deal_end_date'] : date("Y/m/d", strtotime($deals->end_date));
 
 		$page->cities = Kohana::config('global.cities');
 		$page->products = $products;
