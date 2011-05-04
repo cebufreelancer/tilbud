@@ -119,7 +119,7 @@ class Controller_Admin_Deals extends Controller {
 
 		$page->cities = $citylist;
 		$page->products = $products;
-		$page->categories = $cities = Kohana::config('global.categories');
+		$page->categories = Kohana::config('global.categories');
 
 		$this->response->body($page);
 	}
@@ -198,7 +198,7 @@ class Controller_Admin_Deals extends Controller {
 
 		$page->cities = Kohana::config('global.cities');
 		$page->products = $products;
-		$page->categories = $cities = Kohana::config('global.categories');
+		$page->categories = Kohana::config('global.categories');
 		$page->deal_categories = $deals->get_categories($deals->ID);
 
 		$this->response->body($page);
