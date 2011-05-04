@@ -12,7 +12,7 @@
       	<li>
           <div class="deal-title">
             <h1><a href=""><?= LBL_Featured_Deal ?></a></h1>
-            <p><?php echo html_entity_decode($deal->description); ?></p>
+            <p><?php echo substr(html_entity_decode($deal->description), 0, 200); ?></p>
           </div>
           <div class="deal-banner" style="background-image: url(<?php echo URL::base(TRUE); ?>uploads/<?php echo "$deal->ID/$deal->image"; ?>)" >
               <div class="buy-container">
@@ -20,7 +20,7 @@
               	<p class="huge buy-label" style="width: 600px;"><?php echo $price . ',-' . HTML::anchor('deals/buy/' . $deal->ID, HTML::image('images/buy.png', array('title' => LBL_Buy_now, 'style' => 'margin-bottom: -10px;'))); ?></p>
               </div>
             <div class="buy-container">
-            	<p class="discounts" style="text-align: left">Værdi <?php echo $deal->regular_price; ?>,- &nbsp; &nbsp; &nbsp;Rabat <?php echo $deal->discount; ?>%</p>
+            	<p class="discounts" style="text-align: left">Værdi <?php echo number_format($deal->regular_price, 0, '.', ''); ?>,- <span style="float:right;">Rabat <?php echo number_format($deal->discount, 0, '.', ''); ?>%</span></p>
             </div>
             <div>
               <div class="buy-container" style="">
@@ -47,7 +47,7 @@
               	
               	<?php echo HTML::image('images/facebook.jpg', array('alt' => LBL_SHARE_ON_FACEBOOK)); ?>
               </div>
-              <div class="save-label"><?= LBL_SPAR ?> <?php echo $deal->discount; ?>%</div>
+              <div class="save-label"><?= LBL_SPAR ?> <?php echo number_format($deal->discount, 0, '.', ''); ?>%</div>
               <div class="clear"></div>
             </div>
             
