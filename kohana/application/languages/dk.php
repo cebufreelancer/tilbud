@@ -77,6 +77,7 @@ define("LBL_LOGOUT","LOGOUT");
 define("LBL_TOTAL", "TOTAL");
 define("LBL_CATEGORIES", "CATEGORIES");
 
+define("LBL_UPLOAD_IMAGE", "Upload Image");
 define("LBL_PAID", "Paid");
 define("LBL_STATUS", "Status");
 define("LBL_DATE_CREATED", "Date Created");
@@ -88,8 +89,13 @@ define("LBL_MINIMUM_BUY", "Minimum Buy");
 define("LBL_MAXIMUM_BUY", "Maximum Buy");
 define("LBL_NUMBER_OF_VOUCHERS", "Number of Vouchers");
 define("LBL_DEAL_START_DATE", "Deal Start Date");
-
+define("LBL_TITLE", "Title");
+define("LBL_TITLE_DESC", "Title Description");
+define("LBL_CONTENT_TITLE", "Content Title");
+define("LBL_CONTENT_DESC", "Content Description");
 define("LBL_CATEGORY", "Category");
+define("LBL_PRODUCT", "Product");
+define("LBL_DEAL", "Deal");
 
 define("LBL_ORDER", "Order");
 define("LBL_ORDER_EDIT", "Edit an Order");
@@ -103,6 +109,7 @@ define("LBL_AMOUNT_PAID", "Amount Paid");
 define("LBL_PRODUCT_NAME", "Product Name");
 
 //Notification message
+define("LBL_SUCCESS_ADD", "%s %s has been successfully added.");
 define("LBL_Successfully", "%s %s has been successfully updated.");
 define("LBL_Successfully_added", "Successfully added.");
 define("LBL_Successfully_saved", "Successfully saved.");

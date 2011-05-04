@@ -68,6 +68,7 @@ class Controller_Admin_Deals extends Controller {
 
 		// This will check if submitted
 		if(!empty($posts)) {
+			//echo '<pre>'; print_r($posts); echo '</pre>'; exit;
 		  $deals->product_id 	= htmlentities($posts['deal_product']);
 			$deals->title 			= htmlentities($posts['deal_title']);
 			$deals->description = htmlentities($posts['deal_desc']);
@@ -76,11 +77,11 @@ class Controller_Admin_Deals extends Controller {
 			$deals->whatyouget	= htmlentities($posts['deal_whatyouget']);
 			$deals->information	= htmlentities($posts['deal_information']);
 			$deals->city_id 	 	= htmlentities($posts['deal_city']);
-			$deals->regular_price = htmlentities($posts['deal_regular_price']);
-			$deals->discount  	= htmlentities($posts['deal_discount']);
-			$deals->vouchers 	 	= htmlentities($posts['deal_vouchers']);
-			$deals->min_buy 	 	= htmlentities($posts['deal_min_buy']);
-			$deals->max_buy 	 	= htmlentities($posts['deal_max_buy']);
+			$deals->regular_price = number_format($posts['deal_regular_price'], 2, '.', '');
+			$deals->discount  	= (int)$posts['deal_discount'];
+			$deals->vouchers 	 	= (int)$posts['deal_vouchers'];
+			$deals->min_buy 	 	= (int)$posts['deal_min_buy'];
+			$deals->max_buy 	 	= (int)$posts['deal_max_buy'];
 			$deals->status  		= htmlentities($posts['deal_status']);
 			$deals->start_date	= date("Y-m-d H:i:S", strtotime($posts['deal_start_date']));
 			$deals->end_date		= date("Y-m-d H:i:S", strtotime($posts['deal_start_date'] . " 23:59:59"));
@@ -88,8 +89,11 @@ class Controller_Admin_Deals extends Controller {
 
 			if($deals->save()) {
 				// message: save success
-        Message::add('success', __('Deal ' . $deals->title . 'has been successfully added.'));
-						
+        Message::add('success', __(sprintf(LBL_SUCCESS_ADD, LBL_DEAL,$deals->title)));
+				
+				// Update all the Category Relationships
+				ORM::factory('category')->update_relationship($deals->ID, $posts['category']);
+				
 				// Assuming all is correct
 				Request::current()->redirect('admin/deals');
 				return;
@@ -151,11 +155,11 @@ class Controller_Admin_Deals extends Controller {
 			$deals->whatyouget	= htmlentities($posts['deal_whatyouget']);
 			$deals->information	= htmlentities($posts['deal_information']);
 			$deals->city_id 	 	= htmlentities($posts['deal_city']);
-			$deals->regular_price = htmlentities($posts['deal_regular_price']);
-			$deals->discount  	= htmlentities($posts['deal_discount']);
-			$deals->vouchers 	 	= htmlentities($posts['deal_vouchers']);
-			$deals->min_buy 	 	= htmlentities($posts['deal_min_buy']);
-			$deals->max_buy 	 	= htmlentities($posts['deal_max_buy']);
+			$deals->regular_price = number_format($posts['deal_regular_price'], 2, '.', '');
+			$deals->discount  	= (int)$posts['deal_discount'];
+			$deals->vouchers 	 	= (int)$posts['deal_vouchers'];
+			$deals->min_buy 	 	= (int)$posts['deal_min_buy'];
+			$deals->max_buy 	 	= (int)$posts['deal_max_buy'];
 			$deals->status  		= htmlentities($posts['deal_status']);
 			$deals->start_date	= date("Y-m-d H:i:S", strtotime($posts['deal_start_date']));
 			$deals->end_date		= date("Y-m-d H:i:S", strtotime($posts['deal_start_date'] . " 23:59:59"));
@@ -165,7 +169,10 @@ class Controller_Admin_Deals extends Controller {
 			if($deals->save()) {
 				// message: save success
         Message::add('success', __('Deal ' . $deals->title . 'has been successfully added.'));
-						
+				
+				// Update all the Category Relationships
+				ORM::factory('category')->update_relationship($deals->ID, $posts['category']);
+				
 				// Assuming all is correct
 				Request::current()->redirect('admin/deals');
 				return;
@@ -191,6 +198,8 @@ class Controller_Admin_Deals extends Controller {
 
 		$page->cities = Kohana::config('global.cities');
 		$page->products = $products;
+		$page->categories = $cities = Kohana::config('global.categories');
+		$page->deal_categories = $deals->get_categories($deals->ID);
 
 		$this->response->body($page);
 	}

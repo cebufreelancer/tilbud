@@ -278,3 +278,7 @@ CREATE TABLE IF NOT EXISTS `category_relationships` (
   `category_id` int(11) NOT NULL,
   `deal_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+ALTER TABLE `deals`
+	MODIFY `regular_price` decimal(10,2) DEFAULT '0.00' ,
+	MODIFY `discount` decimal(10,2) DEFAULT '0.00';	
