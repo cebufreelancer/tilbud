@@ -417,6 +417,7 @@ footer {
 #myforms span.username { padding-left: 50px; color: #999999; }
 
 #myforms ul { list-style-type: none; }
+#myforms ul li { padding-bottom: 10px; }
 #myforms ul li:last-of-type { 
 	text-align: left; 
   margin-top: 10px; 
@@ -521,6 +522,17 @@ footer {
 	-moz-border-radius: 3px;
 	border-radius: 3px;
 }
+
+.deals-category-container {
+	padding: 2px 5px; 
+  background: #FFFFFF;
+  border-bottom: 1px solid #DDD;
+}
+.deals-category-container:hover { background: #CCC; }
+.deals-category-container:first-of-type { margin-top: 10px; }
+.deals-category-container:last-of-type { border: none; }
+.deals-category-container label { display: block; float: left; width: 80%; }
+.deals-category-container input[type="checkbox"] { float: right; width: 10%; padding: 2px; }
 
 #order-view li { padding: 5px 0px; }
 
@@ -641,12 +653,6 @@ span.block {
 	border-radius: 15px;
 }
 
-
-
-
-
-
-
 #signupform {
   padding: 25px 10px;
   background: #FFF url(../images/bg-content.png) top left no-repeat;
@@ -724,6 +730,12 @@ span.block {
   padding: 10px;
   color: #666666;
 }
+
+
+
+
+
+
 
 #signupform-footer {
   padding: 25px 10px;
