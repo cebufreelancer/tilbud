@@ -113,7 +113,7 @@ class Controller_Deals extends Controller {
 						 *    Email the user
 						************************/ 
 						$to = Auth::instance()->get_user()->email;
-						$subject = "Confirm your registration to TilbudiByen newsletter.";
+						$subject = "Thank you for your Order!";
 						$headers = 'MIME-Version: 1.0' . "\r\n";
 						$headers .= "Content-type: text/html; charset=UTF-8" . "\r\n";
 						$headers .= "From: no-reply@tilbudibyen.com" . "\r\n".
