@@ -70,22 +70,28 @@ class Controller_Admin_Deals extends Controller {
 		// This will check if submitted
 		if(!empty($posts)) {
 			//echo '<pre>'; print_r($posts); echo '</pre>'; exit;
-		  $deals->product_id 	= htmlentities($posts['deal_product']);
+		  //$deals->product_id 	= (int)$posts['deal_product'];
 			$deals->title 			= htmlentities($posts['deal_title']);
 			$deals->description = htmlentities($posts['deal_desc']);
 			$deals->contents_title = htmlentities($posts['deal_content_title']);
 			$deals->contents		= htmlentities($posts['deal_desc_long']);
 			$deals->whatyouget	= htmlentities($posts['deal_whatyouget']);
 			$deals->information	= htmlentities($posts['deal_information']);
-			$deals->city_id 	 	= htmlentities($posts['deal_city']);
+			$deals->city_id 	 	= (int)$posts['deal_city'];
+			$deals->group_id		= (int)$posts['deal_group'];
 			$deals->regular_price = number_format($posts['deal_regular_price'], 2, '.', '');
 			$deals->discount  	= (int)$posts['deal_discount'];
-			$deals->vouchers 	 	= (int)$posts['deal_vouchers'];
+			//$deals->vouchers 	 	= (int)$posts['deal_vouchers'];
+			$deals->reference_no= htmlentities($posts['deal_refno']);
+			$deals->youtube_url	= $posts['deal_video_url'];
 			$deals->min_buy 	 	= (int)$posts['deal_min_buy'];
 			$deals->max_buy 	 	= (int)$posts['deal_max_buy'];
+			$deals->min_sold 	 	= (int)$posts['deal_min_sold'];
+			$deals->max_sold 	 	= (int)$posts['deal_max_sold'];
 			$deals->status  		= htmlentities($posts['deal_status']);
 			$deals->start_date	= date("Y-m-d H:i:S", strtotime($posts['deal_start_date']));
 			$deals->end_date		= date("Y-m-d H:i:S", strtotime($posts['deal_start_date'] . " 23:59:59"));
+			$deals->expiry_date = date("Y-m-d H:i:S", strtotime($posts['deal_expiry_date'] . " 23:59:59"));
 			$deals->is_featured = 1;
 			
 			if (isset($_FILES['deal_image'])) {
@@ -93,8 +99,10 @@ class Controller_Admin_Deals extends Controller {
 			}
 			
 			if($deals->save()) {
-			  mkdir(APPPATH . "../uploads/". $deals->ID);
-			  move_uploaded_file($_FILES["deal_image"]["tmp_name"], APPPATH . "../uploads/" . $deals->ID . "/" . $_FILES["deal_image"]["name"]);
+				if(!empty($_FILES)) {
+			  	mkdir(APPPATH . "../uploads/". $deals->ID);
+			  	move_uploaded_file($_FILES["deal_image"]["tmp_name"], APPPATH . "../uploads/" . $deals->ID . "/" . $_FILES["deal_image"]["name"]);
+				}
 			  
 				// message: save success
         Message::add('success', __(sprintf(LBL_SUCCESS_ADD, LBL_DEAL,$deals->title)));
@@ -110,21 +118,26 @@ class Controller_Admin_Deals extends Controller {
 		}
 		
 		$page->deal_product 	= isset($posts['deal_product']) ? $posts['deal_product'] : '';
-		$page->deal_title 		= isset($posts['deal_title']) ? $posts['deal_title'] : '';
+		$page->deal_title 		= isset($posts['deal_title']) ? $posts['deal_title'] : 'Dagens Tilbud';
 		$page->deal_desc 			= isset($posts['deal_desc']) ? $posts['deal_desc'] : '';
 		$page->deal_desc_long = isset($posts['deal_desc_long']) ? $posts['deal_desc_long'] : '';
 		$page->deal_whatyouget = isset($posts['deal_whatyouget']) ? $posts['deal_whatyouget'] : '';
 		$page->deal_content_title = isset($posts['deal_content_title']) ? $posts['deal_content_title'] : '';
 		$page->deal_information = isset($posts['deal_information']) ? $posts['deal_information'] : '';
 		$page->deal_city 			= isset($posts['deal_city']) ? $posts['deal_city'] : '';
-		$page->deal_regular_price = isset($posts['deal_regular_price']) ? $posts['deal_regular_price'] : '';
-		$page->deal_discount 	= isset($posts['deal_discount']) ? $posts['deal_discount'] : '';
-		$page->deal_vouchers 	= isset($posts['deal_vouchers']) ? $posts['deal_vouchers'] : '';
-		$page->deal_min_buy 	= isset($posts['deal_min_buy']) ? $posts['deal_min_buy'] : 1;
-		$page->deal_max_buy 	= isset($posts['deal_max_buy']) ? $posts['deal_max_buy'] : 1;
+		$page->deal_regular_price = isset($posts['deal_regular_price']) ? $posts['deal_regular_price'] : 0.00;
+		$page->deal_discount 	= isset($posts['deal_discount']) ? $posts['deal_discount'] : 50;
+		//$page->deal_vouchers 	= isset($posts['deal_vouchers']) ? $posts['deal_vouchers'] : '';
+		$page->deal_min_buy 	= isset($posts['deal_min_buy']) ? $posts['deal_min_buy'] : 5;
+		$page->deal_max_buy 	= isset($posts['deal_max_buy']) ? $posts['deal_max_buy'] : 5;
+		$page->deal_min_sold 	= isset($posts['deal_min_sold']) ? $posts['deal_min_sold'] : 5;
+		$page->deal_max_sold 	= isset($posts['deal_max_sold']) ? $posts['deal_max_sold'] : 5;
 		$page->start_date 		= isset($posts['deal_start_date']) ? $posts['deal_start_date'] : date("Y/m/d");
-		//$page->end_date 			= isset($posts['deal_end_date']) ? $posts['deal_end_date'] : date("Y/m/d");
+		$page->end_date 			= isset($posts['deal_end_date']) ? $posts['deal_end_date'] : date("Y/m/d");
+		$page->expiry_date 		= isset($posts['deal_expiry_date']) ? $posts['deal_expiry_date'] : '';
 		$page->deal_status 		= isset($posts['deal_status']) ? $posts['deal_status'] : '';
+		$page->deal_video_url	= isset($posts['deal_video_url']) ? $posts['deal_video_url'] : '';
+		$page->deal_refno			= isset($posts['deal_refno']) ? $posts['deal_refno'] : '';
 
 		$page->cities = $citylist;
 		$page->products = $products;
@@ -156,22 +169,28 @@ class Controller_Admin_Deals extends Controller {
 		// This will check if submitted
 		if(!empty($posts)) {
 			//echo '<pre>'; print_r($posts); echo '</pre>'; exit;
-		  $deals->product_id 	= htmlentities($posts['deal_product']);
+		  //$deals->product_id 	= htmlentities($posts['deal_product']);
 			$deals->title 			= htmlentities($posts['deal_title']);
 			$deals->description = htmlentities($posts['deal_desc']);
 			$deals->contents_title = htmlentities($posts['deal_content_title']);
 			$deals->contents		= htmlentities($posts['deal_desc_long']);
 			$deals->whatyouget	= htmlentities($posts['deal_whatyouget']);
 			$deals->information	= htmlentities($posts['deal_information']);
-			$deals->city_id 	 	= htmlentities($posts['deal_city']);
+			$deals->city_id 	 	= (int)$posts['deal_city'];
+			$deals->group_id		= (int)$posts['deal_group'];
 			$deals->regular_price = number_format($posts['deal_regular_price'], 2, '.', '');
 			$deals->discount  	= (int)$posts['deal_discount'];
-			$deals->vouchers 	 	= (int)$posts['deal_vouchers'];
+			$deals->reference_no= htmlentities($posts['deal_refno']);
+			$deals->youtube_url	= $posts['deal_video_url'];
+			//$deals->vouchers 	 	= (int)$posts['deal_vouchers'];
 			$deals->min_buy 	 	= (int)$posts['deal_min_buy'];
 			$deals->max_buy 	 	= (int)$posts['deal_max_buy'];
+			$deals->min_sold 	 	= (int)$posts['deal_min_sold'];
+			$deals->max_sold 	 	= (int)$posts['deal_max_sold'];
 			$deals->status  		= htmlentities($posts['deal_status']);
 			$deals->start_date	= date("Y-m-d H:i:S", strtotime($posts['deal_start_date']));
 			$deals->end_date		= date("Y-m-d H:i:S", strtotime($posts['deal_start_date'] . " 23:59:59"));
+			$deals->expiry_date = date("Y-m-d H:i:S", strtotime($posts['deal_expiry_date'] . " 23:59:59"));
 			$deals->last_update = date("Y-m-d H:i:S");
 			$deals->is_featured = 1;
 
@@ -189,7 +208,9 @@ class Controller_Admin_Deals extends Controller {
 			}
 		}
 		
-		$page->deal_product 	= isset($posts['deal_product']) ? $posts['deal_product'] : $deals->product_id;
+		//$page->deal_product 	= isset($posts['deal_product']) ? $posts['deal_product'] : $deals->product_id;
+		$page->city_id				= isset($posts['deal_group']) ? $posts['deal_group'] : $deals->city_id;
+		$page->group					= isset($posts['deal_group']) ? $posts['deal_group'] : $deals->group_id;
 		$page->deal_title 		= isset($posts['deal_title']) ? $posts['deal_title'] : html_entity_decode($deals->title);
 		$page->deal_desc 			= isset($posts['deal_desc']) ? $posts['deal_desc'] : html_entity_decode($deals->description);
 		$page->deal_desc_long = isset($posts['deal_desc_long']) ? $posts['deal_desc_long'] : html_entity_decode($deals->contents);
@@ -202,9 +223,14 @@ class Controller_Admin_Deals extends Controller {
 		$page->deal_vouchers 	= isset($posts['deal_vouchers']) ? $posts['deal_vouchers'] : $deals->vouchers;
 		$page->deal_min_buy 	= isset($posts['deal_min_buy']) ? $posts['deal_min_buy'] : $deals->min_buy;
 		$page->deal_max_buy 	= isset($posts['deal_max_buy']) ? $posts['deal_max_buy'] : $deals->max_buy;
+		$page->deal_min_sold 	= isset($posts['deal_min_sold']) ? $posts['deal_min_sold'] : $deals->min_sold;
+		$page->deal_max_sold 	= isset($posts['deal_max_sold']) ? $posts['deal_max_sold'] : $deals->max_sold;
 		$page->deal_status 		= isset($posts['deal_status']) ? $posts['deal_status'] : $deals->status;
+		$page->deal_video_url	= isset($posts['deal_video_url']) ? $posts['deal_video_url'] : $deals->youtube_url;
 		$page->start_date 		= isset($posts['deal_start_date']) ? $posts['deal_start_date'] : date("Y/m/d", strtotime($deals->start_date));
-		//$page->end_date 			= isset($posts['deal_end_date']) ? $posts['deal_end_date'] : date("Y/m/d", strtotime($deals->end_date));
+		$page->end_date 			= isset($posts['deal_end_date']) ? $posts['deal_end_date'] : date("Y/m/d", strtotime($deals->end_date));
+		$page->expiry_date 		= isset($posts['deal_expiry_date']) ? $posts['deal_expiry_date'] : date("Y/m/d", strtotime($deals->expiry_date));
+		$page->deal_refno			= isset($posts['deal_refno']) ? $posts['deal_refno'] : $deals->reference_no;
 
 		$page->cities = Kohana::config('global.cities');
 		$page->products = $products;

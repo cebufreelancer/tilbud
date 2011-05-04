@@ -22,22 +22,33 @@
       <div id="deals-content-form">
         <ul>
           <li><?php echo Form::label('deal_city', __(LBL_CITY)); ?>
-              <?php echo Form::select('deal_city', $cities); ?>
+              <?php echo Form::select('deal_city', $cities, $deal_city); ?>
           </li>
-          <li><?php echo Form::label('deal_product', __(LBL_PRODUCT)); ?>
-              <?php echo Form::select('deal_product', $products); ?>
+          <li><?php echo Form::label('deal_group', __(LBL_GROUP)); ?>
+              <?php echo Form::select('deal_group', $categories, $group); ?>
           </li>
   
           <li><?php echo Form::label('deal_title', __(LBL_TITLE)); ?>
-              <?php echo Form::input('deal_title', $deal_title, array('autofocus' => 1,
-																																			'style' => 'width: 570px;')); ?>
+              <?php echo Form::textarea('deal_title', $deal_title, array('autofocus' => 1,
+																																				 'class' => 'mceNoEditor',
+																																				 'rows' => 3,
+																																				 'style' => 'font-weight: bold; 
+																																				 						 font-size: 20px; 
+																																										 padding-top: 10px;
+																																										 color: #666;')); ?>
           </li>
-          <li><?php echo Form::label('deal_desc', __(LBL_TITLE_DESC)); ?>
+          <li>
+							<?php echo Form::label('deal_desc', __(LBL_TITLE_DESC)); ?>
               <?php echo Form::textarea('deal_desc', $deal_desc, array('rows' => 5,
 																																			 'style' => 'width: 97%;')); ?>
           </li>
           <li><?php echo Form::label('deal_content_title', __(LBL_CONTENT_TITLE)); ?>
-              <?php echo Form::input('deal_content_title', $deal_content_title, array('style' => 'width: 570px;')); ?>
+              <?php echo Form::textarea('deal_content_title', $deal_content_title, array('class' => 'mceNoEditor',
+																																												 'rows' => 3,
+																																												 'style' => 'font-weight: bold; 
+																																				 						 								 font-size: 20px; 
+																																										 								 padding-top: 10px;
+																																										 								 color: #666;')); ?>
           </li>
           <li><?php echo Form::label('deal_desc_long', __(LBL_CONTENT_DESC)); ?>
               <?php echo Form::textarea('deal_desc_long', $deal_desc_long); ?>
@@ -48,9 +59,13 @@
           <li><?php echo Form::label('deal_information', __(LBL_INFORMATION)); ?>
               <?php echo Form::textarea('deal_information', $deal_information, array('rows' => 5)); ?>
           </li>
+          <li><?php echo Form::label('deal_video_url', __(LBL_YOUTUBE_VIDEO_URL)); ?>
+              <?php echo Form::input('deal_video_url', $deal_video_url, array()); ?>
+          </li>
           <li><?php echo Form::label('deal_image', __(LBL_UPLOAD_IMAGE)); ?>
               <?php echo Form::file('deal_image'); ?>
           </li>
+          <li></li>
         </ul>
 			</div>
       
@@ -64,7 +79,18 @@
 								showOn: "both",
 								buttonImage: "<?php echo Url::base(TRUE); ?>images/calendar.png",
 								buttonImageOnly: true});
-					$( "#deal_end_date" ).datepicker({ showAnim: 'drop', dateFormat: 'yy/mm/dd' });
+					$( "#deal_end_date" ).datepicker({ 
+								showAnim: 'drop', 
+								dateFormat: 'yy/mm/dd',
+								showOn: "both",
+								buttonImage: "<?php echo Url::base(TRUE); ?>images/calendar.png",
+								buttonImageOnly: true});
+					$( "#deal_expiry_date" ).datepicker({ 
+								showAnim: 'drop', 
+								dateFormat: 'yy/mm/dd',
+								showOn: "both",
+								buttonImage: "<?php echo Url::base(TRUE); ?>images/calendar.png",
+								buttonImageOnly: true});
 				});
 				</script>
         <ul>
@@ -72,14 +98,11 @@
               <?php echo Form::input('deal_start_date', $start_date, array('id' => 'deal_start_date',
 																																					'style' => 'width: 150px;')); ?>
           </li>
-          <?php
-					/*
-					Removed as [based on clients spec]
-          <li><?php echo Form::label('deal_end_date', __('Deal End Date')); ?>
+          <li class="separator">
+							<?php echo Form::label('deal_end_date', __(LBL_DEAL_END_DATE)); ?>
               <?php echo Form::input('deal_end_date', $end_date, array('id' => 'deal_end_date',
-																																					'style' => 'width: 150px;')); ?>
+																																			 'style' => 'width: 150px;')); ?>
           </li>
-					*/ ?>
           <li>
             <div class="half left">
               <?php echo Form::label('deal_regular_price', __(LBL_REGULAR_PRICE)); ?>
@@ -94,7 +117,7 @@
             </div>
             <div class="clear"></div>
           </li>
-          <li>
+          <li class="separator">
             <div class="half left">
               <?php echo Form::label('deal_min_buy', __(LBL_MINIMUM_BUY)); ?>
               <?php echo Form::input('deal_min_buy', $deal_min_buy, array('style' => 'width: 100px;',
@@ -107,13 +130,37 @@
             </div>
             <div class="clear"></div>
           </li>
+          <li class="separator">
+            <div class="half left">
+              <?php echo Form::label('deal_min_sold', __(LBL_MINIMUM_SOLD)); ?>
+              <?php echo Form::input('deal_min_sold', $deal_min_sold, array('style' => 'width: 100px;',
+                                                                          'placeholder' => '1')); ?>
+            </div>
+            <div class="half left">
+              <?php echo Form::label('deal_max_sold', __(LBL_MAXIMUM_SOLD)); ?>
+              <?php echo Form::input('deal_max_sold', $deal_max_sold, array('style' => 'width: 100px;',
+                                                                          'placeholder' => '1')); ?>
+            </div>
+            <div class="clear"></div>
+          </li>
+          <li><?php echo Form::label('deal_refno', __(LBL_REFERENCE_NO)); ?>
+              <?php echo Form::input('deal_refno', $deal_refno, array('style' => 'width: 95%;')); ?>
+          </li>
+          <li class="separator">
+							<?php echo Form::label('deal_expiry_date', __(LBL_DEAL_EXPIRY_DATE)); ?>
+              <?php echo Form::input('deal_expiry_date', $expiry_date, array('id' => 'deal_expiry_date',
+																																						'style' => 'width: 150px;')); ?>
+          </li>
+          <?php /*
           <li><?php echo Form::label('deal_vouchers', __(LBL_NUMBER_OF_VOUCHERS)); ?>
               <?php echo Form::input('deal_vouchers', $deal_vouchers, array('style' => 'width: 100px;',
                                                                             'placeholder' => '100')); ?>
           </li> 
+					*/ ?>
           <li><?php echo Form::label('deal_status', __(LBL_STATUS)); ?>
-              <?php echo Form::select('deal_status', $status); ?>
+              <?php echo Form::select('deal_status', $status, $deal_status); ?>
           </li>
+          <?php /*
           <li><?php echo Form::label('deal_status', __(LBL_CATEGORY)); ?>
           		<?php
 							$deal_categories = isset($deal_categories) ? $deal_categories : array();
@@ -127,6 +174,7 @@
  							}
 							?>              
           </li>
+					*/ ?>
           <?php
 					/*
 					Not needed anymore
@@ -139,7 +187,8 @@
 					*/ ?>
           <li>
             <?php echo Form::submit(NULL, __(LBL_SAVE)); ?>
-            <?php echo Form::submit(NULL, __(LBL_CANCEL)); ?>
+            <?php echo HTML::anchor('admin/deals', LBL_CANCEL, array('class' => 'cancel',
+																																		 'style' => 'font-size: 11px;')) ?>
           </li>	
         </ul>
         </div>

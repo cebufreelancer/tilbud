@@ -52,7 +52,7 @@ CREATE TABLE IF NOT EXISTS `deals` (
   `whatyouget` text,
   `information` text,
   `image` varchar(255) default NULL,
-  `regular_price` decimal(10,0) default '0',
+  `regular_price` decimal(10,2) default '0.00',
   `discount` decimal(10,0) default '0',
   `discount_type` varchar(50) default 'percent',
   `min_buy` int(11) NOT NULL default '1',
@@ -236,8 +236,7 @@ ALTER TABLE `products`
   ADD CONSTRAINT FOREIGN KEY (`vendor_id`) REFERENCES `vendors` (`ID`) ON DELETE CASCADE;
 	
 ALTER TABLE `deals`
-	ADD CONSTRAINT FOREIGN KEY (`city_id`) REFERENCES `cities` (`ID`) ON DELETE CASCADE,
-	ADD CONSTRAINT FOREIGN KEY (`product_id`) REFERENCES `products` (`ID`) ON DELETE CASCADE;
+	ADD CONSTRAINT FOREIGN KEY (`city_id`) REFERENCES `cities` (`ID`) ON DELETE CASCADE;
 	
 ALTER TABLE `users` 
 	ADD `firstname` VARCHAR( 100 ) NULL ,
@@ -282,3 +281,14 @@ CREATE TABLE IF NOT EXISTS `category_relationships` (
 ALTER TABLE `deals`
 	MODIFY `regular_price` decimal(10,2) DEFAULT '0.00' ,
 	MODIFY `discount` decimal(10,2) DEFAULT '0.00';	
+
+--
+-- MAY 4 2011 Updates
+-- 
+
+ALTER TABLE  `deals` ADD  `group_id` INT NOT NULL AFTER  `product_id`;
+ALTER TABLE  `deals` ADD  `reference_no` VARCHAR( 50 ) NULL AFTER  `group_id`;
+ALTER TABLE  `deals` ADD  `youtube_url` VARCHAR( 255 ) NULL DEFAULT NULL AFTER  `end_date`;
+ALTER TABLE  `deals` ADD  `expiry_date` DATETIME NULL DEFAULT NULL AFTER  `end_date`;
+ALTER TABLE  `deals` ADD  `min_sold` INT NOT NULL DEFAULT  '0' AFTER  `max_buy`;
+ALTER TABLE  `deals` ADD  `max_sold` INT NOT NULL DEFAULT  '0' AFTER  `min_sold`;

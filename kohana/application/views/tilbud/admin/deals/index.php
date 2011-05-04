@@ -48,8 +48,6 @@
 						$vendor_id = ORM::factory('product', $deal['product_id'])->vendor_id;
 						echo '<tr>';
 						echo '<td><b>' . $deal['title'] . '</b>' .
-						     '<div>' . ORM::factory('vendor', $vendor_id)->name . 
-						     ' -> ' . ORM::factory('product', $deal['product_id'])->title . '</div>' . 
 						     '<div>' . $edit_url . ' | ' . $delete_url . '</div>' .
 						     '</td>';
 						echo '<td>' . date("F d, Y", strtotime($deal['start_date'])) . '</td>';
