@@ -116,6 +116,7 @@
           </li>
           <li><?php echo Form::label('deal_status', __(LBL_CATEGORY)); ?>
           		<?php
+							$deal_categories = isset($deal_categories) ? $deal_categories : array();
 							foreach($categories as $k => $cat) {
 								$is_checked = in_array($k, $deal_categories) ? TRUE : NULL;
 								echo '<div class="deals-category-container">';
