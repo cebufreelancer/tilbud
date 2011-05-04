@@ -34,10 +34,26 @@ class Model_Deal extends ORM {
 		'last_update' 	=> array('data_type' => 'string'),
 		);
 
+  // deprecate this please
 	public function get_alldeals($limit=NULL, $offset=NULL)
 	{
     $result = ORM::factory('deal')
              ->order_by('ID', 'DESC')
+             ->find_all();
+		$deals = array();
+		
+    foreach($result as $d) {
+      $deals[] = $d->as_array();
+    }
+		
+		return $deals;
+	}
+
+	public function get_active_deals($limit=NULL, $offset=NULL)
+	{
+    $result = ORM::factory('deal')
+             ->order_by('ID', 'DESC')
+             ->where('status', '=', 'active')
              ->find_all();
 		$deals = array();
 		
@@ -56,6 +72,7 @@ class Model_Deal extends ORM {
 	public function get_featured() {
 	  $deals = ORM::factory('deal')
 	          ->where('is_featured', '=', 1)
+	          ->and_where('status', '=', 'active')
 	          ->limit(1)
 	          ->order_by('date_create', 'DESC')
 	          ->find_all();

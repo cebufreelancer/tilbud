@@ -4,7 +4,7 @@ class Controller_Deals extends Controller {
 
 	public function action_index()
 	{	
-    $deals = ORM::factory('deal')->get_alldeals();
+    $deals = ORM::factory('deal')->get_active_deals('active');
 		$orders = ORM::factory('order');
     $this->response->body(View::factory('tilbud/deals')
                    ->set('deals', $deals)
