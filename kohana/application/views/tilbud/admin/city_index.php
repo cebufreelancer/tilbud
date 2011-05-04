@@ -31,7 +31,7 @@
         <tr>
           <td>Action</td>
           <td width="200">City</td>
-          <td>&nbsp;</td>
+          <td>Order</td>
         </tr>
         </thead>
         <tbody>
@@ -42,7 +42,7 @@
           echo '<tr>';
           echo '<td>' . $edit_url . ' ' . $delete_url . '</td>';
           echo '<td><b>' . $city['name'] . '</b></td>';
-					echo '<td>&nbsp;</td>';
+					echo '<td>' . $city['order'] . '</td>';
           echo '</tr>';
         }		
         ?>

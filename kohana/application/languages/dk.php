@@ -102,6 +102,7 @@ define("LBL_PRODUCT", "Product");
 define("LBL_DEAL", "Deal");
 define("LBL_REFERENCE_NO", "Reference No");
 define("LBL_YOUTUBE_VIDEO_URL", "YouTube Video Url");
+define("LBL_CITY_NAME", "Name of City");
 
 define("LBL_ORDER", "Order");
 define("LBL_ORDER_EDIT", "Edit an Order");
@@ -113,6 +114,9 @@ define("LBL_USER", "User");
 define("LBL_PRODUCT_DEAL", "Product Deal");
 define("LBL_AMOUNT_PAID", "Amount Paid");
 define("LBL_PRODUCT_NAME", "Product Name");
+define("LBL_CITY_EDIT", "Edit a City");
+define("LBL_CITY_ADD", "Add a City");
+define("LBL_CITY_DELETE", "Delete a City");
 
 //Notification message
 define("LBL_SUCCESS_ADD", "%s %s has been successfully added.");

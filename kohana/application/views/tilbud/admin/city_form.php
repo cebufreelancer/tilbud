@@ -13,13 +13,17 @@
       
 			<?php echo Form::open(Request::current(), array('id' => 'myforms')); ?>
       <ul>
-      	<li><?php echo Form::label('city', __('Name of City')); ?>
+      	<li><?php echo Form::label('city', __(LBL_CITY_NAME)); ?>
 						<?php echo Form::input('city', $city); ?>
         </li>
-        <li>
-        	<?php echo Form::submit(NULL, 'Save'); ?>
-          <?php echo Form::submit(NULL, 'Cancel'); ?>
+        <li><?php echo Form::label('order', __(LBL_ORDER)); ?>
+						<?php echo Form::input('order', $order); ?>
         </li>
+        <li>
+            <?php echo Form::submit(NULL, __(LBL_SAVE)); ?>
+            <?php echo HTML::anchor('admin/cities', LBL_CANCEL, array('class' => 'cancel',
+																																		 'style' => 'font-size: 11px;')) ?>
+        </li>	
       </ul>
       <?php echo Form::close(); ?>
       

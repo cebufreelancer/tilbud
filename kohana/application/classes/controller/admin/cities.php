@@ -15,7 +15,7 @@ class Controller_Admin_Cities extends Controller {
 									 'items_per_page'	=> 10, 
 									 'auto_hide' 			=> false,
 									 'view'           => 'pagination/useradmin',));
-		$sort = isset($_GET['sort']) ? $_GET['sort'] : 'name'; // set default sorting direction here
+		$sort = isset($_GET['sort']) ? $_GET['sort'] : 'order'; // set default sorting direction here
     $dir  = isset($_GET['dir']) ? 'DESC' : 'ASC';
 		$result = $cities->limit($pagination->items_per_page)->offset($pagination->offset)->order_by($sort, $dir)
               ->find_all();
@@ -42,6 +42,7 @@ class Controller_Admin_Cities extends Controller {
 		if(!empty($posts)) {
 					
 			$cities->name = htmlentities($posts['city']);
+			$cities->order = (int)$posts['order'];
 					
 			if($cities->save()) {
 				// message: save success
@@ -55,7 +56,8 @@ class Controller_Admin_Cities extends Controller {
 				
 		$this->response->body(View::factory('tilbud/admin/city_form')
 														->set('city', isset($posts['city']) ? $posts['city'] : '')
-														->set('label', 'Add a City')
+														->set('order', isset($posts['order']) ? $posts['order'] : 0)
+														->set('label', __(LBL_CITY_ADD))
 											);
 	}
 	
@@ -81,8 +83,9 @@ class Controller_Admin_Cities extends Controller {
 		}
 				
 		$this->response->body(View::factory('tilbud/admin/city_form')
-														->set('city', isset($posts['city']) ? $posts['city'] : $cities->name)
-														->set('label', 'Edit a City')
+														->set('city', isset($posts['city']) ? $posts['city'] : html_entity_decode($cities->name))
+														->set('order', isset($posts['order']) ? $posts['order'] : $cities->order)
+														->set('label', __(LBL_CITY_EDIT))
 											);
 	}
 	
@@ -112,7 +115,7 @@ class Controller_Admin_Cities extends Controller {
 		}
 		$this->response->body(View::factory('tilbud/admin/confirm_delete')
 														->set('records',$rec)
-														->set('label', 'Delete a City')
+														->set('label', __(LBL_CITY_DELETE))
 											);
 	}
 	

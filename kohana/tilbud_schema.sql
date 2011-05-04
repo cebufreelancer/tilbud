@@ -292,3 +292,5 @@ ALTER TABLE  `deals` ADD  `youtube_url` VARCHAR( 255 ) NULL DEFAULT NULL AFTER  
 ALTER TABLE  `deals` ADD  `expiry_date` DATETIME NULL DEFAULT NULL AFTER  `end_date`;
 ALTER TABLE  `deals` ADD  `min_sold` INT NOT NULL DEFAULT  '0' AFTER  `max_buy`;
 ALTER TABLE  `deals` ADD  `max_sold` INT NOT NULL DEFAULT  '0' AFTER  `min_sold`;
+
+ALTER TABLE  `cities` ADD  `order` INT NOT NULL DEFAULT  '0';
