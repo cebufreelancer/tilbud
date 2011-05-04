@@ -99,27 +99,39 @@ class Controller_Home extends Controller {
 	
 	public function action_verify()
 	{ 
-	  
-	  $dbconfig = Kohana::config('database.default');
-    $conn = mysql_connect('localhost', $dbconfig['connection']['username'], $dbconfig['connection']['password']  );
-    mysql_select_db($dbconfig['connection']['database']);
-  
-    $email = $_GET['e'];
-	  $sql = "select * from users where email='$email'";
-	  $res = mysql_query($sql, $conn);
-	  $rec = mysql_fetch_assoc($res);
-	  $success  = false;
-	  
-	  if (mysql_num_rows($res) > 0) {
-	    $sql = "Update users set status='active', username='$email' where email='$email'";
-	    mysql_query($sql, $conn) or die(mysql_error());
-	    $success = true;
-	    Message::add('success', __('Your account has been verified. '));
-	  }else{
-	    Message::add('success', __('Email does not exists'));
-	  }
-
-		  $this->response->body(View::factory('tilbud/verify')->set('success', $success)->set('email', $email));	
+		// Check if already logged in
+		//	Redirect to account page
+		if(Auth::instance()->logged_in()) {
+			Request::current()->redirect('user/myaccount');
+		}
+		
+		$email = $_GET['e'];
+		$user = ORM::factory('user');
+		
+		
+		if($user->where('email', '=', $email)->count_all() > 0 ) {
+			$user = $user->where('email', '=', $email)->find();
+			
+			// Check if status is already active
+			//	Redirect to home page
+			if(strcmp($user->status, 'active') == 0) {
+				Request::current()->redirect(Url::base());
+			}
+			
+			$user->status = 'active';
+			
+			if($user->save()) {
+				Message::add('success', __('Your account has been verified. '));
+				$success = true;
+			}
+		} else {
+			Message::add('success', __('Email does not exists'));
+			$success = false;
+		}
+	
+		$this->response->body(View::factory('tilbud/verify')
+						->set('success', $success)
+						->set('email', $email)); 
 	  
 	}
 	
