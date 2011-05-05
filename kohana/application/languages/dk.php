@@ -117,9 +117,13 @@ define("LBL_PRODUCT_NAME", "Product Name");
 define("LBL_CITY_EDIT", "Edit a City");
 define("LBL_CITY_ADD", "Add a City");
 define("LBL_CITY_DELETE", "Delete a City");
+define("LBL_GROUP_ADD", "Add a Group");
+define("LBL_GROUP_EDIT", "Edit a Group");
+define("LBL_GROUP_DELETE", "Delete a Group");
 
 //Notification message
 define("LBL_SUCCESS_ADD", "%s %s has been successfully added.");
+define("LBL_SUCCESS_UPDATE", "%s %s has been successfully updated.");
 define("LBL_Successfully", "%s %s has been successfully updated.");
 define("LBL_Successfully_added", "Successfully added.");
 define("LBL_Successfully_saved", "Successfully saved.");

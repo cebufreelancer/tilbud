@@ -10,7 +10,7 @@
     if($is_admin) { ?>
       <li><?php echo HTML::anchor('admin/users', __(LBL_USERS)); ?></li>
       <li><?php echo HTML::anchor('admin/cities', __(LBL_CITIES)); ?></li>
-      <li><?php echo HTML::anchor('admin/products', __(LBL_GROUPS)); ?></li>
+      <li><?php echo HTML::anchor('admin/groups', __(LBL_GROUPS)); ?></li>
       <li><?php echo HTML::anchor('admin/deals', __(LBL_DEALS)); ?></li>      
       <li><?php echo HTML::anchor('admin/orders', __(LBL_ORDERS)); ?></li>
       <li><?php echo HTML::anchor('admin/pages', __(LBL_PAGES)); ?></li>
