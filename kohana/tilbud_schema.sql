@@ -294,3 +294,13 @@ ALTER TABLE  `deals` ADD  `min_sold` INT NOT NULL DEFAULT  '0' AFTER  `max_buy`;
 ALTER TABLE  `deals` ADD  `max_sold` INT NOT NULL DEFAULT  '0' AFTER  `min_sold`;
 
 ALTER TABLE  `cities` ADD  `order` INT NOT NULL DEFAULT  '0';
+
+--
+-- MAY 6 2011 Updates
+--
+
+CREATE TABLE  `tilbud_db`.`subscriptions` (
+	`email` VARCHAR( 255 ) NOT NULL ,
+	`city_id` INT NOT NULL ,
+	UNIQUE ( `email` , `city_id` )
+) ENGINE = INNODB;

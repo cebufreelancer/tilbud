@@ -26,7 +26,7 @@ class Model_Category extends ORM {
 			// Insert new categories
 			$query = DB::query(Database::INSERT, 'INSERT INTO category_relationships (category_id, deal_id) VALUES (:cat_id, :deal_id)')
     										->bind(':cat_id', $cat)
-										->bind(':deal_id', $deal_id);
+												->bind(':deal_id', $deal_id);
 		
 			foreach($categories as $cat) {
 				$query->execute();	
@@ -34,6 +34,14 @@ class Model_Category extends ORM {
 		}
 		
 		return true;
+	}
+	
+	public function get_subscribers($category_id)
+	{
+		$query = DB::select()->from('subscriptions')->where('city_id', '=', $category_id)->execute();
+		$result = $query->as_array();
+
+		return $result;
 	}
 
 } // End of Product Model

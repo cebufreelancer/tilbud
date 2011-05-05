@@ -46,10 +46,11 @@
 					foreach($deals as $deal) {
 						$edit_url = HTML::anchor('admin/deals/edit/' . $deal['ID'], 'Edit');
 						$delete_url = HTML::anchor('admin/deals/delete/' . $deal['ID'], 'Delete', array('class' => 'delete'));
+						$email_url = HTML::anchor('admin/deals?city=' . $deal['city_id'] . '&did=' . $deal['ID'], 'Send Email');
 						$group = ORM::factory('category', $deal['group_id'])->name;
 						echo '<tr>';
 						echo '<td style="width:480px;"><b>' . $deal['title'] . '</b>' .
-						     '<div>' . $edit_url . ' | ' . $delete_url . '</div>' .
+						     '<div>' . $edit_url . ' | ' . $delete_url . ' | ' . $email_url . '</div>' .
 						     '</td>';
 						echo '<td>' . $group . '</td>';
 						echo '<td>' . date("F d, Y", strtotime($deal['start_date'])) . '</td>';

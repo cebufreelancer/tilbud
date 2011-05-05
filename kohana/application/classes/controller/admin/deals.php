@@ -8,6 +8,36 @@ class Controller_Admin_Deals extends Controller {
 		$page = View::factory('tilbud/admin/deals/index');
 		$deals = ORM::factory('deal');
 		
+		// Check if send mail is accessed
+		if(!empty($_GET)) {
+			$send = false;
+			// Headers
+			$headers  = 'MIME-Version: 1.0' . "\r\n";
+			$headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+			$headers .= "From: TilbudiByen <no-reply@tilbudibyen.com>" . "\r\n".
+		              "Reply-To: no-reply@tilbudibyen.com" . "\r\n".
+		              "X-Mailer: PHP/" . phpversion();
+			// Subject
+			$subject = ORM::factory('deal', (int)$_GET['did'])->title;
+			// Message
+			$message = View::factory('tilbud/template_email')
+									->set('deals', ORM::factory('deal', (int)$_GET['did']));
+			//$to 		 = 'john.doe@example.com';
+			//echo "$to $subject $message, $headers";
+			$subscribers = ORM::factory('category')->get_subscribers($_GET['city']);
+			
+			foreach($subscribers as $sub) {
+				if(mail($sub['email'], $subject, $message, $headers)) {
+					$send=true;
+				}
+			}
+			
+			if($send==true) {
+				// message: save success
+        Message::add('success', __('Email has been sent to subscribers'));
+			}
+		}
+		
 		// This is an example of how to use Kohana pagination
     // Get the total count for the pagination
 		$res = array();
