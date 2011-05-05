@@ -13,6 +13,7 @@ class Model_City extends ORM {
 	protected $_table_columns = array(
 		'ID'						=> array('data_type' => 'int'),
 		'name'					=> array('data_type' => 'string', 'is_nullable' => FALSE),
+		'order'					=> array('data_type' => 'int'),
 		);
 	
 	public function get($limit=15,$offset=NULL)

@@ -8,12 +8,12 @@
 		$user = $is_logged ? Auth::instance()->get_user()->username : '';
   
     if($is_admin) { ?>
-      <li><?php echo HTML::anchor('admin/users', LBL_USERS); ?></li>
-      <li><?php echo HTML::anchor('admin/cities', LBL_CITIES); ?></li>
-      <li><?php echo HTML::anchor('admin/vendors', LBL_VENDORS); ?></li>
-      <li><?php echo HTML::anchor('admin/products', LBL_PRODUCTS); ?></li>
-      <li><?php echo HTML::anchor('admin/deals', LBL_DEALS); ?></li>      
-      <li><?php echo HTML::anchor('admin/orders', LBL_ORDERS); ?></li>
+      <li><?php echo HTML::anchor('admin/users', __(LBL_USERS)); ?></li>
+      <li><?php echo HTML::anchor('admin/cities', __(LBL_CITIES)); ?></li>
+      <li><?php echo HTML::anchor('admin/groups', __(LBL_GROUPS)); ?></li>
+      <li><?php echo HTML::anchor('admin/deals', __(LBL_DEALS)); ?></li>      
+      <li><?php echo HTML::anchor('admin/orders', __(LBL_ORDERS)); ?></li>
+      <li><?php echo HTML::anchor('admin/pages', __(LBL_PAGES)); ?></li>
       <li id="mymenu"><?php echo strtoupper("more") . HTML::image('images/down.png', array('style' => 'margin-left: 10px;')); ?></li>
 
     <?php } else { ?>
@@ -59,8 +59,6 @@
       <?php } else { ?>
       	<li>Settings</li>
         <li><?php echo HTML::anchor('admin/labels', ucwords(strtolower(LBL_LABELS))); ?></li>
-        <li><?php echo HTML::anchor('admin/pages', ucwords(strtolower(LBL_PAGES))); ?></li>
-        <li><?php echo HTML::anchor('', ucwords(strtolower(LBL_CATEGORIES))); ?></li>
       <?php } ?>
       <li><?php echo HTML::anchor('user/logout', ucwords(strtolower(LBL_LOGOUT))); ?></li>
     </ul>

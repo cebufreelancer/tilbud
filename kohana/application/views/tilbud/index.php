@@ -12,7 +12,7 @@
       	<li>
           <div class="deal-title">
             <h1><a href=""><?= LBL_Featured_Deal ?></a></h1>
-            <p><?php echo substr(html_entity_decode($deal->description), 0, 200); ?></p>
+            <p><?php echo substr(html_entity_decode(strip_tags($deal->title)), 0, 200); ?></p>
           </div>
           <div class="deal-banner" style="background-image: url(<?php echo URL::base(TRUE); ?>uploads/<?php echo "$deal->ID/$deal->image"; ?>)" >
               <div class="buy-container">
@@ -57,19 +57,19 @@
     	
     	<div id="body-content">
       	<div class="posts">
-        	<h1><a href="" class="posts-title"><?php echo $deal->contents_title; ?></a></h1>
+        	<h1><a href="" class="posts-title"><?php echo html_entity_decode($deal->contents_title); ?></a></h1>
           
-          <p><?php echo str_replace("\n", "<br/>", $deal->contents); ?></p>
+          <p><?php echo str_replace("\n", "<br/>", html_entity_decode($deal->contents)); ?></p>
 
 					<div id="deals-info">
             <ul>
               <li class="dhead-one"><?= LBL_WHAT_YOU_GET?></li>
-              <li><p><?php echo $deal->whatyouget; ?>   </p>
+              <li><p><?php echo html_entity_decode($deal->whatyouget); ?>   </p>
               </li>
             </ul>
             <ul>
             	<li class="dhead-two "><?= LBL_INFORMATION ?></li>
-              <li><p> <?php echo $deal->information; ?></p></li>
+              <li><p> <?php echo html_entity_decode($deal->information); ?></p></li>
             </ul>
         	</div>
         	

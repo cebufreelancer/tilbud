@@ -149,7 +149,7 @@ Route::set('view', 'view(<controller>(/<action>(/<id>)))')
 Route::set('admin', 'admin(/<controller>(/<action>(/<id>)))')
 	->defaults(array(
 		'directory'		=> 'admin',
-		'controller'	=> 'products',
+		'controller'	=> 'deals',
 		'action'			=> 'index',
 	));
 // Default Routes - must be at the bottom
