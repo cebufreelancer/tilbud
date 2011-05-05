@@ -118,6 +118,7 @@ class Controller_Admin_Deals extends Controller {
 		}
 		
 		$page->deal_product 	= isset($posts['deal_product']) ? $posts['deal_product'] : '';
+		$page->group					= isset($posts['deal_group']) ? $posts['deal_group'] : 1;
 		$page->deal_title 		= isset($posts['deal_title']) ? $posts['deal_title'] : 'Dagens Tilbud';
 		$page->deal_desc 			= isset($posts['deal_desc']) ? $posts['deal_desc'] : '';
 		$page->deal_desc_long = isset($posts['deal_desc_long']) ? $posts['deal_desc_long'] : '';
