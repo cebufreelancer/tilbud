@@ -17,8 +17,39 @@
           <div class="deal-banner" style="background-image: url(<?php echo URL::base(TRUE); ?>uploads/<?php echo "$deal->ID/$deal->image"; ?>)" >
               <div class="buy-container">
               	<?php $price = ($deal->regular_price * (100 - $deal->discount)) / 100; ?>
-              	<p class="huge buy-label" style="width: 600px;"><?php echo $price . ',-' . HTML::anchor('deals/buy/' . $deal->ID, HTML::image('images/buy.png', array('title' => LBL_Buy_now, 'style' => 'margin-bottom: -10px;'))); ?></p>
+              	<p class="huge buy-label" style="width: 935px;"><?php echo $price . ',-' . HTML::anchor('deals/buy/' . $deal->ID, HTML::image('images/buy.png', array('title' => LBL_Buy_now, 'style' => 'margin-bottom: -10px;'))); ?>
+								
+								<?php 
+								if(isset($deal->youtube_url)) {
+									echo HTML::anchor($deal->youtube_url, 
+																		HTML::image('images/play.png', array('class' => 'playbutton')), 
+																		array('id' => 'youtubevideo',
+																					'title' => 'Promo Video'));
+								}
+								?>
+								</p>
+								<script type="text/javascript">
+	$("#youtubevideo").click(function() {
+	$.fancybox({
+			'padding'		: 0,
+			'autoScale'		: false,
+			'transitionIn'	: 'none',
+			'transitionOut'	: 'none',
+			'title'			: this.title,
+			'width'		: 680,
+			'height'		: 495,
+			'href'			: this.href.replace(new RegExp("watch\\?v=", "i"), 'v/'),
+			'type'			: 'swf',
+			'swf'			: {
+			   	 'wmode'		: 'transparent',
+				'allowfullscreen'	: 'true'
+			}
+		});
+ 
+	return false;
+});</script>
               </div>
+							
             <div class="buy-container">
             	<p class="discounts" style="text-align: left">Værdi <?php echo number_format($deal->regular_price, 0, '.', ''); ?>,- <span style="float:right;">Rabat <?php echo number_format($deal->discount, 0, '.', ''); ?>%</span></p>
             </div>
