@@ -207,6 +207,13 @@ header, content, footer {
 .discounts 		  { font-size: 20px; text-align: center; padding-top: 5px; }
 .period 			  { font-size: 27px; margin-top: -5px; }
 .period-label   { font-size: 15px; padding-top: 5px; font-weight: normal; }
+.playbutton 		{ opacity: 0.3; filter: alpha(opacity=30); float: right; }
+.playbutton:hover { opacity: 1; filter: alpha(opacity=100); 
+										-moz-transition: opacity 1s ease;
+										-webkit-transition: opacity 1s ease;
+										-o-transition: opacity 1s ease;
+										transition: opacity 1s ease;
+									}
 
 /** Deals Info **/
 #deals-info { 
@@ -271,6 +278,8 @@ header, content, footer {
   font-size: 33px;
   font-weight: lighter;
   font-style: italic;
+	line-height: 35px;
+	letter-spacing: -1px;
   color: #1376aa;
   display: block;
   margin-bottom: 25px;
