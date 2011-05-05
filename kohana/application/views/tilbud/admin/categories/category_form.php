@@ -1,5 +1,5 @@
 <?php defined('SYSPATH') OR die('No direct access allowed.'); ?>
-<?php require_once 'header.php'; ?>
+<?php require_once APPPATH . 'views/tilbud/admin/header.php'; ?>
 	
   <!-- content starts here -->
   <section id="ad-body">
@@ -13,11 +13,8 @@
       
 			<?php echo Form::open(Request::current(), array('id' => 'myforms')); ?>
       <ul>
-      	<li><?php echo Form::label('city', __(LBL_CITY_NAME)); ?>
-						<?php echo Form::input('city', $city); ?>
-        </li>
-        <li><?php echo Form::label('order', __(LBL_ORDER)); ?>
-						<?php echo Form::input('order', $order); ?>
+      	<li><?php echo Form::label('group', __(LBL_GROUP)); ?>
+						<?php echo Form::input('group', $category); ?>
         </li>
         <li>
             <?php echo Form::submit(NULL, __(LBL_SAVE)); ?>
@@ -31,7 +28,7 @@
   </section>
   
   <!-- footer starts here -->
-  <?php require_once 'footer.php'; ?>
+  <?php require_once APPPATH . 'views/tilbud/admin/footer.php'; ?>
   
 </body>
 </html>

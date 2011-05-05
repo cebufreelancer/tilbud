@@ -1,10 +1,10 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
-class Controller_Admin_Cities extends Controller {
+class Controller_Admin_Groups extends Controller {
 
 	public function action_index()
 	{	
-		$cities = ORM::factory('city');
+		$cities = ORM::factory('category');
 		
 		// This is an example of how to use Kohana pagination
     // Get the total count for the pagination
@@ -15,8 +15,8 @@ class Controller_Admin_Cities extends Controller {
 									 'items_per_page'	=> 10, 
 									 'auto_hide' 			=> false,
 									 'view'           => 'pagination/useradmin',));
-		$sort = isset($_GET['sort']) ? $_GET['sort'] : 'order'; // set default sorting direction here
-    $dir  = isset($_GET['dir']) ? 'DESC' : 'DESC';
+		$sort = isset($_GET['sort']) ? $_GET['sort'] : 'name'; // set default sorting direction here
+    $dir  = isset($_GET['dir']) ? 'DESC' : 'ASC';
 		$result = $cities->limit($pagination->items_per_page)->offset($pagination->offset)->order_by($sort, $dir)
               ->find_all();
 							
@@ -24,16 +24,16 @@ class Controller_Admin_Cities extends Controller {
 			$res[] = $city->as_array();
 		}
 
-		$this->response->body(View::factory('tilbud/admin/city_index')
+		$this->response->body(View::factory('tilbud/admin/categories/category_index')
 													->set('paging', $pagination)
-													->set('cities', $res)
+													->set('categories', $res)
 													->set('no_pager', TRUE)
 											);
 	}
 	
 	public function action_add()
 	{		
-		$cities = ORM::factory('city');
+		$category = ORM::factory('category');
 		
 		// Get posts
 		$posts = $this->request->post();
@@ -41,51 +41,49 @@ class Controller_Admin_Cities extends Controller {
 		// This will check if submitted
 		if(!empty($posts)) {
 					
-			$cities->name = htmlentities($posts['city']);
-			$cities->order = (int)$posts['order'];
+			$category->name = htmlentities($posts['group']);
+			$category->url_code = '';
+			//$category->order = (int)$posts['order'];
 					
-			if($cities->save()) {
+			if($category->save()) {
 				// message: save success
-        Message::add('success', __('City ' . $cities->name . ' has been successfully added.'));
+        Message::add('success', __(sprintf(LBL_SUCCESS_ADD, LBL_GROUP, $category->name)));
 						
 				// Assuming all is correct
-				Request::current()->redirect('admin/cities');
+				Request::current()->redirect('admin/groups');
 				return;
 			}
 		}
 				
-		$this->response->body(View::factory('tilbud/admin/city_form')
-														->set('city', isset($posts['city']) ? $posts['city'] : '')
-														->set('order', isset($posts['order']) ? $posts['order'] : 0)
-														->set('label', __(LBL_CITY_ADD))
+		$this->response->body(View::factory('tilbud/admin/categories/category_form')
+														->set('category', isset($posts['city']) ? $posts['city'] : '')
+														->set('label', __(LBL_GROUP_ADD))
 											);
 	}
 	
 	public function action_edit($id=NULL)
 	{
-		$cities = ORM::factory('city', $id);
+		$category = ORM::factory('category', $id);
 		
 		// Get posts
 		$posts = $this->request->post();
 		
 		// This will check if submitted
 		if(!empty($posts)) {
-			$cities->name = htmlentities($posts['city']);
-			$cities->order = (int)$posts['order'];
+			$category->name = htmlentities($posts['group']);
 					
-			if($cities->save()) {
+			if($category->save()) {
 				// message: save success
-        Message::add('success', __('City ' . $cities->name . ' has been successfully updated.'));
+        Message::add('success', __(sprintf(LBL_SUCCESS_UPDATE, LBL_GROUP, $category->name)));
 						
 				// Assuming all is correct
-				Request::current()->redirect('admin/cities');
+				Request::current()->redirect('admin/groups');
 				return;
 			}
 		}
 				
-		$this->response->body(View::factory('tilbud/admin/city_form')
-														->set('city', isset($posts['city']) ? $posts['city'] : html_entity_decode($cities->name))
-														->set('order', isset($posts['order']) ? $posts['order'] : $cities->order)
+		$this->response->body(View::factory('tilbud/admin/categories/category_form')
+														->set('category', isset($posts['group']) ? $posts['group'] : html_entity_decode($category->name))
 														->set('label', __(LBL_CITY_EDIT))
 											);
 	}
@@ -94,7 +92,7 @@ class Controller_Admin_Cities extends Controller {
 	{
 		$page = View::factory('tilbud/admin/confirm_delete');
 	
-		$cities = ORM::factory('city', $id);
+		$category = ORM::factory('category', $id);
 		
 		// Get posts
 		$posts = $this->request->post();
@@ -102,21 +100,21 @@ class Controller_Admin_Cities extends Controller {
 		// This will check if submitted
 		if(!empty($posts)) {
 			if(strcmp($posts['submit'], 'Ok') == 0) {
-				if($cities->loaded()) {
-					$cities->delete();
+				if($category->loaded()) {
+					$category->delete();
 				}
 			}
 		
 			// Assuming all is correct
-			Request::current()->redirect('admin/cities');
+			Request::current()->redirect('admin/groups');
 			return;
 
 		} else {
-			$rec['city'] = html_entity_decode($cities->name);
+			$rec['group'] = html_entity_decode($category->name);
 		}
 		$this->response->body(View::factory('tilbud/admin/confirm_delete')
 														->set('records',$rec)
-														->set('label', __(LBL_CITY_DELETE))
+														->set('label', __(LBL_GROUP_DELETE))
 											);
 	}
 	
@@ -148,4 +146,4 @@ class Controller_Admin_Cities extends Controller {
 		}
 	}
 
-} // End Cities
+} // End Groups

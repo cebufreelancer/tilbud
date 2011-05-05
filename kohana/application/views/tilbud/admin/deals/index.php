@@ -34,6 +34,7 @@
 					<thead>
 					<tr>
 						<td>Title</td>
+            <td>Group</td>
 						<td>Start date</td>
 						<td>Sold</td>
 						<td>Status</td>
@@ -45,18 +46,17 @@
 					foreach($deals as $deal) {
 						$edit_url = HTML::anchor('admin/deals/edit/' . $deal['ID'], 'Edit');
 						$delete_url = HTML::anchor('admin/deals/delete/' . $deal['ID'], 'Delete', array('class' => 'delete'));
-						$vendor_id = ORM::factory('product', $deal['product_id'])->vendor_id;
+						$group = ORM::factory('category', $deal['group_id'])->name;
 						echo '<tr>';
-						echo '<td><b>' . $deal['title'] . '</b>' .
-						     '<div>' . ORM::factory('vendor', $vendor_id)->name . 
-						     ' -> ' . ORM::factory('product', $deal['product_id'])->title . '</div>' . 
+						echo '<td style="width:480px;"><b>' . $deal['title'] . '</b>' .
 						     '<div>' . $edit_url . ' | ' . $delete_url . '</div>' .
 						     '</td>';
+						echo '<td>' . $group . '</td>';
 						echo '<td>' . date("F d, Y", strtotime($deal['start_date'])) . '</td>';
 						echo '<td>' . $deal['total_sold'] . '</td>';
 						//echo '<td>' . $deal['end_date'] . '</td>';
 						echo '<td>' . ucwords($deal['status']) . '</td>';
-						echo '<td>' . Date::fuzzy_span(strtotime($deal['date_create'])) . '</td>';
+						echo '<td>' . date("F d, Y", strtotime($deal['date_create'])) . '</td>';
 						echo '</tr>';
 					}		
 					?>

@@ -279,6 +279,7 @@ header, content, footer {
   display: table-cell;
   vertical-align: top;
   width: 250px;
+  padding-top: 10px;
 }
 
 /** Footer Section **/
@@ -397,8 +398,8 @@ footer {
 	color: #333333; 
 }
 
-.table .delete { color: #D00216; }
-.table .delete:hover { font-weight: bold; }
+#myforms .cancel, .table .delete { color: #D00216; }
+#myforms .cancel:hover, .table .delete:hover { font-weight: bold; }
 
 /* Forms */
 #htitle { 
@@ -422,6 +423,10 @@ footer {
 	text-align: left; 
   margin-top: 10px; 
   padding: 10px; 
+}
+#myforms ul li.separator {
+ 	border-bottom: 1px solid #CCC;
+  margin-bottom: 10px; 
 }
 #myforms ul li div.quarter { width: 25%; }
 #myforms ul li div.half { width: 50%; }
