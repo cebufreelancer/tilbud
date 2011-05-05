@@ -11,8 +11,8 @@
       <ul id="deals-container">
       	<li>
           <div class="deal-title">
-            <h1><a href=""><?= LBL_Featured_Deal ?></a></h1>
-            <p><?php echo substr(html_entity_decode(strip_tags($deal->title)), 0, 200); ?></p>
+            <h1><a href=""><?php echo $deal->title ?></a></h1>
+            <p><?php echo substr(html_entity_decode(strip_tags($deal->description)), 0, 200); ?></p>
           </div>
           <div class="deal-banner" style="background-image: url(<?php echo URL::base(TRUE); ?>uploads/<?php echo "$deal->ID/$deal->image"; ?>)" >
               <div class="buy-container">
