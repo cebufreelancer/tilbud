@@ -99,14 +99,8 @@ class Controller_Admin_Deals extends Controller {
 			}
 			
 			if($deals->save()) {
-
 				if(!empty($_FILES)) {
-				  $thispath = APPPATH . "../uploads/". $deals->ID;
-				  
-				  if (!file_exists($thispath)) {
-			  	  mkdir($thispath, 0777);
-		  	  }
-
+			  	mkdir(APPPATH . "../uploads/". $deals->ID);
 			  	move_uploaded_file($_FILES["deal_image"]["tmp_name"], APPPATH . "../uploads/" . $deals->ID . "/" . $_FILES["deal_image"]["name"]);
 				}
 			  
@@ -188,7 +182,7 @@ class Controller_Admin_Deals extends Controller {
 			$deals->regular_price = number_format($posts['deal_regular_price'], 2, '.', '');
 			$deals->discount  	= (int)$posts['deal_discount'];
 			$deals->reference_no= htmlentities($posts['deal_refno']);
-			$deals->youtube_url	= $posts['deal_video_url'];
+			$deals->youtube_url	= $this->clean_video_url($posts['deal_video_url']);
 			//$deals->vouchers 	 	= (int)$posts['deal_vouchers'];
 			$deals->min_buy 	 	= (int)$posts['deal_min_buy'];
 			$deals->max_buy 	 	= (int)$posts['deal_max_buy'];
@@ -201,22 +195,7 @@ class Controller_Admin_Deals extends Controller {
 			$deals->last_update = date("Y-m-d H:i:S");
 			$deals->is_featured = 1;
 
-			if (isset($_FILES['deal_image'])) {
-			  $deals->image = $_FILES['deal_image']['name'];
-			}
-
 			if($deals->save()) {
-
-				if(!empty($_FILES)) {
-				  $thispath = APPPATH . "../uploads/". $deals->ID;
-				  
-				  if (!file_exists($thispath)) {
-			  	  mkdir($thispath, 0777);
-		  	  }
-
-			  	move_uploaded_file($_FILES["deal_image"]["tmp_name"], APPPATH . "../uploads/" . $deals->ID . "/" . $_FILES["deal_image"]["name"]);
-				}
-			  
 				// message: save success
         Message::add('success', __('Deal ' . $deals->title . 'has been successfully added.'));
 				
@@ -323,5 +302,27 @@ class Controller_Admin_Deals extends Controller {
 			}
 		}
 	}
+	
+	public function clean_video_url($url)
+	{
+		$youtube_url = 'http://www.youtube.com/watch?';
+		preg_match('/youtube|youtu.be|vimeo/', $url, $match);
 
+		switch($match[0]) {
+		case 'youtube':
+				preg_match('~v=([-_\d\w]+)~is', $url, $match);
+				$clean_url = $youtube_url . $match[1];
+				break;
+		case 'youtu.be':
+				$clean_url = str_replace("/", "", str_replace("http://youtu.be/", "", $url));
+				$clean_url = $youtube_url . 'v=' . $clean_url;
+				break;
+		case 'vimeo':
+				$clean_url = $url;
+				break;
+		}
+
+		return $clean_url;
+	}
+	
 } // End Welcome
