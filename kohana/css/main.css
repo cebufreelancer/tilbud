@@ -279,6 +279,7 @@ header, content, footer {
   display: table-cell;
   vertical-align: top;
   width: 250px;
+  padding-top: 10px;
 }
 
 /** Footer Section **/
