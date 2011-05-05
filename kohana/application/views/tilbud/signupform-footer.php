@@ -24,7 +24,6 @@
 		</li>
 		<li>
 			<?php echo Form::submit(NULL, LBL_SAVE); ?>
-			<?php echo Form::submit(NULL, LBL_CANCEL); ?>
 		</li>
 	</ul>
 <?php echo Form::close(); ?>
