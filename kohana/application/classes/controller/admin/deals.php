@@ -93,7 +93,7 @@ class Controller_Admin_Deals extends Controller {
 			}
 			
 			if($deals->save()) {
-			  mkdir(APPPATH . "../uploads/". $deals->ID);
+			  mkdir(APPPATH . "../uploads/". $deals->ID, 0777);
 			  move_uploaded_file($_FILES["deal_image"]["tmp_name"], APPPATH . "../uploads/" . $deals->ID . "/" . $_FILES["deal_image"]["name"]);
 			  
 				// message: save success

@@ -23,7 +23,7 @@ class Model_Page extends ORM {
 	}
 	
   public function get_page_byid($id){
-    $page = ORM::factory('page')->find($id);
+    $page = ORM::factory('page', $id);
 		return $page;
 	}
 	
