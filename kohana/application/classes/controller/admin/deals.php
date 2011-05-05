@@ -196,7 +196,17 @@ class Controller_Admin_Deals extends Controller {
 			$deals->last_update = date("Y-m-d H:i:S");
 			$deals->is_featured = 1;
 
+			if (isset($_FILES['deal_image'])) {
+			  $deals->image = $_FILES['deal_image']['name'];
+			}
+
 			if($deals->save()) {
+
+				if(!empty($_FILES)) {
+			  	mkdir(APPPATH . "../uploads/". $deals->ID, 0777);
+			  	move_uploaded_file($_FILES["deal_image"]["tmp_name"], APPPATH . "../uploads/" . $deals->ID . "/" . $_FILES["deal_image"]["name"]);
+				}
+			  
 				// message: save success
         Message::add('success', __('Deal ' . $deals->title . 'has been successfully added.'));
 				
