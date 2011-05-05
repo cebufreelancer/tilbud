@@ -26,10 +26,14 @@ class Controller_Admin_Deals extends Controller {
 			//echo "$to $subject $message, $headers";
 			$subscribers = ORM::factory('category')->get_subscribers($_GET['city']);
 			
-			foreach($subscribers as $sub) {
-				if(mail($sub['email'], $subject, $message, $headers)) {
-					$send=true;
+			if(!empty($subscribers)) {
+				foreach($subscribers as $sub) {
+					if(mail($sub['email'], $subject, $message, $headers)) {
+						$send=true;
+					}
 				}
+			} else {
+				Message::add('success', __('No user has been subscribe on this city.'));
 			}
 			
 			if($send==true) {

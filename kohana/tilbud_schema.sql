@@ -299,8 +299,8 @@ ALTER TABLE  `cities` ADD  `order` INT NOT NULL DEFAULT  '0';
 -- MAY 6 2011 Updates
 --
 
-CREATE TABLE  `tilbud_db`.`subscriptions` (
-	`email` VARCHAR( 255 ) NOT NULL ,
-	`city_id` INT NOT NULL ,
-	UNIQUE ( `email` , `city_id` )
-) ENGINE = INNODB;
+CREATE TABLE IF NOT EXISTS `subscriptions` (
+  `email` varchar(255) NOT NULL,
+  `city_id` int(11) NOT NULL,
+  UNIQUE KEY `email` (`email`,`city_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
