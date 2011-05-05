@@ -73,7 +73,7 @@ class Model_Product extends ORM {
 	}
 	
   public function get_product($id){
-    $product = ORM::factory('product')->find($id);
+    $product = ORM::factory('product', $id);
 		return $product;
 	}
 	
