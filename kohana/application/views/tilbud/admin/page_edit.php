@@ -17,7 +17,7 @@
 						<?= $thepage->page_code;?>
         </li>
         <li><?php echo Form::label('product_desc', __('Content')); ?>
-        		<?php echo Form::textarea('page_content', $thepage->content, array('style' => 'width: 70%;')); ?>
+        		<?php echo Form::textarea('page_content', $thepage->content, array('style' => 'width: 70%;', 'class' => 'mceEditor' )); ?>
         </li>
         <li>
         	<?php echo Form::submit(NULL, 'Save'); ?>

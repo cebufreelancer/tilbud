@@ -14,12 +14,12 @@
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script> 
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.7/jquery-ui.min.js"></script>
 
-  <script type="text/javascript" src="<?php echo url::base()?>/js/tiny_mce/tiny_mce_dev.js"></script>
+  <script type="text/javascript" src="<?php echo url::base()?>js/tiny_mce/tiny_mce_dev.js"></script>
   <script type="text/javascript">
   	tinyMCE.init({
-  		mode : "textareas",
+  		mode : "specific_textareas",
   		theme : "simple",
-  		editor_deselector : "mceNoEditor"
+  		editor_selector : "mceEditor"
   	});
   </script>
   <!-- /TinyMCE -->
