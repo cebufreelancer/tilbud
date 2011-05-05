@@ -11,6 +11,13 @@ class Controller_Deals extends Controller {
 									 ->set('orders', $orders));
 	}
 	
+	public function action_email_format($deal_id)
+	{
+			$deals = ORM::factory('deal', $deal_id);
+			$this->response->body(View::factory('tilbud/template_email')
+															->set('deals', $deals));
+	}
+	
 	public function action_view($id){
     $deal = ORM::factory('deal', $id);
     $orders = ORM::factory('order')->get_orders($deal->ID);

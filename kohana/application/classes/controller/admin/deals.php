@@ -74,7 +74,7 @@ class Controller_Admin_Deals extends Controller {
 			$deals->title 			= htmlentities($posts['deal_title']);
 			$deals->description = htmlentities($posts['deal_desc']);
 			$deals->contents_title = htmlentities($posts['deal_content_title']);
-			$deals->contents		= htmlentities($posts['deal_desc_long']);
+			$deals->contents		= $posts['deal_desc_long'];
 			$deals->whatyouget	= htmlentities($posts['deal_whatyouget']);
 			$deals->information	= htmlentities($posts['deal_information']);
 			$deals->city_id 	 	= (int)$posts['deal_city'];
@@ -174,7 +174,7 @@ class Controller_Admin_Deals extends Controller {
 			$deals->title 			= htmlentities($posts['deal_title']);
 			$deals->description = htmlentities($posts['deal_desc']);
 			$deals->contents_title = htmlentities($posts['deal_content_title']);
-			$deals->contents		= htmlentities($posts['deal_desc_long']);
+			$deals->contents		= $posts['deal_desc_long'];
 			$deals->whatyouget	= htmlentities($posts['deal_whatyouget']);
 			$deals->information	= htmlentities($posts['deal_information']);
 			$deals->city_id 	 	= (int)$posts['deal_city'];
@@ -311,7 +311,7 @@ class Controller_Admin_Deals extends Controller {
 		switch($match[0]) {
 		case 'youtube':
 				preg_match('~v=([-_\d\w]+)~is', $url, $match);
-				$clean_url = $youtube_url . $match[1];
+				$clean_url = !empty($match) ? $youtube_url . $match[0] : $url;
 				break;
 		case 'youtu.be':
 				$clean_url = str_replace("/", "", str_replace("http://youtu.be/", "", $url));
@@ -321,7 +321,7 @@ class Controller_Admin_Deals extends Controller {
 				$clean_url = $url;
 				break;
 		}
-
+		
 		return $clean_url;
 	}
 	

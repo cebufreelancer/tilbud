@@ -6,12 +6,11 @@
   <title>TilbudiByen</title>
 	
   <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.7/themes/base/jquery-ui.css" type="text/css" media="all" /> 
-	<link rel="stylesheet" media="all" href="<?php echo url::base()?>css/main.css"/>
+	<link rel="stylesheet" media="all" href="<?php echo url::base(TRUE)?>css/main.css"/>
 
 	<meta name="viewport" content="width=device-width; initial-scale=1"/>
 	<!-- Add "maximum-scale=1" to fix the weird iOS auto-zoom bug on orientation changes. -->
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
-	<!-- <script type="text/javascript" src="<?php echo url::base(); ?>js/jquery.min.js"></script> -->
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.7/jquery-ui.min.js"></script>
   
   <script type="text/javascript" src="<?php echo url::base()?>js/fancybox/jquery.fancybox-1.3.4.js"></script> 
@@ -71,7 +70,7 @@
   <![endif]-->
   
 </head>
-<body onload="initialize()" onunload="GUnload()">
+<body onLoad="initialize()" onunload="GUnload()">
 
     <?php
       $map_address = "";

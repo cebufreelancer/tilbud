@@ -4,8 +4,6 @@
 <head>
   <meta CONTENT="text/html; charset=ISO-8859-1"/>
   <title>TILBUD</title>
-	
-  <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.7/themes/base/jquery-ui.css" type="text/css" media="all" /> 
 
   <?php echo Html::style('css/main.css') . "\n"; ?>
 
@@ -14,7 +12,9 @@
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script> 
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.7/jquery-ui.min.js"></script>
 
-  <script type="text/javascript" src="<?php echo url::base()?>js/tiny_mce/tiny_mce_dev.js"></script>
+	<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.7/themes/base/jquery-ui.css" type="text/css" media="all" /> 
+
+  <script type="text/javascript" src="<?php echo url::base(TRUE); ?>js/tiny_mce/tiny_mce_dev.js"></script>
   <script type="text/javascript">
   	tinyMCE.init({
   		mode : "specific_textareas",
