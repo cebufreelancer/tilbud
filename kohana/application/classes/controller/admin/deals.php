@@ -83,7 +83,7 @@ class Controller_Admin_Deals extends Controller {
 			$deals->discount  	= (int)$posts['deal_discount'];
 			//$deals->vouchers 	 	= (int)$posts['deal_vouchers'];
 			$deals->reference_no= htmlentities($posts['deal_refno']);
-			$deals->youtube_url	= $posts['deal_video_url'];
+			$deals->youtube_url	= $this->clean_video_url($posts['deal_video_url']);
 			$deals->min_buy 	 	= (int)$posts['deal_min_buy'];
 			$deals->max_buy 	 	= (int)$posts['deal_max_buy'];
 			$deals->min_sold 	 	= (int)$posts['deal_min_sold'];
