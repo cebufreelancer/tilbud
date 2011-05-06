@@ -43,10 +43,10 @@
 	</div>
 	
 	<div style="background: #40a2d5; color: #FFF;">
-		<h1><span style="color: #000;"><?php echo $deals->title; ?></span>  <?php echo html_entity_decode($deals->description); ?></h1>
+		<h1 style="font-size: 22px; padding: 10px;"><span style="color: #000;"><?php echo $deals->title; ?></span>  <?php echo html_entity_decode($deals->description); ?></h1>
 	</div>
 	
-	<div id="width: 200px; float: left;">
+	<div style="width: 200px; float: left;">
 		<?php $price = ($deals->regular_price * (100 - $deals->discount)) / 100; 
 					$class = strlen($price) > 5 ? ' font-size: 45px;' : ''; 
 					$savings = $deals->regular_price - $price; ?>
@@ -76,9 +76,9 @@
 		
 	</div>
 	
-	<div id="deal-content">
-		<h2>Se dagens tilbud på video - klik her.</h2>
-		<img src="<?php echo url::base(TRUE)?>images/sample-image.jpg" width="445" height="300" />
+	<div style="width: 430px; float: left; padding-left: 25px; font: 18px/22px Arial, Helvetica, sans-serif;">
+		<h2 style="color: #666666; font-size: 22px;">Se dagens tilbud på video - klik her.</h2>
+		<img src="<?php echo url::base(TRUE)?>images/sample-image.jpg" width="445" height="300" style="margin-bottom: 20px;"/>
 		<?php echo html_entity_decode($deals->contents); ?>
 	</div>
 	<div style="clear: both;"></div>
