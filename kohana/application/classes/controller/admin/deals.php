@@ -14,6 +14,7 @@ class Controller_Admin_Deals extends Controller {
 			$random_hash = md5(date('r', time())); 
 			// Headers
 			$headers  = 'Content-Type: multipart/alternative; boundary="PHP-alt-' . $random_hash . '"' . "\r\n"; 
+			$headers .= 'Content-type: text/html; charset="iso-8859-1"' . "\r\n";
 			//$headers .= 'MIME-Version: 1.0' . "\r\n";
 
 			$headers .= "From: TilbudiByen <no-reply@tilbudibyen.com>" . "\r\n".
@@ -28,11 +29,8 @@ class Controller_Admin_Deals extends Controller {
 			ob_start();
 			include_once(APPPATH . 'views/tilbud/template_email.php');
 			$content = ob_get_clean();
-			
-			$message  = '--PHP-alt-' . $random_hash . "\r\n";
-			$message .= 'Content-type: text/html; charset="iso-8859-1"' . "\r\n";
+
 			$message .= $content;
-			$message .= '--PHP-alt-'.$random_hash.'--'."\n";
 
 			$subscribers = ORM::factory('category')->get_subscribers($_GET['city']);
 			
