@@ -1,4 +1,5 @@
 <style type="text/css">
+<!--
   body { font-family: "Arial", "Helvetica", sans-serif; }
   a { color: #40a2d5; }
   #main { border: 15px solid #40a2d5; background: #FFFFFF; width: 670px; padding: 15px; margin: auto; }
@@ -33,8 +34,9 @@
   .clear { clear: both; }
   ::selection { background: #F85510; /* Safari */ }
   ::-moz-selection { background: #F85510; /* Firefox */ }
+-->
 </style>
-<p class="align-center">Jeg ønsker at se denne e-mail i min browser - <?php echo HTML::anchor('deals/email_format/'.$deals->ID, 'klik her'); ?>.</p>	
+<p class="align-center">Jeg ønsker at se denne e-mail i min browser - <?php echo HTML::anchor(Url::base(TRUE) . 'deals/email_format/'.$deals->ID, 'klik her'); ?>.</p>	
 <div id="main">
 	<div id="main-title">
 		<img src="<?php echo url::base(TRUE)?>images/logo.png" /><span class="slogan">De bedste tilbud og oplevelser i din by!</span>
@@ -51,7 +53,7 @@
     
 		<div class="price <?php echo $class; ?>"><span class="black"><?php echo $price; ?></span>,-</div>
 		
-		<div><a href="<?php echo Url::base() . 'deals/view/' . $deals->ID; ?>" class="button">Bestil nu!</a></div>
+		<div><a href="<?php echo Url::base(TRUE) . 'deals/view/' . $deals->ID; ?>" class="button">Bestil nu!</a></div>
 		
 		<div class="big">Værdi:		   <span class="align-right"><?php echo $deals->regular_price; ?>,-</span></div>
 		<div class="big">Rabat:		    <span class="align-right"><?php echo $deals->discount; ?> %</span></div>
