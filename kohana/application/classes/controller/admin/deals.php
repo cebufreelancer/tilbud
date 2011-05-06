@@ -24,7 +24,7 @@ class Controller_Admin_Deals extends Controller {
 
 			// Message
 			ob_start();
-			include_once . 'views/tilbud/template_email.php';
+			include_once 'views/tilbud/template_email.php';
 			$content = ob_get_clean();
 			
 			$deals = ORM::factory('deal', (int)$_GET['did']);
