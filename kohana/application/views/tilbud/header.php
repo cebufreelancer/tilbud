@@ -89,7 +89,7 @@
     <?php
       $map_address = "";
       if (isset($address)) {
-        $address = strtolower($address);
+        $address = strtolower(html_entity_decode($address));
         $map_address = str_replace("\n", " ", $address);
     ?>
       <script type="text/javascript">
