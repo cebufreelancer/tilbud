@@ -19,6 +19,15 @@ class Controller_Home extends Controller {
 			$page->address = $address;
 		}
 		
+		if(isset($_GET['status'])) {
+			switch($_GET['status']) {
+				case 'verify':
+					$msg = 'Congratulations! Kindly check your email to account verification.';
+			}
+			
+			$page->msg = $msg;
+		}
+		
 		$this->response->body($page);
 	}
 	/*
@@ -42,9 +51,10 @@ class Controller_Home extends Controller {
 	{
 		$citylist = Kohana::config('global.cities');
 		
+		$url   = '';
     $posts = $this->request->post();
+		
 		// This will check if submitted
-	
 		if(!empty($posts)) {
 	
 			$email = $posts['semail'];
@@ -84,11 +94,12 @@ class Controller_Home extends Controller {
 				
 				if(mail($to, $subject, $message, $headers)) {
 					// Should notify to check email for verification process
+					$url = '?status=verify';
 				}
 			} 			
 			
 			// Redirect to home page
-			Request::current()->redirect(Url::base(TRUE));
+			Request::current()->redirect(Url::base(TRUE) . $url);
 			return;
 		}
 	}
@@ -101,37 +112,37 @@ class Controller_Home extends Controller {
 			Request::current()->redirect('user/myaccount');
 		}
 		
-		$email = $_GET['e'];
-		$user = ORM::factory('user');
-		
-		
-		if($user->where('email', '=', $email)->count_all() > 0 ) {
-			$user = $user->where('email', '=', $email)->find();
+		if(!empty($_GET)) {
+			$email = $_GET['e'];
+			$user = ORM::factory('user');
 			
-			// Check if status is already active
-			//	Redirect to home page
-			if(strcmp($user->status, 'active') == 0) {
-				Request::current()->redirect(Url::base());
+			if($user->where('email', '=', $email)->count_all() > 0 ) {
+				$user = $user->where('email', '=', $email)->find();
+				
+				// Check if status is already active
+				//	Redirect to home page
+				if(strcmp($user->status, 'active') == 0) {
+					Request::current()->redirect(Url::base());
+				}
+				
+				$user->status = 'active';
+				$user->username = $email;
+		
+			// Automatically login the current user
+			Auth::instance()->force_login($email);
+				if($user->save()) {
+					Message::add('success', __('Your account has been verified. '));
+					$success = true;
+				}
+			} else {
+				Message::add('success', __('Email does not exists'));
+				$success = false;
 			}
-			
-			$user->status = 'active';
-		 	$user->username = $email;
-	
-		// Automatically login the current user
-		Auth::instance()->force_login($email);
-			if($user->save()) {
-				Message::add('success', __('Your account has been verified. '));
-				$success = true;
-			}
-		} else {
-			Message::add('success', __('Email does not exists'));
-			$success = false;
 		}
 	
 		$this->response->body(View::factory('tilbud/verify')
 						->set('success', $success)
 						->set('email', $email)); 
-	  
 	}
 	
 	public function action_password_update()
