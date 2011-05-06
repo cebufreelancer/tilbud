@@ -30,7 +30,7 @@
 				if(!empty($deals)) {
 					echo ($show_pager) ? $paging->render() : ''; ?>
 	
-					<table class="table">
+					<table class="table" border=1>
 					<thead>
 					<tr>
 						<td>Title</td>
@@ -49,7 +49,7 @@
 						$email_url = HTML::anchor('admin/deals?city=' . $deal['city_id'] . '&did=' . $deal['ID'], 'Send Email');
 						$group = ORM::factory('category', $deal['group_id'])->name;
 						echo '<tr>';
-						echo '<td style="width:480px;"><b>' . $deal['title'] . '</b>' .
+						echo '<td style="width:480px;"><b>' . $deal['title'] . '<br/>' . $deal['description'] . '</b>' .
 						     '<div>' . $edit_url . ' | ' . $delete_url . ' | ' . $email_url . '</div>' .
 						     '</td>';
 						echo '<td>' . $group . '</td>';
