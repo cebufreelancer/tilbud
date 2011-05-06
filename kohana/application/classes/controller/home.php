@@ -79,7 +79,6 @@ class Controller_Home extends Controller {
 				include_once(APPPATH . 'views/tilbud/template_confirm.php');
 				$content = ob_get_clean();
 	
-				$message  = 'Content-type: text/html; charset="iso-8859-1"' . "\r\n";
 				$message .= $content;
         /*
   		  $message = "
