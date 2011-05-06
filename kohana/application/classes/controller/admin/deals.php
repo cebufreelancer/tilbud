@@ -11,19 +11,26 @@ class Controller_Admin_Deals extends Controller {
 		// Check if send mail is accessed
 		if(!empty($_GET)) {
 			$send = false;
+			
+			$random_hash = md5(date('r', time())); 
 			// Headers
-			$headers  = 'MIME-Version: 1.0' . "\r\n";
-			$headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+			$headers  = 'Content-Type: multipart/alternative; boundary="PHP-alt-' . $random_hash . '"' . "\r\n"; 
+			//$headers .= 'MIME-Version: 1.0' . "\r\n";
+
 			$headers .= "From: TilbudiByen <no-reply@tilbudibyen.com>" . "\r\n".
 		              "Reply-To: no-reply@tilbudibyen.com" . "\r\n".
 		              "X-Mailer: PHP/" . phpversion();
 			// Subject
 			$subject = ORM::factory('deal', (int)$_GET['did'])->title;
+
 			// Message
-			$message = View::factory('tilbud/template_email')
+			$message  = '--PHP-alt-' . $random_hash . "\r\n";
+			$message .= 'Content-type: text/html; charset="iso-8859-1"' . "\r\n";
+			$message .= 'Content-Transfer-Encoding: 7bit' . "\n";
+			$message .= View::factory('tilbud/template_email')
 									->set('deals', ORM::factory('deal', (int)$_GET['did']));
-			//$to 		 = 'john.doe@example.com';
-			//echo "$to $subject $message, $headers";
+			$message .= '--PHP-alt-'.$random_hash.'--'."\n";
+
 			$subscribers = ORM::factory('category')->get_subscribers($_GET['city']);
 			
 			if(!empty($subscribers)) {
