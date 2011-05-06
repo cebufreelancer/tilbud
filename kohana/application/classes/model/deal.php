@@ -79,6 +79,7 @@ class Model_Deal extends ORM {
 	  $deals = ORM::factory('deal')
 	          ->where('is_featured', '=', 1)
 	          ->and_where('status', '=', 'active')
+	          ->and_where('start_date', '=', date('Y-m-d'))
 	          ->limit(1)
 	          ->order_by('date_create', 'DESC')
 	          ->find_all();
