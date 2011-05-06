@@ -28,7 +28,7 @@ class Controller_Admin_Deals extends Controller {
 			
 			if(!empty($subscribers)) {
 				foreach($subscribers as $sub) {
-					if(mail($sub['email'], $subject, $message, $headers)) {
+					if(mail($sub['email'], $subject, htmlentities($message), $headers)) {
 						$send=true;
 					}
 				}
