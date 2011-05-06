@@ -44,16 +44,20 @@
 					<tbody class="order-table">
 					<?php
 					foreach($deals as $deal) {
-					  
-					    $serving = "";
+					  $serving_css= "";
 
+					  if (strftime( "%Y-%m-%d" , strtotime($deal['start_date'])) == date('Y-m-d')) {
+					    $serving_css = 'style="background-color: #FFFFCC"';
+					  }else {
+					    $serving_css = "";
+					  }
 					  
 						$edit_url = HTML::anchor('admin/deals/edit/' . $deal['ID'], 'Edit');
 						$delete_url = HTML::anchor('admin/deals/delete/' . $deal['ID'], 'Delete', array('class' => 'delete'));
 						$email_url = HTML::anchor('admin/deals?city=' . $deal['city_id'] . '&did=' . $deal['ID'], 'Send Email');
 						$group = ORM::factory('category', $deal['group_id'])->name;
-						echo '<tr>';
-						echo '<td style="width:480px;$serving"><b>' . $deal['title'] . '<br/>' . $deal['description'] . '</b>' .
+						echo '<tr ' . $serving_css . '>';
+						echo '<td style="width:480px;"><b>' . $deal['title'] . '<br/>' . $deal['description'] . '</b>' .
 						     '<div>' . $edit_url . ' | ' . $delete_url . ' | ' . $email_url . '</div>' .
 						     '</td>';
 						echo '<td>' . $group . '</td>';
