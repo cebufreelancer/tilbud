@@ -38,7 +38,7 @@ class Model_Category extends ORM {
 	
 	public function get_subscribers($category_id)
 	{
-		$query = DB::select()->from('subscriptions')->where('city_id', '=', $category_id)->execute();
+		$query = DB::select()->from('subscribers')->where('city_id', '=', $category_id)->execute();
 		$result = $query->as_array();
 
 		return $result;
