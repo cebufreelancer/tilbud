@@ -1,32 +1,24 @@
 <?php defined('SYSPATH') OR die('No direct access allowed.'); ?>
-<?php
-// TODO: need to transfer this to controller level and made available every pageload;
-$cities = Kohana::config('global.cities');
-?>
-<div id="htitle">
-	<h2><?= LBL_SIGNUP?></h2>
+<?php $cities = Kohana::config('global.cities'); ?>
+
+<div id="signup-container">
+	<h2>Velkommen til TilbudiByen.dk</h2>
+	<p>Tilmeld dig gratis vores nyhedsbrev og få halv pris i din by.</p>
+	
+	<?php echo Form::open('home/signup', array('method' => 'post')); ?>
+	<ul id="signup-form-container">
+		<li><?php echo Form::select('city', $cities) . ' ' . __(LBL_CITY); ?></li>
+		<li><?php echo Form::input('semail', NULL, array('id' => 'signup-email', 
+																										 'type' => 'email')) . 
+									 Form::submit(NULL, __("Send"), array('id' => 'signup-button')); ?></li>
+	</ul>
+	<?php echo Form::close(); ?>
+	
+	<?php echo HTML::image(Url::base(TRUE) . 'images/tilmelding.jpg'); ?>
+	
+	<p>Når du tilmelder dig vores nyhedsbrev giver du samtidig dit samtykke til, at TilbudiByen.dk ApS hver dag må sende 
+dig en e-mail med tilbud, som er udvalgt fra de bedste restauranter, wellness-steder, oplevelser etc. i din by.</p>
+	<p>Du kan altid på TilbudiByen.dk eller via et link i e-mailen nemt og hurtigt framelde dig igen.</p>
+	<p>TilbudiByen.dk ApS - Nøregade 7B - 1161 København K - CVR nummer: 33583400</p>
+	
 </div>
-
-<?php
-// output messages
-if(Message::count() > 0) {
-	echo '<div class="block">';
-	echo '<div class="content" style="padding: 10px 15px;">';
-	echo Message::output();
-	echo '</div></div>';
-}
-?>
-
-<?php echo Form::open('home/signup', array('id'	=> 'signupform', 'method' => 'post')); ?>
-<ul>
-	<li><?php echo Form::label('city', LBL_CITY); ?>
-			<?php echo Form::select('city', $cities); ?>
-	</li>
-	<li><?php echo Form::label('semail', LBL_EMAIL); ?>
-			<input id="semail" name="semail" value="">
-	</li>
-	<li>
-		<?php echo Form::submit(NULL, LBL_SAVE); ?>
-	</li>
-</ul>
-<?php echo Form::close(); ?>
