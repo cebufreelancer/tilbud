@@ -861,3 +861,18 @@ span.block {
   padding: 10px;
   color: #666666;
 }
+
+/** NOTIFICATION **/
+#notification {
+	background: #000000;
+	padding: 3px;
+	text-align: center;
+	top: 0;
+	position: fixed;
+	width: 100%;
+	display: none;
+}
+#notification p {
+	color: #369bcf; 
+	width: 960px;
+}

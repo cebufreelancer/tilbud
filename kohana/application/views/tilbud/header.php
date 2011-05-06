@@ -72,6 +72,20 @@
 </head>
 <body onLoad="initialize()" onunload="GUnload()">
 
+		<?php if(isset($msg)) { ?>
+		<div id="notification">
+			<p>Thank you for your subscription! Please check your email for verification. 
+			<?php echo HTML::image(Url::base(TRUE) . 'images/close.png', array('align' => 'right', 'width' => 10, 'id' => 'closeme')); ?>
+			</p>
+		</div>
+		<script type="text/javascript">
+		$("#notification").slideDown('fast');
+		$("#closeme").click(function(){
+			$("#notification").slideToggle('fast');
+		});
+		</script>
+		<?php }	?>
+
     <?php
       $map_address = "";
       if (isset($address)) {
