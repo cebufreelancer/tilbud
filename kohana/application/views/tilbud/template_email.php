@@ -36,6 +36,7 @@
   ::-moz-selection { background: #F85510; /* Firefox */ }
 -->
 </style>
+<div style="color: #000000;">
 <p style="text-align: center; font-size: 11px;">Jeg ønsker at se denne e-mail i min browser - <?php echo HTML::anchor(Url::base(TRUE) . 'deals/email_format/'.$deals->ID, 'klik her'); ?>.</p>	
 <div style="border: 15px solid #40a2d5; background: #FFFFFF; width: 670px; padding: 15px; margin: auto;">
 	<div style="background: #000000; padding: 15px 10px; url(<?php echo url::base(TRUE)?>images/bg-header.png) bottom left repeat-x;">
@@ -82,3 +83,4 @@
 <p style="text-align: center; font-size: 11px;">Du modtager denne e-mail fordi du er tilmeldt nyhedsbrevet hos TilbudiByen.dk.Hvis du ikke ønsker at modtage Dagens Tilbud i Byen på e-mail længere kan du altid afmelde dig ved at klike her.</p>
 
 <p style="text-align: center; font-size: 11px;">Nyhedsbrevet udsendes af Tilbudibyen.dk ApS - Nørregade 7B - 1165 København K</p>
+</div>
