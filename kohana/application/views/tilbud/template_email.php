@@ -36,10 +36,10 @@
   ::-moz-selection { background: #F85510; /* Firefox */ }
 -->
 </style>
-<p class="align-center">Jeg ønsker at se denne e-mail i min browser - <?php echo HTML::anchor(Url::base(TRUE) . 'deals/email_format/'.$deals->ID, 'klik her'); ?>.</p>	
-<div id="main">
-	<div id="main-title">
-		<img src="<?php echo url::base(TRUE)?>images/logo.png" /><span class="slogan">De bedste tilbud og oplevelser i din by!</span>
+<p style="text-align: center; font-size: 11px;">Jeg ønsker at se denne e-mail i min browser - <?php echo HTML::anchor(Url::base(TRUE) . 'deals/email_format/'.$deals->ID, 'klik her'); ?>.</p>	
+<div style="border: 15px solid #40a2d5; background: #FFFFFF; width: 670px; padding: 15px; margin: auto;">
+	<div style="background: #000000; padding: 15px 10px; url(<?php echo url::base(TRUE)?>images/bg-header.png) bottom left repeat-x;">
+		<img src="<?php echo url::base(TRUE)?>images/logo.png" /><span style="float: right; font-style: italic; color: #e9e9e9; font-size: 17px; padding-top: 15px;">De bedste tilbud og oplevelser i din by!</span>
 	</div>
 	
 	<div id="deal-title">
