@@ -53,11 +53,12 @@
     
 		<div style="font-size: 60px; font-weight: bold; text-align: center; color: #40a2d5; <?php echo $class; ?>"><span style="color: #000;"><?php echo $price; ?></span>,-</div>
 		
-		<div><a href="<?php echo Url::base(TRUE) . 'deals/view/' . $deals->ID; ?>" style="background: url(<?php echo url::base(TRUE)?>images/bg-button.png) top left repeat-x; color: #FFFFFF; font-weight: bold; font-size: 28px; padding: 10px 15px; text-align: center; margin-bottom: 20px; border-radius: 10px; display: block; text-decoration: none; -moz-border-radius: 10px; -webkit-border-radius: 10px; -moz-box-shadow: 0px 0px 20px #333 inset; -webkit-box-shadow: 0px 0px 20px #333 inset; box-shadow: 0px 0px 20px #333 inset;">Bestil nu!</a></div> 
+		<div><a href="<?php echo Url::base(TRUE) . 'deals/view/' . $deals->ID; ?>"><?php echo HTML::Image(Url::base(TRUE) . 'images/ordernow.png', array('alt' => 'Order Now',
+																																																																										 'style' => 'margin-bottom: 20px;')); ?></a></div> 
     		
-		<div style="font-size: 18px; font-weight: bold; padding: 5px 20px 5px 0px;">Værdi:		   <span style="float: right;"><?php echo $deals->regular_price; ?>,-</span></div>
-		<div style="font-size: 18px; font-weight: bold; padding: 5px 20px 5px 0px;">Rabat:		    <span style="float: right;"><?php echo $deals->discount; ?> %</span></div>
-		<div style="font-size: 18px; font-weight: bold; padding: 5px 20px 5px 0px;">Du sparer:	   <span style="float: right;"><?php echo $savings; ?>,-</span></div>
+		<div style="font-size: 18px; font-weight: bold; padding: 5px 20px 5px 0px;">Værdi:	<span style="float: right;"><?php echo $deals->regular_price; ?>,-</span></div>
+		<div style="font-size: 18px; font-weight: bold; padding: 5px 20px 5px 0px;">Rabat:	<span style="float: right;"><?php echo $deals->discount; ?> %</span></div>
+		<div style="font-size: 18px; font-weight: bold; padding: 5px 20px 5px 0px;">Du sparer:	<span style="float: right;"><?php echo $savings; ?>,-</span></div>
 		<div style="clear: both;"></div>
 	
 		<h3 style="color: #40a2d5;">Information</h3>
