@@ -6,7 +6,6 @@ class Controller_Admin_Deals extends Controller {
 	{		
 
 		$page = View::factory('tilbud/admin/deals/index');
-		$deals = ORM::factory('deal');
 		
 		// Check if send mail is accessed
 		if(!empty($_GET)) {
@@ -24,11 +23,15 @@ class Controller_Admin_Deals extends Controller {
 			$subject = ORM::factory('deal', (int)$_GET['did'])->title;
 
 			// Message
+			ob_start();
+			include_once . 'views/tilbud/template_email.php';
+			$content = ob_get_clean();
+			
+			$deals = ORM::factory('deal', (int)$_GET['did']);
+			
 			$message  = '--PHP-alt-' . $random_hash . "\r\n";
 			$message .= 'Content-type: text/html; charset="iso-8859-1"' . "\r\n";
-			$message .= 'Content-Transfer-Encoding: 7bit' . "\n";
-			$message .= View::factory('tilbud/template_email')
-									->set('deals', ORM::factory('deal', (int)$_GET['did']));
+			$message .= $content;
 			$message .= '--PHP-alt-'.$random_hash.'--'."\n";
 
 			$subscribers = ORM::factory('category')->get_subscribers($_GET['city']);
@@ -48,6 +51,8 @@ class Controller_Admin_Deals extends Controller {
         Message::add('success', __('Email has been sent to subscribers'));
 			}
 		}
+		
+		$deals = ORM::factory('deal');
 		
 		// This is an example of how to use Kohana pagination
     // Get the total count for the pagination
