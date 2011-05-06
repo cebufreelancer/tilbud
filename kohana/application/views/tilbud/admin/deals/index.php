@@ -45,11 +45,8 @@
 					<?php
 					foreach($deals as $deal) {
 					  
-					  if ($deal->start_date == date('Y-m-d')) {
-					    $serving = "background-color: #FFE5E5";
-					  }else {
 					    $serving = "";
-					  }
+
 					  
 						$edit_url = HTML::anchor('admin/deals/edit/' . $deal['ID'], 'Edit');
 						$delete_url = HTML::anchor('admin/deals/delete/' . $deal['ID'], 'Delete', array('class' => 'delete'));
