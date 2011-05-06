@@ -57,7 +57,7 @@ class Controller_Home extends Controller {
 		  $subject = "Confirm your registration to TilbudiByen newsletter.";
 		  $headers = 'MIME-Version: 1.0' . "\r\n";
 		  $headers .= "Content-type: text/html; charset=UTF-8" . "\r\n";
-		  $headers .= "From: no-reply@tilbudibyen.com" . "\r\n".
+		  $headers .= "From: TilbudiByen <no-reply@tilbudibyen.com>" . "\r\n".
 		              "Reply-To: no-reply@tilbudibyen.com" . "\r\n".
 		              "X-Mailer: PHP/" . phpversion();
 
@@ -73,8 +73,15 @@ class Controller_Home extends Controller {
         $sql = "Insert into users (email) values('$to')";
         mysql_query($sql, $conn);
         mysql_close($conn);
-        
-        
+      
+				$confirm_url = "http://www.tilbudibyen.com/verify?e=$to";
+				ob_start();
+				include_once(APPPATH . 'views/tilbud/template_confirm.php');
+				$content = ob_get_clean();
+	
+				$message  = 'Content-type: text/html; charset="iso-8859-1"' . "\r\n";
+				$message .= $content;
+        /*
   		  $message = "
     Hi, 
     <br/>
@@ -86,7 +93,7 @@ class Controller_Home extends Controller {
     The Tilbudibyen Team
     <br/>
     <a href=\"http://www.tilbudibyen.com\">http://www.tilbudibyen.com</a>
-    ";
+    ";*/
     		  mail($to, $subject, $message, $headers);
           echo 'You have successfully subscribed to our newsletter.';
 		 }
