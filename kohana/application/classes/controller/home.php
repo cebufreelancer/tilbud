@@ -82,7 +82,7 @@ class Controller_Home extends Controller {
 				
 				$message = $content;
 				
-				if(main($to, $subject, $message, $headers)) {
+				if(mail($to, $subject, $message, $headers)) {
 					// Should notify to check email for verification process
 				}
 			} 			
