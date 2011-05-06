@@ -40,19 +40,16 @@ class Controller_Home extends Controller {
 	
 	public function action_signup()
 	{
-		$result = ORM::factory('city');
-		$cities = $result->order_by('name', 'ASC')->find_all();		
-    $citylist = array();
-		foreach($cities as $city) {
-		  $city_arr = $city->as_array();
-		  $citylist[$city_arr['ID']] = $city_arr['name'];
-		}
-
+		$citylist = Kohana::config('global.cities');
+		
     $posts = $this->request->post();
 		// This will check if submitted
-
+	
 		if(!empty($posts)) {
-
+	
+			$email = $posts['semail'];
+			$city  = $posts['city'];
+		
 		  $to = $posts['semail'];
 		  $subject = "Confirm your registration to TilbudiByen newsletter.";
 		  $headers = 'MIME-Version: 1.0' . "\r\n";
@@ -61,46 +58,39 @@ class Controller_Home extends Controller {
 		              "Reply-To: no-reply@tilbudibyen.com" . "\r\n".
 		              "X-Mailer: PHP/" . phpversion();
 
-      $duplicates = ORM::factory('user')->email_exist($to);
-      
-      if ($duplicates > 0 ) {
-        echo "Email already exists.";
-      }else { 
-
-        $dbconfig = Kohana::config('database.default');
-        $conn = mysql_connect('localhost', $dbconfig['connection']['username'], $dbconfig['connection']['password']  );
-        mysql_select_db($dbconfig['connection']['database']);
-        $sql = "Insert into users (email) values('$to')";
-        mysql_query($sql, $conn);
-        mysql_close($conn);
-      
-				$confirm_url = "http://www.tilbudibyen.com/verify?e=$to";
+			$subscriber = ORM::factory('subscriber');
+			
+			// check if email and city already subscribed			
+			if(!$subscriber->is_subscribed($email, $city)) {
+				// Add to Subcribers DB
+				$subscriber->add($email, $city);
+			}
+			
+			// Check if user already registered
+			if(!ORM::factory('user')->email_exist($email)) {
+			
+				// Add email to users
+				$insert = DB::insert('users', array('email','username','status','created'))
+												->values(array($email, $email, 'pending', strtotime('now')))
+												->execute();
+				
+				// Send email to activate
+				$confirm_url = "http://www.tilbudibyen.com/verify?e=" . $email;
 				ob_start();
 				include_once(APPPATH . 'views/tilbud/template_confirm.php');
 				$content = ob_get_clean();
-	
-				$message .= $content;
-        /*
-  		  $message = "
-    Hi, 
-    <br/>
-    <br/>
-    To complete signup for TilbudiByen, you must verify your email address.<br/><br/>
-    <a href=\"http://www.tilbudibyen.com/verify?e=$to\">Click here to verify your account</a>
-
-    <br/><br/>
-    The Tilbudibyen Team
-    <br/>
-    <a href=\"http://www.tilbudibyen.com\">http://www.tilbudibyen.com</a>
-    ";*/
-    		  mail($to, $subject, $message, $headers);
-          echo 'You have successfully subscribed to our newsletter.';
-		 }
-		 
+				
+				$message = $content;
+				
+				if(main($to, $subject, $message, $headers)) {
+					// Should notify to check email for verification process
+				}
+			} 			
+			
+			// Redirect to home page
+			Request::current()->redirect(Url::base(TRUE));
+			return;
 		}
-
-
-	  //$this->response->body(View::factory('tilbud/signup')->set('cities', $citylist)->set('header', 'Sign Up'));
 	}
 	
 	public function action_verify()
