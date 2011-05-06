@@ -23,11 +23,11 @@ class Controller_Admin_Deals extends Controller {
 			$subject = ORM::factory('deal', (int)$_GET['did'])->title;
 
 			// Message
+			$deals = ORM::factory('deal', (int)$_GET['did']);
+			
 			ob_start();
 			include_once(APPPATH . 'views/tilbud/template_email.php');
 			$content = ob_get_clean();
-			
-			$deals = ORM::factory('deal', (int)$_GET['did']);
 			
 			$message  = '--PHP-alt-' . $random_hash . "\r\n";
 			$message .= 'Content-type: text/html; charset="iso-8859-1"' . "\r\n";
