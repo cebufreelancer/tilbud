@@ -26,6 +26,7 @@ define("LBL_SPAR", "SPAR");
 define("LBL_WHAT_YOU_GET", "Det får du");
 define("LBL_INFORMATION", "Praktiske oplysninger");
 define("LBL_ADDRESS", "Where to find us");
+define("LBL_ADDRESS2", "Address");
 define("LBL_MAP", "MAP");
 define("LBL_NO_DEALS_CREATED", "No Deals has been created yet.");
 define("LBL_SOLD", "Sold");

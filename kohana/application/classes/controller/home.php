@@ -10,12 +10,12 @@ class Controller_Home extends Controller {
 		if(!empty($deal)) {
 			$orders = ORM::factory('order')->get_orders($deal->ID);
 			$product = ORM::factory('product')->get_product($deal->product_id);
-			$vendor = ORM::factory('vendor')->get_vendor($product->vendor_id);
-			$address = $vendor->address;
+			//$vendor = ORM::factory('vendor')->get_vendor($product->vendor_id);
+			$address = $deal->addresses;
 			
 			$page->deal = $deal;
 			$page->orders = $orders;
-			$page->vendor = $vendor;
+			//$page->vendor = $vendor;
 			$page->address = $address;
 		}
 		

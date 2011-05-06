@@ -139,6 +139,7 @@ class Controller_Admin_Deals extends Controller {
 			$deals->start_date	= date("Y-m-d H:i:S", strtotime($posts['deal_start_date']));
 			$deals->end_date		= date("Y-m-d H:i:S", strtotime($posts['deal_start_date'] . " 23:59:59"));
 			$deals->expiry_date = date("Y-m-d H:i:S", strtotime($posts['deal_expiry_date'] . " 23:59:59"));
+			$deals->addresses		= $posts['deal_address'];
 			$deals->is_featured = 1;
 			
 			if (isset($_FILES['deal_image'])) {
@@ -186,6 +187,7 @@ class Controller_Admin_Deals extends Controller {
 		$page->deal_status 		= isset($posts['deal_status']) ? $posts['deal_status'] : '';
 		$page->deal_video_url	= isset($posts['deal_video_url']) ? $posts['deal_video_url'] : '';
 		$page->deal_refno			= isset($posts['deal_refno']) ? $posts['deal_refno'] : '';
+		$page->address		    = isset($posts['deal_address']) ? $posts['deal_address'] : $deals->addresses;
 
 		$page->cities = $citylist;
 		$page->products = $products;
@@ -229,7 +231,11 @@ class Controller_Admin_Deals extends Controller {
 			$deals->regular_price = number_format($posts['deal_regular_price'], 2, '.', '');
 			$deals->discount  	= (int)$posts['deal_discount'];
 			$deals->reference_no= htmlentities($posts['deal_refno']);
-			$deals->youtube_url	= $this->clean_video_url($posts['deal_video_url']);
+			if ($posts['deal_video_url'] != "") {
+			  $deals->youtube_url	= $this->clean_video_url($posts['deal_video_url']);
+		  }else {
+		    $deals->youtube_url = "";
+		  }
 			//$deals->vouchers 	 	= (int)$posts['deal_vouchers'];
 			$deals->min_buy 	 	= (int)$posts['deal_min_buy'];
 			$deals->max_buy 	 	= (int)$posts['deal_max_buy'];
@@ -240,6 +246,7 @@ class Controller_Admin_Deals extends Controller {
 			$deals->end_date		= date("Y-m-d H:i:S", strtotime($posts['deal_start_date'] . " 23:59:59"));
 			$deals->expiry_date = date("Y-m-d H:i:S", strtotime($posts['deal_expiry_date'] . " 23:59:59"));
 			$deals->last_update = date("Y-m-d H:i:S");
+			$deals->addresses		= $posts['deal_address'];			
 			$deals->is_featured = 1;
 
 			if($deals->save()) {
@@ -279,6 +286,7 @@ class Controller_Admin_Deals extends Controller {
 		$page->end_date 			= isset($posts['deal_end_date']) ? $posts['deal_end_date'] : date("Y/m/d", strtotime($deals->end_date));
 		$page->expiry_date 		= isset($posts['deal_expiry_date']) ? $posts['deal_expiry_date'] : date("Y/m/d", strtotime($deals->expiry_date));
 		$page->deal_refno			= isset($posts['deal_refno']) ? $posts['deal_refno'] : $deals->reference_no;
+		$page->address		    = isset($posts['deal_address']) ? $posts['deal_address'] : $deals->addresses;
 
 		$page->cities = Kohana::config('global.cities');
 		$page->products = $products;

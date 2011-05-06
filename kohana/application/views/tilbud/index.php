@@ -107,7 +107,7 @@
         	<div id="deals-info">
             <ul>
               <li class="dhead-one"> <?= LBL_ADDRESS?> </li>
-              <li><p> <?= str_replace("\n", "<br/>", $vendor->address)?></p> </li>
+              <li><p> <?= str_replace("\n", "<br/>", $deal->addresses)?></p> </li>
             </ul>            
             <ul>
               <li class="dhead-two"> <?= LBL_MAP ?> </li>

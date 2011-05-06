@@ -65,6 +65,10 @@
           <li><?php echo Form::label('deal_image', __(LBL_UPLOAD_IMAGE)); ?>
               <?php echo Form::file('deal_image'); ?>
           </li>
+          <li><?php echo Form::label('deal_address', __(LBL_ADDRESS2)); ?>
+              <?php echo Form::input('deal_address', $address, array()); ?>
+          </li>
+
           <li></li>
         </ul>
 			</div>

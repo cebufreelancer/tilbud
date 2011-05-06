@@ -51,6 +51,7 @@ CREATE TABLE IF NOT EXISTS `deals` (
   `contents_title` varchar(255) NOT NULL,
   `whatyouget` text,
   `information` text,
+  `addresses` text,
   `image` varchar(255) default NULL,
   `regular_price` decimal(10,2) default '0.00',
   `discount` decimal(10,0) default '0',
