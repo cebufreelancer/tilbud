@@ -195,4 +195,44 @@ class Controller_User extends Controller_App {
 		$this->template->content = $view;
 	}
 	
+	public function action_orders()
+	{
+		if ( Auth::instance()->logged_in() == false ){
+			 $this->request->redirect('user/login');
+		}
+		
+		$page = View::factory('tilbud/myorders');
+		$page->header = __(LBL_My_Orders);
+
+		$orders = ORM::factory('order');
+		
+		// This is an example of how to use Kohana pagination
+    // Get the total count for the pagination
+		$total = $orders->count_all();
+
+		if($total > 0) {
+			$pagination = new Pagination(array(
+										 'total_items' 		=> $total,
+										 'items_per_page'	=> 10, 
+										 'auto_hide' 			=> false,
+										 'view'           => 'pagination/useradmin',));
+			$sort = isset($_GET['sort']) ? $_GET['sort'] : 'date_created'; // set default sorting direction here
+			$dir  = isset($_GET['dir']) ? 'DESC' : 'ASC';
+			$result = $orders->limit($pagination->items_per_page)->offset($pagination->offset)->order_by($sort, $dir)
+								->find_all();
+								
+			foreach($result as $ven) {
+				$res[] = $ven->as_array();
+			}
+			
+			// Show Pager
+			$show_page = ($total > $pagination->items_per_page) ? TRUE : FALSE;
+			
+			$page->paging = $pagination;
+			$page->orders = $res;
+			$page->show_pager = $show_page;
+		}
+		
+		$this->template->content = $page;
+	}
 } // End of Admin Users

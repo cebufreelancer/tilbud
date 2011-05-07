@@ -5,7 +5,7 @@
     $is_admin = Auth::instance()->logged_in('admin');
 		$is_logged = Auth::instance()->logged_in();
     $log_txt  = $is_logged ? 'logout' : 'login';
-		$user = $is_logged ? Auth::instance()->get_user()->username : '';
+		$user = $is_logged ? __(LBL_My_Account) : '';
   
     if($is_admin) { ?>
       <li><?php echo HTML::anchor('admin/users', __(LBL_USERS)); ?></li>

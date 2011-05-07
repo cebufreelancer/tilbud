@@ -16,8 +16,7 @@
   <div id="action-button">
   	<?php echo HTML::anchor('user/myaccount', LBL_My_Account, array('class' => 'addbutton')); ?>
     <?php echo HTML::anchor('user/billing', LBL_Billing_Info, array('class' => 'addbutton')); ?>
-    <?php echo HTML::anchor('#', LBL_My_Orders, array('class' => 'addbutton')); ?>
-    <?php echo HTML::anchor('#', LBL_My_Deals, array('class' => 'addbutton')); ?>
+    <?php echo HTML::anchor('user/orders', LBL_My_Orders, array('class' => 'addbutton')); ?>
   </div>
     
   <?php //echo '<pre>'; print_r($_SERVER); echo '</pre>'; 
@@ -36,7 +35,7 @@
 	
 	<?php echo $form->open(Request::current(), array('id' => 'myforms')); ?>
 	<ul>
-  	<li><?php echo $form->label('firstname', __('Username: <span class="username">' . $username . '</span>')); ?></li>
+  	<li><?php echo $form->label('firstname', __(LBL_EMAIL_ADDRESS . '<span class="username">' . $email . '</span>')); ?></li>
     <li>&nbsp;</li>
   	<li><?php echo $form->label('firstname', LBL_FIRSTNAME); ?>
 				<?php echo $form->input('firstname', ucwords($firstname)); ?>
@@ -44,10 +43,12 @@
     <li><?php echo $form->label('lastname', LBL_LASTNAME); ?>
 				<?php echo $form->input('lastname', ucwords($lastname)); ?>
 		</li>
-		<li><?php echo $form->label('email', LBL_EMAIL_ADDRESS); ?>
+		<?php /*
+    <li><?php echo $form->label('email', LBL_EMAIL_ADDRESS); ?>
 				<?php echo $form->input('email', $email); ?>
         <span style="font-size: 10px; padding-left: 380px;"><?php echo HTML::anchor('#', 'Manage email subscription', array('class' => 'homelink')); ?></span>
 		</li>
+		*/ ?>
     <li><?php echo $form->label('mobile', LBL_MOBILE); ?>
 				<?php echo $form->input('mobile', ucwords($mobile)); ?>
 		</li>
