@@ -300,7 +300,7 @@ ALTER TABLE  `cities` ADD  `order` INT NOT NULL DEFAULT  '0';
 -- MAY 6 2011 Updates
 --
 
-CREATE TABLE IF NOT EXISTS `subscriptions` (
+CREATE TABLE IF NOT EXISTS `subscribers` (
   `email` varchar(255) NOT NULL,
   `city_id` int(11) NOT NULL,
   UNIQUE KEY `email` (`email`,`city_id`)

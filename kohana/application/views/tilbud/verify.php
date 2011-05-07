@@ -20,11 +20,11 @@
 			?>      
       
       <div>
-        <h4> <?= LBL_PLEASE_UPDATE_PASSWORD?></h4>
-
+        
           <?php if ($success){?>
             
         		<form action="password_update" method="post" id="myforms">
+            	<h4> <?= LBL_PLEASE_UPDATE_PASSWORD?></h4>
               <?php echo Form::hidden('email', $email)?>
               <ul>
                 <li><?php echo Form::label('password', LBL_PASSWORD); ?>
@@ -35,14 +35,10 @@
                 </li>
                 <li>
                 	<?php echo Form::submit(NULL, LBL_UPDATE); ?>
-                  <?php echo Form::submit(NULL, LBL_CANCEL); ?>
                 </li>
               </ul>
             </form>
 
-
-
-            
           <? } ?>
 
       </div>

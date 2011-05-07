@@ -9,10 +9,7 @@
       	<h2><?= LBL_ACCOUNT_VERIFICATION?></h2>
       </div>
       
-
-      <p>
-        <?= LBL_YOUR_PASSWORD_HAS_BEEN_UPDATED ?>
-      </p>
+      <p><?= LBL_YOUR_PASSWORD_HAS_BEEN_UPDATED ?></p>
 
     </div>
   </section>

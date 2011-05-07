@@ -80,10 +80,25 @@ class Controller_Home extends Controller {
 			if(!ORM::factory('user')->email_exist($email)) {
 			
 				// Add email to users
-				$insert = DB::insert('users', array('email','username','status','created'))
-												->values(array($email, $email, 'pending', strtotime('now')))
-												->execute();
+				try {
+					// Construct username
+					$username = substr($email, 0, strpos($email, "@"));
+					
+					$user['username'] = $username;
+					$user['firstname'] = $username;
+					$user['email']		 = $email;
+					$user['status']	 = 'pending';
+					$user['password'] = ORM::factory('user')->generate_password(6);
+					$user['password_confirm'] = $user['password'];
 				
+					ORM::factory('user')->create_user($user, array('username','firstname','email','status','password'));
+					
+				} catch (ORM_Validation_Exception $e) {
+					$errors = $e->errors('register');
+					$errors = array_merge($errors, (isset($errors['_external']) ? $errors['_external'] : array()));
+					print_r($errors);
+				}
+							
 				// Send email to activate
 				$confirm_url = "http://www.tilbudibyen.com/verify?e=" . $email;
 				ob_start();
@@ -122,15 +137,18 @@ class Controller_Home extends Controller {
 				// Check if status is already active
 				//	Redirect to home page
 				if(strcmp($user->status, 'active') == 0) {
-					Request::current()->redirect(Url::base());
+					Request::current()->redirect('/');
 				}
 				
 				$user->status = 'active';
-				$user->username = $email;
-		
-			// Automatically login the current user
-			Auth::instance()->force_login($email);
+
 				if($user->save()) {
+					// Add login Role
+					$user->add('roles', 1);
+					
+					// Auto Login User
+					Auth::instance()->force_login($user->username);
+					
 					Message::add('success', __('Your account has been verified. '));
 					$success = true;
 				}
@@ -153,16 +171,17 @@ class Controller_Home extends Controller {
 
 	    if ($_POST['password'] == $_POST['password_confirm']){
 
-		
-	      $clean_posts['password'] = $_POST['password'];
-		try {
-	      Auth::instance()->get_user()->update_user($_POST, array('password'));
-	      } catch (ORM_Validation_Exception $e) {
-			$errors = $e->errors('register');
+				$clean_posts['password'] = $_POST['password'];
+				try {
+					Auth::instance()->get_user()->update_user($_POST, array('password'));
+				} catch (ORM_Validation_Exception $e) {
+					$errors = $e->errors('register');
 					$errors = array_merge($errors, (isset($errors['_external']) ? $errors['_external'] : array()));
-			print_r($errors);
-		}
+					print_r($errors);
+				}
+				
 		    $this->response->body(View::factory('tilbud/password_update'));
+				
 	    }else{
 		    $this->request->redirect('verify?e=' . $email);
 	    }
