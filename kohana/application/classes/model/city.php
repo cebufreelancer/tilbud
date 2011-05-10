@@ -31,4 +31,13 @@ class Model_City extends ORM {
 		return $cities;
 	}
 	
+	public function get_subscribers($city_id)
+	{
+		$result = DB::select()->from('subscribers')
+													->where('city_id', '=', $city_id)
+													->execute();
+													
+		return $result->count();
+	}
+	
 } // End of Product Model

@@ -16,7 +16,7 @@ class Controller_Admin_Cities extends Controller {
 									 'auto_hide' 			=> false,
 									 'view'           => 'pagination/useradmin',));
 		$sort = isset($_GET['sort']) ? $_GET['sort'] : 'order'; // set default sorting direction here
-    $dir  = isset($_GET['dir']) ? 'DESC' : 'DESC';
+    $dir  = isset($_GET['dir']) ? $_GET['dir'] : 'ASC';
 		$result = $cities->limit($pagination->items_per_page)->offset($pagination->offset)->order_by($sort, $dir)
               ->find_all();
 							
