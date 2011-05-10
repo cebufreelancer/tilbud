@@ -77,7 +77,7 @@
 
 		<?php if(isset($msg)) { ?>
 		<div id="notification">
-			<p>Thank you for your subscription! Please check your email for verification. 
+			<p><?php echo $msg; ?> 
 			<?php echo HTML::image(Url::base(TRUE) . 'images/close.png', array('align' => 'right', 'width' => 10, 'id' => 'closeme')); ?>
 			</p>
 		</div>

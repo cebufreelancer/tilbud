@@ -124,6 +124,11 @@ define("LBL_GROUP_ADD", "Tilføj en gruppe");
 define("LBL_GROUP_EDIT", "Rediger en gruppe");
 define("LBL_GROUP_DELETE", "Slet en gruppe");
 
+define("LBL_PASSWORD_CHANGE_NOTIFY", "Please update your password now. :password_url to change your password.");
+
+// SHARE TO FRIEND
+define("LBL_SHARE_TO_FRIEND", "You are invited to join this  amazing deals ...");
+
 //Notification message
 define("LBL_SUCCESS_ADD", "%s %s Er blevet tilføjet med succes.");
 define("LBL_SUCCESS_UPDATE", "%s %s er blevet opdateret med susses.");

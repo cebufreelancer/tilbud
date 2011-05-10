@@ -43,7 +43,7 @@
 	</div>
 	
 	<div style="background: #40a2d5; color: #FFF;">
-		<h1 style="font-size: 22px; padding: 10px; text-align: center;">You are invited to join this  amazing deals ...</h1>
+		<h1 style="font-size: 22px; padding: 10px; text-align: center;"><?php echo __(LBL_SHARE_TO_FRIEND); ?></h1>
 	</div>
 	
   <?php echo HTML::Image(Url::base(TRUE).'images/arrow.jpg', array('align' => 'right')); ?>

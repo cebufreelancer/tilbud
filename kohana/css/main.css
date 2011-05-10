@@ -868,7 +868,7 @@ span.block {
 /** NOTIFICATION **/
 #notification {
 	background: #000000;
-	padding: 3px;
+	padding: 5px;
 	text-align: center;
 	top: 0;
 	position: fixed;
@@ -878,4 +878,5 @@ span.block {
 #notification p {
 	color: #369bcf; 
 	width: 960px;
+  margin: auto;
 }
