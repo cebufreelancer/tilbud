@@ -71,12 +71,14 @@
             
             <div>
               <div class="offer-container" style="">
-              	<p class="period-label"><?= LBL_OFFER_ACTIVE_WHEN ?> <?php echo $deal->vouchers; ?> <?= LBL_BUY ?></p>
+              	<p class="period-label"><?= LBL_OFFER_ACTIVE_WHEN ?> <?php echo $deal->min_sold; ?> <?= LBL_BUY ?></p>
                 <p class="period"><?php echo sizeof($orders); ?> <?= LBL_BOUGHT ?></p>
               </div>
               <div class="social-container">
-              	
+
+             <a href="http://www.addthis.com/bookmark.php?v=250&amp;winname=addthis&amp;pub=ra-4d6e3a782d6e35f6&amp;source=tbx-250&amp;lng=da&amp;s=facebook&amp;url=<?php echo url::base(true) . "home/fb"?>">
               	<?php echo HTML::image('images/facebook.jpg', array('alt' => LBL_SHARE_ON_FACEBOOK)); ?>
+              	</a>
               </div>
               <div class="save-label"><?= LBL_SPAR ?> <?php echo number_format($deal->discount, 0, '.', ''); ?>%</div>
               <div class="clear"></div>

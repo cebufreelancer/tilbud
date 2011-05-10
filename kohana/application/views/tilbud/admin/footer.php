@@ -1,8 +1,11 @@
 <?php defined('SYSPATH') OR die('No direct access allowed.'); ?>
+
+<!--
 <footer>
-		
   <section class="centered">
-  
+
+
+
     <ul class="fwidget">
     	<li><a href="">Virksomheden</a></li>
       <li><a href="">Om TilbudiByen</a></li>
@@ -29,6 +32,9 @@
       <li><a href="">Facebook</a></li>
       <li><a href="">Tilmeld dig TilbudiByen</a></li>
     </ul>
+
     
   </section>
 </footer>
+
+-->

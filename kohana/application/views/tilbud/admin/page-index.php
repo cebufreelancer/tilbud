@@ -21,7 +21,7 @@
 				?>
       
         <div id="action-button">
-          <?php echo HTML::anchor('admin/pages/add', 'Add a Product', array('class' => 'addbutton')); ?>
+          <?php echo HTML::anchor('admin/pages/add', 'Add a page', array('class' => 'addbutton')); ?>
         </div>
         
         <?php echo $paging->render(); ?>
@@ -30,11 +30,10 @@
         <thead>
         <tr>
           <td>Action</td>
-          <td width="200">Product</td>
+          <td width="200">page code</td>
           <td>Description</td>
-          <td># of Deals</td>
-          <td>Vendor</td>
-          <td>Date Created</td>
+          <td>URL</td>          
+          <td>Last updated</td>
         </tr>
         </thead>
         <tbody>
@@ -46,7 +45,8 @@
           echo '<td>' . $edit_url . ' ' . $delete_url . '</td>';
           echo '<td><b>' . $page['page_code'] . '</b></td>';
           echo '<td>' . substr($page['content'], 0, 50) . '</td>';
-          echo '<td>' . Date::fuzzy_span(strtotime($page['updated_at'])) . '</td>';
+          echo '<td>/ipages?p=' . $page['page_code'] . '</td>';
+          echo '<td>' . strftime("%Y-%m-%d", strtotime($page['updated_at'])) . '</td>';
           echo '</tr>';
         }		
         ?>

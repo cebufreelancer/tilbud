@@ -30,6 +30,29 @@ class Controller_Home extends Controller {
 		
 		$this->response->body($page);
 	}
+	
+	public function action_fb($id = null)
+	{
+		$page = View::factory('tilbud/fb');
+		if ($id == null) {
+      $deal = ORM::factory('deal')->get_featured();
+    }else {
+      $deal = ORM::factory('deal', $id);
+    }
+		
+		if(!empty($deal)) {
+			$orders = ORM::factory('order')->get_orders($deal->ID);
+			$product = ORM::factory('product')->get_product($deal->product_id);
+			$address = $deal->addresses;
+			
+			$page->deal = $deal;
+			$page->orders = $orders;
+			$page->address = $address;
+		}
+		$this->response->body($page);
+	}
+
+	
 	/*
 	public function action_login()
 	{	

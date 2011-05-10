@@ -118,10 +118,10 @@ class Controller_Admin_Deals extends Controller {
 		if(!empty($posts)) {
 			//echo '<pre>'; print_r($posts); echo '</pre>'; exit;
 		  //$deals->product_id 	= (int)$posts['deal_product'];
-			$deals->title 			= htmlentities($posts['deal_title']);
+			$deals->title 			= htmlentities($posts['deal_title'], ENT_QUOTES ,"ISO8859-1");
 			$deals->description = htmlentities($posts['deal_desc']);
 			$deals->contents_title = htmlentities($posts['deal_content_title']);
-			$deals->contents		= $posts['deal_desc_long'];
+			$deals->contents		= htmlentities($posts['deal_desc_long']);
 			$deals->whatyouget	= htmlentities($posts['deal_whatyouget']);
 			$deals->information	= htmlentities($posts['deal_information']);
 			$deals->city_id 	 	= (int)$posts['deal_city'];
@@ -220,10 +220,10 @@ class Controller_Admin_Deals extends Controller {
 		if(!empty($posts)) {
 			//echo '<pre>'; print_r($posts); echo '</pre>'; exit;
 		  //$deals->product_id 	= htmlentities($posts['deal_product']);
-			$deals->title 			= htmlentities($posts['deal_title']);
+			$deals->title 			= htmlentities($posts['deal_title'], ENT_QUOTES ,"ISO8859-1");
 			$deals->description = htmlentities($posts['deal_desc']);
 			$deals->contents_title = htmlentities($posts['deal_content_title']);
-			$deals->contents		= $posts['deal_desc_long'];
+			$deals->contents		= htmlentities($posts['deal_desc_long']);
 			$deals->whatyouget	= htmlentities($posts['deal_whatyouget']);
 			$deals->information	= htmlentities($posts['deal_information']);
 			$deals->city_id 	 	= (int)$posts['deal_city'];

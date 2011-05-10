@@ -5,6 +5,7 @@ define("LBL_ALLDEALS", "TIDLIGERE TILBUD");
 define("LBL_SIGNUP", "TILMED DIG");
 define("LBL_ABOUTUS", "OM OS");
 define("LBL_CONTACTUS", "KONTAKT OS");
+define("LBL_Contactus", "Kontakt os");
 define("LBL_FAQ", "FAQ");
 define("LBL_My_Account", "Min konto");
 define("LBL_MY_ACCOUNT", "MIN KONTO");

@@ -61,6 +61,34 @@ class Controller_Admin_Pages extends Controller {
 
 	public function action_add()
 	{
+		$page = View::factory('tilbud/admin/page_edit');
+		$page->label = 'Add Page';
+		$thepage = ORM::factory('page');
+
+		$page->thepage = $thepage;
+
+		// Get posts
+		$posts = $this->request->post();
+		
+		// This will check if submitted
+		if(!empty($posts)) {
+					
+			$thepage->content 	 = $posts['page_content'];
+			
+			if($thepage->save()) {			
+				// Assuming all is correct
+				Request::current()->redirect('admin/pages');
+				return;
+			}
+		}
+
+		$this->response->body($page);
+		
+	}
+
+
+	public function action_addzzzz()
+	{
 		$page = View::factory('tilbud/admin/product_form');
 		$page->label = 'Add a Product';
 		

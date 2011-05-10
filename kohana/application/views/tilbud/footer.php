@@ -6,7 +6,7 @@
     <ul class="fwidget">
     	<li><a href="#"><?= LBL_COMPANY?> </a></li>
       <li><a id="iabout2" href="<?= url::base(true)?>ipages?p=about"><?= LBL_ABOUT_TILBUD?></a></li>
-      <li><a id="icontact2" href="<?= url::base(true)?>ipages?p=contact"><?= LBL_CONTACTUS?></a></li>
+      <li><a id="icontact2" href="<?= url::base(true)?>ipages?p=contact"><?= LBL_Contactus ?></a></li>
       <li><a id="iterms" href="<?= url::base(true)?>ipages?p=terms"><?= LBL_TERMS_AND_CONDITIONS ?></a></li>
     </ul>
     
