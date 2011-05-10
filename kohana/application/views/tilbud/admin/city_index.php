@@ -30,8 +30,9 @@
         <thead>
         <tr>
           <td>Action</td>
-          <td width="200">City</td>
           <td>Order</td>
+          <td width="200">City</td>
+          <td>Subscribers</td>
         </tr>
         </thead>
         <tbody>
@@ -41,8 +42,9 @@
 					$delete_url = HTML::anchor('admin/cities/delete/' . $city['ID'], 'Delete');
           echo '<tr>';
           echo '<td>' . $edit_url . ' ' . $delete_url . '</td>';
-          echo '<td><b>' . $city['name'] . '</b></td>';
 					echo '<td>' . $city['order'] . '</td>';
+					echo '<td><b>' . $city['name'] . '</b></td>';
+					echo '<td>' . ORM::factory('city')->get_subscribers($city['ID']) . '</td>';
           echo '</tr>';
         }		
         ?>
