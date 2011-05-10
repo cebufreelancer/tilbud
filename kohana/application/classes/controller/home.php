@@ -24,6 +24,7 @@ class Controller_Home extends Controller {
 				case 'verify':
 					$page->msg = 'Congratulations! Kindly check your email to account verification.';
 					break;
+			}
 		}
 		
 		$this->response->body($page);
