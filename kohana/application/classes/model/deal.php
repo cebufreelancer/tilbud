@@ -56,11 +56,12 @@ class Model_Deal extends ORM {
 		return $deals;
 	}
 
-	public function get_active_deals($limit=NULL, $offset=NULL)
+	public function get_active_deals($limit=NULL, $limit=20)
 	{
     $result = ORM::factory('deal')
              ->order_by('ID', 'DESC')
              ->where('status', '=', 'active')
+  	         ->limit($limit)
              ->find_all();
 		$deals = array();
 		

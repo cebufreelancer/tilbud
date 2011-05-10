@@ -45,7 +45,7 @@ define("LBL_ENTER_USERNAME_PASSWORD", "Indtast din e-mail og adgangskode for at 
 define("LBL_USERNAME", "Brugernavn");
 define("LBL_PASSWORD", "Adgangskode");
 define("LBL_CONFIRM_PASSWORD", "Bekræft adgangeskode");
-define("LBL_FORGOT_PASSWORD", "'Glemt dit adgangekode?");
+define("LBL_FORGOT_PASSWORD", "Glemt dit adgangekode?");
 define("LBL_CREATE_ACCOUNT", "Opret en konto");
 define("LBL_COMPANY", "Virksomheden");
 define("LBL_ABOUT_TILBUD", "Om TilbudiByen");
