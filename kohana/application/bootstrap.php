@@ -133,6 +133,7 @@ Route::set('faq', 'faq')->defaults(array('controller' => 'home', 'action' => 'fa
 Route::set('contact', 'contact')->defaults(array('controller' => 'home', 'action' => 'contact'));
 Route::set('page', 'page')->defaults(array('controller' => 'home', 'action' => 'page'));
 Route::set('users', 'users')->defaults(array('controller' => 'users', 'action' => 'index'));
+Route::set('referral', 'referral')->defaults(array('controller' => 'home', 'action' => 'referral'));
 
 Route::set('ipages', 'ipages(<controller>(/<action>(/<id>)))')
 		->defaults(array('controller' => 'ipages', 'action' => 'index'));

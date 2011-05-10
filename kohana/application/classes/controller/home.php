@@ -22,15 +22,13 @@ class Controller_Home extends Controller {
 		if(isset($_GET['status'])) {
 			switch($_GET['status']) {
 				case 'verify':
-					$msg = 'Congratulations! Kindly check your email to account verification.';
-			}
-			
-			$page->msg = $msg;
+					$page->msg = 'Congratulations! Kindly check your email to account verification.';
+					break;
 		}
 		
 		$this->response->body($page);
 	}
-	
+
 	public function action_fb($id = null)
 	{
 		$page = View::factory('tilbud/fb');
@@ -52,14 +50,6 @@ class Controller_Home extends Controller {
 		$this->response->body($page);
 	}
 
-	
-	/*
-	public function action_login()
-	{	
-		$this->response->body(View::factory('tilbud/login')
-														->set('label', 'Login'));
-	}*/
-
 	public function action_page($c = NULL)
 	{
 	  if ($c == NULL) {
@@ -72,6 +62,7 @@ class Controller_Home extends Controller {
 	
 	public function action_signup()
 	{
+		$page			= View::factory('tilbud/signupform');
 		$citylist = Kohana::config('global.cities');
 		
 		$url   = '';
@@ -119,7 +110,7 @@ class Controller_Home extends Controller {
 				} catch (ORM_Validation_Exception $e) {
 					$errors = $e->errors('register');
 					$errors = array_merge($errors, (isset($errors['_external']) ? $errors['_external'] : array()));
-					print_r($errors);
+					//print_r($errors);
 				}
 							
 				// Send email to activate
@@ -132,14 +123,14 @@ class Controller_Home extends Controller {
 				
 				if(mail($to, $subject, $message, $headers)) {
 					// Should notify to check email for verification process
-					$url = '?status=verify';
+					$url = '?status=referral';
 				}
 			} 			
 			
-			// Redirect to home page
-			Request::current()->redirect(Url::base(TRUE) . $url);
-			return;
+			$page = View::factory('tilbud/referralform');
 		}
+		
+		$this->response->body($page);
 	}
 	
 	public function action_verify()
@@ -158,9 +149,10 @@ class Controller_Home extends Controller {
 				$user = $user->where('email', '=', $email)->find();
 				
 				// Check if status is already active
-				//	Redirect to home page
+				// Redirect to home page
 				if(strcmp($user->status, 'active') == 0) {
 					Request::current()->redirect('/');
+					return;
 				}
 				
 				$user->status = 'active';
@@ -173,7 +165,9 @@ class Controller_Home extends Controller {
 					Auth::instance()->force_login($user->username);
 					
 					Message::add('success', __('Your account has been verified. '));
-					$success = true;
+					
+					Request::current()->redirect('tilbud/referral');
+					return;
 				}
 			} else {
 				Message::add('success', __('Email does not exists'));
@@ -226,9 +220,42 @@ class Controller_Home extends Controller {
     $this->response->body(View::factory('tilbud/contact'));
 	}
 	
-	public function action_logout()
+	public function action_referral()
 	{
-		echo "This is logout page";
+		$posts = $this->request->post();
+		
+		if(!empty($posts)) {
+			$emails = explode(",", $posts['email']);
+			
+			foreach($emails as $email) {
+				$email = trim($email);
+				if(Valid::email($email)) {
+					$referral[] = $email;
+				}
+			}
+			
+			if(!empty($referral)) {
+				
+				$subject = "You have been invited to join TilbudiByen!";
+				$headers = 'MIME-Version: 1.0' . "\r\n";
+				$headers .= "Content-type: text/html; charset=UTF-8" . "\r\n";
+				$headers .= "From: TilbudiByen <no-reply@tilbudibyen.com>" . "\r\n".
+										"Reply-To: no-reply@tilbudibyen.com" . "\r\n".
+										"X-Mailer: PHP/" . phpversion();
+				
+				ob_start();
+				include_once(APPPATH . 'views/tilbud/template_confirm.php');
+				$content = ob_get_clean();
+				
+				$message = $content;
+				
+				foreach($referral as $ref) {
+					mail($ref, $subject, $message, $headers);
+				}
+				
+				Request::current()->redirect(Url::base(TRUE));
+				return;
+			}
+		}
 	}
-	
 } // End Welcome

@@ -26,24 +26,7 @@
   <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=true&amp;key=ABQIAAAAbQlC_gF4H7R0hbKr8QVz5xQYncROD2BDKvWqEuo4PwsE_DGQgRS20trX2PsZLb7gtB92IP55joerMA" type="text/javascript"></script>  
 
   <script>
-  	jQuery(document).ready(function() {  
-
-      $("#signupform").bind("submit", function() {
-      	$.fancybox.showActivity();
-
-      	$.ajax({
-      		type		: "POST",
-      		cache	: false,
-      		url		: "home/signup",
-      		data		: $(this).serializeArray(),
-      		success: function(data) {
-      			$.fancybox(data);
-      		}
-      	});
-
-      	return false;
-      });
-
+  	jQuery(document).ready(function() {
       $("#signupform-footer").bind("submit", function() {
       	$.fancybox.showActivity();
 
@@ -60,7 +43,6 @@
       	return false;
       });
 
-      
     });
   </script>
     
@@ -71,6 +53,27 @@
   
 </head>
 <body onLoad="initialize()" onunload="GUnload()">
+	
+		<?php if(isset($is_referral)) { ?>
+    <a href="<?php echo Url::base() . 'home/referral'; ?>" id="referral-form" ></a>
+    <script type="text/javascript">
+			$(document).ready(function() {
+				$("#referral-form").fancybox({
+      		'scrolling'		: false,
+  			'titleShow'		: false,
+  			'autoScale'	: false,
+  			'frameWidth'		: 900,
+  			'frameHeight'		: 460,
+  			'overlayOpacity' : 0.7,
+  			'centerOnScroll' : true,
+  			'transitionIn' : 'elastic',
+  			'showCloseButton' : false,
+  			'hideOnOverlayClick' : false,
+  			'hideOnContentClick' : false,
+      	}).trigger('click');				
+    	});
+		</script>
+    <?php } ?>
 
 		<?php if(isset($msg)) { ?>
 		<div id="notification">
@@ -291,13 +294,18 @@
   		$("#signup").fancybox({
   			'scrolling'		: false,
   			'titleShow'		: false,
-  			'autoScale'	: true,
+				'autoDimensions' : true,
+				'width'		: 710,
+  			'height'		: 455,
   			'overlayOpacity' : 0.7,
   			'centerOnScroll' : true,
-  			'transitionIn' : 'elastic',
-  			'showCloseButton' : true,
+  			'transitionIn' : 'fade',
+  			'showCloseButton' : false,
+				'enableEscapeButton' : true,
   			'hideOnOverlayClick' : false,
   			'hideOnContentClick' : false,
+				'type' : 'iframe',
+				'href'	: '<?php echo Url::base(TRUE); ?>signup',
   			'onClosed'		: function() {
   					$("#login_error").hide();
   			}
@@ -318,10 +326,6 @@
   			}
   		});
   		
-  		
-  		
-
-  		
   	});
 	
   	</script>
@@ -329,9 +333,11 @@
   	<div style="display:none">
     	<div id="loginform"><?php require_once 'login.php'; ?></div>
     </div>
+
   	<div style="display:none">
     	<div id="signup-form"><?php require_once 'signupform.php'; ?></div>
     </div>
+
   	<div style="display:none">
     	<div id="signup-form-footer"><?php require_once 'signupform-footer.php'; ?></div>
     </div>
