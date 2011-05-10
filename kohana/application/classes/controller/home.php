@@ -245,7 +245,7 @@ class Controller_Home extends Controller {
 										"X-Mailer: PHP/" . phpversion();
 				
 				ob_start();
-				include_once(APPPATH . 'views/tilbud/template_confirm.php');
+				include_once(APPPATH . 'views/tilbud/template_referral.php');
 				$content = ob_get_clean();
 				
 				$message = $content;
