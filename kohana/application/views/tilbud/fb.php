@@ -7,10 +7,13 @@
 	<link rel="stylesheet" media="all" href="<?php echo url::base(TRUE)?>css/main.css"/>
 	<meta name="viewport" content="width=device-width; initial-scale=1"/>
 	<script>
-	  location.replace("<?php echo url::base(true) . "deals/view/" . $deal->ID; ?>");
+	  function redirectPage() {
+	    var t = setTimeout("location.replace('<?php echo url::base(true) . "deals/view/" . $deal->ID; ?>')", 4000);
+	  }
+	  
 	</script>
 </head>
-<body >
+<body onload="redirectPage()">
 
 <div>
   <a href="http://www.tilbudibyen.com">
