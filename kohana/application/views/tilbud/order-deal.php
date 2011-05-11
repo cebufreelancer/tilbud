@@ -11,7 +11,9 @@
   	<div class="centered">
 
 			<div id="htitle">
+
 				<h2><?php echo LBL_YOUR_PURCHASE?></h2>
+				<h2><?php echo __(LBL_PURCHASE); ?></h2>
 			</div>
 
 			<div id="myforms">
@@ -25,12 +27,7 @@
 				}
 				?>
 				
-	      <?php if ($is_logged){?>
-				<div id="action-button">
-					<?php echo HTML::anchor('user/myaccount', LBL_My_Account, array('class' => 'addbutton')); ?>
-					<?php echo HTML::anchor('user/billing', LBL_Billing_Info, array('class' => 'addbutton')); ?>
-				</div>
-				<?php } ?>
+				<?php require_once 'menu-user.php'; ?>
 					
 				<?php //echo '<pre>'; print_r($_SERVER); echo '</pre>'; 
 				$form = new Appform();
@@ -54,30 +51,35 @@
 				
 				?>
 				<?php echo Form::open(Request::current(), array('id' => 'myforms')); ?>
-				<table id="order-deal">
+				<table id="order-deal" style="width:800px">
 								<thead>
 					<tr>
-						<td><?php echo LBL_DESCRIPTION ?></td>
-						<td colspan="2"><?php echo LBL_QUANTITY ?></td>
-						<td colspan="2"><?php echo LBL_PRICE ?></td>
-						<td><?php echo LBL_TOTAL ?></td>
+						<td><?php echo __(LBL_YOUR_DEAL); ?></td>
+						<td colspan="2"><?php echo __(LBL_QUANTITY); ?></td>
+						<td colspan="2"><?php echo __(LBL_PRICE); ?></td>
+						<td><?php echo __(LBL_TOTAL); ?></td>
 					</tr>
 				</thead>
 				<tbody>
 					<tr>
-						<td><?php echo $deal->description; ?></td>
+						<td><?php echo $deal_title; ?>
+            	<div style="font-size: 11px; font-weight: normal; color: #999999;"><?php echo $deal->contents_title; ?>
+            </td>
+
 						<td><?php echo Form::select('quantity', isset($quantity) ? $quantity : array(1=>1), 0, array('autofocus' => true)); ?> </td>
             <td style="width:5px; font-size: 13px;">x</td>
-						<td>$ <span id="price"><?php echo $price; ?></span>
+						<td> <span id="price"><?php echo $price; ?></span> <span class="currency">DKK</span>
 									<?php echo Form::hidden('price', isset($price) ? $price : 1); ?></td>
             <td style="width:5px;">=</td>
-						<td>$ <span id="tprice"><?php echo isset($total) ? $total : 1; ?></span></td>
+						<td> <span id="tprice"><?php echo isset($total) ? $total : 1; ?></span> <span class="currency">DKK</span></td>
 					</tr>
 				</tbody>
 				<tfoot>
 					<tr>
-						<td colspan="5"></td>
-						<td width="140">$ <span id="totalamount"><?php echo isset($tamount) ? $tamount : 1; ?></span></td>
+
+						<td colspan="5"><?php echo __(LBL_MY_PRICE); ?> : </td>
+						<td width="140"><span id="totalamount"><?php echo isset($tamount) ? $tamount : 1; ?></span> DKK</td>
+
 					</tr>
 				</tfoot>
 				</table>
@@ -108,6 +110,7 @@
           </div>
         </div>
         
+				<h2><?php echo __(LBL_PAYMENT_METHOD); ?><br />&nbsp;</h2>
 				
         <?php if(Auth::instance()->logged_in() == false) { 
 								$fullname = isset($_POST['fullname']) ? $_POST['fullname'] : '';
@@ -124,7 +127,8 @@
             <li><?php echo $form->label('email', __(LBL_EMAIL)); ?>
                 <?php echo $form->input('email', $email, array('placeholder' => 'youremail@website.com',
 																															 'required' => true,
-																															 'type' => 'email')); ?>
+																															 'type' => 'email',
+																															 'style' => 'width: 500px;')); ?>
                 <?php echo isset($errors['fullname']) ? $errors['fullname'] : ''; ?>
             </li>
             <li><?php echo $form->label('password', __(LBL_PASSWORD)); ?>
@@ -153,15 +157,17 @@
 				$zipcode = isset($_POST['zipcode']) ? $_POST['zipcode'] : '';
 				?>
 				
-				<h3 style="margin-bottom: 10px;"><span class="special-headers"><?php echo LBL_BILLING_INFORMATION?></span></h3>
+
+				<h3 style="margin-bottom: 10px;"><span class="special-headers"><?php echo __(LBL_Billing_Info); ?></span></h3>
 				<ul>
-          <li><?php echo $form->label('cardname', __(LBL_CARD_HOLDER)); ?>
+          <li><?php echo $form->label('cardname', __(LBL_CARDHOLDER)); ?>
               <?php echo $form->input('cardname', ucwords($cardname), array('required' => true)); ?>
           </li>
-          <li><?php echo $form->label('cardnumber', __(LBL_CARD_NUMBER)); ?>
+          <li><?php echo $form->label('cardnumber', __(LBL_CARDNUMBER)); ?>
               <?php echo Form::input('cardnumber', ucwords($cardnumber), array('style' => 'width: 348px; letter-spacing: 5px;',
 																																							 'required' => true)) .  
-                    LBL_SECURITY_CODE . 
+                    ' ' . __(LBL_SECURITY_CODE) . ' ' .
+
                     Form::input('cardcode', $cardcode, array('style' => 'width: 50px',
                                                              'maxlength' => 3,
                                                              'size' => 3,
@@ -179,7 +185,7 @@
           </li>
           <li><?php echo $form->label('state', __(LBL_STATE_PROVINCE)); ?>
               <?php echo Form::input('state', ucwords($state), array('style' => 'width: 375px;')) .
-                    LBL_ZIPCODE .
+                    ' ' . __(LBL_ZIPCODE) . ' ' .
                     Form::input('zipcode', ucwords($zipcode), array('size' => 5, 
 																																		'maxlength' => 5, 
 																																		'style' => 'width: 60px;',
@@ -187,10 +193,11 @@
 																																		'pattern' => '[0-9]*')); ?>
           </li>
           <li>
+
             <a id="iterms2" class="homelink" href="<?php echo url::base(true) . "ipages?p=terms"; ?>"> <?php echo LBL_READ_TERMS_CONDITIONS ?></a>
           </li>
           <li>
-            <?php echo $form->submit(NULL, __(LBL_COMPLETE_ORDER)); ?>
+            <?php echo $form->submit(NULL, __(LBL_COMPLETE_ORDER),array('class' => 'addbutton')); ?>
           </li>
         </ul>
         <?php 

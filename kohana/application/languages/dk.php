@@ -14,6 +14,19 @@ define("LBL_My_Deals", "Mine køb");
 define("LBL_My_Orders", "Min ordre");
 define("LBL_SHARE_LINKS", "Del med dine venner");
 define("LBL_TAG_LINE", "De bedste tilbud på restauranter, rejser, wellness og meget andet.");
+define("LBL_MORE", "More");
+
+define("LBL_PURCHASE", "Your Purchase");
+define("LBL_MY_PRICE", "Min Pris");
+define("LBL_COMPLETE_ORDER", "Complete Ordre");
+define("LBL_CARDHOLDER", "Cardholder Name");
+define("LBL_CARDNUMBER", "Card Number");
+define("LBL_SECURITY_CODE", "Security Code");
+define("LBL_BILLING_ADDRESS", "Faktura Address");
+define("LBL_EXPIRATION_DATE", "Expiration Date");
+define("LBL_ZIPCODE", "Zipcode");
+
+define("LBL_PAYMENT_METHOD", "Select Payment Method");
 
 define("LBL_Where_to_find_us", "Her finder du os");
 define("LBL_Buy_now", "Køb nu!");
@@ -122,6 +135,7 @@ define("LBL_NUMBER_OF_VOUCHERS", "Number of Vouchers");
 define("LBL_DEAL_START_DATE", "Tilbud starter");
 define("LBL_DEAL_END_DATE", "Tilbud slutter");
 define("LBL_DEAL_EXPIRY_DATE", "gavekort udløber");
+define("LBL_YOUR_DEAL", "Your Deal");
 define("LBL_TITLE", "Title");
 define("LBL_TITLE_DESC", "Tiltel beskrivelse");
 define("LBL_CONTENT_TITLE", "Produkt overskrift");
