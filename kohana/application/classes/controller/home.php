@@ -48,6 +48,7 @@ class Controller_Home extends Controller {
 			$page->deal = $deal;
 			$page->orders = $orders;
 			$page->address = $address;
+			
 		}
 		$this->response->body($page);
 	}

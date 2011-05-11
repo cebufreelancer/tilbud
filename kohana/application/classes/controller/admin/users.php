@@ -31,9 +31,14 @@ class Controller_Admin_Users extends Controller_Useradmin_User {
 		// Show Pager
 		$show_page = ($total > $pagination->items_per_page) ? TRUE : FALSE;
 
+	  $cities = Kohana::config('global.cities');
+	  $categories = Kohana::config('global.categories');
+
 		$this->template->content = View::factory('/tilbud/admin/user_index')
 																	->set('paging', $pagination)
 																	->set('users', $res)
+																	->set('cities', $cities)
+																	->set('categories', $categories)
 																	->set('show_pager', $show_page);
 	}
 	
