@@ -16,6 +16,11 @@ define("LBL_SHARE_LINKS", "Del med dine venner");
 define("LBL_TAG_LINE", "De bedste tilbud på restauranter, rejser, wellness og meget andet.");
 define("LBL_MORE", "More");
 
+define("LBL_PURCHASE", "Your Purchase");
+define("LBL_MY_PRICE", "Min Pris");
+define("LBL_BILLING_ADDRESS", "Faktura Address");
+define("LBL_ZIPCODE", "Zipcode");
+
 define("LBL_PAYMENT_METHOD", "Select Payment Method");
 define("LBL_Where_to_find_us", "Her finder du os");
 define("LBL_Buy_now", "Køb nu!");
@@ -76,20 +81,17 @@ define("LBL_ALREADY_PURCHASED", "Hvis du allerede har købt hos TilbudIbyen kan d
 define("LBL_ALREADY_HAVE_ACCOUNT", "Har du allerede en konto?");
 define("LBL_YOUR_PURCHASE", "Dit køb");
 define("LBL_DESCRIPTION", "Beskrivelse");
-define("LBL_MY_PRICE", "Beskrivelse");
 define("LBL_SELECT_PAYMENT_METHOD", "Select Payment Method");
 define("LBL_PERSONAL_INFORMATION", "Kontooplysninger");
 define("LBL_FULLNAME", "Fulde navn");
 define("LBL_MOBILE_NUMBER", "Mobiltelefonnummer");
 define("LBL_YOUR_NAME_HERE", "dit navn her");
 define("LBL_BILLING_INFORMATION", "Faktureringsoplysninger");
-define("LBL_CARD_HOLDER", "Kortholderen Navn");
-define("LBL_CARD_NUMBER", "Kortholderen Antal");
+define("LBL_CARDHOLDER", "Kortholderen Navn");
+define("LBL_CARDNUMBER", "Kortholderen Antal");
 define("LBL_EXPIRATION_DATE", "Kortholderen Antal");
-define("LBL_BILLING_ADDRESS", "Faktureringsadresse");
 define("LBL_SECURITY_CODE", "Faktureringsadresse");
 define("LBL_STATE_PROVINCE", "State/Province");
-define("LBL_ZIPCODE", "Zip Code");
 define("LBL_READ_TERMS_CONDITIONS", "Læs venligst vores vilkår og betingelser");
 define("LBL_COMPLETE_ORDER", "Samlede ordre");
 
@@ -173,4 +175,5 @@ define("LBL_Successfully_added", "Tilføjet med succes.");
 define("LBL_Successfully_saved", "Gemt med succes.");
 define("LBL_Successfully_updated", "Updateret med succes.");
 define("LBL_Successfully_deleted", "Slettet med succes.");
+
 ?>

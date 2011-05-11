@@ -8,6 +8,13 @@
   <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.7/themes/base/jquery-ui.css" type="text/css" media="all" /> 
 	<link rel="stylesheet" media="all" href="<?php echo url::base(TRUE)?>css/main.css"/>
 
+  <?php if (isset($deal)) {?>
+	<meta property="og:title" content="<?php echo html_entity_decode($deal->contents_title) ?>" />
+	<meta property="og:description" content="<?php echo html_entity_decode($deal->description);?>" />
+	<meta property="og:image" content="<?php echo url::base(true) . "uploads/8/thumb.jpg"; ?>" />
+	<link rel="image_src" href="<?php echo url::base(true) . "uploads/8/thumb.jpg"; ?>" />
+  <?php } ?>
+
 	<meta name="viewport" content="width=device-width; initial-scale=1"/>
 	<!-- Add "maximum-scale=1" to fix the weird iOS auto-zoom bug on orientation changes. -->
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>

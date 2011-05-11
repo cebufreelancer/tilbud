@@ -196,6 +196,7 @@ class Controller_Admin_Deals extends Controller {
 		$page->deal_video_url	= isset($posts['deal_video_url']) ? $posts['deal_video_url'] : '';
 		$page->deal_refno			= isset($posts['deal_refno']) ? $posts['deal_refno'] : '';
 		$page->address		    = isset($posts['deal_address']) ? $posts['deal_address'] : $deals->addresses;
+		$page->deal_image     = $deals->image;
 
 		$page->cities = $citylist;
 		$page->products = $products;
@@ -309,6 +310,7 @@ class Controller_Admin_Deals extends Controller {
 		$page->expiry_date 		= isset($posts['deal_expiry_date']) ? $posts['deal_expiry_date'] : date("Y/m/d", strtotime($deals->expiry_date));
 		$page->deal_refno			= isset($posts['deal_refno']) ? $posts['deal_refno'] : $deals->reference_no;
 		$page->address		    = isset($posts['deal_address']) ? $posts['deal_address'] : $deals->addresses;
+		$page->deal_image     = $deals->image;
 
 		$page->cities = Kohana::config('global.cities');
 		$page->products = $products;
