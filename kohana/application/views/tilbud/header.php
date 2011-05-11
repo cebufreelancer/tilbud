@@ -11,8 +11,8 @@
   <?php if (isset($deal)) {?>
 	<meta property="og:title" content="<?php echo html_entity_decode($deal->contents_title) ?>" />
 	<meta property="og:description" content="<?php echo html_entity_decode($deal->description);?>" />
-	<meta property="og:image" content="<?php echo url::base(true) . "uploads/" . $deal->ID . "/" . urlencode($deal->image) ?>" />
-	<link rel="image_src" href="<?php echo url::base(true) . "uploads/" . $deal->ID . "/" . urlencode($deal->image) ?>" />
+	<meta property="og:image" content="<?php echo url::base(true) . "uploads/8/thumb.jpg"; ?>" />
+	<link rel="image_src" href="<?php echo url::base(true) . "uploads/8/thumb.jpg"; ?>" />
   <?php } ?>
 
 	<meta name="viewport" content="width=device-width; initial-scale=1"/>
