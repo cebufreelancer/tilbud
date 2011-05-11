@@ -16,18 +16,7 @@ define("LBL_SHARE_LINKS", "Del med dine venner");
 define("LBL_TAG_LINE", "De bedste tilbud på restauranter, rejser, wellness og meget andet.");
 define("LBL_MORE", "More");
 
-define("LBL_PURCHASE", "Your Purchase");
-define("LBL_MY_PRICE", "Min Pris");
-define("LBL_COMPLETE_ORDER", "Complete Ordre");
-define("LBL_CARDHOLDER", "Cardholder Name");
-define("LBL_CARDNUMBER", "Card Number");
-define("LBL_SECURITY_CODE", "Security Code");
-define("LBL_BILLING_ADDRESS", "Faktura Address");
-define("LBL_EXPIRATION_DATE", "Expiration Date");
-define("LBL_ZIPCODE", "Zipcode");
-
 define("LBL_PAYMENT_METHOD", "Select Payment Method");
-
 define("LBL_Where_to_find_us", "Her finder du os");
 define("LBL_Buy_now", "Køb nu!");
 define("LBL_OFFER_ENDS", "Tilbuddet stopper om");
