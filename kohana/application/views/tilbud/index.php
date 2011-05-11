@@ -14,7 +14,7 @@
             <h1><a href=""><?php echo $deal->title ?></a></h1>
             <p><?php echo substr(html_entity_decode(strip_tags($deal->description)), 0, 200); ?></p>
           </div>
-          <div class="deal-banner" style="background-image: url('<?php echo URL::base(TRUE); ?>uploads/<?php echo "$deal->ID/$deal->image"; ?>')" >
+          <div class="deal-banner" style="background-image: url('<?php echo URL::base(TRUE); ?>uploads/<?php echo urlencode("$deal->ID/$deal->image"); ?>')" >
               <div class="buy-container">
               	<?php $price = ($deal->regular_price * (100 - $deal->discount)) / 100; ?>
               	<p class="huge buy-label" style="width: 935px;"><?php echo $price . ',-' . HTML::anchor('deals/buy/' . $deal->ID, HTML::image('images/buy.png', array('title' => LBL_Buy_now, 'style' => 'margin-bottom: -10px;'))); ?>
