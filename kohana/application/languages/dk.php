@@ -18,16 +18,10 @@ define("LBL_MORE", "More");
 
 define("LBL_PURCHASE", "Your Purchase");
 define("LBL_MY_PRICE", "Min Pris");
-define("LBL_COMPLETE_ORDER", "Complete Ordre");
-define("LBL_CARDHOLDER", "Cardholder Name");
-define("LBL_CARDNUMBER", "Card Number");
-define("LBL_SECURITY_CODE", "Security Code");
 define("LBL_BILLING_ADDRESS", "Faktura Address");
-define("LBL_EXPIRATION_DATE", "Expiration Date");
 define("LBL_ZIPCODE", "Zipcode");
 
 define("LBL_PAYMENT_METHOD", "Select Payment Method");
-
 define("LBL_Where_to_find_us", "Her finder du os");
 define("LBL_Buy_now", "Køb nu!");
 define("LBL_OFFER_ENDS", "Tilbuddet stopper om");
@@ -87,20 +81,17 @@ define("LBL_ALREADY_PURCHASED", "Hvis du allerede har købt hos TilbudIbyen kan d
 define("LBL_ALREADY_HAVE_ACCOUNT", "Har du allerede en konto?");
 define("LBL_YOUR_PURCHASE", "Dit køb");
 define("LBL_DESCRIPTION", "Beskrivelse");
-define("LBL_MY_PRICE", "Beskrivelse");
 define("LBL_SELECT_PAYMENT_METHOD", "Select Payment Method");
 define("LBL_PERSONAL_INFORMATION", "Kontooplysninger");
 define("LBL_FULLNAME", "Fulde navn");
 define("LBL_MOBILE_NUMBER", "Mobiltelefonnummer");
 define("LBL_YOUR_NAME_HERE", "dit navn her");
 define("LBL_BILLING_INFORMATION", "Faktureringsoplysninger");
-define("LBL_CARD_HOLDER", "Kortholderen Navn");
-define("LBL_CARD_NUMBER", "Kortholderen Antal");
+define("LBL_CARDHOLDER", "Kortholderen Navn");
+define("LBL_CARDNUMBER", "Kortholderen Antal");
 define("LBL_EXPIRATION_DATE", "Kortholderen Antal");
-define("LBL_BILLING_ADDRESS", "Faktureringsadresse");
 define("LBL_SECURITY_CODE", "Faktureringsadresse");
 define("LBL_STATE_PROVINCE", "State/Province");
-define("LBL_ZIPCODE", "Zip Code");
 define("LBL_READ_TERMS_CONDITIONS", "Læs venligst vores vilkår og betingelser");
 define("LBL_COMPLETE_ORDER", "Samlede ordre");
 
@@ -154,9 +145,9 @@ define("LBL_ORDER_DELIVERED", "Leveret");
 define("LBL_ORDER_CANCELLED", "Annuleret");
 define("LBL_ORDER_NOTREACHED", "Ikke opnået");
 define("LBL_USER", "Bruger");
-define("LBL_USER_ADD", "Add a User");
-define("LBL_USER_EDIT", "Edit a User");
-define("LBL_USER_DELETE", "Delete a User");
+define("LBL_USER_ADD", "Tilføj en User");
+define("LBL_USER_EDIT", "Redigere en User");
+define("LBL_USER_DELETE", "Slet en User");
 define("LBL_USER_TYPE", "User Type");
 define("LBL_PRODUCT_DEAL", "Produkt tilbud");
 define("LBL_AMOUNT_PAID", "Betalt Kr.");
@@ -168,6 +159,7 @@ define("LBL_GROUP_ADD", "Tilføj en gruppe");
 define("LBL_GROUP_EDIT", "Rediger en gruppe");
 define("LBL_GROUP_DELETE", "Slet en gruppe");
 define("LBL_DEAL_DELETE", "Delete Deal");
+define("LBL_SHOW_GROUP", "Show by Gruppe");
 
 define("LBL_DELETE_CONFIRM", "Are you sure you want to delete this record?");
 define("LBL_PASSWORD_CHANGE_NOTIFY", "Please update your password now. :password_url to change your password.");
@@ -183,4 +175,5 @@ define("LBL_Successfully_added", "Tilføjet med succes.");
 define("LBL_Successfully_saved", "Gemt med succes.");
 define("LBL_Successfully_updated", "Updateret med succes.");
 define("LBL_Successfully_deleted", "Slettet med succes.");
+
 ?>

@@ -437,7 +437,7 @@ footer {
 	color: #333333; 
 }
 
-#myforms .cancel, .table .delete { color: #D00216; }
+#myforms .cancel, .table .delete { color: #D00216; font-size: 11px; }
 #myforms .cancel:hover, .table .delete:hover { font-weight: bold; }
 
 /* Forms */

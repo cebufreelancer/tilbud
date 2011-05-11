@@ -143,7 +143,7 @@ class Controller_Admin_Deals extends Controller {
 			$deals->max_sold 	 	= (int)$posts['deal_max_sold'];
 			$deals->status  		= htmlentities($posts['deal_status']);
 			$deals->start_date	= date("Y-m-d H:i:S", strtotime($posts['deal_start_date']));
-			$deals->end_date		= date("Y-m-d H:i:S", strtotime($posts['deal_start_date'] . " 23:59:59"));
+			$deals->end_date		= date("Y-m-d H:i:S", strtotime($posts['deal_end_date'] . " 23:59:59"));
 			$deals->expiry_date = date("Y-m-d H:i:S", strtotime($posts['deal_expiry_date'] . " 23:59:59"));
 			$deals->addresses		= $posts['deal_address'];
 			$deals->is_featured = 1;
@@ -185,7 +185,7 @@ class Controller_Admin_Deals extends Controller {
 		$page->deal_regular_price = isset($posts['deal_regular_price']) ? $posts['deal_regular_price'] : 0.00;
 		$page->deal_discount 	= isset($posts['deal_discount']) ? $posts['deal_discount'] : 50;
 		//$page->deal_vouchers 	= isset($posts['deal_vouchers']) ? $posts['deal_vouchers'] : '';
-		$page->deal_min_buy 	= isset($posts['deal_min_buy']) ? $posts['deal_min_buy'] : 5;
+		$page->deal_min_buy 	= isset($posts['deal_min_buy']) ? $posts['deal_min_buy'] : 0;
 		$page->deal_max_buy 	= isset($posts['deal_max_buy']) ? $posts['deal_max_buy'] : 5;
 		$page->deal_min_sold 	= isset($posts['deal_min_sold']) ? $posts['deal_min_sold'] : 5;
 		$page->deal_max_sold 	= isset($posts['deal_max_sold']) ? $posts['deal_max_sold'] : 5;
@@ -252,7 +252,7 @@ class Controller_Admin_Deals extends Controller {
 			$deals->max_sold 	 	= (int)$posts['deal_max_sold'];
 			$deals->status  		= htmlentities($posts['deal_status']);
 			$deals->start_date	= date("Y-m-d H:i:S", strtotime($posts['deal_start_date']));
-			$deals->end_date		= date("Y-m-d H:i:S", strtotime($posts['deal_start_date'] . " 23:59:59"));
+			$deals->end_date		= date("Y-m-d H:i:S", strtotime($posts['deal_end_date'] . " 23:59:59"));
 			$deals->expiry_date = date("Y-m-d H:i:S", strtotime($posts['deal_expiry_date'] . " 23:59:59"));
 			$deals->last_update = date("Y-m-d H:i:S");
 			$deals->addresses		= $posts['deal_address'];			
