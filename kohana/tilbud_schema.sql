@@ -310,3 +310,4 @@ CREATE TABLE IF NOT EXISTS `subscribers` (
 -- May 8 2011 Updates
 --
 ALTER TABLE  `deals` ADD  `addresses` TEXT NOT NULL AFTER  `information`;
+ALTER TABLE  `users` ADD  `group_id` int(11) NOT NULL DEFAULT 1 AFTER `id`;
