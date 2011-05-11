@@ -130,7 +130,13 @@ class Controller_Admin_Deals extends Controller {
 			$deals->discount  	= (int)$posts['deal_discount'];
 			//$deals->vouchers 	 	= (int)$posts['deal_vouchers'];
 			$deals->reference_no= htmlentities($posts['deal_refno']);
-			$deals->youtube_url	= $this->clean_video_url($posts['deal_video_url']);
+
+			if ($posts['deal_video_url'] != "") {
+			  $deals->youtube_url	= $this->clean_video_url($posts['deal_video_url']);
+		  }else {
+		    $deals->youtube_url = "";
+		  }
+
 			$deals->min_buy 	 	= (int)$posts['deal_min_buy'];
 			$deals->max_buy 	 	= (int)$posts['deal_max_buy'];
 			$deals->min_sold 	 	= (int)$posts['deal_min_sold'];
@@ -148,7 +154,9 @@ class Controller_Admin_Deals extends Controller {
 			
 			if($deals->save()) {
 				if(!empty($_FILES)) {
-			  	mkdir(APPPATH . "../uploads/". $deals->ID);
+				  if (!file_exists(APPPATH . "../uploads/". $deals->ID)) {
+			  	  mkdir(APPPATH . "../uploads/". $deals->ID);
+			  	}
 			  	move_uploaded_file($_FILES["deal_image"]["tmp_name"], APPPATH . "../uploads/" . $deals->ID . "/" . $_FILES["deal_image"]["name"]);
 				}
 			  
@@ -257,7 +265,10 @@ class Controller_Admin_Deals extends Controller {
 			if($deals->save()) {
 
 				if(!empty($_FILES)) {
-			  	mkdir(APPPATH . "../uploads/". $deals->ID);
+				  if (!file_exists(APPPATH . "../uploads/". $deals->ID)) {
+			  	  mkdir(APPPATH . "../uploads/". $deals->ID);
+			  	}
+				  
 			  	move_uploaded_file($_FILES["deal_image"]["tmp_name"], APPPATH . "../uploads/" . $deals->ID . "/" . $_FILES["deal_image"]["name"]);
 				}
 			  
