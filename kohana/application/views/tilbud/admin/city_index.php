@@ -6,7 +6,7 @@
   	<div class="centered">
     	
       <div id="htitle">
-      	<h2>Cities</h2>
+      	<h2><?php echo __(LBL_CITIES); ?></h2>
       </div>
             
       <div id="myforms">
@@ -21,7 +21,7 @@
 				?>
       
         <div id="action-button">
-          <?php echo HTML::anchor('admin/cities/add', 'Add a City', array('class' => 'addbutton')); ?>
+          <?php echo HTML::anchor('admin/cities/add', __(LBL_CITY_ADD), array('class' => 'addbutton')); ?>
         </div>
         
         <?php echo ($no_pager == TRUE) ? '' : $paging->render(); ?>
@@ -29,9 +29,10 @@
         <table class="table">
         <thead>
         <tr>
-          <td>Action</td>
-          <td width="200">City</td>
-          <td>Order</td>
+          <td><?php echo __(LBL_ACTION); ?></td>
+          <td><?php echo __(LBL_ORDER); ?></td>
+          <td width="200"><?php echo __(LBL_CITY); ?></td>
+          <td><?php echo __(LBL_SUBSCRIBERS); ?></td>
         </tr>
         </thead>
         <tbody>
@@ -41,8 +42,9 @@
 					$delete_url = HTML::anchor('admin/cities/delete/' . $city['ID'], 'Delete');
           echo '<tr>';
           echo '<td>' . $edit_url . ' ' . $delete_url . '</td>';
-          echo '<td><b>' . $city['name'] . '</b></td>';
 					echo '<td>' . $city['order'] . '</td>';
+					echo '<td><b>' . $city['name'] . '</b></td>';
+					echo '<td>' . ORM::factory('city')->get_subscribers($city['ID']) . '</td>';
           echo '</tr>';
         }		
         ?>

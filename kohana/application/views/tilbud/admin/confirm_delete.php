@@ -8,12 +8,10 @@
       <div id="htitle">
       	<h2><?php echo $label; ?></h2>
       </div>
-           
-      <?php //echo '<pre>'; print_r($_SERVER); echo '</pre>'; ?>
-      
+                
 			<?php echo Form::open(Request::current(), array('id' => 'myforms')); ?>
       <ul>
-      	<li><p class="medium">Are you sure you want to delete this record?</li>
+      	<li><p class="medium"><?php echo __(LBL_DELETE_CONFIRM); ?></li>
         <?php
 				foreach($records as $key => $val) {
 					echo '<li>' . Form::label($key, __(ucfirst($key))) . '</li>';

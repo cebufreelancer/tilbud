@@ -66,6 +66,11 @@ define("LBL_MOBILE","Mobil");
 define("LBL_RETYPE_PASSWORD","Genindtast din adgangskode");
 define("LBL_FIRSTNAME","Fornavn");
 define("LBL_LASTNAME","Efternavn");
+define("LBL_ACTION", "Action");
+define("LBL_SUBSCRIBERS", "Subscribers");
+define("LBL_JOINED", "Joined");
+define("LBL_LAST_LOGIN", "Last Log Ind");
+
 
 define("LBL_LOGIN","LOG IND");
 define("LBL_USERS","Bruger");
@@ -114,6 +119,10 @@ define("LBL_ORDER_DELIVERED", "Leveret");
 define("LBL_ORDER_CANCELLED", "Annuleret");
 define("LBL_ORDER_NOTREACHED", "Ikke opnået");
 define("LBL_USER", "Bruger");
+define("LBL_USER_ADD", "Add a User");
+define("LBL_USER_EDIT", "Edit a User");
+define("LBL_USER_DELETE", "Delete a User");
+define("LBL_USER_TYPE", "User Type");
 define("LBL_PRODUCT_DEAL", "Produkt tilbud");
 define("LBL_AMOUNT_PAID", "Betalt Kr.");
 define("LBL_PRODUCT_NAME", "Produkt navn");
@@ -123,6 +132,13 @@ define("LBL_CITY_DELETE", "Slet en by");
 define("LBL_GROUP_ADD", "Tilføj en gruppe");
 define("LBL_GROUP_EDIT", "Rediger en gruppe");
 define("LBL_GROUP_DELETE", "Slet en gruppe");
+define("LBL_DEAL_DELETE", "Delete Deal");
+
+define("LBL_DELETE_CONFIRM", "Are you sure you want to delete this record?");
+define("LBL_PASSWORD_CHANGE_NOTIFY", "Please update your password now. :password_url to change your password.");
+
+// SHARE TO FRIEND
+define("LBL_SHARE_TO_FRIEND", "You are invited to join this  amazing deals ...");
 
 //Notification message
 define("LBL_SUCCESS_ADD", "%s %s Er blevet tilføjet med succes.");

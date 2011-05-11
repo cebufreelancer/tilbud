@@ -1,15 +1,10 @@
 <?php defined('SYSPATH') OR die('No direct access allowed.'); ?>
-
-<?php require_once APPPATH .'views/tilbud/admin/header.php'; ?>
-	
-  <!-- content starts here -->
-  <section id="ad-body">
-  	<div class="centered">
-    	
+<?php require_once 'header.php'; ?>
+	   	
       <div id="htitle">
-      	<h2>Users</h2>
+      	<h2><?php echo __(LBL_USERS); ?></h2>
       </div>
-      
+            
       <div id="myforms">
       	<?php
       	
@@ -21,63 +16,56 @@
 					echo '</div></div>';
 				}
 				?>
-        
+      
         <div id="action-button">
-          <?php echo HTML::anchor('admin/users/add', 'Add a User', array('class' => 'addbutton')); ?>
-
-<!-->          
-          <div id="search-form">
-            <div>SEARCH: </div>
-            <div>
-              <form method="post" action="">
-              <div> <?= LBL_CITY ?> : <?php echo Form::select('deal_city', $cities); ?> </div>
-              <div> <?= LBL_GROUP ?> : <?php echo Form::select('deal_categories', $categories); ?> </div>
-              <div> who have paid : <input type="checkbox" value="1" name="whobuy"> </div>
-              <div> who sign up for newsletter : <input type="checkbox" value="1" name="whosignup"> </div>
-              <div> <input type="submit" name="submit" value="Search"> </div>
-              </form>
-            </div>
-          </div>
--->          
-          
+          <?php echo HTML::anchor('admin/users/add', __(LBL_USER_ADD), array('class' => 'addbutton')); ?>
         </div>
-
+        
         <?php echo ($show_pager) ? $paging->render() : ''; ?>
-
+        
         <table class="table">
         <thead>
         <tr>
-          <td>Action</td>
-          <td>Username</td>
-          <td>Joined</td>
-          <td>Status</td>          
-          <td>Last Login</td>
+          <td><?php echo __(LBL_ACTION); ?></td>
+          <td><?php echo __(LBL_EMAIL); ?></td>
+          <td><?php echo __(LBL_GROUP); ?></td>
+          <td><?php echo __(LBL_USER_TYPE); ?></td>
+          <td><?php echo __(LBL_JOINED); ?></td>
+          <td><?php echo __(LBL_LAST_LOGIN); ?></td>
         </tr>
         </thead>
         <tbody>
         <?php
         foreach($users as $user) {
-					$edit_url = HTML::anchor('admin/users/edit/' . $user['id'], 'Edit');
+					$cur_user = ORM::factory('user', $user['id']);
+					$edit_url = HTML::anchor('admin/vendors/edit/' . $user['id'], 'Edit');
 					$delete_url = HTML::anchor('admin/users/delete/' . $user['id'], 'Delete');
+					$last_login = $user['last_login'] == NULL ? 'Never' : date("F j, Y",$user['last_login']);
+					$is_admin = $cur_user->is_admin($cur_user) ? 'Admin' : 'Member';
+					$group = ORM::factory('category', $user['group_id'])->name;
           echo '<tr>';
           echo '<td>' . $edit_url . ' ' . $delete_url . '</td>';
-          echo '<td><b>' . $user['username'] . '</b></td>';
-					echo '<td>' . $user['status'] . '</td>';
+          echo '<td><b>' . $user['email'] . '</b><br /><span style="font-size: 11px;">' . $user['firstname'] . '</span></td>';
+					echo '<td>' . $group . '</td>';
+					echo '<td>' . $is_admin . '</td>';
           echo '<td>' . date("F j, Y",strtotime($user['created'])) . '</td>';
-          echo '<td>' . date("F j, Y",$user['last_login']) . '</td>';
+          echo '<td>' . $last_login . '</td>';
+
           echo '</tr>';
         }		
         ?>
         </tbody>
         </table>
-        <div> <?php echo sizeof($users); ?></div>
         <?php echo ($show_pager) ? $paging->render() : ''; ?>
-        
+        <br/>
+        <div> Total number of users: <?php echo $paging->total_items; ?></div>
+                
       </div>
     </div>
   </section>
   
   <!-- footer starts here -->
-  <?php require_once APPPATH .'views/tilbud/admin/footer.php'; ?>  
+  <?php require_once 'footer.php'; ?>
+  
 </body>
 </html>

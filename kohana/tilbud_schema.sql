@@ -305,3 +305,8 @@ CREATE TABLE IF NOT EXISTS `subscribers` (
   `city_id` int(11) NOT NULL,
   UNIQUE KEY `email` (`email`,`city_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- May 8 2011 Updates
+--
+ALTER TABLE  `deals` ADD  `addresses` TEXT NOT NULL AFTER  `information`;

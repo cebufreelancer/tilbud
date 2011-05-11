@@ -48,21 +48,32 @@ class Controller_Admin_Users extends Controller_Useradmin_User {
       $this->template->title = __('Edit user');
       // load the content from view
       $view = View::factory('/tilbud/admin/user_form');
-			$view->label = 'Add a User';
+			$view->label = __(LBL_USER_ADD);
 			$view->user_types = array('admin' => 'Administrator',
 															 'user'  => 'Regular User');
 			
 			$posts = $this->request->post();
 			
 			if(!empty($posts)) {
+				$clean['group'] = $posts['group'];
+				$clean['firstname'] = $posts['firstname'];
+				$clean['lastname'] = $posts['lastname'];
+				$clean['email'] = $posts['email'];
+				$clean['username'] = substr($posts['email'], 0, strpos($posts['email'], "@"));
+				$clean['password'] = $posts['password'];
+				$clean['password_confirm'] = $posts['password_confirm'];
+				$clean['user_type'] = $posts['user_type'];
+				$clean['group_id'] = $posts['group'];
+				
 				$user = ORM::factory('user');
 				
 				try {
-					$user->create_user($posts, array('username','password','email'));
+					$user->create_user($clean, array('username','password','email','firstname','lastname','group_id'));
 					$result = true;
 				} catch (ORM_Validation_Exception $e) {
 					$errors = $e->errors('register');
 					$errors = array_merge($errors, (isset($errors['_external']) ? $errors['_external'] : array()) );
+					print_r($errors);
 				}	
 				
 				if(empty($errors)) {
@@ -85,8 +96,49 @@ class Controller_Admin_Users extends Controller_Useradmin_User {
 			$view->username  = isset($posts['username']) ? $posts['username'] : '';
 			$view->email 		 = isset($posts['email']) ? $posts['email'] : '';
 			$view->user_type = isset($posts['user_type']) ? $posts['user_type'] : 'user';
+			$view->group		 = isset($posts['group']) ? $posts['group'] : 0;
+			
+			$view->groups 	 = Kohana::config('global.categories');
 
       $this->template->content = $view;
+	}
+	
+	public function action_delete($id=NULL)
+	{
+		$page = View::factory('tilbud/admin/confirm_user_delete');
+		$page->label =__(LBL_USER_DELETE);
+	
+		$user = ORM::factory('user', $id);
+		
+		// Get posts
+		$posts = $this->request->post();
+		
+		// This will check if submitted
+		if(!empty($posts)) {
+			
+			if(strcmp($posts['submit'], 'Ok') == 0) {
+				if($user->loaded()) {
+					$name = $user->firstname . ' ' . $user->lastname;
+					$user->delete();
+				}
+			}
+			
+			// message: save success
+			Message::add('success', __('User ' . $name . ' ' . __(LBL_Successfully_deleted)));
+			
+			// Assuming all is correct
+			Request::current()->redirect('admin/users');
+			return;
+
+		} else {
+		
+			$rec['email'] 		= html_entity_decode($user->email);
+			$rec['name'] 			= html_entity_decode($user->firstname) . ' ' . html_entity_decode($user->lastname);
+			
+			$page->records = $rec;
+		}
+		
+		$this->template->content = $page;
 	}
 	
 	public function before() 
