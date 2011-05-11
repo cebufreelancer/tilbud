@@ -21,6 +21,16 @@
           <?php echo HTML::anchor('admin/users/add', __(LBL_USER_ADD), array('class' => 'addbutton')); ?>
         </div>
         
+        <?php				
+				if(!empty($categories)) {
+					$categories = array_merge(array("0" => "All"), $categories);
+	
+					echo Form::open(Url::base(TRUE) . 'admin/users', array('style' => 'margin-top: 10px;'));
+						echo Form::label('show_group', __(LBL_SHOW_GROUP));
+						echo Form::select('show_group', $categories, $group, array('onChange' => 'javascript:submit(); return true;'));
+					echo Form::close(); 
+				} ?>
+        
         <?php echo ($show_pager) ? $paging->render() : ''; ?>
         
         <table class="table">
@@ -38,7 +48,7 @@
         <?php
         foreach($users as $user) {
 					$cur_user = ORM::factory('user', $user['id']);
-					$edit_url = HTML::anchor('admin/vendors/edit/' . $user['id'], 'Edit');
+					$edit_url = HTML::anchor('admin/users/edit/' . $user['id'], 'Edit');
 					$delete_url = HTML::anchor('admin/users/delete/' . $user['id'], 'Delete');
 					$last_login = $user['last_login'] == NULL ? 'Never' : date("F j, Y",$user['last_login']);
 					$is_admin = $cur_user->is_admin($cur_user) ? 'Admin' : 'Member';

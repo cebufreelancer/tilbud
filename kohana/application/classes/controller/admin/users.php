@@ -4,8 +4,12 @@ class Controller_Admin_Users extends Controller_Useradmin_User {
 	
 	public function action_index()
 	{	
-		$users = ORM::factory('user');
+		$page = View::factory('/tilbud/admin/user_index');
+		$page->group = 0; // This is set to all
 		
+		$posts = $this->request->post();
+		
+		$users = ORM::factory('user');
 		$total = $users->count_all();
 		
 		// Create a paginator
@@ -23,7 +27,19 @@ class Controller_Admin_Users extends Controller_Useradmin_User {
 									  ->offset($pagination->offset)
 										->order_by($sort, $dir)
 										->find_all();
-							
+
+		// Show Users by Group
+		if(!empty($posts) && $posts['show_group'] > 0) {
+			$pagination->total_items = $users->where('group_id','=', $posts['show_group'])->count_all();
+			$page->group 						 = (int)$posts['show_group'];
+			
+			$result = $users->limit($pagination->items_per_page)
+									  ->offset($pagination->offset)
+										->order_by($sort, $dir)
+										->where('group_id', '=', (int)$posts['show_group'])
+										->find_all();
+		}
+		
 		foreach($result as $ven) {
 			$res[] = $ven->as_array();
 		}
@@ -34,12 +50,13 @@ class Controller_Admin_Users extends Controller_Useradmin_User {
 	  $cities = Kohana::config('global.cities');
 	  $categories = Kohana::config('global.categories');
 
-		$this->template->content = View::factory('/tilbud/admin/user_index')
-																	->set('paging', $pagination)
-																	->set('users', $res)
-																	->set('cities', $cities)
-																	->set('categories', $categories)
-																	->set('show_pager', $show_page);
+		$page->paging = $pagination;
+		$page->users	= $res;
+		$page->cities = $cities;
+		$page->categories = $categories;
+		$page->show_pager = $show_page;
+
+		$this->template->content = $page;
 	}
 	
 	public function action_add()
@@ -50,7 +67,7 @@ class Controller_Admin_Users extends Controller_Useradmin_User {
       $view = View::factory('/tilbud/admin/user_form');
 			$view->label = __(LBL_USER_ADD);
 			$view->user_types = array('admin' => 'Administrator',
-															 'user'  => 'Regular User');
+															  'user'  => 'Regular User');
 			
 			$posts = $this->request->post();
 			
@@ -64,6 +81,7 @@ class Controller_Admin_Users extends Controller_Useradmin_User {
 				$clean['password_confirm'] = $posts['password_confirm'];
 				$clean['user_type'] = $posts['user_type'];
 				$clean['group_id'] = $posts['group'];
+				$clean['mobile'] = $posts['mobile'];
 				
 				$user = ORM::factory('user');
 				
@@ -84,7 +102,7 @@ class Controller_Admin_Users extends Controller_Useradmin_User {
 					} 
 					
 					// message: save success
-					Message::add('success', __('User ' . $user->username . ' has been successfully added.'));
+					Message::add('success', __('User ' . $user->email . ' has been successfully added.'));
 					// redirect and exit
 					Request::current()->redirect('admin/users');
 					return;
@@ -94,13 +112,83 @@ class Controller_Admin_Users extends Controller_Useradmin_User {
 			}
 
 			$view->username  = isset($posts['username']) ? $posts['username'] : '';
+			$view->firstname = isset($posts['firstname']) ? $posts['firstname'] : '';
+			$view->lastname  = isset($posts['lastname']) ? $posts['lastname'] : '';
 			$view->email 		 = isset($posts['email']) ? $posts['email'] : '';
+			$view->mobile		 = isset($posts['mobile']) ? $posts['mobile'] :'';
 			$view->user_type = isset($posts['user_type']) ? $posts['user_type'] : 'user';
 			$view->group		 = isset($posts['group']) ? $posts['group'] : 0;
 			
 			$view->groups 	 = Kohana::config('global.categories');
 
       $this->template->content = $view;
+	}
+	
+	public function action_edit($id)
+	{
+		$user = ORM::factory('user', $id);
+		// set the template title (see Controller_App for implementation)
+		$this->template->title = __('Edit user');
+		// load the content from view
+		$view = View::factory('/tilbud/admin/user_form');
+		$view->label = __(LBL_USER_EDIT);
+		$view->user_types = array('admin' => 'Administrator',
+															'user'  => 'Regular User');
+		
+		$posts = $this->request->post();
+		
+		if(!empty($posts)) {
+			$clean['group'] = $posts['group'];
+			$clean['firstname'] = $posts['firstname'];
+			$clean['lastname'] = $posts['lastname'];
+			$clean['email'] = $posts['email'];
+			$clean['username'] = substr($posts['email'], 0, strpos($posts['email'], "@"));
+			$clean['password'] = $posts['password'];
+			$clean['password_confirm'] = $posts['password_confirm'];
+			$clean['user_type'] = $posts['user_type'];
+			$clean['group_id'] = $posts['group'];
+			$clean['mobile'] = $posts['mobile'];
+						
+			try {
+				$user->update_user($clean, array('username','password','email','firstname','lastname','group_id','mobile'));
+				$result = true;
+			} catch (ORM_Validation_Exception $e) {
+				$errors = $e->errors('register');
+				$errors = array_merge($errors, (isset($errors['_external']) ? $errors['_external'] : array()) );
+				print_r($errors);
+			}	
+			
+			if(empty($errors)) {
+				// Update Roles
+				$user->remove('roles');
+				$user->add('roles', ORM::factory('role')->where('name', '=', 'login')->find());
+				if($posts['user_type'] == 'admin') {
+					$user->add('roles', ORM::factory('role')->where('name', '=', 'admin')->find());
+				} 
+				
+				// message: save success
+				Message::add('success', __(sprintf(LBL_SUCCESS_UPDATE, LBL_USER, $user->email)));
+				// redirect and exit
+				Request::current()->redirect('admin/users');
+				return;
+			} else {
+				$view->errors = $errors;
+			}
+		}
+
+		$user_type = $user->is_admin($user) ? 'admin' : 'user';
+
+		$view->username  = isset($posts['username']) ? $posts['username'] : $user->username;
+		$view->firstname = isset($posts['firstname']) ? $posts['firstname'] : $user->firstname;
+		$view->lastname  = isset($posts['lastname']) ? $posts['lastname'] : $user->lastname;
+		$view->email 		 = isset($posts['email']) ? $posts['email'] : $user->email;
+		$view->mobile		 = isset($posts['mobile']) ? $posts['mobile'] : $user->mobile;
+		$view->user_type = isset($posts['user_type']) ? $posts['user_type'] : $user_type;
+		$view->group		 = isset($posts['group']) ? $posts['group'] : $user->group_id;
+		
+		$view->groups 	 = Kohana::config('global.categories');
+
+		$this->template->content = $view;
 	}
 	
 	public function action_delete($id=NULL)
@@ -132,8 +220,8 @@ class Controller_Admin_Users extends Controller_Useradmin_User {
 
 		} else {
 		
-			$rec['email'] 		= html_entity_decode($user->email);
-			$rec['name'] 			= html_entity_decode($user->firstname) . ' ' . html_entity_decode($user->lastname);
+			$rec['email'] = html_entity_decode($user->email);
+			$rec['name'] 	= html_entity_decode($user->firstname) . ' ' . html_entity_decode($user->lastname);
 			
 			$page->records = $rec;
 		}
