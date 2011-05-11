@@ -24,6 +24,9 @@ class Controller_Home extends Controller {
 				case 'verify':
 					$page->msg = 'Congratulations! Kindly check your email to account verification.';
 					break;
+				case 'referral':
+					$page->is_referral = true;
+					break;
 			}
 		}
 		$this->response->body($page);
@@ -124,9 +127,8 @@ class Controller_Home extends Controller {
 				
 				if(mail($to, $subject, $message, $headers)) {
 					// Should notify to check email for verification process
-					$page = View::factory('tilbud/index');
-					$pass_change_url = HTML::anchor(Url::base(TRUE) . 'user/myaccount', 'Click here');
-					$page->msg = __(LBL_PASSWORD_CHANGE_NOTIFY, array(":password_url" => $pass_change_url));
+					Request::current()->redirect(Url::base(TRUE) . '?status=referral');
+					return;
 				}
 			}
 		}
@@ -258,5 +260,7 @@ class Controller_Home extends Controller {
 				return;
 			}
 		}
+		
+		$this->response->body(View::factory('tilbud/referralform'));
 	}
 } // End Welcome

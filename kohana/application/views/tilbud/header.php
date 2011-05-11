@@ -62,21 +62,22 @@
 <body onLoad="initialize()" onunload="GUnload()">
 	
 		<?php if(isset($is_referral)) { ?>
-    <a href="<?php echo Url::base() . 'home/referral'; ?>" id="referral-form" ></a>
+    <a href="<?php echo Url::base(TRUE) . 'referral'; ?>" id="referral-form" ></a>
     <script type="text/javascript">
 			$(document).ready(function() {
 				$("#referral-form").fancybox({
       		'scrolling'		: false,
   			'titleShow'		: false,
   			'autoScale'	: false,
-  			'frameWidth'		: 900,
-  			'frameHeight'		: 460,
+  			'width'		: 760,
+  			'height'		: 420,
   			'overlayOpacity' : 0.7,
   			'centerOnScroll' : true,
   			'transitionIn' : 'elastic',
   			'showCloseButton' : false,
   			'hideOnOverlayClick' : false,
   			'hideOnContentClick' : false,
+				'type' : 'iframe',
       	}).trigger('click');				
     	});
 		</script>
@@ -338,7 +339,6 @@
 				'enableEscapeButton' : true,
   			'hideOnOverlayClick' : false,
   			'hideOnContentClick' : false,
-				'type' : 'iframe',
 				'href'	: '<?php echo Url::base(TRUE); ?>signup',
   			'onClosed'		: function() {
   					$("#login_error").hide();
