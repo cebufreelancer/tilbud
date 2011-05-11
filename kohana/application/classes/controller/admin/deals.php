@@ -251,7 +251,7 @@ class Controller_Admin_Deals extends Controller {
 			$deals->max_sold 	 	= (int)$posts['deal_max_sold'];
 			$deals->status  		= htmlentities($posts['deal_status']);
 			$deals->start_date	= date("Y-m-d H:i:S", strtotime($posts['deal_start_date']));
-			$deals->end_date		= date("Y-m-d H:i:S", strtotime($posts['deal_start_date'] . " 23:59:59"));
+			$deals->end_date		= date("Y-m-d H:i:S", strtotime($posts['deal_end_date'] . " 23:59:59"));
 			$deals->expiry_date = date("Y-m-d H:i:S", strtotime($posts['deal_expiry_date'] . " 23:59:59"));
 			$deals->last_update = date("Y-m-d H:i:S");
 			$deals->addresses		= $posts['deal_address'];			
