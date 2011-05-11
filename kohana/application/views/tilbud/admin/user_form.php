@@ -18,37 +18,37 @@
   	<li><?php echo $form->label('group', __(LBL_GROUPS)); ?>
         <?php echo $form->select('group', $groups, $group); ?>
     </li>
-    <li><?php echo $form->label('firstname', __('Firstname')); ?>
+    <li><?php echo $form->label('firstname', __(LBL_FIRSTNAME)); ?>
         <?php echo Form::input('firstname', NULL, array('style' => 'width: 215px;',
-                                                          'required' => true)); ?> Lastname 
+                                                        'required' => true)); ?> <?php echo __(LBL_LASTNAME); ?> 
         <?php echo Form::input('lastname', NULL, array('style' => 'width: 210px;',
-                                                                  'required' => true)); ?>
+                                                       'required' => true)); ?>
         <?php echo isset($errors['password_confirm']) ? '<br />' . $errors['password_confirm'] : ''; ?>
     </li>
-    <li><?php echo $form->label('email', __('Email Address')); ?>
+    <li><?php echo $form->label('email', __(LBL_EMAIL_ADDRESS)); ?>
         <?php echo $form->input('email', $email,array('placeholder' => 'youremail@website.com',
-                                                           'required' => true,
-                                                           'type' => 'email',
-                                                           'style' => 'width: 500px;')); ?>
+																										  'required' => true,
+																										  'type' => 'email',
+																										  'style' => 'width: 500px;')); ?>
     </li>
-    <li><?php echo $form->label('password', __('Password')); ?>
+    <li><?php echo $form->label('password', __(LBL_PASSWORD)); ?>
         <?php echo Form::password('password', NULL, array('style' => 'width: 215px;',
                                                           'required' => true)); ?> (confirm) 
         <?php echo Form::password('password_confirm', NULL, array('style' => 'width: 215px;',
                                                                   'required' => true)); ?>
         <?php echo isset($errors['password_confirm']) ? '<br />' . $errors['password_confirm'] : ''; ?>
     </li>
-    <li><?php echo $form->label('mobile', __('Mobile')); ?>
+    <li><?php echo $form->label('mobile', __(LBL_MOBILE)); ?>
         <?php echo Form::input('mobile', NULL, array('style' => 'width: 215px;',
-                                                        'required' => true,
-                                                        'type' => 'tel')); ?>
+                                                     'required' => true,
+                                                     'type' => 'tel')); ?>
     </li>
-    <li><?php echo $form->label('user_type', __('User Type')); ?>
+    <li><?php echo $form->label('user_type', __(LBL_USER_TYPE)); ?>
         <?php echo $form->select('user_type', $user_types, $user_type); ?>
     </li>
     <li>
-      <?php echo $form->submit(NULL, __('Save')); ?>
-      <?php echo $form->submit(NULL, 'Cancel'); ?>
+      <?php echo $form->submit(NULL, __(LBL_SAVE)); ?>
+      <?php echo HTML::anchor($_SERVER['HTTP_REFERER'], LBL_CANCEL, array('class' => 'cancel')); ?>
     </li>
   </ul>
   <?php echo $form->close(); ?>
