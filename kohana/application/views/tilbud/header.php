@@ -166,6 +166,23 @@
 
   	jQuery(document).ready(function() {
 
+  		$("#login2").fancybox({
+  			'scrolling'		: false,
+  			'titleShow'		: false,
+  			'autoScale'	: false,
+  			'frameWidth'		: 900,
+  			'frameHeight'		: 460,
+  			'overlayOpacity' : 0.7,
+  			'centerOnScroll' : true,
+  			'transitionIn' : 'elastic',
+  			'showCloseButton' : true,
+  			'hideOnOverlayClick' : false,
+  			'hideOnContentClick' : false,
+  			'onClosed'		: function() {
+  					$("#login_error").hide();
+  			}
+  		});
+
   		$("#tip5").fancybox({
   			'scrolling'		: false,
   			'titleShow'		: false,
@@ -265,6 +282,16 @@
       		'transitionOut'		: 'none',
       		'type'				: 'iframe'
       });
+      
+      $("#iterms2").fancybox({
+      		'width'				: 712,
+      		'height'			: 458,
+          'autoDimensions' : false,
+              'transitionIn'		: 'none',
+      		'transitionOut'		: 'none',
+      		'type'				: 'iframe'
+      });
+
   		
   		$("#isuggest").fancybox({
       		'width'				: 712,
@@ -300,7 +327,7 @@
   			'overlayOpacity' : 0.7,
   			'centerOnScroll' : true,
   			'transitionIn' : 'fade',
-  			'showCloseButton' : false,
+  			'showCloseButton' : true,
 				'enableEscapeButton' : true,
   			'hideOnOverlayClick' : false,
   			'hideOnContentClick' : false,
@@ -331,13 +358,13 @@
   	</script>
 
   	<div style="display:none">
-    	<div id="loginform"><?php require_once 'login.php'; ?></div>
+    	<div id="loginform"><?php include 'login.php'; ?></div>
     </div>
 
   	<div style="display:none">
-    	<div id="signup-form"><?php require_once 'signupform.php'; ?></div>
+    	<div id="signup-form"><?php include 'signupform.php'; ?></div>
     </div>
 
   	<div style="display:none">
-    	<div id="signup-form-footer"><?php require_once 'signupform-footer.php'; ?></div>
+    	<div id="signup-form-footer"><?php include 'signupform.php'; ?></div>
     </div>
