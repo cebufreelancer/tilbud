@@ -19,9 +19,9 @@
         <?php echo $form->select('group', $groups, $group); ?>
     </li>
     <li><?php echo $form->label('firstname', __(LBL_FIRSTNAME)); ?>
-        <?php echo Form::input('firstname', NULL, array('style' => 'width: 215px;',
+        <?php echo Form::input('firstname', $firstname, array('style' => 'width: 215px;',
                                                         'required' => true)); ?> <?php echo __(LBL_LASTNAME); ?> 
-        <?php echo Form::input('lastname', NULL, array('style' => 'width: 210px;',
+        <?php echo Form::input('lastname', $lastname, array('style' => 'width: 210px;',
                                                        'required' => true)); ?>
         <?php echo isset($errors['password_confirm']) ? '<br />' . $errors['password_confirm'] : ''; ?>
     </li>
@@ -39,7 +39,7 @@
         <?php echo isset($errors['password_confirm']) ? '<br />' . $errors['password_confirm'] : ''; ?>
     </li>
     <li><?php echo $form->label('mobile', __(LBL_MOBILE)); ?>
-        <?php echo Form::input('mobile', NULL, array('style' => 'width: 215px;',
+        <?php echo Form::input('mobile', $mobile, array('style' => 'width: 215px;',
                                                      'required' => true,
                                                      'type' => 'tel')); ?>
     </li>
