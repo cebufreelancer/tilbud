@@ -76,9 +76,10 @@
               </div>
               <div class="social-container">
 
-             <a href="http://www.addthis.com/bookmark.php?v=250&amp;winname=addthis&amp;pub=ra-4d6e3a782d6e35f6&amp;source=tbx-250&amp;lng=da&amp;s=facebook&amp;url=<?php echo url::base(true) . "home/fb"?>">
-              	<?php echo HTML::image('images/facebook.jpg', array('alt' => LBL_SHARE_ON_FACEBOOK)); ?>
+                <a href="http://www.addthis.com/bookmark.php?v=250&amp;winname=addthis&amp;pub=ra-4d6e3a782d6e35f6&amp;source=tbx-250&amp;lng=da&amp;s=facebook&amp;url=<?php echo url::base(true) . "deals/view/" . $deal->ID?>">
+              	  <?php echo HTML::image('images/facebook.jpg', array('alt' => LBL_SHARE_ON_FACEBOOK)); ?>
               	</a>
+              	              	
               </div>
               <div class="save-label"><?= LBL_SPAR ?> <?php echo number_format($deal->discount, 0, '.', ''); ?>%</div>
               <div class="clear"></div>

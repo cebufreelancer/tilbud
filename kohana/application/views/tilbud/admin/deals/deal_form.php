@@ -194,6 +194,15 @@
             <?php echo HTML::anchor('admin/deals', LBL_CANCEL, array('class' => 'cancel',
 																																		 'style' => 'font-size: 11px;')) ?>
           </li>	
+          <li>
+            <?php 
+            if ($deal_image != "") {
+  			  	?>
+  			  	 <img src="<?php echo $deal_image;?>" width="700" height="300" border=0>
+  			  	<?
+  			  	}
+  				  ?>
+          </li>
         </ul>
         </div>
       </div>

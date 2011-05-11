@@ -173,7 +173,6 @@ The Tilbudibyen Team
 			// Check if errors has been set
 			if(!empty($errors)) {
 				$page->errors = $errors;
-				print_r($errors);
 			}
 			
 			$this->response->body($page);

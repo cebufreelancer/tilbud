@@ -13,7 +13,6 @@
 			<div id="htitle">
 
 				<h2><?php echo LBL_YOUR_PURCHASE?></h2>
-				<h2><?php echo __(LBL_PURCHASE); ?></h2>
 			</div>
 
 			<div id="myforms">
