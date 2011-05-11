@@ -6,7 +6,7 @@
   	<div class="centered">
 
 			<div id="htitle">
-				<h2>Your Purchase</h2>
+				<h2><?php echo __(LBL_PURCHASE); ?></h2>
 			</div>
 
 			<div id="myforms">
@@ -20,12 +20,7 @@
 				}
 				?>
 				
-				<div id="action-button">
-					<?php echo HTML::anchor('user/myaccount', 'My Account', array('class' => 'addbutton')); ?>
-					<?php echo HTML::anchor('user/billing', 'Billing Info', array('class' => 'addbutton')); ?>
-					<?php echo HTML::anchor('#', 'My Orders', array('class' => 'addbutton')); ?>
-					<?php echo HTML::anchor('#', 'My Deals', array('class' => 'addbutton')); ?>
-				</div>
+				<?php require_once 'menu-user.php'; ?>
 					
 				<?php //echo '<pre>'; print_r($_SERVER); echo '</pre>'; 
 				$form = new Appform();
@@ -49,30 +44,32 @@
 				
 				?>
 				<?php echo Form::open(Request::current(), array('id' => 'myforms')); ?>
-				<table id="order-deal">
+				<table id="order-deal" style="width:800px">
 								<thead>
 					<tr>
-						<td>Your Deal</td>
-						<td colspan="2">Quantity</td>
-						<td colspan="2">Price</td>
-						<td>Total</td>
+						<td><?php echo __(LBL_YOUR_DEAL); ?></td>
+						<td colspan="2"><?php echo __(LBL_QUANTITY); ?></td>
+						<td colspan="2"><?php echo __(LBL_PRICE); ?></td>
+						<td><?php echo __(LBL_TOTAL); ?></td>
 					</tr>
 				</thead>
 				<tbody>
 					<tr>
-						<td><?php echo $deal_title; ?></td>
+						<td><?php echo $deal_title; ?>
+            	<div style="font-size: 11px; font-weight: normal; color: #999999;"><?php echo $deal->contents_title; ?>
+            </td>
 						<td><?php echo Form::select('quantity', isset($quantity) ? $quantity : array(1=>1), 0, array('autofocus' => true)); ?> </td>
             <td style="width:5px; font-size: 13px;">x</td>
-						<td>$ <span id="price"><?php echo $price; ?></span>
+						<td> <span id="price"><?php echo $price; ?></span> <span class="currency">DKK</span>
 									<?php echo Form::hidden('price', isset($price) ? $price : 1); ?></td>
             <td style="width:5px;">=</td>
-						<td>$ <span id="tprice"><?php echo isset($total) ? $total : 1; ?></span></td>
+						<td> <span id="tprice"><?php echo isset($total) ? $total : 1; ?></span> <span class="currency">DKK</span></td>
 					</tr>
 				</tbody>
 				<tfoot>
 					<tr>
-						<td colspan="5">My Price : </td>
-						<td width="140">$ <span id="totalamount"><?php echo isset($tamount) ? $tamount : 1; ?></span></td>
+						<td colspan="5"><?php echo __(LBL_MY_PRICE); ?> : </td>
+						<td width="140"><span id="totalamount"><?php echo isset($tamount) ? $tamount : 1; ?></span> DKK</td>
 					</tr>
 				</tfoot>
 				</table>
@@ -88,7 +85,7 @@
 				});
 				</script>
         
-				<h2>Select Payment Method<br />&nbsp;</h2>
+				<h2><?php echo __(LBL_PAYMENT_METHOD); ?><br />&nbsp;</h2>
 				
         <?php if(Auth::instance()->logged_in() == false) { 
 								$fullname = isset($_POST['fullname']) ? $_POST['fullname'] : '';
@@ -105,7 +102,8 @@
             <li><?php echo $form->label('email', __('Email')); ?>
                 <?php echo $form->input('email', $email, array('placeholder' => 'youremail@website.com',
 																															 'required' => true,
-																															 'type' => 'email')); ?>
+																															 'type' => 'email',
+																															 'style' => 'width: 500px;')); ?>
                 <?php echo isset($errors['fullname']) ? $errors['fullname'] : ''; ?>
             </li>
             <li><?php echo $form->label('password', __('Password')); ?>
@@ -134,33 +132,33 @@
 				$zipcode = isset($_POST['zipcode']) ? $_POST['zipcode'] : '';
 				?>
 				
-				<h3 style="margin-bottom: 10px;"><span class="special-headers">Billing Information</span></h3>
+				<h3 style="margin-bottom: 10px;"><span class="special-headers"><?php echo __(LBL_Billing_Info); ?></span></h3>
 				<ul>
-          <li><?php echo $form->label('cardname', __('Cardholder Name')); ?>
+          <li><?php echo $form->label('cardname', __(LBL_CARDHOLDER)); ?>
               <?php echo $form->input('cardname', ucwords($cardname), array('required' => true)); ?>
           </li>
-          <li><?php echo $form->label('cardnumber', __('Card Number')); ?>
+          <li><?php echo $form->label('cardnumber', __(LBL_CARDNUMBER)); ?>
               <?php echo Form::input('cardnumber', ucwords($cardnumber), array('style' => 'width: 348px; letter-spacing: 5px;',
 																																							 'required' => true)) .  
-                    ' Security Code ' . 
+                    ' ' . __(LBL_SECURITY_CODE) . ' ' .
                     Form::input('cardcode', $cardcode, array('style' => 'width: 50px',
                                                              'maxlength' => 3,
                                                              'size' => 3,
 																														 'required' => true,
 																														 'pattern' => '[0-9]*')); ?>
           </li>
-          <li><?php echo $form->label('expiry_year', __('Expiration Date')); ?>
+          <li><?php echo $form->label('expiry_year', __(LBL_EXPIRATION_DATE)); ?>
               <?php echo Form::select('expiry_month', $mo, $expiry_month) . ' ' . Form::select('expiry_year', $years, $expiry_year); ?>
           </li>
-          <li><?php echo $form->label('address', __('Billing Address')); ?>
+          <li><?php echo $form->label('address', __(LBL_BILLING_ADDRESS)); ?>
               <?php echo $form->input('address', ucwords($address), array('required' => true)); ?>
           </li>
-          <li><?php echo $form->label('city', __('City')); ?>
+          <li><?php echo $form->label('city', __(LBL_CITY)); ?>
               <?php echo $form->input('city', ucwords($city), array('required' => true)); ?>
           </li>
           <li><?php echo $form->label('state', __('State/Province')); ?>
               <?php echo Form::input('state', ucwords($state), array('style' => 'width: 375px;')) .
-                    ' Zipcode ' .
+                    ' ' . __(LBL_ZIPCODE) . ' ' .
                     Form::input('zipcode', ucwords($zipcode), array('size' => 5, 
 																																		'maxlength' => 5, 
 																																		'style' => 'width: 60px;',
@@ -168,7 +166,7 @@
 																																		'pattern' => '[0-9]*')); ?>
           </li>
           <li>
-            <?php echo $form->submit(NULL, __('Complete Order')); ?>
+            <?php echo $form->submit(NULL, __(LBL_COMPLETE_ORDER),array('class' => 'addbutton')); ?>
           </li>
         </ul>
         <?php 
