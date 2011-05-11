@@ -138,19 +138,26 @@ class Controller_Admin_Users extends Controller_Useradmin_User {
 		$posts = $this->request->post();
 		
 		if(!empty($posts)) {
-			$clean['group'] = $posts['group'];
+			
+			$fields = array('username','email','firstname','lastname','group_id','mobile');
+			
+			$clean['group'] 		= $posts['group'];
 			$clean['firstname'] = $posts['firstname'];
-			$clean['lastname'] = $posts['lastname'];
-			$clean['email'] = $posts['email'];
-			$clean['username'] = substr($posts['email'], 0, strpos($posts['email'], "@"));
-			$clean['password'] = $posts['password'];
-			$clean['password_confirm'] = $posts['password_confirm'];
+			$clean['lastname'] 	= $posts['lastname'];
+			$clean['email'] 		= $posts['email'];
+			$clean['username'] 	= substr($posts['email'], 0, strpos($posts['email'], "@"));
 			$clean['user_type'] = $posts['user_type'];
-			$clean['group_id'] = $posts['group'];
-			$clean['mobile'] = $posts['mobile'];
-						
+			$clean['group_id'] 	= $posts['group'];
+			$clean['mobile'] 		= $posts['mobile'];
+			
+			if(strlen($_POST['password']) > 0 && strlen($_POST['password_confirm']) > 0) {
+				$clean['password'] = $posts['password'];
+				$clean['password_confirm'] = $posts['password_confirm'];
+				array_push($fields, 'password');
+			}
+			
 			try {
-				$user->update_user($clean, array('username','password','email','firstname','lastname','group_id','mobile'));
+				$user->update_user($clean, $fields);
 				$result = true;
 			} catch (ORM_Validation_Exception $e) {
 				$errors = $e->errors('register');
@@ -185,6 +192,7 @@ class Controller_Admin_Users extends Controller_Useradmin_User {
 		$view->mobile		 = isset($posts['mobile']) ? $posts['mobile'] : $user->mobile;
 		$view->user_type = isset($posts['user_type']) ? $posts['user_type'] : $user_type;
 		$view->group		 = isset($posts['group']) ? $posts['group'] : $user->group_id;
+		$view->is_edit	 = TRUE;
 		
 		$view->groups 	 = Kohana::config('global.categories');
 
