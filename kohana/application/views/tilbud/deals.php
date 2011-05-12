@@ -14,7 +14,8 @@
           <?php foreach($deals as $deal){ ?>
             <div class="deals-widget">
             	<?php
-							$title = strlen($deal['title']) > 65 ? substr($deal['title'],0,65) . ' ...' : $deal['title'];
+							$deal['contents'] = strip_tags($deal['contents']);
+							$title = strlen($deal['contents']) > 65 ? substr($deal['contents'],0,65) . ' ...' : $deal['contents'];
 							$title_url = HTML::anchor('deals/view/' . $deal['ID'], $title, array('title' => $deal['title'],
 																																									 'class' => 'widget-title'));
 							$regular_price    = $deal['regular_price'];
