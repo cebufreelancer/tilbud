@@ -312,3 +312,8 @@ CREATE TABLE IF NOT EXISTS `subscribers` (
 --
 ALTER TABLE  `deals` ADD  `addresses` TEXT NOT NULL AFTER  `information`;
 ALTER TABLE  `users` ADD  `group_id` int(11) NOT NULL DEFAULT 1 AFTER `id`;
+
+--
+-- May 13 2011 Updates
+--
+ALTER TABLE  `billings` ADD  `cardtype` VARCHAR( 50 ) NOT NULL DEFAULT  'mastercard' AFTER  `cardname`;

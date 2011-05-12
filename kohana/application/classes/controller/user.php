@@ -11,9 +11,9 @@ class Controller_User extends Controller_App {
 	{	
 		// if the user has the admin role, redirect to admin_user controller
 		if(Auth::instance()->logged_in('admin')) {
-			 $this->request->redirect('admin/');
+			$this->request->redirect('admin/');
 		} else {
-			 $this->request->redirect('user/myaccount');
+			$this->request->redirect('user/myaccount');
 		}
 	}
 	
@@ -116,7 +116,7 @@ class Controller_User extends Controller_App {
 						 'email',
 					));
 					
-					Message::add('success', __('Your profile has been updated.'));
+					Message::add('success', __(LBL_ACCOUNT_UPDATE_CONFIRM));
 					$this->request->redirect('user/myaccount');
 					return;
 					
@@ -144,31 +144,54 @@ class Controller_User extends Controller_App {
 			 $this->request->redirect('user/login');
 		}
 		
+		$view = View::factory('tilbud/billing');
+		
 		$id = Auth::instance()->get_user()->id;
 		$billing = ORM::factory('billing')->where('user_id', '=', $id)->find();
 		$posts = $this->request->post();
 		
 		if(!empty($posts)) {
-			try {
-				$posts['user_id'] = $id;
-				$billing->values($posts);
-				$billing->save();
+						
+			$valid_card = Validation::factory($posts);
+			$valid_card->rule('cardname', 'not_empty')
+								 ->rule('cardname', 'regex', array(':value', '/^[A-Za-z\s]+$/'))
+								 ->rule('cardnumber', 'credit_card')
+								 ->rule('cardcode', 'not_empty')
+								 ->rule('cardcode', 'exact_length', array(':value', 3))
+								 ->rule('address', 'not_empty')
+								 ->rule('city', 'not_empty')
+								 ->rule('zipcode', 'not_empty')
+								 ->rule('zipcode', 'min_length', array(':value', 3))
+								 ->rule('zipcode', 'min_length', array(':value', 4));
+								 
+			if($valid_card->check()) {
 			
-				Message::add('success', __('Your billing information has been updated.'));
-				$this->request->redirect('user/billing');
-				return;
+				try {				
+					$posts['user_id'] = $id;
+					$billing->values($posts);
+					$billing->save();
 				
-			} catch (ORM_Validation_Exception $e) {
-				Message::add('error', __('Error: Values could not be saved.'));
-				$errors = $e->errors('register');
-				$errors = array_merge($errors, (isset($errors['_external']) ? $errors['_external'] : array()));
-				$view->set('errors', $errors);
+					Message::add('success', __(LBL_BILLING_UPDATE_CONFIRM));
+					$this->request->redirect('user/billing');
+					return;
+					
+				} catch (ORM_Validation_Exception $e) {
+					Message::add('error', __('Error: Values could not be saved.'));
+					$errors = $e->errors('register');
+					$errors = array_merge($errors, (isset($errors['_external']) ? $errors['_external'] : array()));
+					$view->set('errors', $errors);
+				}
+			} else {
+				$view->set('errors', $valid_card->errors('billing'));
 			}
-			$view->set('posts', $posts);
 		}
 		
-		$view = View::factory('tilbud/billing');
+		
 		$view->set('billing', $billing);
+		$view->cardtypes = array("visa" => "VISA", 
+															 "mastercard" => "Master Card",
+															 "jcb" => "JCB",
+															 "american-express" => "American Express");
 		
 		$this->template->content = $view;
 	}

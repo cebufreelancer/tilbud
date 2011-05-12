@@ -25,10 +25,8 @@
 					echo '</div></div>';
 				}
 				?>
-				
-				<?php require_once 'menu-user.php'; ?>
-					
-				<?php //echo '<pre>'; print_r($_SERVER); echo '</pre>'; 
+									
+				<?php
 
 				$form = new Appform();
 

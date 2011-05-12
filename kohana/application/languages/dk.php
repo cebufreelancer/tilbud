@@ -96,7 +96,9 @@ define("LBL_READ_TERMS_CONDITIONS", "Læs venligst vores vilkår og betingelser");
 define("LBL_UPLOAD_FACEBOOK_IMAGE", "Upload facebook billed");
 define("LBL_COMPLETE_ORDER", "Jeg godkender betingelserne og købsbeløbet");
 define("LBL_CARDTYPE", "Credit Card Type");
-
+define("LBL_CHANGE_YOU_PASS_USER","Skift din adgangskode");
+define("LBL_ACCOUNT_UPDATE_CONFIRM","Din konto er nu opdateret");
+define("LBL_BILLING_UPDATE_CONFIRM","Dine betalingsoplysninger er nu opdateret");
 
 define("LBL_LOGIN","LOG IND");
 define("LBL_USERS","Bruger");

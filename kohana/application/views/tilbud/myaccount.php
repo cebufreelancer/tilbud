@@ -19,7 +19,7 @@
     <?php echo HTML::anchor('user/orders', LBL_My_Orders, array('class' => 'addbutton')); ?>
   </div>
     
-  <?php //echo '<pre>'; print_r($_SERVER); echo '</pre>'; 
+  <?php
 	$form = new Appform();
 
 	if(isset($errors)) {
@@ -52,7 +52,7 @@
     <li><?php echo $form->label('mobile', LBL_MOBILE); ?>
 				<?php echo $form->input('mobile', ucwords($mobile)); ?>
 		</li>
-    <li><h2>Change Your Password</h2></li>
+    <li><h2><?php echo __(LBL_CHANGE_YOU_PASS_USER); ?></h2></li>
 		<li><?php echo $form->label('password', LBL_PASSWORD); ?>
 				<?php echo $form->password('password', null); ?>
 		</li>
