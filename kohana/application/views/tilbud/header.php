@@ -66,6 +66,22 @@
     		return false;
     	});
     	
+  		$("#accountverified").fancybox({
+  			'scrolling'		: false,
+  			'titleShow'		: false,
+  			'autoScale'	: false,
+  			'frameWidth'		: 900,
+  			'frameHeight'		: 460,
+  			'overlayOpacity' : 0.7,
+  			'centerOnScroll' : true,
+  			'transitionIn' : 'elastic',
+  			'showCloseButton' : true,
+  			'onClosed'		: function() {
+  					$("#login_error").hide();
+  			}
+  		});
+    	
+    	
   });      
   </script>
     
@@ -76,6 +92,17 @@
   
 </head>
 <body <?php if (isset($address)) { echo  'onLoad="initialize()" onunload="GUnload()"'; }?>>
+
+  <a href="#account_verified" id="accountverified" ></a>
+  
+	<?php if(isset($account_verified)) { ?>		  
+	  <script>
+	    $(document).ready(function() {
+		    $("#accountverified").trigger("click");
+      });
+		</script>
+  <?php } ?>
+
 	
 		<?php if(isset($is_referral)) { ?>
     <a href="<?php echo Url::base(TRUE) . 'referral'; ?>" id="referral-form" ></a>
@@ -389,6 +416,10 @@
 
   	<div style="display:none">
     	<div id="loginform"><?php include 'login.php'; ?></div>
+    </div>
+
+  	<div style="display:none">
+    	<div id="account_verified"><?php include 'referral.php'; ?></div>
     </div>
 
   	<div style="display:none">

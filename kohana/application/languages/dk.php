@@ -166,7 +166,7 @@ define("LBL_DELETE_CONFIRM", "Are you sure you want to delete this record?");
 define("LBL_PASSWORD_CHANGE_NOTIFY", "Please update your password now. :password_url to change your password.");
 
 // SHARE TO FRIEND
-define("LBL_SHARE_TO_FRIEND", "You are invited to join this  amazing deals ...");
+define("LBL_SHARE_TO_FRIEND", "Du er blevet tilmeldt TilbudIByen or du modtager de mest vandvitige tilbud");
 
 //Notification message
 define("LBL_SUCCESS_ADD", "%s %s Er blevet tilføjet med succes.");
@@ -180,6 +180,6 @@ define("LBL_Successfully_deleted", "Slettet med succes.");
 define("LBL_THANKYOU_FOR_INVITING", "Tak fordi du hjælper med at dele tilbudet");
 define("LBL_INVALID_SESSION", "Invalid session");
 define("LBL_SEND", "Send");
-
+define("LBL_COMMA_DELIMITED", "Adskild med komma (,)")
 
 ?>

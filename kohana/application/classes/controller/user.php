@@ -204,11 +204,15 @@ class Controller_User extends Controller_App {
 		$page = View::factory('tilbud/myorders');
 		$page->header = __(LBL_My_Orders);
 
-		$orders = ORM::factory('order');
-		
+    $id = Auth::instance()->get_user()->id;
+    $orders_model = ORM::factory('order');
+    $orders = ORM::factory('order')
+        ->where('user_id', '=', $id)
+        ->find_all();
+
 		// This is an example of how to use Kohana pagination
     // Get the total count for the pagination
-		$total = $orders->count_all();
+		$total = $orders->count();
 
 		if($total > 0) {
 			$pagination = new Pagination(array(
@@ -218,7 +222,8 @@ class Controller_User extends Controller_App {
 										 'view'           => 'pagination/useradmin',));
 			$sort = isset($_GET['sort']) ? $_GET['sort'] : 'date_created'; // set default sorting direction here
 			$dir  = isset($_GET['dir']) ? 'DESC' : 'ASC';
-			$result = $orders->limit($pagination->items_per_page)->offset($pagination->offset)->order_by($sort, $dir)
+			$result = $orders_model->limit($pagination->items_per_page)->offset($pagination->offset)->order_by($sort, $dir)
+			          ->where('user_id', '=', $id)
 								->find_all();
 								
 			foreach($result as $ven) {

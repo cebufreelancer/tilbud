@@ -35,6 +35,21 @@ class Model_Order extends ORM {
 	  
 		return $orders;
 	}
+
+	public function get_user_orders($user_id)
+	{
+    $result = ORM::factory('order')
+             ->where('user_id', '=', $user_id)
+             ->find_all();
+		$orders = array();
+
+    foreach($result as $d) {
+      $orders[] = $d->as_array();
+    }
+	  
+		return $orders;
+	}
+
 	
 	public function get_order($id){
     $order = ORM::factory('order')->find($id);

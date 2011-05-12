@@ -16,8 +16,7 @@
   <div id="action-button">
   	<?php echo HTML::anchor('user/myaccount', LBL_My_Account, array('class' => 'addbutton')); ?>
     <?php echo HTML::anchor('user/billing', LBL_Billing_Info, array('class' => 'addbutton')); ?>
-    <?php echo HTML::anchor('#', LBL_My_Orders, array('class' => 'addbutton')); ?>
-    <?php echo HTML::anchor('#', LBL_My_Deals, array('class' => 'addbutton')); ?>
+    <?php echo HTML::anchor('user/orders', LBL_My_Orders, array('class' => 'addbutton')); ?>
   </div>
     
   <?php //echo '<pre>'; print_r($_SERVER); echo '</pre>'; 

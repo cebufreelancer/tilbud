@@ -22,7 +22,8 @@ class Controller_Home extends Controller {
 		if(isset($_GET['status'])) {
 			switch($_GET['status']) {
 				case 'verify':
-					$page->msg = 'Congratulations! Kindly check your email to account verification.';
+					//$page->msg = 'Congratulations! Kindly check your email to account verification.';
+					$page->account_verified = true;
 					break;
 				case 'referral':
 					$page->is_referral = true;
@@ -79,7 +80,7 @@ class Controller_Home extends Controller {
 			$city  = $posts['city'];
 		
 		  $to = $posts['semail'];
-		  $subject = "Confirm your registration to TilbudiByen newsletter.";
+		  $subject = "Bekræft din registrering af TilbudiByens daglige tilbud.";
 		  $headers = 'MIME-Version: 1.0' . "\r\n";
 		  $headers .= "Content-type: text/html; charset=UTF-8" . "\r\n";
 		  $headers .= "From: TilbudiByen <no-reply@tilbudibyen.com>" . "\r\n".
@@ -127,7 +128,7 @@ class Controller_Home extends Controller {
 				
 				if(mail($to, $subject, $message, $headers)) {
 					// Should notify to check email for verification process
-					$page			= View::factory('tilbud/referral');
+					$page			= View::factory('tilbud/signup2');
 				}
 				
 		    $this->response->body($page);
@@ -172,9 +173,9 @@ class Controller_Home extends Controller {
 					// Auto Login User
 					Auth::instance()->force_login($user->username);
 					
-					Message::add('success', __('Your account has been verified. '));
+					//Message::add('success', __('Your account has been verified. '));
 					
-					Request::current()->redirect('/');
+					Request::current()->redirect('/?status=verify');
 					return;
 				}
 			} else {
@@ -245,7 +246,7 @@ class Controller_Home extends Controller {
 			
 			if(!empty($referral)) {
 				
-				$subject = "You have been invited to join TilbudiByen!";
+				$subject = "Du er blevet tilmeldt TilbudiByen af en ven!";
 				$headers = 'MIME-Version: 1.0' . "\r\n";
 				$headers .= "Content-type: text/html; charset=UTF-8" . "\r\n";
 				$headers .= "From: TilbudiByen <no-reply@tilbudibyen.com>" . "\r\n".
@@ -261,8 +262,7 @@ class Controller_Home extends Controller {
 				foreach($referral as $ref) {
 					mail($ref, $subject, $message, $headers);
 				}
-				
-				$ret_message = LBL_THANKYOU_FOR_INVITING;
+				$ret_message			= View::factory('tilbud/referral2');
 				
 			}
 		}else{
