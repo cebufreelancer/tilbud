@@ -29,6 +29,7 @@
 				<?php require_once 'menu-user.php'; ?>
 					
 				<?php //echo '<pre>'; print_r($_SERVER); echo '</pre>'; 
+
 				$form = new Appform();
 
 				if(isset($errors)) {
@@ -49,6 +50,7 @@
 				$tamount = number_format($total, 2, '.', '');
 				
 				?>
+
 				<?php echo Form::open(Request::current(), array('id' => 'myforms')); ?>
 				<table id="order-deal" style="width:100%">
 								<thead>
@@ -109,6 +111,11 @@
           </div>
         </div>
         <?php } ?>
+
+        <?php if (!empty($errors)) {
+          if (isset($errors['user_exist']) && $errors['user_exist'] == 1) {
+            echo "Email address already exists.";
+         }} ?>
         
 				<h2><?php echo __(LBL_PAYMENT_METHOD); ?><br />&nbsp;</h2>
 				

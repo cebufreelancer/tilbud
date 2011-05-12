@@ -29,13 +29,15 @@ class Model_Auth_User extends ORM {
 	 */
 	public function rules()
 	{
+    //				array('regex', array(':value', '/^[-\pL\pN_.]++$/uD')),
+    //				array(array($this, 'username_available'), array(':validation', ':field')),
+
+	  
 		return array(
 			'username' => array(
 				array('not_empty'),
 				array('min_length', array(':value', 4)),
 				array('max_length', array(':value', 32)),
-				array('regex', array(':value', '/^[-\pL\pN_.]++$/uD')),
-				array(array($this, 'username_available'), array(':validation', ':field')),
 			),
 			'password' => array(
 				array('not_empty'),

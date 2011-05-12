@@ -35,8 +35,10 @@ class Controller_Deals extends Controller {
 	public function action_buy($deal_id=null)
 	{
 		$page = View::factory('tilbud/order-deal');
-		
+		$user_exists = false;
+
 		$get = $_GET;
+		$user = ORM::factory('user');
 		// When Posts Submit is made
 		$posts = $this->request->post();
 		if(!empty($posts)) {
@@ -47,7 +49,7 @@ class Controller_Deals extends Controller {
 			$deals['total'] = $deals['quantity'] * $deals['deal_price'];
 			
 			// Billing section
-			$billing['cardname'] 		= $posts['cardname'];
+			$billing['cardname'] 		= $posts['cardname']; //378282246310005
 			$billing['cardnumber'] 	= $posts['cardnumber'];
 			$billing['cardcode'] 		= $posts['cardcode'];
 			$billing['expiry_month'] = $posts['expiry_month'];
@@ -66,11 +68,34 @@ class Controller_Deals extends Controller {
 				$new_user['firstname'] 	= implode($name);
 				$new_user['email'] 			= $posts['email'];
 				$new_user['password'] 	= $posts['password'];
+				$new_user['password_confirm'] = $posts['password_confirm'];
+				$new_user['username'] = substr($posts['email'], 0, strpos($posts['email'], "@"));
+				$new_user['group'] = 1;
+				$new_user['fullname'] = $posts['fullname'];
+				$new_user['user_type']  = 'user';
+
+//        $user->create_user($new_user, array('username','password','email','firstname','lastname','group_id'));
+/*        
+				$clean['group'] = $posts['group'];
+				$clean['firstname'] = $posts['firstname'];
+				$clean['lastname'] = $posts['lastname'];
+				$clean['email'] = $posts['email'];
+				$clean['username'] = substr($posts['email'], 0, strpos($posts['email'], "@"));
+				$clean['password'] = $posts['password'];
+				$clean['password_confirm'] = $posts['password_confirm'];
+				$clean['user_type'] = $posts['user_type'];
+				$clean['group_id'] = $posts['group'];
+				$clean['mobile'] = $posts['mobile'];
+*/
 				
-				$user = ORM::factory('user');
+//				$user = ORM::factory('user');
+				print_r($posts);
+				print_r($new_user);
+
 				
 				// Create validation rules for User Posts
-				$valid_user = Validation::factory($posts);
+				$valid_user = Validation::factory($new_user);
+				
 				$valid_user->rule('fullname', 'not_empty')
 									 ->rule('email', 'email')
 									 ->rule('email', 'not_empty')
@@ -79,17 +104,38 @@ class Controller_Deals extends Controller {
 									 ->rule('password_confirm', 'matches', array(':validation', ':field', 'password'));
 									 
 				if($valid_user->check()) {
-					$user->firstname = $new_user['firstname'];
-					$user->lastname = $new_user['lastname'];
-					$user->email = $new_user['email'];
-					$user->password = Auth::instance()->hash($new_user['password']);
+				  if (ORM::factory('user')->email_exist($new_user['email']) == 1) {
+				    $errors = array();
+				    $errors['user_exist'] = true;
+				  }else{
+/*
+  					$user->firstname = $new_user['firstname'];
+  					$user->lastname = $new_user['lastname'];
+  					$user->email = $new_user['email'];
+  					$user->password = Auth::instance()->hash($new_user['password']);
+  					$user->username = $new_user['username'];
+  					$user->group_id = 1;
+  */
 
-					if($user->save()) {
-						$user_id = $user->id;
-					}
+				    
+
+    				try {
+    					$user->create_user($new_user, array('username','password','email','firstname','lastname','group_id'));
+    					$user_id = $user->id;
+    					$user = ORM::factory('user', $user_id);
+    				} catch (ORM_Validation_Exception $e) {
+    					$errors = $e->errors('register');
+    					$errors = array_merge($errors, (isset($errors['_external']) ? $errors['_external'] : array()) );
+    					print_r($errors);
+    				}	
+
+            $user_id = $user->id;
+  				}
 				} else {
 					$errors = $valid_user->errors('user');
 				}
+        
+        
 				/*
 				try {
 					$user->create_user($new_user, array('lastname','firstname','email','password'));
@@ -97,8 +143,10 @@ class Controller_Deals extends Controller {
 					$errors = $e->errors('register');
 					$errors = array_merge($errors, (isset($errors['_external']) ? $errors['_external'] : array()) );
 				}*/
+				
 			} else {
-				$user_id = Auth::instance()->get_user()->id;		
+				$user_id = Auth::instance()->get_user()->id;
+				$user = Auth::instance()->get_user();
 			}
 			
 			// Check if no error on user creation if none,
@@ -121,7 +169,7 @@ class Controller_Deals extends Controller {
 						/************************
 						 *    Email the user
 						************************/ 
-						$to = Auth::instance()->get_user()->email;
+						$to = $user->email;
 						$subject = "Thank you for your Order!";
 						$headers = 'MIME-Version: 1.0' . "\r\n";
 						$headers .= "Content-type: text/html; charset=UTF-8" . "\r\n";
@@ -153,7 +201,7 @@ The Tilbudibyen Team
 		if(isset($get['did']) && isset($get['oid']) && isset($get['payment'])) {
 			$order = ORM::factory('order', $get['oid']);
 			$deals = ORM::factory('deal', $get['did']);
-			$name  = Auth::instance()->get_user()->lastname . ',' . Auth::instance()->get_user()->firstname;
+			$name  = $user->lastname . ',' . $user->firstname;
 			
 			// Send user an email
 			
@@ -166,7 +214,7 @@ The Tilbudibyen Team
 															->set('quantity', $order->quantity)
 															->set('price', $deals->regular_price * ((100 - $deals->discount) / 100))
 															->set('name', $name)
-															->set('email', Auth::instance()->get_user()->email));
+															->set('email', $user->email));
 			return;
 		}
 		
