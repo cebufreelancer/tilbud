@@ -195,9 +195,10 @@ define("INVALID_CARDCODE", "Credit Card Code must be a 3 numeric value seen at t
 define("INVALID_ZIPCODE", "Zipcode should be between 4 to 5 digits.");
 
 // BUY ORDERS
-define("LBL_THANK_YOU", "Tak");
+define("LBL_THANK_YOU", "Din ordre er gennemført");
 define("LBL_CUSTOMER_NAME", "Kunde navn");
 define("LBL_PURCHASE_RECEIPT", "Kvittering");
 define("LBL_ORDER_FINISH_HEADER", "Tak for din bestilling, du vil modtage en e-mail med refferance nummeret når tilbudet er afsluttet!");
 define("LBL_ORDER_FINISH_DESCRIPTION", "Del tilbudet med dine venner og famillie, jo flere vi er, jo billigere bliver det.");
+
 ?>
