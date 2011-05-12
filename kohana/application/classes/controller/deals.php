@@ -89,8 +89,6 @@ class Controller_Deals extends Controller {
 */
 				
 //				$user = ORM::factory('user');
-				print_r($posts);
-				print_r($new_user);
 
 				
 				// Create validation rules for User Posts
@@ -126,7 +124,6 @@ class Controller_Deals extends Controller {
     				} catch (ORM_Validation_Exception $e) {
     					$errors = $e->errors('register');
     					$errors = array_merge($errors, (isset($errors['_external']) ? $errors['_external'] : array()) );
-    					print_r($errors);
     				}	
 
             $user_id = $user->id;

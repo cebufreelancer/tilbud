@@ -395,7 +395,15 @@
   			}
   		});
 
-  		$("#signup-footer").fancybox({
+      $("#signup-footer").fancybox({
+    		'scrolling' : 'no',
+    		'titleShow'	: false,
+    		'onClosed'	: function() {
+    		    $("#login_error").hide();
+    		}
+    	});
+
+  		$("#xxsignup-footer").fancybox({
   			'scrolling'		: false,
   			'titleShow'		: false,
   			'autoScale'	: true,
@@ -427,5 +435,5 @@
     </div>
 
   	<div style="display:none">
-    	<div id="signup-form-footer"><?php //include 'signupform.php'; ?></div>
+    	<div id="signup-form-footer"><?php include 'signupform.php'; ?></div>
     </div>

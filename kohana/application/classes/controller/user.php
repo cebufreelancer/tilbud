@@ -151,7 +151,6 @@ class Controller_User extends Controller_App {
 		if(!empty($posts)) {
 			try {
 				$posts['user_id'] = $id;
-				//print_r($posts);
 				$billing->values($posts);
 				$billing->save();
 			

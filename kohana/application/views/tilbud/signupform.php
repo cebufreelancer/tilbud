@@ -7,7 +7,7 @@
     <?php echo Form::open('', array('method' => 'post', 'id' => 'thesignupform')); ?>
     <ul id="signup-form-container">
       <li><?php echo Form::select('city', $cities) . ' ' . __(LBL_CITY); ?></li>
-      <li><?php echo Form::input('semail', NULL, array('id' => 'signup-email', 'type' => 'email')) . 
+      <li><?php echo Form::input('semail', NULL, array('id' => 'signup-email', 'type' => 'email', 'style' => "width: 250px")) . 
         Form::submit(NULL, __(LBL_SEND), array('id' => 'signup-button')); ?>
       </li>
     </ul>
