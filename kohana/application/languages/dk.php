@@ -95,7 +95,7 @@ define("LBL_STATE_PROVINCE", "DELETE THIS");
 define("LBL_READ_TERMS_CONDITIONS", "Læs venligst vores vilkår og betingelser");
 define("LBL_UPLOAD_FACEBOOK_IMAGE", "Upload facebook billed");
 define("LBL_COMPLETE_ORDER", "Jeg godkender betingelserne og købsbeløbet");
-
+define("LBL_CARDTYPE", "Credit Card Type");
 
 
 define("LBL_LOGIN","LOG IND");
@@ -166,7 +166,7 @@ define("LBL_DELETE_CONFIRM", "Are you sure you want to delete this record?");
 define("LBL_PASSWORD_CHANGE_NOTIFY", "Please update your password now. :password_url to change your password.");
 
 // SHARE TO FRIEND
-define("LBL_SHARE_TO_FRIEND", "Du er blevet tilmeldt TilbudIByen or du modtager de mest vandvitige tilbud");
+define("LBL_SHARE_TO_FRIEND", "You are invited to join this  amazing deals ...");
 
 //Notification message
 define("LBL_SUCCESS_ADD", "%s %s Er blevet tilføjet med succes.");
@@ -190,4 +190,13 @@ define("LBL_CUSTOMER_NAME", "Customer Name");
 define("LBL_PURCHASE_RECEIPT", "Your Purchase Receipt");
 define("LBL_ORDER_FINISH_HEADER", "Your text goes here. You can input what ever you want to input!");
 define("LBL_ORDER_FINISH_DESCRIPTION", "This is an example paragraph that will be visible in this area. Just put in here whatever you wish to put in here.");
+
+// Error Messages
+define("REQUIRED_FIELD", "This field is required.");
+
+define("INVALID_CARDNUMBER", "This is not a valid Credit Card.");
+define("INVALID_CARDTYPE", "This is not a valid Credit Card Type.");
+define("INVALID_CARDNAME", "Invalid Card Holder Name. Only alphabet characters allowed.");
+define("INVALID_CARDCODE", "Credit Card Code must be a 3 numeric value seen at the back of your card.");
+define("INVALID_ZIPCODE", "Zipcode should be between 4 to 5 digits.");
 ?>
