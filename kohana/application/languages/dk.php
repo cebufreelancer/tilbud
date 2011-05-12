@@ -9,19 +9,19 @@ define("LBL_Contactus", "Kontakt os");
 define("LBL_FAQ", "FAQ");
 define("LBL_My_Account", "Min konto");
 define("LBL_MY_ACCOUNT", "MIN KONTO");
-define("LBL_Billing_Info", "Faktura info");
+define("LBL_Billing_Info", "Betalingsoplysninger");
 define("LBL_My_Deals", "Mine køb");
 define("LBL_My_Orders", "Min ordre");
 define("LBL_SHARE_LINKS", "Del med dine venner");
 define("LBL_TAG_LINE", "De bedste tilbud på restauranter, rejser, wellness og meget andet.");
-define("LBL_MORE", "More");
+define("LBL_MORE", "Mere");
 
 define("LBL_PURCHASE", "Your Purchase");
-define("LBL_MY_PRICE", "Min Pris");
+define("LBL_MY_PRICE", "Samlet pris");
 define("LBL_BILLING_ADDRESS", "Faktura Address");
-define("LBL_ZIPCODE", "Zipcode");
+define("LBL_ZIPCODE", "Postnummer");
 
-define("LBL_PAYMENT_METHOD", "Select Payment Method");
+define("LBL_PAYMENT_METHOD", "Betalingsmetode");
 define("LBL_Where_to_find_us", "Her finder du os");
 define("LBL_Buy_now", "Køb nu!");
 define("LBL_OFFER_ENDS", "Tilbuddet stopper om");
@@ -53,7 +53,7 @@ define("LBL_USERNAME", "Brugernavn");
 define("LBL_PASSWORD", "Adgangskode");
 define("LBL_CONFIRM_PASSWORD", "Bekræft adgangeskode");
 define("LBL_FORGOT_PASSWORD", "Glemt dit adgangekode?");
-define("LBL_CREATE_ACCOUNT", "Opret en konto");
+define("LBL_CREATE_ACCOUNT", "Opret en ny konto");
 define("LBL_COMPANY", "Virksomheden");
 define("LBL_ABOUT_TILBUD", "Om TilbudiByen");
 define("LBL_TERMS_AND_CONDITIONS", "Betingelser og vilkår");
@@ -77,7 +77,7 @@ define("LBL_ACTION", "Action");
 define("LBL_SUBSCRIBERS", "Subscribers");
 define("LBL_JOINED", "Joined");
 define("LBL_LAST_LOGIN", "Last Log Ind");
-define("LBL_ALREADY_PURCHASED", "Hvis du allerede har købt hos TilbudIbyen kan du logge ind med din e-mail adresse");
+define("LBL_ALREADY_PURCHASED", "Hvis du allerede har købt hos TilbudIbyen kan du logge ind her");
 define("LBL_ALREADY_HAVE_ACCOUNT", "Har du allerede en konto?");
 define("LBL_YOUR_PURCHASE", "Dit køb");
 define("LBL_DESCRIPTION", "Beskrivelse");
@@ -88,13 +88,13 @@ define("LBL_MOBILE_NUMBER", "Mobiltelefonnummer");
 define("LBL_YOUR_NAME_HERE", "dit navn her");
 define("LBL_BILLING_INFORMATION", "Faktureringsoplysninger");
 define("LBL_CARDHOLDER", "Kortholderen Navn");
-define("LBL_CARDNUMBER", "Kortholderen Antal");
-define("LBL_EXPIRATION_DATE", "Kortholderen Antal");
-define("LBL_SECURITY_CODE", "Faktureringsadresse");
-define("LBL_STATE_PROVINCE", "State/Province");
+define("LBL_CARDNUMBER", "Kortnummer");
+define("LBL_EXPIRATION_DATE", "Udløbsdato");
+define("LBL_SECURITY_CODE", "Verifikationsnummer");
+define("LBL_STATE_PROVINCE", "DELETE THIS");
 define("LBL_READ_TERMS_CONDITIONS", "Læs venligst vores vilkår og betingelser");
-define("LBL_COMPLETE_ORDER", "Samlede ordre");
 define("LBL_UPLOAD_FACEBOOK_IMAGE", "Upload facebook billed");
+define("LBL_COMPLETE_ORDER", "Jeg godkender betingelserne og købsbeløbet");
 
 
 
@@ -127,7 +127,7 @@ define("LBL_NUMBER_OF_VOUCHERS", "Number of Vouchers");
 define("LBL_DEAL_START_DATE", "Tilbud starter");
 define("LBL_DEAL_END_DATE", "Tilbud slutter");
 define("LBL_DEAL_EXPIRY_DATE", "gavekort udløber");
-define("LBL_YOUR_DEAL", "Your Deal");
+define("LBL_YOUR_DEAL", "Beskrivelse");
 define("LBL_TITLE", "Title");
 define("LBL_TITLE_DESC", "Tiltel beskrivelse");
 define("LBL_CONTENT_TITLE", "Produkt overskrift");
@@ -176,5 +176,6 @@ define("LBL_Successfully_added", "Tilføjet med succes.");
 define("LBL_Successfully_saved", "Gemt med succes.");
 define("LBL_Successfully_updated", "Updateret med succes.");
 define("LBL_Successfully_deleted", "Slettet med succes.");
+
 
 ?>
