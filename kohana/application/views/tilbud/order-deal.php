@@ -126,13 +126,14 @@
           <h3 style="margin-bottom: 10px;"><span class="special-headers"><?php echo LBL_PERSONAL_INFORMATION?></span></h3>
           <h3> <?php echo LBL_CREATE_ACCOUNT ?> </H3>
           <ul>
-            <li><?php echo $form->label('fullname', __(LBL_FULLNAME)); ?>
-                <?php echo $form->input('fullname', ucwords($fullname), array('placeholder' => LBL_YOUR_NAME_HERE,
+            <li><?php echo Form::label('fullname', __(LBL_FULLNAME)); ?>
+                <?php echo Form::input('fullname', ucwords($fullname), array('placeholder' => LBL_YOUR_NAME_HERE,
 																																							'required' => true)); ?>
                 <?php echo isset($errors['fullname']) ? $errors['fullname'] : ''; ?>
             </li>
-            <li><?php echo $form->label('email', __(LBL_EMAIL)); ?>
-                <?php echo $form->input('email', $email, array('placeholder' => 'youremail@website.com',
+            <li><?php echo Form::label('email', __(LBL_EMAIL)); ?>
+            		<?php echo isset($errors['email']) ? '<span class="serror">' . $errors['email'] . '</span>' : ''; ?>
+                <?php echo Form::input('email', $email, array('placeholder' => 'youremail@website.com',
 																															 'required' => true,
 																															 'type' => 'email',
 																															 'style' => 'width: 500px;')); ?>
@@ -158,6 +159,20 @@
 				$state = isset($_POST['state']) ? $_POST['state'] : '';
 				?>
 				
+        <div id="creditcard-help">
+          <h3>Hjælp til at finde Verifikationsnummeret</h3>
+          
+          <p><b>Verifikationsnummeret på dit VISA-kort</b><br />
+          <span style="font-size: 11px;">Verifikationsnummeret består af de 3 sidste numre i signaturfeltet på bagsiden af dit VISA-kort.</span></p>
+          
+          <p><b>Verifikationsnummeret på dit MasterCard og JBC</b><br />
+          <span style="font-size: 11px;">Verifikationsnummeret består af de 3 sidste numre i signaturfeltet på bagsiden af dit MasterCard eller JBC.</span></p>
+          
+          <p><b>Verifikationsnummeret på dit American Express Card</b><br />
+          <span style="font-size: 11px;">Verifikationsnummeret består af 4 numre på forsiden af dit American Express Card. Det står til højre over det fremhævede kortnummer.</span></p>
+          
+        </div>
+        
 				<h3 style="margin-bottom: 10px;"><span class="special-headers"><?php echo __(LBL_Billing_Info); ?></span></h3>
 				<ul>
           <li><?php echo Form::label('cardtype', __(LBL_CARDTYPE)); ?>

@@ -111,6 +111,14 @@ define("LBL_LOGOUT","Log ud");
 define("LBL_TOTAL", "Total");
 define("LBL_GROUPS", "Grupper");
 
+define("LBL_BUYER", "Køber");
+define("LBL_SELLER", "Sælger");
+define("LBL_INVOICE", "FAKTURA");
+define("LBL_INVOICE_NUMBER", "Fakturanummer");
+define("LBL_DATE", "Dato");
+define("LBL_PAYMENT", "Betaling");
+define("LBL_PAYMENT_STATUS", "Betalingstatus");
+
 define("LBL_UPLOAD_IMAGE", "Upload billed");
 define("LBL_PAID", "Betalt");
 define("LBL_STATUS", "Status");
@@ -145,6 +153,7 @@ define("LBL_ORDER_NEW", "Ny");
 define("LBL_ORDER_DELIVERED", "Leveret");
 define("LBL_ORDER_CANCELLED", "Annuleret");
 define("LBL_ORDER_NOTREACHED", "Ikke opnået");
+define("LBL_ORDER_NUMBER", "Bestillingsnummer");
 define("LBL_USER", "Bruger");
 define("LBL_USER_ADD", "Tilføj en User");
 define("LBL_USER_EDIT", "Redigere en User");
@@ -194,6 +203,7 @@ define("LBL_ORDER_FINISH_DESCRIPTION", "This is an example paragraph that will b
 // Error Messages
 define("REQUIRED_FIELD", "This field is required.");
 
+define("EMAIL_EXIST", "This email address has already exist.");
 define("INVALID_CARDNUMBER", "This is not a valid Credit Card.");
 define("INVALID_CARDTYPE", "This is not a valid Credit Card Type.");
 define("INVALID_CARDNAME", "Invalid Card Holder Name. Only alphabet characters allowed.");
