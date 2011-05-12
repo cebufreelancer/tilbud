@@ -161,6 +161,8 @@ The Tilbudibyen Team
 			$this->response->body(View::factory('tilbud/order-thankyou')
 															->set('deal_id', $deals->ID)
 															->set('title', $deals->title)
+															->set('description', $deals->description)
+															->set('contents_title', $deals->contents_title)
 															->set('quantity', $order->quantity)
 															->set('price', $deals->regular_price * ((100 - $deals->discount) / 100))
 															->set('name', $name)

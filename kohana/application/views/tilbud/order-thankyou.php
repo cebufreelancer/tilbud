@@ -32,7 +32,7 @@
 				<tbody>
 					<tr>
 						<td><?php echo $title; ?>
-            		<div style="font-size: 11px; font-weight: normal; color: #999999;"><?php echo $deal->contents_title; ?></div>
+            		<div style="font-size: 11px; font-weight: normal; color: #999999;"><?php echo $contents_title; ?></div>
             </td>
 						<td><?php echo $quantity; ?> </td>
             <td style="width:5px; font-size: 13px; color: #999;">x</td>
