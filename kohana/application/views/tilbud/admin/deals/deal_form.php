@@ -62,12 +62,21 @@
           <li><?php echo Form::label('deal_video_url', __(LBL_YOUTUBE_VIDEO_URL)); ?>
               <?php echo Form::input('deal_video_url', $deal_video_url, array()); ?>
           </li>
-          <li><?php echo Form::label('deal_image', __(LBL_UPLOAD_IMAGE)); ?>
-              <?php echo Form::file('deal_image'); ?>
-          </li>
           <li><?php echo Form::label('deal_address', __(LBL_ADDRESS2)); ?>
               <?php echo Form::input('deal_address', $address, array()); ?>
           </li>
+          <li><?php echo Form::label('deal_image', __(LBL_UPLOAD_IMAGE)); ?>
+              <?php echo Form::file('deal_image'); ?>
+          </li>
+          <li>
+              <img src="/uploads/<?= $deal_id?>/<?= $deal_image?>" width="200" height="70">
+          </li>          
+          <li><?php echo Form::label('deal_facebook_image', __(LBL_UPLOAD_FACEBOOK_IMAGE)); ?>
+              <?php echo Form::file('deal_facebook_image'); ?>
+          </li>
+          <li>
+              <img src="/uploads/<?= $deal_id?>/<?= $deal_facebook_image?>" width="200" height="70">
+          </li>          
 
           <li></li>
         </ul>

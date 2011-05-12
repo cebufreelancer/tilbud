@@ -151,13 +151,24 @@ class Controller_Admin_Deals extends Controller {
 			if (isset($_FILES['deal_image'])) {
 			  $deals->image = $_FILES['deal_image']['name'];
 			}
+			if (isset($_FILES['deal_facebook_image'])) {
+			  $deals->image = $_FILES['deal_facebook_image']['name'];
+			}
+			
 			
 			if($deals->save()) {
 				if(!empty($_FILES)) {
+				  
 				  if (!file_exists(APPPATH . "../uploads/". $deals->ID)) {
 			  	  mkdir(APPPATH . "../uploads/". $deals->ID);
 			  	}
 			  	move_uploaded_file($_FILES["deal_image"]["tmp_name"], APPPATH . "../uploads/" . $deals->ID . "/" . $_FILES["deal_image"]["name"]);
+
+				  if (!file_exists(APPPATH . "../uploads/". $deals->ID)) {
+			  	  mkdir(APPPATH . "../uploads/". $deals->ID);
+			  	}
+			  	move_uploaded_file($_FILES["deal_facebook_image"]["tmp_name"], APPPATH . "../uploads/" . $deals->ID . "/" . $_FILES["deal_facebook_image"]["name"]);
+			  	
 				}
 			  
 				// message: save success
@@ -262,6 +273,10 @@ class Controller_Admin_Deals extends Controller {
 			  $deals->image = $_FILES['deal_image']['name'];
 			}
 
+			if (isset($_FILES['deal_facebook_image'])) {
+			  $deals->facebook_image = $_FILES['deal_facebook_image']['name'];
+			}
+
 
 			if($deals->save()) {
 
@@ -271,6 +286,12 @@ class Controller_Admin_Deals extends Controller {
 			  	}
 				  
 			  	move_uploaded_file($_FILES["deal_image"]["tmp_name"], APPPATH . "../uploads/" . $deals->ID . "/" . $_FILES["deal_image"]["name"]);
+			  	
+				  if (!file_exists(APPPATH . "../uploads/". $deals->ID)) {
+			  	  mkdir(APPPATH . "../uploads/". $deals->ID);
+			  	}
+			  	move_uploaded_file($_FILES["deal_facebook_image"]["tmp_name"], APPPATH . "../uploads/" . $deals->ID . "/" . $_FILES["deal_facebook_image"]["name"]);
+			  	
 				}
 			  
 				// message: save success
@@ -311,6 +332,8 @@ class Controller_Admin_Deals extends Controller {
 		$page->deal_refno			= isset($posts['deal_refno']) ? $posts['deal_refno'] : $deals->reference_no;
 		$page->address		    = isset($posts['deal_address']) ? $posts['deal_address'] : $deals->addresses;
 		$page->deal_image     = $deals->image;
+		$page->deal_facebook_image     = $deals->facebook_image;
+		$page->deal_id        = $deals->ID;
 
 		$page->cities = Kohana::config('global.cities');
 		$page->products = $products;

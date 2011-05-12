@@ -94,6 +94,7 @@ define("LBL_SECURITY_CODE", "Faktureringsadresse");
 define("LBL_STATE_PROVINCE", "State/Province");
 define("LBL_READ_TERMS_CONDITIONS", "Læs venligst vores vilkår og betingelser");
 define("LBL_COMPLETE_ORDER", "Samlede ordre");
+define("LBL_UPLOAD_FACEBOOK_IMAGE", "Upload facebook billed");
 
 
 
