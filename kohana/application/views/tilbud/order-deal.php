@@ -50,7 +50,7 @@
 				
 				?>
 				<?php echo Form::open(Request::current(), array('id' => 'myforms')); ?>
-				<table id="order-deal" style="width:800px">
+				<table id="order-deal" style="width:100%">
 								<thead>
 					<tr>
 						<td><?php echo __(LBL_YOUR_DEAL); ?></td>
@@ -62,7 +62,7 @@
 				<tbody>
 					<tr>
 						<td><?php echo $deal_title; ?>
-            	<div style="font-size: 11px; font-weight: normal; color: #999999;"><?php echo $deal->contents_title; ?>
+            	<div style="font-size: 11px; font-weight: normal; color: #999999;"><?php echo $deal->contents_title; ?></div>
             </td>
 
 						<td><?php echo Form::select('quantity', isset($quantity) ? $quantity : array(1=>1), 0, array('autofocus' => true)); ?> </td>
@@ -94,7 +94,7 @@
 				});
 				</script>
 
-        
+         <?php if(Auth::instance()->logged_in() == false) { ?>
         <div style="float: right; position: relative; height: 250px; width: 300px; background-color: #EDEDED; left: -50px">
           <div style="text-align: center; margin: auto 0; padding: 15px">
             <p><?php echo LBL_ALREADY_HAVE_ACCOUNT ?></p>
@@ -108,6 +108,7 @@
             </p>
           </div>
         </div>
+        <?php } ?>
         
 				<h2><?php echo __(LBL_PAYMENT_METHOD); ?><br />&nbsp;</h2>
 				

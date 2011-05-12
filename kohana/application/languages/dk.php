@@ -181,5 +181,11 @@ define("LBL_THANKYOU_FOR_INVITING", "Tak fordi du hjælper med at dele tilbudet")
 define("LBL_INVALID_SESSION", "Invalid session");
 define("LBL_SEND", "Send");
 
+// BUY ORDERS
+define("LBL_THANK_YOU", "Thank You");
+define("LBL_CUSTOMER_NAME", "Customer Name");
+define("LBL_PURCHASE_RECEIPT", "Your Purchase Receipt");
+define("LBL_ORDER_FINISH_HEADER", "Your text goes here. You can input what ever you want to input!");
+define("LBL_ORDER_FINISH_DESCRIPTION", "This is an example paragraph that will be visible in this area. Just put in here whatever you wish to put in here.");
 
 ?>
