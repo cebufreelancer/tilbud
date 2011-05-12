@@ -14,10 +14,10 @@
 			<?php echo Form::open(Request::current(), array('id'			=> 'myforms')); ?>
       <ul>
       	<li><?php echo Form::label('page_code', __('Page Code')); ?>
-        	  <?php echo Form::input('page_code', $page_code, array()); ?>
+        	  <?php echo Form::input('page_code', $thepage->page_code, array()); ?>
         </li>
         <li><?php echo Form::label('page_content', __('Content')); ?>
-        		<?php echo Form::textarea('page_content', $page_content, array('style' => 'width: 70%;', 'class' => 'mceEditor' )); ?>
+        		<?php echo Form::textarea('page_content', $thepage->content, array('style' => 'width: 70%;', 'class' => 'mceEditor' )); ?>
         </li>
         <li>
         	<?php echo Form::submit(NULL, 'Save'); ?>
