@@ -55,7 +55,6 @@
       <?php if(!$is_admin) { ?>
       	<li>My Stuff</li>
         <li><?php echo HTML::anchor('user/myaccount', LBL_My_Account); ?></li>
-        <li><?php echo HTML::anchor('#', LBL_My_Deals); ?></li>
       <?php } else { ?>
       	<li>Settings</li>
         <li><?php echo HTML::anchor('admin/labels', ucwords(strtolower(LBL_LABELS))); ?></li>

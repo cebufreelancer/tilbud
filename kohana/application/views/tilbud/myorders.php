@@ -45,7 +45,6 @@
       echo '<tr>';
       echo '<td><b>' . ORM::factory('deal', $order['deal_id'])->title . '</b>' . 
              '<div>' . ORM::factory('user', $order['user_id'])->firstname . ' ' . ORM::factory('user', $order['user_id'])->lastname . '</div>' .
-             '<div>' . $view_url . '</div>' .
            '</td>';
       echo '<td align="center">' . $order['quantity'] . '</td>';
       echo '<td align="right">' . $order['total_count'] . '</td>';
