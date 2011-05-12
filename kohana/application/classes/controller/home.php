@@ -127,13 +127,18 @@ class Controller_Home extends Controller {
 				
 				if(mail($to, $subject, $message, $headers)) {
 					// Should notify to check email for verification process
-					Request::current()->redirect(Url::base(TRUE) . '?status=referral');
-					return;
+					$page			= View::factory('tilbud/referral');
 				}
+				
+		    $this->response->body($page);
+			}else {
+			  // email already exists
+			  $ret = "Email already exists!";
+		    $this->response->body($ret);			  
 			}
 		}
 		
-		$this->response->body($page);
+
 	}
 	
 	public function action_verify()
@@ -226,6 +231,7 @@ class Controller_Home extends Controller {
 	public function action_referral()
 	{
 		$posts = $this->request->post();
+		$ret_message= "";
 		
 		if(!empty($posts)) {
 			$emails = explode(",", $posts['email']);
@@ -256,11 +262,13 @@ class Controller_Home extends Controller {
 					mail($ref, $subject, $message, $headers);
 				}
 				
-				Request::current()->redirect(Url::base(TRUE));
-				return;
+				$ret_message = LBL_THANKYOU_FOR_INVITING;
+				
 			}
+		}else{
+		  $ret_message = LBL_INVALID_SESSION;
 		}
-		
-		$this->response->body(View::factory('tilbud/referralform'));
+
+    $this->response->body($ret_message);
 	}
 } // End Welcome

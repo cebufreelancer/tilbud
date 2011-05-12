@@ -177,5 +177,9 @@ define("LBL_Successfully_saved", "Gemt med succes.");
 define("LBL_Successfully_updated", "Updateret med succes.");
 define("LBL_Successfully_deleted", "Slettet med succes.");
 
+define("LBL_THANKYOU_FOR_INVITING", "Tak fordi du hjælper med at dele tilbudet");
+define("LBL_INVALID_SESSION", "Invalid session");
+define("LBL_SEND", "Send");
+
 
 ?>

@@ -5,7 +5,7 @@
   <meta CONTENT="text/html; charset=ISO-8859-1"/>
   <title>TilbudiByen</title>
 	
-  <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.7/themes/base/jquery-ui.css" type="text/css" media="all" /> 
+  <link rel="stylesheet" href="<?php echo url::base()?>js/jquery-ui.css" type="text/css" media="all" /> 
 	<link rel="stylesheet" media="all" href="<?php echo url::base(TRUE)?>css/main.css"/>
 
   <?php if (isset($deal)) {?>
@@ -17,7 +17,7 @@
   	<?php }else {?>
   	  <meta property="og:image" content="<?php echo url::base(true) . "images/logo.png";?>"/>
   	  <link rel="image_src" href="<?php echo url::base(true) . "images/logo.png"; ?>"/>
-  	<?php } ?>
+  	<?php } ?><
   <?php }else {?>
   	<meta property="og:title" content="TilbudIbyen" />
   	<meta property="og:description" content="50% Discounts daily" />
@@ -27,9 +27,12 @@
 
 	<meta name="viewport" content="width=device-width; initial-scale=1"/>
 	<!-- Add "maximum-scale=1" to fix the weird iOS auto-zoom bug on orientation changes. -->
-	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
-	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.7/jquery-ui.min.js"></script>
-  
+	<script type="text/javascript" src="<?php echo url::base()?>js/jquery.min.js"></script>
+	<script type="text/javascript" src="<?php echo url::base()?>js/jquery-ui.min.js"></script>
+
+  <script type="text/javascript" src="<?php echo url::base()?>js/fancybox/jquery.easing-1.3.pack.js"></script> 
+  <script type="text/javascript" src="<?php echo url::base()?>js/fancybox/jquery.mousewheel-3.0.4.pack.js"></script>
+  	  
   <script type="text/javascript" src="<?php echo url::base()?>js/fancybox/jquery.fancybox-1.3.4.js"></script> 
 	<link rel="stylesheet" type="text/css" href="<?php echo url::base()?>js/fancybox/jquery.fancybox-1.3.4.css" media="screen" />
   <script type="text/javascript" src="<?php echo url::base()?>js/jquery.countdown.pack.js"></script>
@@ -39,28 +42,31 @@
   $live = '<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=true&amp;key=ABQIAAAAbQlC_gF4H7R0hbKr8QVz5xTh1Xu1DCtyDZLHCop3sXObMWlGYBRqFcGWz0zY_HTPH9tdC_yHU2a-Ag" type="text/javascript"></script>';
   $local = '<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=true&amp;key=ABQIAAAAbQlC_gF4H7R0hbKr8QVz5xTb-vLQlFZmc2N8bgWI8YDPp5FEVBR0fbtPlG0ajsdbFHG0Bo4Nt1JTHA" type="text/javascript"></script>';
   ?>
-  
+
+  <?php if (isset($address)) { ?>
   <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=true&amp;key=ABQIAAAAbQlC_gF4H7R0hbKr8QVz5xQYncROD2BDKvWqEuo4PwsE_DGQgRS20trX2PsZLb7gtB92IP55joerMA" type="text/javascript"></script>  
+  <?php } ?>
+  <script type="text/javascript">
+    jQuery(document).ready(function() {
 
-  <script>
-  	jQuery(document).ready(function() {
-      $("#signupform-footer").bind("submit", function() {
-      	$.fancybox.showActivity();
+    	$("#thesignupform").bind("submit", function() {
+  	    $.fancybox.showActivity();
 
-      	$.ajax({
-      		type		: "POST",
-      		cache	: false,
-      		url		: "home/signup",
-      		data		: $(this).serializeArray(),
-      		success: function(data) {
-      			$.fancybox(data);
-      		}
-      	});
+    		$.ajax({
+    			type	: "POST",
+    			cache	: false,
+    			url		: "/home/signup",
+    			data	: $(this).serializeArray(),
+    			success: function(data) {
+    				$.fancybox(data);
+    			}
+    		});
 
-      	return false;
-      });
-
-    });
+        $.fancybox.hideActivity();
+    		return false;
+    	});
+    	
+  });      
   </script>
     
   
@@ -69,7 +75,7 @@
   <![endif]-->
   
 </head>
-<body onLoad="initialize()" onunload="GUnload()">
+<body <?php if (isset($address)) { echo  'onLoad="initialize()" onunload="GUnload()"'; }?>>
 	
 		<?php if(isset($is_referral)) { ?>
     <a href="<?php echo Url::base(TRUE) . 'referral'; ?>" id="referral-form" ></a>
@@ -156,8 +162,7 @@
 
 
           <div class="addthis_toolbox addthis_default_style ">
-            <div class="addthis_toolbox addthis_default_style ">
-              
+            <div class="addthis_toolbox addthis_default_style ">              
             </div>
           </div>
 
@@ -336,7 +341,15 @@
       		'type'				: 'iframe'
       });
 
-  		$("#signup").fancybox({
+      $("#signup").fancybox({
+    		'scrolling' : 'no',
+    		'titleShow'	: false,
+    		'onClosed'	: function() {
+    		    $("#login_error").hide();
+    		}
+    	});
+    	
+  		$("#xxsignup").fancybox({
   			'scrolling'		: false,
   			'titleShow'		: false,
 				'autoDimensions' : true,
@@ -371,7 +384,7 @@
   		});
   		
   	});
-	
+    
   	</script>
 
   	<div style="display:none">
@@ -383,5 +396,5 @@
     </div>
 
   	<div style="display:none">
-    	<div id="signup-form-footer"><?php include 'signupform.php'; ?></div>
+    	<div id="signup-form-footer"><?php //include 'signupform.php'; ?></div>
     </div>

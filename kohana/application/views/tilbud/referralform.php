@@ -14,6 +14,7 @@
 			});
 		});
 		</script>
+
   	<div id="email-sent">
       <h2>Vi har sendt dig en e-mail</h2>
       
