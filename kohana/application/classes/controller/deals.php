@@ -168,7 +168,7 @@ The Tilbudibyen Team
 <br/>
 <a href=\"http://www.tilbudibyen.com\">http://www.tilbudibyen.com</a>
 ";
-						//mail($to, $subject, $message, $headers);
+						mail($to, $subject, $message, $headers);
 					
 						$url = sprintf('deals/buy?did=%d&oid=%d&payment=success', $proc_order->deal_id, $proc_order->ID);
 						$this->request->redirect($url);

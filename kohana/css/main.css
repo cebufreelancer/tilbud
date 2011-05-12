@@ -634,7 +634,32 @@ footer {
  	font-size: 12px;
   color: #CCCCCC; 
 }
+
+#creditcard-help {
+  float: right; 
+  position: relative; 
+  width: 350px; 
+  padding: 10px; 
+  border: 1px solid #DDD; 
+  background: #F2F2F2; 
+  margin-top: 215px;
+}
+#creditcard-help h3 {
+  color: #369bcf;
+  margin-bottom: 15px;
+}
 /** Error and info spans **/
+span.serror {
+  color:#CC0000;
+  margin-top: 0px; margin-bottom: 0px;
+  display: block;
+  vertical-align: top;
+  font-size: smaller;
+  max-width: 465px;
+  /* IE7: haslayout to get inline-block */
+  zoom: 1;
+  *display: inline;
+}
 span.error, li.error {
   padding: 5px;
   color:#CC0000;
