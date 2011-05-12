@@ -59,9 +59,9 @@
               </td>
               <td><?php echo $quantity; ?> </td>
               <td style="width:5px; font-size: 13px; color: #999;">x</td>
-              <td>$ <span id="price"><?php echo $price; ?></span></td>
+              <td><span id="price"><?php echo $price; ?></span> <span class="currency">DKK</span></td>
               <td style="width:5px; caption-side: #999;">=</td>
-              <td>$ <span id="tprice"><?php echo ($quantity * $price); ?></span></td>
+              <td><span id="tprice"><?php echo ($quantity * $price); ?></span> <span class="currency">DKK</span></td>
             </tr>
           </tbody>
           <tfoot>
