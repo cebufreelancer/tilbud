@@ -126,13 +126,14 @@
           <h3 style="margin-bottom: 10px;"><span class="special-headers"><?php echo LBL_PERSONAL_INFORMATION?></span></h3>
           <h3> <?php echo LBL_CREATE_ACCOUNT ?> </H3>
           <ul>
-            <li><?php echo $form->label('fullname', __(LBL_FULLNAME)); ?>
-                <?php echo $form->input('fullname', ucwords($fullname), array('placeholder' => LBL_YOUR_NAME_HERE,
+            <li><?php echo Form::label('fullname', __(LBL_FULLNAME)); ?>
+                <?php echo Form::input('fullname', ucwords($fullname), array('placeholder' => LBL_YOUR_NAME_HERE,
 																																							'required' => true)); ?>
                 <?php echo isset($errors['fullname']) ? $errors['fullname'] : ''; ?>
             </li>
-            <li><?php echo $form->label('email', __(LBL_EMAIL)); ?>
-                <?php echo $form->input('email', $email, array('placeholder' => 'youremail@website.com',
+            <li><?php echo Form::label('email', __(LBL_EMAIL)); ?>
+            		<?php echo isset($errors['email']) ? '<span class="serror">' . $errors['email'] . '</span>' : ''; ?>
+                <?php echo Form::input('email', $email, array('placeholder' => 'youremail@website.com',
 																															 'required' => true,
 																															 'type' => 'email',
 																															 'style' => 'width: 500px;')); ?>
@@ -150,28 +151,41 @@
         <?php } ?>
 				
 				<?php
-				$cardname = '';
-				$cardnumber = '';
-				$cardcode = '';
 				$year = (int)date("Y");
 				$years = range($year, $year+10);
 				$expiry_year = $year;
-				$mo = range(1,12);
+				$mo = range(01,12);
 				$expiry_month = 1;
-				$address = isset($_POST['address']) ? $_POST['address'] : '';
-				$city = isset($_POST['city']) ? $_POST['city'] : '';;
 				$state = isset($_POST['state']) ? $_POST['state'] : '';
-				$zipcode = isset($_POST['zipcode']) ? $_POST['zipcode'] : '';
 				?>
 				
-
+        <div id="creditcard-help">
+          <h3>Hjælp til at finde Verifikationsnummeret</h3>
+          
+          <p><b>Verifikationsnummeret på dit VISA-kort</b><br />
+          <span style="font-size: 11px;">Verifikationsnummeret består af de 3 sidste numre i signaturfeltet på bagsiden af dit VISA-kort.</span></p>
+          
+          <p><b>Verifikationsnummeret på dit MasterCard og JBC</b><br />
+          <span style="font-size: 11px;">Verifikationsnummeret består af de 3 sidste numre i signaturfeltet på bagsiden af dit MasterCard eller JBC.</span></p>
+          
+          <p><b>Verifikationsnummeret på dit American Express Card</b><br />
+          <span style="font-size: 11px;">Verifikationsnummeret består af 4 numre på forsiden af dit American Express Card. Det står til højre over det fremhævede kortnummer.</span></p>
+          
+        </div>
+        
 				<h3 style="margin-bottom: 10px;"><span class="special-headers"><?php echo __(LBL_Billing_Info); ?></span></h3>
 				<ul>
-          <li><?php echo $form->label('cardname', __(LBL_CARDHOLDER)); ?>
-              <?php echo $form->input('cardname', ucwords($cardname), array('required' => true)); ?>
+          <li><?php echo Form::label('cardtype', __(LBL_CARDTYPE)); ?>
+							<?php echo Form::select('cardtype', $cardtypes); ?>
           </li>
-          <li><?php echo $form->label('cardnumber', __(LBL_CARDNUMBER)); ?>
-              <?php echo Form::input('cardnumber', ucwords($cardnumber), array('style' => 'width: 348px; letter-spacing: 5px;',
+          <li><?php echo Form::label('cardname', __(LBL_CARDHOLDER)); ?>
+          		<?php echo isset($errors['cardname']) ? '<span class="serror">' . $errors['cardname'] . '</span>' : ''; ?>
+              <?php echo Form::input('cardname', ucwords($cardname), array('required' => true)); ?>
+          </li>
+          <li><?php echo Form::label('cardnumber', __(LBL_CARDNUMBER)); ?>
+							<?php echo isset($errors['cardnumber']) ? '<span class="serror">' . $errors['cardnumber'] . '</span>' : ''; ?>
+              <?php echo isset($errors['cardcode']) ? '<span class="serror">' . $errors['cardcode'] . '</span>' : ''; ?>
+              <?php echo Form::input('cardnumber', ucwords($cardnumber), array('style' => 'width: 325px; letter-spacing: 5px;',
 																																							 'required' => true)) .  
                     ' ' . __(LBL_SECURITY_CODE) . ' ' .
 
@@ -181,22 +195,26 @@
 																														 'required' => true,
 																														 'pattern' => '[0-9]*')); ?>
           </li>
-          <li><?php echo $form->label('expiry_year', __(LBL_EXPIRATION_DATE)); ?>
+          <li><?php echo Form::label('expiry_year', __(LBL_EXPIRATION_DATE)); ?>
               <?php echo Form::select('expiry_month', $mo, $expiry_month) . ' ' . Form::select('expiry_year', $years, $expiry_year); ?>
           </li>
-          <li><?php echo $form->label('address', __(LBL_BILLING_ADDRESS)); ?>
-              <?php echo $form->input('address', ucwords($address), array('required' => true)); ?>
+          <li><?php echo Form::label('address', __(LBL_BILLING_ADDRESS)); ?>
+              <?php echo Form::input('address', ucwords($address), array('required' => true)); ?>
           </li>
+          <?php
+					/*
           <li><?php echo $form->label('city', __(LBL_CITY)); ?>
               <?php echo $form->input('city', ucwords($city), array('required' => true)); ?>
           </li>
-          <li>
-              <!-- hide for now
-              <?php echo $form->label('state', __(LBL_STATE_PROVINCE)); ?>              
+					<?php echo $form->label('state', __(LBL_STATE_PROVINCE)); ?>              
               <?php echo Form::input('state', ucwords($state), array('style' => 'width: 375px;')) ; ?>
-              -->
-              
-              <?php echo $form->label('state', __(LBL_ZIPCODE)); ?>
+					*/ ?>
+          <li>
+              <?php echo Form::label('city', __(LBL_CITY)); ?>
+              <?php echo isset($errors['city']) ? '<span class="serror">' . $errors['city'] . '</span>' : ''; ?>
+              <?php echo isset($errors['zipcode']) ? '<span class="serror">' . $errors['zipcode'] . '</span>' : ''; ?>         
+              <?php echo Form::input('city', ucwords($city), array('style' => 'width: 358px;', 'required' => true)) ; ?>
+              <?php echo __(LBL_ZIPCODE); ?>
               <?php echo Form::input('zipcode', ucwords($zipcode), array('size' => 5, 
 																																		'maxlength' => 5, 
 																																		'style' => 'width: 60px;',

@@ -19,7 +19,7 @@ class Controller_Deals extends Controller {
 	}
 	
 	public function action_view($id){
-    $deal = ORM::factory('deal', $id);
+    $deal 	= ORM::factory('deal', $id);
     $orders = ORM::factory('order')->get_orders($deal->ID);
     $product = ORM::factory('product')->get_product($deal->product_id);
     $vendor = ORM::factory('vendor')->get_vendor($product->vendor_id);
@@ -69,27 +69,11 @@ class Controller_Deals extends Controller {
 				$new_user['email'] 			= $posts['email'];
 				$new_user['password'] 	= $posts['password'];
 				$new_user['password_confirm'] = $posts['password_confirm'];
-				$new_user['username'] = $posts['email']; // substr($posts['email'], 0, strpos($posts['email'], "@"));
-				$new_user['group'] = 1;
-				$new_user['fullname'] = $posts['fullname'];
+				$new_user['username'] 	= substr($posts['email'], 0, strpos($posts['email'], "@"));
+				$new_user['group_id'] 	= 1;
+				$new_user['fullname'] 	= $posts['fullname'];
 				$new_user['user_type']  = 'user';
-
-//        $user->create_user($new_user, array('username','password','email','firstname','lastname','group_id'));
-/*        
-				$clean['group'] = $posts['group'];
-				$clean['firstname'] = $posts['firstname'];
-				$clean['lastname'] = $posts['lastname'];
-				$clean['email'] = $posts['email'];
-				$clean['username'] = substr($posts['email'], 0, strpos($posts['email'], "@"));
-				$clean['password'] = $posts['password'];
-				$clean['password_confirm'] = $posts['password_confirm'];
-				$clean['user_type'] = $posts['user_type'];
-				$clean['group_id'] = $posts['group'];
-				$clean['mobile'] = $posts['mobile'];
-*/
-				
-//				$user = ORM::factory('user');
-
+				$new_user['status'] 		= 'active';
 				
 				// Create validation rules for User Posts
 				$valid_user = Validation::factory($new_user);
@@ -105,47 +89,40 @@ class Controller_Deals extends Controller {
 				  if (ORM::factory('user')->email_exist($new_user['email']) == 1) {
 				    $errors = array();
 				    $errors['user_exist'] = true;
-				  }else{
-/*
-  					$user->firstname = $new_user['firstname'];
-  					$user->lastname = $new_user['lastname'];
-  					$user->email = $new_user['email'];
-  					$user->password = Auth::instance()->hash($new_user['password']);
-  					$user->username = $new_user['username'];
-  					$user->group_id = 1;
-  */
-
-				    
-
+						$errors['email'] = __(EMAIL_EXIST);
+				  }else{    
     				try {
-    					$user->create_user($new_user, array('username','password','email','firstname','lastname','group_id'));
+    					$user->create_user($new_user, array('username','password','email','firstname','lastname','group_id','status'));
     					$user_id = $user->id;
     					$user = ORM::factory('user', $user_id);
+							
+							// Add role to user
+							$user->add('roles', 1);
+							
+							// Automatically subscribe user to deals city
+							$subscriber = ORM::factory('subscriber');
+							if(!$subscriber->is_subscribed($new_user['email'], $this_deal->city_id)) {
+								// Add to Subcribers DB
+								$subscriber->add($new_user['email'], $this_deal->city_id);
+							}
+			
+							// Force login user i guess
+							Auth::instance()->force_login($new_user['username']);
     				} catch (ORM_Validation_Exception $e) {
     					$errors = $e->errors('register');
     					$errors = array_merge($errors, (isset($errors['_external']) ? $errors['_external'] : array()) );
     				}	
-
             $user_id = $user->id;
   				}
 				} else {
 					$errors = $valid_user->errors('user');
 				}
-        
-        
-				/*
-				try {
-					$user->create_user($new_user, array('lastname','firstname','email','password'));
-				} catch (ORM_Validation_Exception $e) {
-					$errors = $e->errors('register');
-					$errors = array_merge($errors, (isset($errors['_external']) ? $errors['_external'] : array()) );
-				}*/
 				
 			} else {
 				$user_id = Auth::instance()->get_user()->id;
 				$user = Auth::instance()->get_user();
 			}
-			
+
 			// Check if no error on user creation if none,
 			// process order variables
 			if(empty($errors)) {
@@ -157,7 +134,6 @@ class Controller_Deals extends Controller {
 				$order['total_count'] = $deals['total'];
 				$order['status'] = 'pending';
 				
-				
 				// Add Order now to DB and redirect to merchant/payment gateway page
 				$proc_order = ORM::factory('order');
 				$proc_order->values($order);
@@ -167,7 +143,7 @@ class Controller_Deals extends Controller {
 						 *    Email the user
 						************************/ 
 						$to = $user->email;
-						$subject = "Thank you for your Order!";
+						$subject = "Tillykke med dit køb: {$this_deal->contents_title} hos TilbudiByen.dk (Ordrenummer {$this_deal->ID}";
 						$headers = 'MIME-Version: 1.0' . "\r\n";
 						$headers .= "Content-type: text/html; charset=UTF-8" . "\r\n";
 						$headers .= "From: no-reply@tilbudibyen.com" . "\r\n".
@@ -175,17 +151,24 @@ class Controller_Deals extends Controller {
 												"X-Mailer: PHP/" . phpversion();
 												
 						$message = "
-Hello, 
+Kære {$user->firstname}, 
 <br/>
 <br/>
-You have made an order to tilbudibyen.com.  Please do make the payment now.<br/><br/>
+\"{$this_deal->contents_title}\" er nu aktiveret.
+<br/><br/>
+I den vedhæftet pdf fil finder du dit værdibevis med dit referencenummer.<br/><br/>
 
+Har du angivet dit mobilnummer har du også modtaget referencenummeret på SMS.<br/><br/>
+
+Medbring dit referencenummer i butikken når du ønsker at gøre brug af dit køb.<br/><br/>
+
+Husk at være opmærksom på værdibevisets udløbsdato. Den står på det vedhæftede værdibevis.<br/><br/>
 <br/><br/>
 The Tilbudibyen Team
 <br/>
 <a href=\"http://www.tilbudibyen.com\">http://www.tilbudibyen.com</a>
 ";
-						mail($to, $subject, $message, $headers);
+						//mail($to, $subject, $message, $headers);
 					
 						$url = sprintf('deals/buy?did=%d&oid=%d&payment=success', $proc_order->deal_id, $proc_order->ID);
 						$this->request->redirect($url);
@@ -196,14 +179,16 @@ The Tilbudibyen Team
 		
 		// Check if referrer came from merchant/payment gateway
 		if(isset($get['did']) && isset($get['oid']) && isset($get['payment'])) {
+			$user = Auth::instance()->get_user();
 			$order = ORM::factory('order', $get['oid']);
 			$deals = ORM::factory('deal', $get['did']);
-			$name  = $user->lastname . ',' . $user->firstname;
+			$name  = $user->lastname . ', ' . $user->firstname;
 			
 			// Send user an email
 			
 			
 			$this->response->body(View::factory('tilbud/order-thankyou')
+															->set('orders', $order)
 															->set('deal_id', $deals->ID)
 															->set('title', $deals->title)
 															->set('description', $deals->description)
@@ -218,7 +203,18 @@ The Tilbudibyen Team
 		if(isset($deal_id)) {
 			$deal = ORM::factory('deal', $deal_id);
 			$page->deal = $deal;
-		
+			$page->cardtypes = array("visa" => "VISA", 
+															 "mastercard" => "Master Card",
+															 "jcb" => "JCB",
+															 "american-express" => "American Express");
+			
+			$page->cardname		= isset($posts['cardname']) ? $posts['cardname'] : '';
+			$page->cardnumber = isset($posts['cardnumber']) ? $posts['cardnumber'] : '';
+			$page->address 		= isset($posts['address']) ? $posts['address'] : '';
+			$page->city				= isset($posts['city']) ? $posts['city'] : '';
+			$page->zipcode		= isset($posts['zipcode']) ? $posts['zipcode'] : '';
+			$page->cardcode 	= isset($posts['cardcode']) ? $posts['cardcode'] : '';
+			
 			// Check if errors has been set
 			if(!empty($errors)) {
 				$page->errors = $errors;
