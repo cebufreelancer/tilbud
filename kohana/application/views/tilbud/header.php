@@ -17,7 +17,7 @@
   	<?php }else {?>
   	  <meta property="og:image" content="<?php echo url::base(true) . "images/logo.png";?>"/>
   	  <link rel="image_src" href="<?php echo url::base(true) . "images/logo.png"; ?>"/>
-  	<?php } ?><
+  	<?php } ?>
   <?php }else {?>
   	<meta property="og:title" content="TilbudIbyen" />
   	<meta property="og:description" content="50% Discounts daily" />
