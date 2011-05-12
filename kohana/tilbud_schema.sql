@@ -53,6 +53,7 @@ CREATE TABLE IF NOT EXISTS `deals` (
   `information` text,
   `addresses` text,
   `image` varchar(255) default NULL,
+  `facebook_image` varchar(255) default NULL,
   `regular_price` decimal(10,2) default '0.00',
   `discount` decimal(10,0) default '0',
   `discount_type` varchar(50) default 'percent',

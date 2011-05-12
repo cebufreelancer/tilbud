@@ -182,10 +182,14 @@
           <li><?php echo $form->label('city', __(LBL_CITY)); ?>
               <?php echo $form->input('city', ucwords($city), array('required' => true)); ?>
           </li>
-          <li><?php echo $form->label('state', __(LBL_STATE_PROVINCE)); ?>
-              <?php echo Form::input('state', ucwords($state), array('style' => 'width: 375px;')) .
-                    ' ' . __(LBL_ZIPCODE) . ' ' .
-                    Form::input('zipcode', ucwords($zipcode), array('size' => 5, 
+          <li>
+              <!-- hide for now
+              <?php echo $form->label('state', __(LBL_STATE_PROVINCE)); ?>              
+              <?php echo Form::input('state', ucwords($state), array('style' => 'width: 375px;')) ; ?>
+              -->
+              
+              <?php echo $form->label('state', __(LBL_ZIPCODE)); ?>
+              <?php echo Form::input('zipcode', ucwords($zipcode), array('size' => 5, 
 																																		'maxlength' => 5, 
 																																		'style' => 'width: 60px;',
 																																		'required' => true,

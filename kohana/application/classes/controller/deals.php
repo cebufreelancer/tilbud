@@ -54,7 +54,8 @@ class Controller_Deals extends Controller {
 			$billing['expiry_year'] = $posts['expiry_year'];
 			$billing['address'] 		= $posts['address'];
 			$billing['city'] 				= $posts['city'];
-			$billing['state'] 			= $posts['state'];
+			
+			//$billing['state'] 			= $posts['state'];
 			$billing['zipcode'] 		= $posts['zipcode'];
 			
 			if(!Auth::instance()->logged_in()) {
@@ -82,6 +83,7 @@ class Controller_Deals extends Controller {
 					$user->lastname = $new_user['lastname'];
 					$user->email = $new_user['email'];
 					$user->password = Auth::instance()->hash($new_user['password']);
+
 					if($user->save()) {
 						$user_id = $user->id;
 					}
