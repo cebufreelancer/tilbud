@@ -133,7 +133,7 @@
             </li>
             <li><?php echo $form->label('password', __(LBL_PASSWORD)); ?>
                 <?php echo Form::password('password', NULL, array('style' => 'width: 215px;',
-																																	'required' => true)); ?> (<?php echo htmlentities('bekræft');?>) 
+																																	'required' => true)); ?> (<?php echo __(LBL_CONFIRM);?>) 
 								<?php echo Form::password('password_confirm', NULL, array('style' => 'width: 215px;',
 																																					'required' => true)); ?>
                 <?php echo isset($errors['password_confirm']) ? '<br />' . $errors['password_confirm'] : ''; ?>

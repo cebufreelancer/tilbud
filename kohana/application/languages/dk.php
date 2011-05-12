@@ -182,6 +182,7 @@ define("LBL_INVALID_SESSION", "Invalid session");
 define("LBL_SEND", "Send");
 
 define("LBL_COMMA_DELIMITED", "Adskild med komma (,)");
+define("LBL_CONFIRM", "bekræft");
 
 // BUY ORDERS
 define("LBL_THANK_YOU", "Thank You");
