@@ -108,4 +108,16 @@ class Model_Deal extends ORM {
 		
 		return $categories;
 	}
+	
+	public function get_to_expire_deals()
+	{
+		$query = DB::select()->from($this->_table_name)
+												 ->where(DB::expr('CURDATE()'), '<', 'end_date')
+												 ->and_where('status', '=', 'active')
+												 ->execute()
+												 ->as_array();
+												 
+		return $query;
+	}
+	
 } // End of Product Model

@@ -145,14 +145,23 @@ Route::set('view', 'view(<controller>(/<action>(/<id>)))')
 // Admin directory
 // This route enables access to admin controllers
 // Ex: admin/products, admin/vendors
-
-
 Route::set('admin', 'admin(/<controller>(/<action>(/<id>)))')
 	->defaults(array(
 		'directory'		=> 'admin',
 		'controller'	=> 'deals',
 		'action'			=> 'index',
 	));
+	
+// Cron path
+// This route will enable cpanel cron job to access local cron functions
+// Ex: [Manual Trigger] http://tilbudibyen.com/cron/deals
+Route::set('cron', 'cron(/<controller>(/<action>(/<param>)))')
+	->defaults(array(
+		'directory' 	=> 'cron',
+		'controller'	=> 'deals',
+		'action'			=> 'index',
+	));
+	
 // Default Routes - must be at the bottom
 Route::set('default', '(<controller>(/<action>(/<id>)))')
 	->defaults(array(
