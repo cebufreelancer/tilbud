@@ -41,8 +41,9 @@
         		<?php echo Form::select('order_status', $status, $order_status); ?>
         </li>
         <li>
-        	<?php echo Form::submit(NULL, 'Save'); ?>
-          <?php echo Form::submit(NULL, 'Cancel'); ?>
+        	<?php echo Form::submit(NULL, 'Save', array('class' => 'addbutton')); ?>
+          <?php echo HTML::anchor('admin/orders', LBL_CANCEL, array('class' => 'cancel',
+																																	 'style' => 'font-size: 11px;')) ?>
         </li>
       </ul>
       <?php echo Form::close(); ?>

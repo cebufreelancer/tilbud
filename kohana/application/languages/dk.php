@@ -121,6 +121,11 @@ define("LBL_DATE", "Dato");
 define("LBL_PAYMENT", "Betaling");
 define("LBL_PAYMENT_STATUS", "Betalingstatus");
 
+define("LBL_DRAFT", "Draft");
+define("LBL_CANCELLED", "Annuleret");
+define("LBL_ACTIVE", "Active");
+define("LBL_EXPIRED", "Expired");
+
 define("LBL_UPLOAD_IMAGE", "Upload billed");
 define("LBL_PAID", "Betalt");
 define("LBL_STATUS", "Status");

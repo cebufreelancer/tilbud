@@ -50,7 +50,7 @@
             $delete_url = HTML::anchor('admin/vendors/delete/' . $order['ID'], 'Delete', array('class' => 'delete'));
 						$total += $order['total_count'];
             echo '<tr>';
-            echo '<td>' . ORM::factory('deal', $order['deal_id'])->title . 
+            echo '<td>' . ORM::factory('deal', $order['deal_id'])->title . '<br />' . ORM::factory('deal', $order['deal_id'])->description . 
 									 '<div><b>' . ORM::factory('user', $order['user_id'])->firstname . ' ' . ORM::factory('user', $order['user_id'])->lastname . '</b></div>' .
 									 '<div>' . $edit_url . ' | ' . $delete_url . '</div>' .
 								 '</td>';
@@ -65,7 +65,7 @@
           <tfoot>
           <tr>
           	<td colspan="3" align="right"><span style="font-size: 18px; font-weight: bold;"><?php echo LBL_TOTAL; ?></span></td>
-            <td colspan="2" align="center"><span style="font-size: 22px; font-weight: bold;">$ <?php echo $total; ?></span></td>
+            <td colspan="2" align="center"><span style="font-size: 22px; font-weight: bold;"><?php echo $total; ?> DKK</span></td>
           </tr>
           </tfoot>
           </table>

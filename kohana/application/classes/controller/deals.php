@@ -32,6 +32,22 @@ class Controller_Deals extends Controller {
 		                      ->set('address', $address));
 	}
 
+	/**
+	EMAIL TEMPLATE FOR PDF
+	public function action_viewemail()
+	{
+		$order = ORM::factory('order', 21);
+		$deal = ORM::factory('deal', $order->deal_id);
+		$user = ORM::factory('user', $order->user_id);
+		
+		//$this->response->body(View::factory('tilbud/template_order') // Email
+		$this->response->body(View::factory('tilbud/template_order_pdf') // PDF
+															->set('order', $order)
+															->set('deal', $deal)
+															->set('user', $user));
+	}
+	*/
+	
 	public function action_buy($deal_id=null)
 	{
 		$page = View::factory('tilbud/order-deal');
@@ -148,7 +164,7 @@ class Controller_Deals extends Controller {
 				$order['quantity'] = $deals['quantity'];
 				$order['payment_type'] = 'mastercard';
 				$order['total_count'] = $deals['total'];
-				$order['status'] = 'pending';
+				$order['status'] = strtolower(__(LBL_ORDER_NEW));
 				
 				// Add Order now to DB and redirect to merchant/payment gateway page
 				$proc_order = ORM::factory('order');
@@ -165,25 +181,18 @@ class Controller_Deals extends Controller {
 						$headers .= "From: no-reply@tilbudibyen.com" . "\r\n".
 												"Reply-To: no-reply@tilbudibyen.com" . "\r\n".
 												"X-Mailer: PHP/" . phpversion();
-												
-						$message = "
-Kære {$user->firstname}, 
-<br/>
-<br/>
-\"{$this_deal->contents_title}\" er nu aktiveret.
-<br/><br/>
-I den vedhæftet pdf fil finder du dit værdibevis med dit referencenummer.<br/><br/>
+						
+						// Requires $order, $user, $deal variables
+						$order = ORM::factory('order', $proc_order->ID);
+						$deal = ORM::factory('deal', $order->deal_id);
+						$user = ORM::factory('user', $order->user_id);
 
-Har du angivet dit mobilnummer har du også modtaget referencenummeret på SMS.<br/><br/>
-
-Medbring dit referencenummer i butikken når du ønsker at gøre brug af dit køb.<br/><br/>
-
-Husk at være opmærksom på værdibevisets udløbsdato. Den står på det vedhæftede værdibevis.<br/><br/>
-<br/><br/>
-The Tilbudibyen Team
-<br/>
-<a href=\"http://www.tilbudibyen.com\">http://www.tilbudibyen.com</a>
-";
+						ob_start();
+						include_once(APPPATH . 'views/tilbud/template_order.php');
+						$content = ob_get_clean();
+						
+						$message = $content;
+						
 						mail($to, $subject, $message, $headers);
 					
 						$url = sprintf('deals/buy?did=%d&oid=%d&payment=success', $proc_order->deal_id, $proc_order->ID);

@@ -10,10 +10,10 @@
       </div>
            
       <?php //echo '<pre>'; print_r($_SERVER); echo '</pre>'; 
-			$status = array('draft' => 'Draft',
-											'cancelled' => 'Cancelled',
-											'active' => 'Active',
-											'expired' => 'Expired');
+			$status = array('draft' => __(LBL_DRAFT),
+											'cancelled' => __(LBL_CANCELLED),
+											'active' => __(LBL_ACTIVE),
+											'expired' => __(LBL_EXPIRED));
 			?>
       
 			<?php echo Form::open(Request::current(), array('enctype' => 'multipart/form-data',
@@ -68,16 +68,19 @@
           <li><?php echo Form::label('deal_image', __(LBL_UPLOAD_IMAGE)); ?>
               <?php echo Form::file('deal_image'); ?>
           </li>
+          <?php if(isset($deal_id)) { ?>
           <li>
-              <img src="/uploads/<?= $deal_id?>/<?= $deal_image?>" width="200" height="70">
-          </li>          
+              <img src="/uploads/<?= $deal_id; ?>/<?= $deal_image; ?>" width="200" height="70">
+          </li>
+          <?php } ?>
           <li><?php echo Form::label('deal_facebook_image', __(LBL_UPLOAD_FACEBOOK_IMAGE)); ?>
               <?php echo Form::file('deal_facebook_image'); ?>
           </li>
+          <?php if(isset($deal_id)) { ?>
           <li>
-              <img src="/uploads/<?= $deal_id?>/<?= $deal_facebook_image?>" width="200" height="70">
-          </li>          
-
+              <img src="/uploads/<?= $deal_id; ?>/<?= $deal_facebook_image?>" width="200" height="70">
+          </li>
+          <?php } ?>
           <li></li>
         </ul>
 			</div>
