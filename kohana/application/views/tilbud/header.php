@@ -1,6 +1,6 @@
 <?php defined('SYSPATH') OR die('No direct access allowed.'); ?>
 <!doctype html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:addthis="http://www.addthis.com/help/api-spec" xml:lang="da" lang="da">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:og="http://opengraphprotocol.org/schema/" xmlns:fb="http://developers.facebook.com/schema/" xml:lang="da" lang="da">
 <head>
   <meta CONTENT="text/html; charset=utf-8"/>
   <title>TilbudiByen</title>
@@ -10,8 +10,13 @@
 	<link rel="stylesheet" media="all" href="<?php echo url::base(TRUE)?>css/s3Slider.css"/>
 	
   <?php if (isset($deal)) {?>
+  <meta property="og:type" content="article"/> 
+  <meta property="og:url" content="<?= url::base(true);?>/deals/view/<?= $deal->ID;?>"/>
+  <meta property="og:image" content="http://www.sunstar.com.ph/sites/default/files/images/logo/sunstar-cebu.jpg"/> 
+  <meta property="og:site_name" content="www.tilbudibyen.com"/> 
 	<meta property="og:title" content="<?php echo html_entity_decode($deal->contents_title) ?>" />
 	<meta property="og:description" content="<?php echo html_entity_decode($deal->description);?>" />
+	
   	<?php if ($deal->facebook_image != "") {?>
   	  <meta property="og:image" content="<?php echo url::base(true) . "uploads/" . $deal->ID . "/" . rawurlencode($deal->facebook_image); ?>" />
   	  <link rel="image_src" href="<?php echo url::base(true) . "uploads/" . $deal->ID . "/" . rawurlencode($deal->facebook_image); ?>" />
@@ -20,6 +25,9 @@
   	  <link rel="image_src" href="<?php echo url::base(true) . "images/logo.png"; ?>"/>
   	<?php } ?>
   <?php }else {?>
+    <meta property="og:type" content="article"/> 
+    <meta property="og:url" content="<?= url::base(true);?>"/>
+    <meta property="og:site_name" content="www.tilbudibyen.com"/> 
   	<meta property="og:title" content="TilbudIbyen" />
   	<meta property="og:description" content="50% Discounts daily" />
 	  <meta property="og:image" content="<?php echo url::base(true) . "images/logo.png";?>"/>
