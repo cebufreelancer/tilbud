@@ -20,15 +20,24 @@ class Controller_Deals extends Controller {
 	
 	public function action_view($id){
     $deal 	= ORM::factory('deal', $id);
+    $deal_images = ORM::factory('deal')->get_mainimages($deal->ID);
     $orders = ORM::factory('order')->get_orders($deal->ID);
     $product = ORM::factory('product')->get_product($deal->product_id);
     $vendor = ORM::factory('vendor')->get_vendor($product->vendor_id);
     $address = $vendor->address;
 
+    $total_qty = 0;
+    for($i=0; $i<sizeof($orders); $i++) {
+      $total_qty += $orders[$i]['quantity'];
+    }
+
+
 		$this->response->body(View::factory('tilbud/index')
 		                      ->set('deal', $deal)
 		                      ->set('orders', $orders)
 		                      ->set('vendor', $vendor)
+		                      ->set('total_qty', $total_qty)
+		                      ->set('images', $deal_images)
 		                      ->set('address', $address));
 	}
 
