@@ -394,7 +394,7 @@ class Controller_Admin_Deals extends Controller {
 		$page->end_date 			= isset($posts['deal_end_date']) ? $posts['deal_end_date'] : date("Y/m/d", strtotime($deals->end_date));
 		$page->expiry_date 		= isset($posts['deal_expiry_date']) ? $posts['deal_expiry_date'] : date("Y/m/d", strtotime($deals->expiry_date));
 		$page->deal_refno			= isset($posts['deal_refno']) ? $posts['deal_refno'] : $deals->reference_no;
-		$page->address		    = isset($posts['deal_address']) ? $posts['deal_address'] : $deals->addresses;
+		$page->address		    = isset($posts['deal_address']) ? $posts['deal_address'] : html_entity_decode($deals->addresses);
 		$page->deal_image     = $deals->image;
 		$page->deal_image2     = $deals->image2;
 		$page->deal_image3     = $deals->image3;
