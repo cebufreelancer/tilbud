@@ -132,7 +132,8 @@ class Controller_Admin_Deals extends Controller {
 			$deals->reference_no= htmlentities($posts['deal_refno']);
 
 			if ($posts['deal_video_url'] != "") {
-			  $deals->youtube_url	= $this->clean_video_url($posts['deal_video_url']);
+			  //$deals->youtube_url	= $this->clean_video_url($posts['deal_video_url']);
+			  $deals->youtube_url	= $posts['deal_video_url'];
 		  }else {
 		    $deals->youtube_url = "";
 		  }
@@ -287,8 +288,10 @@ class Controller_Admin_Deals extends Controller {
 			$deals->regular_price = number_format($posts['deal_regular_price'], 2, '.', '');
 			$deals->discount  	= (int)$posts['deal_discount'];
 			$deals->reference_no= htmlentities($posts['deal_refno']);
+
 			if ($posts['deal_video_url'] != "") {
-			  $deals->youtube_url	= $this->clean_video_url($posts['deal_video_url']);
+			  //$deals->youtube_url	= $this->clean_video_url($posts['deal_video_url']);
+			  $deals->youtube_url	= $posts['deal_video_url'];
 		  }else {
 		    $deals->youtube_url = "";
 		  }
