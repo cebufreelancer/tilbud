@@ -206,8 +206,8 @@
           <script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
           <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=ra-4d6e3a782d6e35f6"></script>
             <a target="_blank" class="addthis_button_preferred_4"><img src="<?= url::base(true)?>images/socials/in.jpg" alt="" /></a>    	
-            <a target="_blank" href="http://www.tilbudibyen.com/home/fb"/><img src="images/socials/facebook.jpg"></a>
-            <a target="_blank" href="http://twitter.com/share?url=http%3A%2F%2Ftilbudibyen.dk%2F%3Fsms_ss%3Dtwitter%26at_xt%3D4d6e55361b58d8b5%2C0&via=AddThis&text=Tilbud%20i%20Byen%20-%20Spar%2050%25%20p%C3%A5%20alt%20i%20byen!&"/><img src="images/socials/twitter.jpg"></a>
+            <a target="_blank" href="<?= url::base(true);?>home/fb"/><img src="<?= url::base(true)?>images/socials/facebook.jpg"></a>
+            <a target="_blank" href="http://twitter.com/share?url=http%3A%2F%2Ftilbudibyen.dk%2F%3Fsms_ss%3Dtwitter%26at_xt%3D4d6e55361b58d8b5%2C0&via=AddThis&text=Tilbud%20i%20Byen%20-%20Spar%2050%25%20p%C3%A5%20alt%20i%20byen!&"/><img src="<?= url::base(true);?>images/socials/twitter.jpg"></a>
         </div>
         
       </div>
