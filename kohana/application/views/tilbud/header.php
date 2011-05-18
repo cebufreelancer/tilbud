@@ -12,7 +12,6 @@
   <?php if (isset($deal)) {?>
   <meta property="og:type" content="article"/> 
   <meta property="og:url" content="<?= url::base(true);?>/deals/view/<?= $deal->ID;?>"/>
-  <meta property="og:image" content="http://www.sunstar.com.ph/sites/default/files/images/logo/sunstar-cebu.jpg"/> 
   <meta property="og:site_name" content="www.tilbudibyen.com"/> 
 	<meta property="og:title" content="<?php echo html_entity_decode($deal->contents_title) ?>" />
 	<meta property="og:description" content="<?php echo html_entity_decode($deal->description);?>" />
