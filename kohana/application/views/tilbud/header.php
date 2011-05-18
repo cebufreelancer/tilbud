@@ -1,6 +1,6 @@
 <?php defined('SYSPATH') OR die('No direct access allowed.'); ?>
 <!doctype html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:og="http://opengraphprotocol.org/schema/" xmlns:fb="http://developers.facebook.com/schema/" xml:lang="da" lang="da">
+<html xmlns="http://www.w3.org/1999/xhtml"  xml:lang="da" lang="da">
 <head>
   <meta CONTENT="text/html; charset=utf-8"/>
   <title>TilbudiByen</title>
