@@ -91,7 +91,7 @@
   
   <?php echo HTML::image(URL::base(TRUE) . 'images/logo.png', array('style' => 'background: #000;')); ?><br/><br/>
   
-  Downtown DK ApS, Vesterbrogade 20, 3. sal, 1620 København K<br/>
+  Tilbud DK ApS, Vesterbrogade 20, 3. sal, 1620 København K<br/>
 CVR nummer: 32780709<br/><br/>
 
 <i>Du kan ikke svare direkte på denne e-mail. Benyt venligst kontakt-siden på tilbudibyen.com</i>

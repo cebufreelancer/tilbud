@@ -52,6 +52,7 @@ class Controller_Deals extends Controller {
 	{
 		$page = View::factory('tilbud/order-deal');
 		$user_exists = false;
+		$credit_help = ORM::factory('page')->get_page('credit-help');
 
 		$get = $_GET;
 		$user = ORM::factory('user');
@@ -245,6 +246,7 @@ class Controller_Deals extends Controller {
 				$page->errors = $errors;
 			}
 			
+			$page->credit_help = $credit_help;
 			$this->response->body($page);
 			return;
 		} else {

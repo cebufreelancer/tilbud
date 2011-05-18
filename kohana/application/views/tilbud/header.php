@@ -1,13 +1,14 @@
 <?php defined('SYSPATH') OR die('No direct access allowed.'); ?>
 <!doctype html>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:addthis="http://www.addthis.com/help/api-spec" xml:lang="da" lang="da">
 <head>
-  <meta CONTENT="text/html; charset=ISO-8859-1"/>
+  <meta CONTENT="text/html; charset=utf-8"/>
   <title>TilbudiByen</title>
 	
   <link rel="stylesheet" href="<?php echo url::base()?>js/jquery-ui.css" type="text/css" media="all" /> 
 	<link rel="stylesheet" media="all" href="<?php echo url::base(TRUE)?>css/main.css"/>
-
+	<link rel="stylesheet" media="all" href="<?php echo url::base(TRUE)?>css/s3Slider.css"/>
+	
   <?php if (isset($deal)) {?>
 	<meta property="og:title" content="<?php echo html_entity_decode($deal->contents_title) ?>" />
 	<meta property="og:description" content="<?php echo html_entity_decode($deal->description);?>" />
@@ -36,6 +37,15 @@
   <script type="text/javascript" src="<?php echo url::base()?>js/fancybox/jquery.fancybox-1.3.4.js"></script> 
 	<link rel="stylesheet" type="text/css" href="<?php echo url::base()?>js/fancybox/jquery.fancybox-1.3.4.css" media="screen" />
   <script type="text/javascript" src="<?php echo url::base()?>js/jquery.countdown.pack.js"></script>
+
+  <script type="text/javascript" src="<?php echo url::base()?>js/s3Slider.js"></script>
+  <script type="text/javascript"> 
+      $(document).ready(function() {
+          $('#slider').s3Slider({
+              timeOut: 5000
+          });
+      });
+  </script>
 
   <!-- for live -->
   <?php
@@ -195,13 +205,9 @@
 
           <script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
           <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=ra-4d6e3a782d6e35f6"></script>
-            <a class="addthis_button_preferred_4"><img src="<?= url::base(true)?>images/socials/in.jpg" alt="" /></a>    	
-            <?php 
-            
-							echo HTML::anchor('http://www.addthis.com/bookmark.php?v=250&winname=addthis&pub=ra-4d6e3a782d6e35f6&source=tbx-250&lng=da&s=facebook&url=http%3A%2F%2Ftilbudibyen.dk%2F&title=Tilbud%20i%20Byen%20-%20Spar%2050%25%20p%C3%A5%20alt%20i%20byen!&ate=AT-ra-4d6e3a782d6e35f6/-/fs-0/4d6e50716ec654ce/1/4cc81af600857552&ips=1&uid=4cc81af600857552&sms_ss=1&at_xt=1&CXNID=2000001.5215456080540439074NXC&tt=0', HTML::image('images/socials/facebook.jpg')); 
-							echo HTML::anchor('http://twitter.com/share?url=http%3A%2F%2Ftilbudibyen.dk%2F%3Fsms_ss%3Dtwitter%26at_xt%3D4d6e55361b58d8b5%2C0&via=AddThis&text=Tilbud%20i%20Byen%20-%20Spar%2050%25%20p%C3%A5%20alt%20i%20byen!&', HTML::image('images/socials/twitter.jpg')); 
-							echo HTML::anchor('', HTML::image('images/socials/myspace.jpg')); 
-						?>
+            <a target="_blank" class="addthis_button_preferred_4"><img src="<?= url::base(true)?>images/socials/in.jpg" alt="" /></a>    	
+            <a target="_blank" href="http://www.tilbudibyen.com/home/fb"/><img src="images/socials/facebook.jpg"></a>
+            <a target="_blank" href="http://twitter.com/share?url=http%3A%2F%2Ftilbudibyen.dk%2F%3Fsms_ss%3Dtwitter%26at_xt%3D4d6e55361b58d8b5%2C0&via=AddThis&text=Tilbud%20i%20Byen%20-%20Spar%2050%25%20p%C3%A5%20alt%20i%20byen!&"/><img src="images/socials/twitter.jpg"></a>
         </div>
         
       </div>

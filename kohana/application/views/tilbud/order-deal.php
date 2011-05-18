@@ -158,17 +158,9 @@
 				?>
 				
         <div id="creditcard-help">
-          <h3>Hjælp til at finde Verifikationsnummeret</h3>
-          
-          <p><b>Verifikationsnummeret på dit VISA-kort</b><br />
-          <span style="font-size: 11px;">Verifikationsnummeret består af de 3 sidste numre i signaturfeltet på bagsiden af dit VISA-kort.</span></p>
-          
-          <p><b>Verifikationsnummeret på dit MasterCard og JBC</b><br />
-          <span style="font-size: 11px;">Verifikationsnummeret består af de 3 sidste numre i signaturfeltet på bagsiden af dit MasterCard eller JBC.</span></p>
-          
-          <p><b>Verifikationsnummeret på dit American Express Card</b><br />
-          <span style="font-size: 11px;">Verifikationsnummeret består af 4 numre på forsiden af dit American Express Card. Det står til højre over det fremhævede kortnummer.</span></p>
-          
+          <?php 
+            echo $credit_help->content;
+          ?>
         </div>
         
 				<h3 style="margin-bottom: 10px;"><span class="special-headers"><?php echo __(LBL_Billing_Info); ?></span></h3>

@@ -151,8 +151,21 @@ class Controller_Admin_Deals extends Controller {
 			if (isset($_FILES['deal_image'])) {
 			  $deals->image = $_FILES['deal_image']['name'];
 			}
+			if (isset($_FILES['deal_image2'])) {
+			  $deals->image2 = $_FILES['deal_image2']['name'];
+			}
+			if (isset($_FILES['deal_image3'])) {
+			  $deals->image3 = $_FILES['deal_image3']['name'];
+			}
+			if (isset($_FILES['deal_image4'])) {
+			  $deals->image4 = $_FILES['deal_image4']['name'];
+			}
+			if (isset($_FILES['deal_image5'])) {
+			  $deals->image5 = $_FILES['deal_image5']['name'];
+			}
+			
 			if (isset($_FILES['deal_facebook_image'])) {
-			  $deals->image = $_FILES['deal_facebook_image']['name'];
+			  $deals->facebook_image = $_FILES['deal_facebook_image']['name'];
 			}
 			
 			
@@ -162,7 +175,23 @@ class Controller_Admin_Deals extends Controller {
 				  if (!file_exists(APPPATH . "../uploads/". $deals->ID)) {
 			  	  mkdir(APPPATH . "../uploads/". $deals->ID);
 			  	}
-			  	move_uploaded_file($_FILES["deal_image"]["tmp_name"], APPPATH . "../uploads/" . $deals->ID . "/" . $_FILES["deal_image"]["name"]);
+			  	
+				  if ($_FILES['deal_image']) {
+  			  	move_uploaded_file($_FILES["deal_image"]["tmp_name"], APPPATH . "../uploads/" . $deals->ID . "/" . $_FILES["deal_image"]["name"]);
+  			  }
+  			  if ($_FILES['deal_image2']) {
+			  	  move_uploaded_file($_FILES["deal_image2"]["tmp_name"], APPPATH . "../uploads/" . $deals->ID . "/" . $_FILES["deal_image2"]["name"]);
+		  	  }
+		  	  if ($_FILES['deal_image3']) {
+			  	  move_uploaded_file($_FILES["deal_image3"]["tmp_name"], APPPATH . "../uploads/" . $deals->ID . "/" . $_FILES["deal_image3"]["name"]);
+			  	}
+			  	if ($_FILES['deal_image4']) {
+			  	  move_uploaded_file($_FILES["deal_image4"]["tmp_name"], APPPATH . "../uploads/" . $deals->ID . "/" . $_FILES["deal_image4"]["name"]);
+		  	  }
+		  	  if ($_FILES['deal_image5']) {
+			  	  move_uploaded_file($_FILES["deal_image5"]["tmp_name"], APPPATH . "../uploads/" . $deals->ID . "/" . $_FILES["deal_image5"]["name"]);
+		  	  }
+			  	
 
 				  if (!file_exists(APPPATH . "../uploads/". $deals->ID)) {
 			  	  mkdir(APPPATH . "../uploads/". $deals->ID);
@@ -208,6 +237,13 @@ class Controller_Admin_Deals extends Controller {
 		$page->deal_refno			= isset($posts['deal_refno']) ? $posts['deal_refno'] : '';
 		$page->address		    = isset($posts['deal_address']) ? $posts['deal_address'] : $deals->addresses;
 		$page->deal_image     = $deals->image;
+		$page->deal_image2     = $deals->image2;
+		$page->deal_image3     = $deals->image3;
+		$page->deal_image4     = $deals->image4;
+		$page->deal_image5     = $deals->image5;
+		$page->deal_facebook_image     = $deals->facebook_image;
+
+
 
 		$page->cities = $citylist;
 		$page->products = $products;
@@ -269,13 +305,26 @@ class Controller_Admin_Deals extends Controller {
 			$deals->addresses		= $posts['deal_address'];			
 			$deals->is_featured = 1;
 
-			if (isset($_FILES['deal_image'])) {
+			if ($_FILES['deal_image']['name'] != "") {
 			  $deals->image = $_FILES['deal_image']['name'];
+			}
+			if ($_FILES['deal_image2']['name'] != "") {
+			  $deals->image2 = $_FILES['deal_image2']['name'];
+			}
+			if ($_FILES['deal_image3']['name'] != "") {
+			  $deals->image3 = $_FILES['deal_image3']['name'];
+			}
+			if ($_FILES['deal_image4']['name'] != "") {
+			  $deals->image4 = $_FILES['deal_image4']['name'];
+			}
+			if ($_FILES['deal_image5']['name'] != "") {
+			  $deals->image5 = $_FILES['deal_image5']['name'];
 			}
 
 			if (isset($_FILES['deal_facebook_image'])) {
 			  $deals->facebook_image = $_FILES['deal_facebook_image']['name'];
 			}
+
 
 
 			if($deals->save()) {
@@ -285,7 +334,22 @@ class Controller_Admin_Deals extends Controller {
 			  	  mkdir(APPPATH . "../uploads/". $deals->ID);
 			  	}
 				  
-			  	move_uploaded_file($_FILES["deal_image"]["tmp_name"], APPPATH . "../uploads/" . $deals->ID . "/" . $_FILES["deal_image"]["name"]);
+				  if ($_FILES['deal_image'] != "") {
+  			  	move_uploaded_file($_FILES["deal_image"]["tmp_name"], APPPATH . "../uploads/" . $deals->ID . "/" . $_FILES["deal_image"]["name"]);
+  			  }
+  			  if ($_FILES['deal_image2'] != "") {
+			  	  move_uploaded_file($_FILES["deal_image2"]["tmp_name"], APPPATH . "../uploads/" . $deals->ID . "/" . $_FILES["deal_image2"]["name"]);
+		  	  }
+		  	  if ($_FILES['deal_image3'] != "") {
+			  	  move_uploaded_file($_FILES["deal_image3"]["tmp_name"], APPPATH . "../uploads/" . $deals->ID . "/" . $_FILES["deal_image3"]["name"]);
+			  	}
+			  	if ($_FILES['deal_image4'] != "") {
+			  	  move_uploaded_file($_FILES["deal_image4"]["tmp_name"], APPPATH . "../uploads/" . $deals->ID . "/" . $_FILES["deal_image4"]["name"]);
+		  	  }
+		  	  if ($_FILES['deal_image5'] != "") {
+            print_r($_FILES['deal_image5']);		  	    
+			  	  move_uploaded_file($_FILES["deal_image5"]["tmp_name"], APPPATH . "../uploads/" . $deals->ID . "/" . $_FILES["deal_image5"]["name"]);
+		  	  }
 			  	
 				  if (!file_exists(APPPATH . "../uploads/". $deals->ID)) {
 			  	  mkdir(APPPATH . "../uploads/". $deals->ID);
@@ -332,6 +396,10 @@ class Controller_Admin_Deals extends Controller {
 		$page->deal_refno			= isset($posts['deal_refno']) ? $posts['deal_refno'] : $deals->reference_no;
 		$page->address		    = isset($posts['deal_address']) ? $posts['deal_address'] : $deals->addresses;
 		$page->deal_image     = $deals->image;
+		$page->deal_image2     = $deals->image2;
+		$page->deal_image3     = $deals->image3;
+		$page->deal_image4     = $deals->image4;
+		$page->deal_image5     = $deals->image5;
 		$page->deal_facebook_image     = $deals->facebook_image;
 		$page->deal_id        = $deals->ID;
 

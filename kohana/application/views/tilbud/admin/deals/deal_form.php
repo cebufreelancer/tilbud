@@ -61,18 +61,46 @@
           </li>
           <li><?php echo Form::label('deal_video_url', __(LBL_YOUTUBE_VIDEO_URL)); ?>
               <?php echo Form::input('deal_video_url', $deal_video_url, array()); ?>
+              <div style="font-size: 11px; line-height: 15px">
+              Append &autoplay=1 to autoplay the video <br/>
+              e.g. : http://www.youtube.com/watch?v=g9f-6jygRJk<strong>&autoplay=1</strong>
+              </div>
           </li>
           <li><?php echo Form::label('deal_address', __(LBL_ADDRESS2)); ?>
               <?php echo Form::input('deal_address', $address, array()); ?>
           </li>
           <li><?php echo Form::label('deal_image', __(LBL_UPLOAD_IMAGE)); ?>
+              
               <?php echo Form::file('deal_image'); ?>
+              <?php if ($deal_image != ""){?>
+                <a href="/uploads/<?= $deal_id;?>/<?= $deal_image;?>" target="_blank" class="homelink">View  </a>|
+                <a href="/admin/deals/deleteimage/<?= $deal_id;?>?i=1" class="homelink" onclick="return confirm('Are you sure?')">Remove  </a>
+              <?php } ?>
+
+              <?php echo Form::file('deal_image2'); ?>
+              <?php if ($deal_image2 != ""){?>
+                <a href="/uploads/<?= $deal_id;?>/<?= $deal_image2;?>" target="_blank" class="homelink">View  </a>|
+                <a href="/admin/deals/deleteimage/<?= $deal_id;?>?i=2" class="homelink" onclick="return confirm('Are you sure?')">Remove  </a>
+              <?php }?>
+
+              <?php echo Form::file('deal_image3'); ?>
+              <?php if ($deal_image3 != ""){?>
+                <a href="/uploads/<?= $deal_id;?>/<?= $deal_image3;?>" target="_blank" class="homelink">View  </a>|
+                <a href="/admin/deals/deleteimage/<?= $deal_id;?>?i=3" class="homelink" onclick="return confirm('Are you sure?')">Remove  </a>
+              <?php } ?>
+
+              <?php echo Form::file('deal_image4'); ?>
+              <?php if ($deal_image4 != ""){?>
+                <a href="/uploads/<?= $deal_id;?>/<?= $deal_image4;?>" target="_blank" class="homelink">View  </a>|
+                <a href="/admin/deals/deleteimage/<?= $deal_id;?>?i=4" class="homelink" onclick="return confirm('Are you sure?')">Remove </a>
+              <?php }?>
+
+              <?php echo Form::file('deal_image5'); ?>
+              <?php if ($deal_image5 != ""){?>
+                <a href="/uploads/<?= $deal_id;?>/<?= $deal_image5;?>" target="_blank" class="homelink">View  </a>|
+                <a href="/admin/deals/deleteimage/<?= $deal_id;?>?i=5" class="homelink" onclick="return confirm('Are you sure?')">Remove  </a>
+              <?php }?>
           </li>
-          <?php if(isset($deal_id)) { ?>
-          <li>
-              <img src="/uploads/<?= $deal_id; ?>/<?= $deal_image; ?>" width="200" height="70">
-          </li>
-          <?php } ?>
           <li><?php echo Form::label('deal_facebook_image', __(LBL_UPLOAD_FACEBOOK_IMAGE)); ?>
               <?php echo Form::file('deal_facebook_image'); ?>
           </li>

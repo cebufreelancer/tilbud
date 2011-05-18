@@ -2,10 +2,23 @@
 
 class Controller_Home extends Controller {
 
+	public function action_pdf()
+	{
+    require('fpdf.php');
+
+    $pdf=new FPDF();
+    $pdf->AddPage();
+    $pdf->SetFont('Arial','B',16);
+    $pdf->Cell(40,10,'Hello World!');
+    $pdf->Output('testing.pdf', 'F');
+  }
+
 	public function action_index()
 	{
 		$page = View::factory('tilbud/index');
-    $deal = ORM::factory('deal')->get_featured();
+    $deal = ORM::factory('deal')->get_featured();  
+    $deal_images = ORM::factory('deal')->get_mainimages($deal->ID);
+    $total_qty = 0;
 		
 		if(!empty($deal)) {
 			$orders = ORM::factory('order')->get_orders($deal->ID);
@@ -14,7 +27,12 @@ class Controller_Home extends Controller {
 			$address = $deal->addresses;
 			
 			$page->deal = $deal;
-			$page->orders = $orders;
+			$page->images = $deal_images;
+      for($i=0; $i<sizeof($orders); $i++) {
+       $total_qty += $orders[$i]['quantity'];
+      }
+      
+			$page->total_qty = $total_qty;
 			//$page->vendor = $vendor;
 			$page->address = $address;
 		}
@@ -35,24 +53,10 @@ class Controller_Home extends Controller {
 
 	public function action_fb($id = null)
 	{
-		$page = View::factory('tilbud/fb');
-		if ($id == null) {
-      $deal = ORM::factory('deal')->get_featured();
-    }else {
-      $deal = ORM::factory('deal', $id);
-    }
-		
-		if(!empty($deal)) {
-			$orders = ORM::factory('order')->get_orders($deal->ID);
-			$product = ORM::factory('product')->get_product($deal->product_id);
-			$address = $deal->addresses;
-			
-			$page->deal = $deal;
-			$page->orders = $orders;
-			$page->address = $address;
-			
-		}
-		$this->response->body($page);
+    $deal = ORM::factory('deal')->get_featured();  
+    $url = "http://www.addthis.com/bookmark.php?v=250&winname=addthis&pub=ra-4d6e3a782d6e35f6&source=tbx-250&lng=da&s=facebook&url=" . url::base(true) . "deals/view/" . $deal->ID;
+	  
+    $this->request->redirect($url);
 	}
 
 	public function action_page($c = NULL)

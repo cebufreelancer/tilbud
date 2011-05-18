@@ -124,6 +124,7 @@ Kohana::modules(array(
  */
 // Special Pages Routes
 // Ex: This turns home/login into /login
+Route::set('pdf', 'pdf')->defaults(array('controller' => 'home', 'action' => 'pdf'));
 Route::set('login', 'login')->defaults(array('controller' => 'home', 'action' => 'login'));
 Route::set('password_update', 'password_update')->defaults(array('controller' => 'home', 'action' => 'password_update'));
 Route::set('verify', 'verify')->defaults(array('controller' => 'home', 'action' => 'verify'));

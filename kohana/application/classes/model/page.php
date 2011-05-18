@@ -26,6 +26,6 @@ class Model_Page extends ORM {
     $page = ORM::factory('page', $id);
 		return $page;
 	}
-	
+		
 
 } // End of Product Model

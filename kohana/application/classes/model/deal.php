@@ -23,6 +23,11 @@ class Model_Deal extends ORM {
 		'information' 	=> array('data_type' => 'string', 'is_nullable' => TRUE),
 		'whatyouget' 		=> array('data_type' => 'string', 'is_nullable' => TRUE),
 		'image' 				=> array('data_type' => 'string', 'is_nullable' => TRUE), 
+		'image2' 				=> array('data_type' => 'string', 'is_nullable' => TRUE), 
+		'image3' 				=> array('data_type' => 'string', 'is_nullable' => TRUE), 
+		'image4' 				=> array('data_type' => 'string', 'is_nullable' => TRUE), 
+		'image5' 				=> array('data_type' => 'string', 'is_nullable' => TRUE), 
+		'facebook_image' 				=> array('data_type' => 'string', 'is_nullable' => TRUE), 
 		'regular_price'	=> array('data_type' => 'float'),
 		'discount'    	=> array('data_type' => 'float', 'is_nullable' => TRUE),
 		'vouchers'  	  => array('data_type' => 'int', 'is_nullable' => TRUE),
@@ -55,6 +60,30 @@ class Model_Deal extends ORM {
 		
 		return $deals;
 	}
+
+  public function get_mainimages($id)
+  {    
+    $deal = ORM::factory('deal', $id);
+    $images = array();
+    
+    if ($deal->image != "") {
+      $images[] = $deal->image;
+    }
+    
+    if ($deal->image2 != "") {
+      $images[] = $deal->image2;
+    }
+    if ($deal->image3 != "") {
+      $images[] = $deal->image3;
+    }
+    if ($deal->image4 != "") {
+      $images[] = $deal->image4;
+    }
+    if ($deal->image5 != "") {
+      $images[] = $deal->image5;
+    }
+    return $images;
+  }
 
 	public function get_active_deals($limit=NULL, $limit=20)
 	{
@@ -89,6 +118,20 @@ class Model_Deal extends ORM {
     $d = NULL;
     foreach($deals as $deal){
       $d =  $deal;
+    }
+    
+    if ($d == NULL){
+  	  $deals = ORM::factory('deal')
+  	          ->where('is_featured', '=', 1)
+  	          ->and_where('status', '=', 'active')
+  	          ->limit(1)
+  	          ->order_by('date_create', 'DESC')
+  	          ->find_all();
+
+      foreach($deals as $deal){
+        $d =  $deal;
+      }
+      
     }
     
     return $d;
