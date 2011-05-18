@@ -1,6 +1,6 @@
 <?php defined('SYSPATH') OR die('No direct access allowed.'); ?>
 <!doctype html>
-<html xmlns="http://www.w3.org/1999/xhtml"  xml:lang="da" lang="da">
+<html xmlns="http://www.w3.org/1999/xhtml"  xml:lang="da" lang="da" xmlns:og="http://ogp.me/ns#"   xmlns:fb="https://www.facebook.com/2008/fbml">
 <head>
   <meta CONTENT="text/html; charset=utf-8"/>
   <title>TilbudiByen</title>
@@ -10,7 +10,7 @@
 	<link rel="stylesheet" media="all" href="<?php echo url::base(TRUE)?>css/s3Slider.css"/>
 	
   <?php if (isset($deal)) {?>
-  <meta property="og:type" content="article"/> 
+  <meta property="og:type" content="restaurant"/> 
   <meta property="og:url" content="<?= url::base(true);?>/deals/view/<?= $deal->ID;?>"/>
   <meta property="og:site_name" content="www.tilbudibyen.com"/> 
 	<meta property="og:title" content="<?php echo html_entity_decode($deal->contents_title) ?>" />
