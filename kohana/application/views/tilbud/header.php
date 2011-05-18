@@ -18,7 +18,7 @@
 	
   	<?php if ($deal->facebook_image != "") {?>
   	  <meta property="og:image" content="<?php echo url::base(true) . "uploads/" . $deal->ID . "/" . rawurlencode($deal->facebook_image); ?>" />
-  	  <link rel="image_src" href="<?php echo url::base(true) . "uploads/" . $deal->ID . "/" . rawurlencode($deal->facebook_image); ?>" />
+  	  <link rel="image_src"  type="image/jpeg"  href="<?php echo url::base(true) . "uploads/" . $deal->ID . "/" . rawurlencode($deal->facebook_image); ?>" />
   	<?php }else {?>
   	  <meta property="og:image" content="<?php echo url::base(true) . "images/logo.png";?>"/>
   	  <link rel="image_src" href="<?php echo url::base(true) . "images/logo.png"; ?>"/>
