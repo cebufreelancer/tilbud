@@ -165,7 +165,7 @@ class Controller_Admin_Deals extends Controller {
 			  $deals->image5 = $_FILES['deal_image5']['name'];
 			}
 			
-			if (isset($_FILES['deal_facebook_image'])) {
+			if (isset($_FILES['deal_facebook_image']) && $_FILES['deal_facebook_image'] != "") {
 			  $deals->facebook_image = $_FILES['deal_facebook_image']['name'];
 			}
 			
@@ -324,7 +324,7 @@ class Controller_Admin_Deals extends Controller {
 			  $deals->image5 = $_FILES['deal_image5']['name'];
 			}
 
-			if (isset($_FILES['deal_facebook_image'])) {
+			if (isset($_FILES['deal_facebook_image']) && $_FILES['deal_facebook_image'] != "") {
 			  $deals->facebook_image = $_FILES['deal_facebook_image']['name'];
 			}
 
