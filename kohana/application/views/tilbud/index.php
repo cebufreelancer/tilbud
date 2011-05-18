@@ -18,7 +18,7 @@
 
               <div id="slider">
                 <?php if (sizeof($images) == 1) {?>
-                  <img src="<?php echo URL::base(TRUE); ?>uploads/<?php echo $deal->ID . "/". rawurlencode("$image[0]"); ?>">
+                  <img src="<?php echo URL::base(TRUE); ?>uploads/<?php echo $deal->ID . "/". rawurlencode("$images[0]"); ?>">
                 <?php }else{?>
                   <ul id="sliderContent"> 
                     <?php foreach($images as $img) {?>
