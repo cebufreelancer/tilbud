@@ -115,6 +115,7 @@ define("LBL_LOGOUT","Log ud");
 define("LBL_TOTAL", "Total");
 define("LBL_GROUPS", "Grupper");
 define("LBL_MY_STUFF", "My Stuff");
+define("LBL_SETTINGS", "Settings");
 
 define("LBL_BUYER", "Køber");
 define("LBL_SELLER", "Sælger");

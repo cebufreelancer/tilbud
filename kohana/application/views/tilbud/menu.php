@@ -54,9 +54,11 @@
     <ul>
       <?php if(!$is_admin) { ?>
       	<li><?php echo __(LBL_MY_STUFF); ?></li>
-        <li><?php echo HTML::anchor('user/myaccount', LBL_My_Account); ?></li>
+        <li><?php echo HTML::anchor('user/myaccount', __(LBL_My_Account)); ?></li>
+        <li><?php echo HTML::anchor('user/billing', __(LBL_Billing_Info)); ?></li>
+        <li><?php echo HTML::anchor('user/orders', __(LBL_My_Orders)); ?></li>
       <?php } else { ?>
-      	<li>Settings</li>
+      	<li><?php echo __(LBL_SETTINGS); ?></li>
         <li><?php echo HTML::anchor('admin/labels', ucwords(strtolower(LBL_LABELS))); ?></li>
       <?php } ?>
       <li><?php echo HTML::anchor('user/logout', ucwords(strtolower(LBL_LOGOUT))); ?></li>
