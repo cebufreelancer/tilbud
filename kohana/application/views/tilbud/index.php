@@ -34,6 +34,7 @@
               
               <div class="buy-container" style="z-index: 99; position: relative">
               	  <?php 
+              	  /*
               	  $price = ($deal->regular_price * (100 - $deal->discount)) / 100;
               	  $price = money_format('', $price);
               	  echo $price;
@@ -47,6 +48,9 @@
               	  }else {
               	    $newprice = $price;
               	  }
+              	  */
+              	  
+              	  $newprice = "100";
               	  ?>
               	  <p class="huge buy-label" style="width: 935px;"><?php echo $newprice . ',-' . HTML::anchor('deals/buy/' . $deal->ID, HTML::image('images/buy.png', array('title' => LBL_Buy_now, 'style' => 'margin-bottom: -10px;'))); ?>
 								
