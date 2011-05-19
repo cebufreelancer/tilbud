@@ -46,7 +46,7 @@ class Controller_Admin_Cities extends Controller {
 					
 			if($cities->save()) {
 				// message: save success
-        Message::add('success', __('City ' . $cities->name . ' has been successfully added.'));
+        Message::add('success', __(sprintf(LBL_SUCCESS_ADD, LBL_CITY, $cities->name)));
 						
 				// Assuming all is correct
 				Request::current()->redirect('admin/cities');
@@ -75,7 +75,7 @@ class Controller_Admin_Cities extends Controller {
 					
 			if($cities->save()) {
 				// message: save success
-        Message::add('success', __('City ' . $cities->name . ' has been successfully updated.'));
+        Message::add('success', __(sprintf(LBL_SUCCESS_UPDATE, LBL_CITY, $cities->name)));
 						
 				// Assuming all is correct
 				Request::current()->redirect('admin/cities');

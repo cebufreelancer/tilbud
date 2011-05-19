@@ -5,6 +5,7 @@
 class Model_Order extends ORM {
 	
 	protected $_table_name = 'orders';
+	protected $_table_view = 'v_orders';
 	protected $_primary_key = 'ID';
 	protected $_primary_val = 'ID';
 	
@@ -51,9 +52,35 @@ class Model_Order extends ORM {
 	}
 
 	
-	public function get_order($id){
+	public function get_order($id)
+	{
     $order = ORM::factory('order')->find($id);
 		return $order;
+	}
+	
+	public function count_orders_by_city($city_id)
+	{
+		$query = DB::select()->from('v_orders')
+												 ->where('city_id', '=', $city_id)
+												 ->execute()
+												 ->count();
+												 
+		return $query;
+	}
+	
+	public function orders_sales_by_city($city_id)
+	{
+		$total = 0;
+		$query = DB::select(DB::expr('SUM(total_count) AS total'))->from('v_orders')
+												 ->where('city_id', '=', $city_id)
+												 ->execute()
+												 ->as_array();
+												 
+		if($query[0]['total'] > 0) {
+			$total = $query[0]['total'];
+		}
+		
+		return $total;
 	}
 	
 } // End of Product Model

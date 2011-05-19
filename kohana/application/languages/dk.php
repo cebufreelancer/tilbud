@@ -35,6 +35,8 @@ define("LBL_SHARE_ON_FACEBOOK", "Del på facebook!");
 define("LBL_SPAR", "SPAR");
 define("LBL_WHAT_YOU_GET", "Det får du");
 define("LBL_INFORMATION", "Praktiske oplysninger");
+define("LBL_DEALS_SOLD", "Tilbud Solgt");
+define("LBL_AMOUNT_SOLD", "Amount Sold");
 
 define("LBL_ADDRESS", "Her finder du os");
 define("LBL_ADDRESS2", "Address");
@@ -125,6 +127,9 @@ define("LBL_DATE", "Dato");
 define("LBL_PAYMENT", "Betaling");
 define("LBL_PAYMENT_STATUS", "Betalingstatus");
 
+define("LBL_EDIT", "Redigere");
+define("LBL_DELETE", "Slet");
+
 define("LBL_DRAFT", "Draft");
 define("LBL_CANCELLED", "Annuleret");
 define("LBL_ACTIVE", "Active");
@@ -183,7 +188,7 @@ define("LBL_CITY_ADD", "Tilføj en by");
 define("LBL_CITY_DELETE", "Slet en by");
 define("LBL_NOT_ASSIGNED", "Not Assigned");
 define("LBL_GROUP_ADD", "Tilføj en gruppe");
-define("LBL_GROUP_EDIT", "Rediger en gruppe");
+define("LBL_GROUP_EDIT", "Redigere en gruppe");
 define("LBL_GROUP_DELETE", "Slet en gruppe");
 define("LBL_DEAL_DELETE", "Delete Deal");
 define("LBL_SHOW_GROUP", "Show by Gruppe");
