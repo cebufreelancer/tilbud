@@ -118,7 +118,8 @@ header, content, footer {
   display: none;
   float: right;
   color: #e9e9e9;
-  width: 120px;
+  min-width: 120px;
+  width: auto;
   padding: 15px 8px;
   background: #222222;
   -webkit-border-bottom-right-radius: 10px;
@@ -547,6 +548,33 @@ footer {
   padding: 10px;
   color: #666666;
 }
+
+#search-form {
+	border: 1px solid #DEDEDE;
+  padding: 0px;
+  width: 480px;
+}
+#search-form input.field {
+  width: 250px; 
+  border: none; 
+  margin: 0; 
+}
+#search-form select {
+  margin: 0px;
+	padding: 0px 3px;
+  border: none;
+  margin: 0;
+}
+#search-form input[type="submit"] {
+  padding: 7px 10px; 
+  margin: 0;
+  float: right;
+  border: none;
+  font-size: 16px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+#search-form input[type="submit"]:hover { color: #369bcf; }
 
 #deals-content-form {
  	width: 600px;

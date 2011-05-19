@@ -245,8 +245,8 @@ ALTER TABLE `deals`
 	ADD CONSTRAINT FOREIGN KEY (`city_id`) REFERENCES `cities` (`ID`) ON DELETE CASCADE;
 	
 ALTER TABLE `users` 
-	ADD `firstname` VARCHAR( 100 ) NULL ,
-	ADD `lastname` VARCHAR( 100 ) NULL ,
+	ADD `firstname` VARCHAR( 100 ) DEFAULT '',
+	ADD `lastname` VARCHAR( 100 ) DEFAULT '',
 	ADD `mobile` VARCHAR( 20 ) NULL;
 	
 ALTER TABLE `billings`
@@ -304,7 +304,6 @@ ALTER TABLE  `cities` ADD  `order` INT NOT NULL DEFAULT  '0';
 --
 -- MAY 6 2011 Updates
 --
-
 CREATE TABLE IF NOT EXISTS `subscribers` (
   `email` varchar(255) NOT NULL,
   `city_id` int(11) NOT NULL,
@@ -321,3 +320,11 @@ ALTER TABLE  `users` ADD  `group_id` int(11) NOT NULL DEFAULT 1 AFTER `id`;
 -- May 13 2011 Updates
 --
 ALTER TABLE  `billings` ADD  `cardtype` VARCHAR( 50 ) NOT NULL DEFAULT  'mastercard' AFTER  `cardname`;
+
+--
+-- May 19 2011 Updates
+--
+ALTER TABLE `users` 
+	ADD `address` VARCHAR( 255 ) NULL,
+	MODIFY `firstname` VARCHAR( 100 ) DEFAULT '',
+	MODIFY `lastname` VARCHAR( 100 ) DEFAULT '';
