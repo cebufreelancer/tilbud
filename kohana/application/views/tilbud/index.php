@@ -35,6 +35,7 @@
               <div class="buy-container" style="z-index: 99; position: relative">
               	  <?php 
               	  $price = ($deal->regular_price * (100 - $deal->discount)) / 100;
+              	  $price = money_format('', $price);
               	  echo $price;
               	  die();
               	  $price = number_format($price, 2, ',');
