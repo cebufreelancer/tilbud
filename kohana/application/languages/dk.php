@@ -114,6 +114,7 @@ define("LBL_LABELS","Sprog");
 define("LBL_LOGOUT","Log ud");
 define("LBL_TOTAL", "Total");
 define("LBL_GROUPS", "Grupper");
+define("LBL_MY_STUFF", "My Stuff");
 
 define("LBL_BUYER", "Køber");
 define("LBL_SELLER", "Sælger");

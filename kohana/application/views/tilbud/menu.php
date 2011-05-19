@@ -53,7 +53,7 @@
   <nav id="subnav">
     <ul>
       <?php if(!$is_admin) { ?>
-      	<li>My Stuff</li>
+      	<li><?php echo __(LBL_MY_STUFF); ?></li>
         <li><?php echo HTML::anchor('user/myaccount', LBL_My_Account); ?></li>
       <?php } else { ?>
       	<li>Settings</li>
