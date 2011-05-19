@@ -33,8 +33,18 @@
               </div>
               
               <div class="buy-container" style="z-index: 99; position: relative">
-              	  <?php $price = ($deal->regular_price * (100 - $deal->discount)) / 100; ?>
-              	  <p class="huge buy-label" style="width: 935px;"><?php echo $price . ',-' . HTML::anchor('deals/buy/' . $deal->ID, HTML::image('images/buy.png', array('title' => LBL_Buy_now, 'style' => 'margin-bottom: -10px;'))); ?>
+              	  <?php 
+              	  $price = ($deal->regular_price * (100 - $deal->discount)) / 100;
+              	  $pricex = explode(".", $price);
+              	  if ($pricex[1] >= 50) {
+              	    $newprice = $pricex[0] + 1;
+              	  }else if ($pricex[1] > 0 && $pricex[1] < 50) {
+              	    $newprice = $pricex[0] + 0.50;
+              	  }else {
+              	    $newprice = $price;
+              	  }
+              	  ?>
+              	  <p class="huge buy-label" style="width: 935px;"><?php echo $newprice . ',-' . HTML::anchor('deals/buy/' . $deal->ID, HTML::image('images/buy.png', array('title' => LBL_Buy_now, 'style' => 'margin-bottom: -10px;'))); ?>
 								
       								<?php 
       								if(isset($deal->youtube_url) && $deal->youtube_url != "") {
@@ -68,16 +78,21 @@
               </div>
 							
               <div class="buy-container" style="z-index: 100; position: relative" >
-              	<p class="discounts" style="text-align: left">Værdi <?php echo number_format($deal->regular_price, 0, '.', ''); ?>,- <span style="float:right;">Rabat <?php echo number_format($deal->discount, 0, '.', ''); ?>%</span></p>
+              	<p class="discounts" style="text-align: left">Værdi <?php echo number_format($deal->regular_price, 2, '.', ''); ?>,- <span style="float:right;">Rabat <?php echo number_format($deal->discount, 0, '.', ''); ?>%</span></p>
               </div>
             
               <div style="z-index: 151; position: relative">
                 <div class="buy-container" style="">
+                  <?php
+                  $tmp_end_date = strtotime($deal->end_date);
+                  $end_date = date("D M d Y", $tmp_end_date);
+                  ?>
                 	<script type="text/javascript">
   								jQuery(document).ready(function() {
-  									var newYear = new Date(); 
-  									newYear = new Date(newYear.toDateString() + " 23:59:59");
-  									$('#noDays').countdown({until: newYear, format: 'HMS', compact: true, description: '', timeSeparator: ' : '});
+  									var end = "<?php echo $end_date; ?>";
+  									var enddate= new Date(end);
+  									enddate_final = new Date(enddate.toDateString() + " 23:59:59");
+  									$('#noDays').countdown({until: enddate_final, format: 'HMS', compact: true, description: '', timeSeparator: ' : '});
   								});
   								</script>
                 	<p class="period-label"><?= LBL_OFFER_ENDS ?></p>
