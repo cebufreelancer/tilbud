@@ -28,20 +28,77 @@ class Controller_Admin_Users extends Controller_Useradmin_User {
 										->order_by($sort, $dir)
 										->find_all();
 
-		// Show Users by Group
-		if(!empty($posts) && $posts['show_group'] > 0) {
-			$pagination->total_items = $users->where('group_id','=', $posts['show_group'])->count_all();
-			$page->group 						 = (int)$posts['show_group'];
+		if(!empty($posts)) {
+			// If user made a search
+			if(isset($posts['search_string']) && isset($posts['search_filter'])
+				&& strlen($posts['search_string']) > 0) {
+				// Validate fields
+				
+				$search_str = strip_tags($posts['search_string']);
+				switch($posts['search_filter']) {
+				case 'email':
+					// Search for Email
+					$tsearch = $users->where('email', 'like', '%' . $search_str . '%')->count_all();
+					$search = $users->where('email', 'like', '%' . $search_str . '%')
+													->limit($pagination->items_per_page)
+													->offset($pagination->offset)
+													->find_all();
+					break;
+					
+				case 'name':
+					// Search for Full name
+					$sql = "SELECT * FROM users WHERE CONCAT(firstname, ' ', lastname) LIKE '%{$search_str}%'";
+					$search = DB::query(Database::SELECT, $sql)->execute()->as_array();
+					$tsearch = DB::query(Database::SELECT, $sql)->execute()->count();
+					break;
+					
+				case 'order':
+					// Search for Order Number
+					$order = ORM::factory('order', (int)$search_str);
+					$tsearch = $users->where('id', '=', $order->user_id)->count_all(); 
+					$search = $users->where('id', '=', $order->user_id)
+													->limit($pagination->items_per_page)
+													->offset($pagination->offset)
+													->find_all();
+					$search_str = __(LBL_ORDER_NUMBER) . ': ' . $search_str;
+					break;
+				}
+				
+				$page->query_result = sprintf(__(LBL_SEARCH_RESULT), $search_str, $tsearch);
+				$pagination->total_items = $tsearch;
+				$result = $search;
+
+			} // End of Search
 			
-			$result = $users->limit($pagination->items_per_page)
-									  ->offset($pagination->offset)
-										->order_by($sort, $dir)
-										->where('group_id', '=', (int)$posts['show_group'])
-										->find_all();
+			// Show Users by Subscriber
+			if(isset($posts['show_city']) && $posts['show_city'] > 0) {
+				$subs = ORM::factory('subscriber')->get_subscribers_by_city($posts['show_city']);
+			
+				foreach($subs as $e) {
+					$emails[] = $e['email'];
+				}
+			
+				if(!empty($emails)) {
+					$pagination->total_items = $users->where('email','in', $emails)->count_all();
+					$page->group 						 = (int)$posts['show_city'];
+					
+					$result = $users->limit($pagination->items_per_page)
+												->offset($pagination->offset)
+												->order_by($sort, $dir)
+												->where('email', 'in', $emails)
+												->find_all();
+				} else {
+					$result = array();
+					$pagination->total_items = 0;
+				}
+			} // End of show users by subscriber
 		}
 		
-		foreach($result as $ven) {
-			$res[] = $ven->as_array();
+		if(!empty($result)) {
+			$res = array();
+			foreach($result as $ven) {
+				$res[] = !is_array($ven) ? $ven->as_array() : $ven;
+			}
 		}
 
 		// Show Pager
@@ -91,7 +148,6 @@ class Controller_Admin_Users extends Controller_Useradmin_User {
 				} catch (ORM_Validation_Exception $e) {
 					$errors = $e->errors('register');
 					$errors = array_merge($errors, (isset($errors['_external']) ? $errors['_external'] : array()) );
-					print_r($errors);
 				}	
 				
 				if(empty($errors)) {
