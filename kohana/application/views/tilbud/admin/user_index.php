@@ -73,12 +73,13 @@
             $cur_user = ORM::factory('user', $user['id']);
             $edit_url = HTML::anchor('admin/users/edit/' . $user['id'], 'Edit');
             $delete_url = HTML::anchor('admin/users/delete/' . $user['id'], 'Delete');
-            $last_login = $user['last_login'] == NULL ? 'Never' : date("F j, Y",$user['last_login']);
+            $last_login = $user['last_login'] == NULL ? __(LBL_NEVER) : date("F j, Y",$user['last_login']);
             $is_admin = $cur_user->is_admin($cur_user) ? __(LBL_USER_ADMIN) : __(LBL_USER_MEMBER);
             $city = $cur_user->get_city($cur_user->email);
             echo '<tr>';
             echo '<td>' . $edit_url . ' ' . $delete_url . '</td>';
-            echo '<td><b>' . $user['email'] . '</b><br /><span style="font-size: 11px;">' . $user['firstname'] . '</span></td>';
+            echo '<td><b>' . $user['email'] . '</b><br /><span style="font-size: 11px;">' . $user['firstname'] . ' ' . $user['lastname'] . 
+								 '<br />' . $user['address'] . '</span></td>';
             echo '<td>' . $city . '</td>';
             echo '<td>' . $is_admin . '</td>';
             echo '<td>' . date("F j, Y",strtotime($user['created'])) . '</td>';

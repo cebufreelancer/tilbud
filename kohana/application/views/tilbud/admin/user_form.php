@@ -25,6 +25,9 @@
                                                        'required' => true)); ?>
         <?php echo isset($errors['password_confirm']) ? '<br />' . $errors['password_confirm'] : ''; ?>
     </li>
+    <li><?php echo $form->label('address', __(LBL_ADDRESS2)); ?>
+        <?php echo $form->input('address', $address,array('style' => 'width: 500px;')); ?>
+    </li>
     <li><?php echo $form->label('email', __(LBL_EMAIL_ADDRESS)); ?>
         <?php echo $form->input('email', $email,array('placeholder' => 'youremail@website.com',
 																										  'required' => true,

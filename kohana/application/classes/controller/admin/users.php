@@ -129,6 +129,8 @@ class Controller_Admin_Users extends Controller_Useradmin_User {
 			$posts = $this->request->post();
 			
 			if(!empty($posts)) {
+				$fields = array('username','email','firstname','lastname','group_id','mobile','address','password');
+				
 				$clean['group'] = $posts['group'];
 				$clean['firstname'] = $posts['firstname'];
 				$clean['lastname'] = $posts['lastname'];
@@ -139,15 +141,17 @@ class Controller_Admin_Users extends Controller_Useradmin_User {
 				$clean['user_type'] = $posts['user_type'];
 				$clean['group_id'] = $posts['group'];
 				$clean['mobile'] = $posts['mobile'];
+				$clean['address']		= $posts['address'];
 				
 				$user = ORM::factory('user');
 				
 				try {
-					$user->create_user($clean, array('username','password','email','firstname','lastname','group_id'));
+					$user->create_user($clean, $fields);
 					$result = true;
 				} catch (ORM_Validation_Exception $e) {
 					$errors = $e->errors('register');
 					$errors = array_merge($errors, (isset($errors['_external']) ? $errors['_external'] : array()) );
+					print_r($errors);
 				}	
 				
 				if(empty($errors)) {
@@ -174,6 +178,7 @@ class Controller_Admin_Users extends Controller_Useradmin_User {
 			$view->mobile		 = isset($posts['mobile']) ? $posts['mobile'] :'';
 			$view->user_type = isset($posts['user_type']) ? $posts['user_type'] : 'user';
 			$view->group		 = isset($posts['group']) ? $posts['group'] : 0;
+			$view->address	 = isset($posts['address']) ? $posts['address'] : '';
 			
 			$view->groups 	 = Kohana::config('global.categories');
 
@@ -195,7 +200,7 @@ class Controller_Admin_Users extends Controller_Useradmin_User {
 		
 		if(!empty($posts)) {
 			
-			$fields = array('username','email','firstname','lastname','group_id','mobile');
+			$fields = array('username','email','firstname','lastname','group_id','mobile','address');
 			
 			$clean['group'] 		= $posts['group'];
 			$clean['firstname'] = $posts['firstname'];
@@ -205,6 +210,7 @@ class Controller_Admin_Users extends Controller_Useradmin_User {
 			$clean['user_type'] = $posts['user_type'];
 			$clean['group_id'] 	= $posts['group'];
 			$clean['mobile'] 		= $posts['mobile'];
+			$clean['address']		= $posts['address'];
 			
 			if(strlen($_POST['password']) > 0 && strlen($_POST['password_confirm']) > 0) {
 				$clean['password'] = $posts['password'];
@@ -248,6 +254,7 @@ class Controller_Admin_Users extends Controller_Useradmin_User {
 		$view->mobile		 = isset($posts['mobile']) ? $posts['mobile'] : $user->mobile;
 		$view->user_type = isset($posts['user_type']) ? $posts['user_type'] : $user_type;
 		$view->group		 = isset($posts['group']) ? $posts['group'] : $user->group_id;
+		$view->address	 = isset($posts['address']) ? $posts['address'] : $user->address;
 		$view->is_edit	 = TRUE;
 		
 		$view->groups 	 = Kohana::config('global.categories');
