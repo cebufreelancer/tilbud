@@ -30,6 +30,7 @@
 	$mobile = isset($posts['mobile']) ? $posts['mobile'] : $user->mobile;
 	$firstname = isset($posts['firstname']) ? $posts['firstname'] : $user->firstname;
 	$lastname = isset($posts['lastname']) ? $posts['lastname'] : $user->lastname;
+	$address = isset($posts['address']) ? $posts['address'] : $user->address;
 	
 	?>
 	
@@ -37,28 +38,34 @@
 	<ul>
   	<li><?php echo $form->label('firstname', __(LBL_EMAIL_ADDRESS . '<span class="username">' . $email . '</span>')); ?></li>
     <li>&nbsp;</li>
-  	<li><?php echo $form->label('firstname', LBL_FIRSTNAME); ?>
-				<?php echo $form->input('firstname', ucwords($firstname)); ?>
-		</li>
-    <li><?php echo $form->label('lastname', LBL_LASTNAME); ?>
-				<?php echo $form->input('lastname', ucwords($lastname)); ?>
-		</li>
+  	<li><?php echo $form->label('firstname', __(LBL_FIRSTNAME)); ?>
+        <?php echo Form::input('firstname', ucwords($firstname), array('style' => 'width: 215px;',
+                                                        'required' => true)); ?> <?php echo __(LBL_LASTNAME); ?> 
+        <?php echo Form::input('lastname', ucwords($lastname), array('style' => 'width: 210px;',
+                                                       'required' => true)); ?>
+    </li>
+    <li><?php echo $form->label('address', __(LBL_ADDRESS2)); ?>
+        <?php echo $form->input('address', $address,array('style' => 'width: 500px;')); ?>
+    </li>
 		<?php /*
     <li><?php echo $form->label('email', LBL_EMAIL_ADDRESS); ?>
 				<?php echo $form->input('email', $email); ?>
         <span style="font-size: 10px; padding-left: 380px;"><?php echo HTML::anchor('#', 'Manage email subscription', array('class' => 'homelink')); ?></span>
 		</li>
 		*/ ?>
-    <li><?php echo $form->label('mobile', LBL_MOBILE); ?>
-				<?php echo $form->input('mobile', ucwords($mobile)); ?>
-		</li>
+    <li><?php echo $form->label('mobile', __(LBL_MOBILE)); ?>
+        <?php echo Form::input('mobile', $mobile, array('style' => 'width: 215px;',
+                                                     'required' => true,
+                                                     'type' => 'tel')); ?>
+    </li>
     <li><h2><?php echo __(LBL_CHANGE_YOU_PASS_USER); ?></h2></li>
-		<li><?php echo $form->label('password', LBL_PASSWORD); ?>
-				<?php echo $form->password('password', null); ?>
-		</li>
-		<li><?php echo $form->label('password_confirm', LBL_RETYPE_PASSWORD); ?>
-				<?php echo $form->password('password_confirm'); ?>
-		</li>
+		<li>
+				<?php $pass_param = array('style' => 'width: 215px;'); ?>
+				<?php echo $form->label('password', __(LBL_PASSWORD)); ?>
+        <?php echo Form::password('password', NULL, $pass_param); ?> (<?php echo __(LBL_CONFIRM); ?>)
+        <?php echo Form::password('password_confirm', NULL, $pass_param); ?>
+        <?php echo isset($errors['password_confirm']) ? '<br />' . $errors['password_confirm'] : ''; ?>
+    </li>
 		<li>
 			<?php echo $form->submit(NULL, LBL_SAVE); ?>
 		</li>

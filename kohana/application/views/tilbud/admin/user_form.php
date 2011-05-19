@@ -23,7 +23,6 @@
                                                         'required' => true)); ?> <?php echo __(LBL_LASTNAME); ?> 
         <?php echo Form::input('lastname', $lastname, array('style' => 'width: 210px;',
                                                        'required' => true)); ?>
-        <?php echo isset($errors['password_confirm']) ? '<br />' . $errors['password_confirm'] : ''; ?>
     </li>
     <li><?php echo $form->label('address', __(LBL_ADDRESS2)); ?>
         <?php echo $form->input('address', $address,array('style' => 'width: 500px;')); ?>
@@ -38,7 +37,7 @@
 				<?php $pass_param = (isset($is_edit)) ? array('style' => 'width: 215px;') 
 														: array('style' => 'width: 215px', 'required' => true); ?>
 				<?php echo $form->label('password', __(LBL_PASSWORD)); ?>
-        <?php echo Form::password('password', NULL, $pass_param); ?> (confirm) 
+        <?php echo Form::password('password', NULL, $pass_param); ?> (<?php echo __(LBL_CONFIRM); ?>)
         <?php echo Form::password('password_confirm', NULL, $pass_param); ?>
         <?php echo isset($errors['password_confirm']) ? '<br />' . $errors['password_confirm'] : ''; ?>
     </li>

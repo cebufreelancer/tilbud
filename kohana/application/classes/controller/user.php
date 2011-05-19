@@ -114,6 +114,7 @@ class Controller_User extends Controller_App {
 						 'mobile',
 						 'password',
 						 'email',
+						 'address'
 					));
 					
 					Message::add('success', __(LBL_ACCOUNT_UPDATE_CONFIRM));
