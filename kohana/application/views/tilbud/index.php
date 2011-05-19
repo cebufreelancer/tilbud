@@ -35,6 +35,7 @@
               <div class="buy-container" style="z-index: 99; position: relative">
               	  <?php 
               	  $price = ($deal->regular_price * (100 - $deal->discount)) / 100;
+              	  $price = number_format($price, 2, ',')
               	  $pricex = explode(".", $price);
               	  if ($pricex[1] >= 50) {
               	    $newprice = $pricex[0] + 1;
