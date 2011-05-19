@@ -34,23 +34,21 @@
               
               <div class="buy-container" style="z-index: 99; position: relative">
               	  <?php 
-              	  /*
-              	  $price = ($deal->regular_price * (100 - $deal->discount)) / 100;
-              	  $price = money_format('', $price);
-              	  echo $price;
-              	  die();
-              	  $price = number_format($price, 2, ',');
+
+              	  $price = (float) ($deal->regular_price * (100 - $deal->discount)) / 100 ;
               	  $pricex = explode(".", $price);
-              	  if ($pricex[1] >= 50) {
-              	    $newprice = $pricex[0] + 1;
-              	  }else if ($pricex[1] > 0 && $pricex[1] < 50) {
-              	    $newprice = $pricex[0] + 0.50;
-              	  }else {
-              	    $newprice = $price;
-              	  }
-              	  */
+
+                  if (sizeof($pricex) > 1) {
+                    if ($pricex[1] >= 50) {
+                	    $newprice = $pricex[0] + 1;
+                	  }else if ($pricex[1] > 0 && $pricex[1] < 50) {
+                	    $newprice = $pricex[0] + 0.50;
+                	  }
+                  }else{
+                    $newprice = $price;
+                  }
+                  
               	  
-              	  $newprice = "100";
               	  ?>
               	  <p class="huge buy-label" style="width: 935px;"><?php echo $newprice . ',-' . HTML::anchor('deals/buy/' . $deal->ID, HTML::image('images/buy.png', array('title' => LBL_Buy_now, 'style' => 'margin-bottom: -10px;'))); ?>
 								
