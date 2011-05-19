@@ -34,12 +34,12 @@ class Controller_Admin_Users extends Controller_Useradmin_User {
 				&& strlen($posts['search_string']) > 0) {
 				// Validate fields
 				
-				$search_str = strip_tags($posts['search_string']);
+				$search_str = strip_tags(strtolower($posts['search_string']));
 				switch($posts['search_filter']) {
 				case 'email':
 					// Search for Email
-					$tsearch = $users->where('email', 'like', '%' . $search_str . '%')->count_all();
-					$search = $users->where('email', 'like', '%' . $search_str . '%')
+					$tsearch = $users->where(DB::expr('LOWER(email)'), 'like', '%' . $search_str . '%')->count_all();
+					$search = $users->where(DB::expr('LOWER(email)'), 'like', '%' . $search_str . '%')
 													->limit($pagination->items_per_page)
 													->offset($pagination->offset)
 													->find_all();
@@ -47,7 +47,7 @@ class Controller_Admin_Users extends Controller_Useradmin_User {
 					
 				case 'name':
 					// Search for Full name
-					$sql = "SELECT * FROM users WHERE CONCAT(firstname, ' ', lastname) LIKE '%{$search_str}%'";
+					$sql = "SELECT * FROM users WHERE LOWER(CONCAT(firstname, ' ', lastname)) LIKE '%{$search_str}%'";
 					$search = DB::query(Database::SELECT, $sql)->execute()->as_array();
 					$tsearch = DB::query(Database::SELECT, $sql)->execute()->count();
 					break;
