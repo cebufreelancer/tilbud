@@ -7,7 +7,7 @@
   	<div class="centered">
     	
       <div id="htitle">
-      	<h2>Orders</h2>
+      	<h2><?php echo __(LBL_ORDERS); ?></h2>
       </div>
       
       <div id="myforms">
@@ -21,12 +21,28 @@
 				}
 				?>
         
-        <div id="action-button">
-          <?php //echo HTML::anchor('admin/vendors/add', 'Add a Vendor', array('class' => 'addbutton')); ?>
-        </div>
-
-       <?php 
+        <?php
+				$filters = array('email' => __(LBL_EMAIL),
+												 'name' => __(LBL_FULLNAME),
+												 'order' => __(LBL_ORDER),
+												 'refno' => __(LBL_REFERENCE_NO));
 				
+				echo Form::open(Url::base(TRUE) . 'admin/orders', array('style' => 'margin-bottom: 25px;'));
+					echo Form::label('show_order', __(LBL_ORDER_SEARCH));
+					echo '<div id="search-form">';
+					echo Form::input('search_string', '', array('class' => 'field', 'style' => 'width: 230px;'));
+					echo Form::select('search_filter', $filters);
+					echo Form::submit(NULL, __(LBL_SEARCH));
+					echo '</div>';
+				echo Form::close(); 
+				?>
+        
+				<?php 
+				// Display query string result for searches
+				if(isset($query_result)) { echo "<p><i>$query_result</p></i>"; } 
+				?>
+        
+       	<?php 
 				if(!empty($orders)) {
 					echo ($show_pager) ? $paging->render() : ''; ?>
 
@@ -57,7 +73,7 @@
             echo '<td align="center">' . $order['quantity'] . '</td>';
             echo '<td align="right">' . $order['total_count'] . '</td>';
             echo '<td>' . ucwords($order['status']) . '</td>';
-            echo '<td>' . date("M j, Y H:i", strtotime($order['date_created'])) . '</td>';
+            echo '<td>' . date("M j, Y", strtotime($order['date_created'])) . '</td>';
             echo '</tr>';
           }		
           ?>

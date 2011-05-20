@@ -6,33 +6,73 @@ class Controller_Admin_Orders extends Controller {
 	{	
 		$page = View::factory('tilbud/admin/orders/index');
 		$orders = ORM::factory('order');
-		
-		// This is an example of how to use Kohana pagination
-    // Get the total count for the pagination
 		$total = $orders->count_all();
 
-		if($total > 0) {
-			$pagination = new Pagination(array(
+		$pagination = new Pagination(array(
 										 'total_items' 		=> $total,
 										 'items_per_page'	=> 10, 
 										 'auto_hide' 			=> false,
 										 'view'           => 'pagination/useradmin',));
-			$sort = isset($_GET['sort']) ? $_GET['sort'] : 'date_created'; // set default sorting direction here
-			$dir  = isset($_GET['dir']) ? 'DESC' : 'ASC';
-			$result = $orders->limit($pagination->items_per_page)->offset($pagination->offset)->order_by($sort, $dir)
-								->find_all();
-								
-			foreach($result as $ven) {
-				$res[] = $ven->as_array();
+
+		$sort = isset($_GET['sort']) ? $_GET['sort'] : 'date_created'; // set default sorting direction here
+		$dir  = isset($_GET['dir']) ? 'DESC' : 'ASC';
+		$result = $orders->limit($pagination->items_per_page)->offset($pagination->offset)->order_by($sort, $dir)
+							->find_all();
+							
+		// For Search 
+		$posts = $this->request->post();		
+		if(!empty($posts)) {
+			if(isset($posts['search_string']) && isset($posts['search_filter'])
+				&& strlen($posts['search_string']) > 0) {
+				
+				$search_str = strip_tags(strtolower($posts['search_string']));
+				
+				switch($posts['search_filter']) {
+				case 'email':
+					// Search for Email
+					$total = DB::select()->from('v_orders')->where(DB::expr('LOWER(email)'), 'like', '%' . $search_str . '%')->execute()->count();
+					$search = DB::select()->from('v_orders')->where(DB::expr('LOWER(email)'), 'like', '%' . $search_str . '%')->execute();
+					break;
+					
+				case 'name':
+					$total = DB::select()->from('v_orders')->where(DB::expr('LOWER(lastname)'), 'like', '%' . $search_str . '%')->execute()->count();
+					$search = DB::select()->from('v_orders')->where(DB::expr('LOWER(lastname)'), 'like', '%' . $search_str . '%')->execute();
+					break;
+					
+				case 'order':
+					// Search for Order Number
+					$total = $orders->where('id', '=', (int)$search_str)->count_all(); 
+					$search  = $orders->where('id', '=', (int)$search_str)
+													  ->limit($pagination->items_per_page)
+													  ->offset($pagination->offset)
+													  ->find_all();
+					$search_str = __(LBL_ORDER_NUMBER) . ': ' . $search_str;
+					break;
+				case 'refno':
+					$total = DB::select()->from('v_orders')->where(DB::expr('LOWER(lastname)'), 'like', '%' . $search_str . '%')->execute()->count();
+					$search = DB::select()->from('v_orders')->where(DB::expr('LOWER(lastname)'), 'like', '%' . $search_str . '%')->execute();
+					break;
+				}
+				
+				$page->query_result = sprintf(__(LBL_SEARCH_RESULT), $search_str, $total);
+				$pagination->total_items = $total;
+				$result = $search;
 			}
-			
-			// Show Pager
-			$show_page = ($total > $pagination->items_per_page) ? TRUE : FALSE;
-			
-			$page->paging = $pagination;
-			$page->orders = $res;
-			$page->show_pager = $show_page;
 		}
+
+		if(!empty($result)) {
+			$res = array();
+			foreach($result as $ven) {
+				$res[] = !is_array($ven) ? $ven->as_array() : $ven;
+			}
+		}
+		
+		// Show Pager
+		$show_page = ($total > $pagination->items_per_page) ? TRUE : FALSE;
+
+		$page->paging = $pagination;
+		$page->orders	= $res;
+		$page->show_pager = $show_page;
 		
 		$this->response->body($page);
 	}

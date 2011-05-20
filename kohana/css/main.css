@@ -552,7 +552,8 @@ footer {
 #search-form {
 	border: 1px solid #DEDEDE;
   padding: 0px;
-  width: 480px;
+  width: 490px;
+  overflow: hidden;
 }
 #search-form input.field {
   width: 250px; 

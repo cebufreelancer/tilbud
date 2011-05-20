@@ -171,6 +171,7 @@ define("LBL_ORDER_DELIVERED", "Leveret");
 define("LBL_ORDER_CANCELLED", "Annuleret");
 define("LBL_ORDER_NOTREACHED", "Ikke opnået");
 define("LBL_ORDER_NUMBER", "Bestillingsnummer");
+define("LBL_ORDER_SEARCH", "Søg Ordre");
 define("LBL_USER", "Bruger");
 define("LBL_USER_ADD", "Tilføj en User");
 define("LBL_USER_EDIT", "Redigere en User");
