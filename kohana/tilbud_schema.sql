@@ -255,8 +255,7 @@ ALTER TABLE `billings`
 ALTER TABLE `vendors`
 	ADD `notes` TEXT NULL;
 	
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_orders` AS select `orders`.`ID` AS `ID`,`orders`.`user_id` AS `user_id`,`orders`.`deal_id` AS `deal_id`,`orders`.`quantity` AS `quantity`,`orders`.`payment_type` AS `payment_type`,`orders`.`total_count` AS `total_count`,`orders`.`status` AS `status`,`orders`.`date_paid` AS `date_paid`,`orders`.`date_created` AS `date_created`,`deals`.`city_id` AS `city_id`,`deals`.`title` AS `title`,`deals`.`description` AS `description`,`deals`.`contents` AS `contents`,`deals`.`contents_title` AS `contents_title`,`deals`.`whatyouget` AS `whatyouget`,`deals`.`information` AS `information`,`deals`.`addresses` AS `addresses`,`deals`.`image` AS `image`,`deals`.`facebook_image` AS `facebook_image`,`deals`.`regular_price` AS `regular_price`,`deals`.`discount` AS `discount` from (`orders` join `deals`) where (`orders`.`deal_id` = `deals`.`ID`);
-
+CREATE ALGORITHM=UNDEFINED DEFINER=`tilbud`@`localhost` SQL SECURITY DEFINER VIEW `v_orders` AS select distinct `orders`.`ID` AS `ID`,`orders`.`user_id` AS `user_id`,`orders`.`deal_id` AS `deal_id`,`orders`.`refno` AS `refno`,`orders`.`quantity` AS `quantity`,`orders`.`payment_type` AS `payment_type`,`orders`.`total_count` AS `total_count`,`orders`.`status` AS `status`,`orders`.`date_paid` AS `date_paid`,`orders`.`date_created` AS `date_created`,`deals`.`city_id` AS `city_id`,`deals`.`title` AS `title`,`deals`.`description` AS `description`,`deals`.`contents` AS `contents`,`deals`.`contents_title` AS `contents_title`,`deals`.`whatyouget` AS `whatyouget`,`deals`.`information` AS `information`,`deals`.`reference_no` AS `reference_no`,`deals`.`addresses` AS `addresses`,`deals`.`image` AS `image`,`deals`.`regular_price` AS `regular_price`,`deals`.`discount` AS `discount`,`deals`.`end_date` AS `end_date`,`deals`.`start_date` AS `start_date`,`users`.`email` AS `email`,`users`.`username` AS `username`,`users`.`firstname` AS `firstname`,`users`.`lastname` AS `lastname`,`users`.`mobile` AS `mobile`,`users`.`address` AS `address`,concat(`users`.`firstname`,' ',`users`.`lastname`) AS `fullname` from ((`orders` join `deals`) join `users`) where ((`orders`.`deal_id` = `deals`.`ID`) and (`orders`.`user_id` = `users`.`id`));
 
 --
 -- Table structure for table `categories`
@@ -329,3 +328,8 @@ ALTER TABLE `users`
 	ADD `address` VARCHAR( 255 ) NULL,
 	MODIFY `firstname` VARCHAR( 100 ) DEFAULT '',
 	MODIFY `lastname` VARCHAR( 100 ) DEFAULT '';
+
+--
+-- May 20 2011 Updates
+--
+ALTER TABLE `orders` ADD `refno` VARCHAR( 50 ) NOT NULL AFTER `deal_id` ;
