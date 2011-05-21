@@ -16,17 +16,14 @@
 											'notreached' => LBL_ORDER_NOTREACHED);
 			?>
       
-			<?php echo Form::open(Request::current(), array('enctype' => 'multipart/form-data',
-																											'id'			=> 'myforms')); ?>
+			<?php echo Form::open(Request::current(), array('id' => 'myforms')); ?>
       <ul id="order-view">
-      	<li><?php echo Form::label('order_status', __(LBL_AMOUNT_PAID), array('class' => 'label')); ?>
-        		<span class="lavalue"><?php echo $order_date_created; ?></span>
+      	<li><?php echo Form::label('order_status', __(LBL_ORDER_DATE), array('class' => 'label')); ?>
+        		<span class="lavalue"><?php echo date("M j, Y", strtotime($order_date_created)); ?></span>
             <div class="clear"></div>
-      	<li><?php echo Form::label('order_status', __(LBL_USER), array('class' => 'label')); ?>
-        		<span class="lavalue"><?php echo $order_user; ?></span>
-            <div class="clear"></div>
-        <li><?php echo Form::label('order_status', __(LBL_PRODUCT_NAME), array('class' => 'label')); ?>
-        		<span class="lavalue"><?php echo $order_product_name; ?></span>
+      	<li><?php 
+						echo Form::label('order_status', __(LBL_USER), array('class' => 'label')); ?>
+        		<span class="lavalue"><?php echo Html::anchor('admin/users/edit/' . $order_user_id, $order_user, array('class' => 'blue')); ?></span>
             <div class="clear"></div>
         <li><?php echo Form::label('order_status', __(LBL_PRODUCT_DEAL), array('class' => 'label')); ?>
         		<span class="lavalue"><?php echo $order_deal_title; ?></span>
@@ -41,7 +38,7 @@
         		<?php echo Form::select('order_status', $status, $order_status); ?>
         </li>
         <li>
-        	<?php echo Form::submit(NULL, 'Save', array('class' => 'addbutton')); ?>
+        	<?php echo Form::submit(NULL, __(LBL_SAVE), array('class' => 'addbutton')); ?>
           <?php echo HTML::anchor('admin/orders', LBL_CANCEL, array('class' => 'cancel',
 																																	 'style' => 'font-size: 11px;')) ?>
         </li>

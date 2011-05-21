@@ -49,8 +49,8 @@ class Controller_Admin_Orders extends Controller {
 					$search_str = __(LBL_ORDER_NUMBER) . ': ' . $search_str;
 					break;
 				case 'refno':
-					$total = DB::select()->from('v_orders')->where(DB::expr('LOWER(lastname)'), 'like', '%' . $search_str . '%')->execute()->count();
-					$search = DB::select()->from('v_orders')->where(DB::expr('LOWER(lastname)'), 'like', '%' . $search_str . '%')->execute();
+					$total = $orders->where('refno', 'like', "%$search_str%")->count_all();
+					$search = $orders->where('refno', 'like', "%$search_str%")->find_all();
 					break;
 				}
 				
@@ -119,6 +119,15 @@ class Controller_Admin_Orders extends Controller {
 			$order->status = $posts['order_status'];
 			
 			if($order->save()) {
+				
+				// Send Email To Client
+				switch($order->status) {
+				case 'cancelled':
+					break;
+				case 'delivered':
+					break;
+				}
+				
 				// message: save success
         Message::add('success', sprintf(LBL_Successfully, LBL_ORDER, $order->ID));
 				
@@ -130,8 +139,9 @@ class Controller_Admin_Orders extends Controller {
 		$deal = ORM::factory('deal', $order->deal_id);
 		
 		$page->order_user = ORM::factory('user', $order->user_id)->firstname . ' ' . ORM::factory('user', $order->user_id)->lastname;
-		$page->order_deal_title = $deal->title;
-		$page->order_product_name = ORM::factory('product', $deal->product_id)->title; 
+		$page->reference_no = $order->refno;
+		$page->order_user_id = $order->user_id;
+		$page->order_deal_title = ORM::factory('deal', $order->deal_id)->description;
 		$page->order_quantity = $order->quantity;
 		$page->order_amount_paid = $order->total_count;
 		$page->order_status = $order->status;

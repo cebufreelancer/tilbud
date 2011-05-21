@@ -4,6 +4,8 @@
  * @author	Paul Winston S. Villacorta
  * @author	Michael L. Gimena
  *
+ * COLOR
+ * blue - #369bcf
  */
  
 /** Added HTML5 Reset **/
@@ -186,7 +188,6 @@ header, content, footer {
   color: #FFFFFF;
   margin-bottom: 0px;
 }
-
 
 .deal-banner {
   background: #111111 url() top center no-repeat;
@@ -413,6 +414,7 @@ footer {
 	width: 80px;
 
 }
+.table tbody tr td { color: #111; }
 .table tbody.order-table tr td { vertical-align: middle; }
 .table tbody.order-table tr td:first-of-type {
   text-align: left;
@@ -756,12 +758,6 @@ span.block {
 	border-radius: 15px;
 }
 
-
-
-
-
-
-
 #signupform {
   padding: 25px 10px;
   background: #FFF url(../images/bg-content.png) top left no-repeat;
@@ -839,12 +835,6 @@ span.block {
   padding: 10px;
   color: #666666;
 }
-
-
-
-
-
-
 
 #signupform-footer {
   padding: 25px 10px;
@@ -939,3 +929,6 @@ span.block {
 	width: 960px;
   margin: auto;
 }
+
+/** MISC **/
+.blue { color: #369bcf; }

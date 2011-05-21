@@ -9,10 +9,13 @@ class Model_Order extends ORM {
 	protected $_primary_key = 'ID';
 	protected $_primary_val = 'ID';
 	
+	protected $_refno_prefix = 'GG';
+	
 	protected $_table_columns = array(
 		'ID'						=> array('data_type' => 'int'),
 		'user_id'		  	=> array('data_type' => 'int', 'is_nullable' => FALSE),
 		'deal_id'		  	=> array('data_type' => 'int', 'is_nullable' => FALSE),
+		'refno'					=> array('data_type' => 'string'),
 		'quantity'	    => array('data_type' => 'int', 'is_nullable' => FALSE),
 		'total_count'	  => array('data_type' => 'int', 'is_nullable' => FALSE),
 		'payment_type'	=> array('data_type' => 'string', 'is_nullable' => TRUE),
@@ -81,6 +84,44 @@ class Model_Order extends ORM {
 		}
 		
 		return $total;
+	}
+	
+	public function generate_reference_no($length=8, $deal_id=NULL)
+	{
+		$char  = '';
+		$prefix = $this->_refno_prefix;
+		$chars = "0123456789abcdefghijklmnopqrstuvwxyz";
+		
+		if(isset($deal_id)) {
+			$prefix = ORM::factory('deal', $deal_id)->reference_no;
+		}
+		
+		$length = $length > 15 ? 15 : $length;
+		
+		$i=0;
+		while($i<$length) {
+			$char .= substr($chars, mt_rand(0, strlen($chars)-1), 1);
+			$i++;
+		}
+		
+		$reference_no = strtoupper("$prefix-$char");
+		if($this->reference_no_exists($reference_no)) {
+			$this->generate_reference_no($length, $deal_id);
+		}
+		
+		return $reference_no;
+	}
+	
+	public function reference_no_exists($reference_no)
+	{
+		$return = FALSE;
+		$query = ORM::factory('order')->where('refno', '=', $reference_no)->find();
+		
+		if(isset($query->ID)) {
+			$return = TRUE;
+		}
+		
+		return $return;
 	}
 	
 } // End of Product Model
