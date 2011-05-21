@@ -18,7 +18,7 @@
         </li>
         <li>
             <?php echo Form::submit(NULL, __(LBL_SAVE)); ?>
-            <?php echo HTML::anchor('admin/cities', LBL_CANCEL, array('class' => 'cancel',
+            <?php echo HTML::anchor('admin/groups', LBL_CANCEL, array('class' => 'cancel',
 																																		 'style' => 'font-size: 11px;')) ?>
         </li>	
       </ul>

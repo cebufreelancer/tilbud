@@ -71,11 +71,36 @@ class Model_Order extends ORM {
 		return $query;
 	}
 	
+	public function count_orders_by_category($cat_id)
+	{
+		$query = DB::select()->from('v_orders')
+												 ->where('group_id', '=', $cat_id)
+												 ->execute()
+												 ->count();
+												 
+		return $query;
+	}
+	
 	public function orders_sales_by_city($city_id)
 	{
 		$total = 0;
 		$query = DB::select(DB::expr('SUM(total_count) AS total'))->from('v_orders')
 												 ->where('city_id', '=', $city_id)
+												 ->execute()
+												 ->as_array();
+												 
+		if($query[0]['total'] > 0) {
+			$total = $query[0]['total'];
+		}
+		
+		return $total;
+	}
+	
+	public function orders_sales_by_category($cat_id)
+	{
+		$total = 0;
+		$query = DB::select(DB::expr('SUM(total_count) AS total'))->from('v_orders')
+												 ->where('group_id', '=', $cat_id)
 												 ->execute()
 												 ->as_array();
 												 

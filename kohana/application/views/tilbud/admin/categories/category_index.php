@@ -29,22 +29,22 @@
         <table class="table">
         <thead>
         <tr>
-          <td>Action</td>
-          <td width="200"><?php echo __(LBL_CITY); ?></td>
-          <td><?php echo __(LBL_ORDER); ?></td>
-          <td>&nbsp;</td>
+          <td><?php echo __(LBL_ACTION); ?></td>
+          <td width="300"><?php echo __(LBL_GROUPS); ?></td>
+          <td width="90"><?php echo __(LBL_DEALS_SOLD); ?></td>
+          <td width="90"><?php echo __(LBL_AMOUNT_SOLD); ?></td>
         </tr>
         </thead>
         <tbody>
         <?php
         foreach($categories as $cat) {
-					$edit_url = HTML::anchor('admin/groups/edit/' . $cat['ID'], 'Edit');
-					$delete_url = HTML::anchor('admin/groups/delete/' . $cat['ID'], 'Delete');
+					$edit_url = HTML::anchor('admin/groups/edit/' . $cat['ID'], __(LBL_EDIT));
+					$delete_url = HTML::anchor('admin/groups/delete/' . $cat['ID'], __(LBL_DELETE));
           echo '<tr>';
           echo '<td>' . $edit_url . ' ' . $delete_url . '</td>';
           echo '<td><b>' . $cat['name'] . '</b></td>';
-					echo '<td>' . $cat['url_code'] . '</td>';
-					echo '<td>&nbsp;</td>';
+					echo '<td>' . ORM::factory('order')->count_orders_by_category($cat['ID']) . '</td>';
+					echo '<td>' . ORM::factory('order')->orders_sales_by_category($cat['ID']) . ' <span class="currency">DKK</span></td>';
           echo '</tr>';
         }		
         ?>
