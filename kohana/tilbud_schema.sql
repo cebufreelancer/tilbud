@@ -333,3 +333,19 @@ ALTER TABLE `users`
 -- May 20 2011 Updates
 --
 ALTER TABLE `orders` ADD `refno` VARCHAR( 50 ) NOT NULL AFTER `deal_id` ;
+
+--
+-- May 22 2011 Updates
+--
+
+--
+-- Table structure for table `mail_templates`
+--
+
+CREATE TABLE IF NOT EXISTS `mail_templates` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) NOT NULL,
+  `text` text NOT NULL,
+  PRIMARY KEY (`ID`),
+  UNIQUE KEY `name` (`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
