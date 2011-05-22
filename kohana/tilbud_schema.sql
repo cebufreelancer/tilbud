@@ -346,6 +346,7 @@ CREATE TABLE IF NOT EXISTS `mail_templates` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL,
   `text` text NOT NULL,
+  `subject` varchar(255) NOT NULL,
   PRIMARY KEY (`ID`),
   UNIQUE KEY `name` (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
