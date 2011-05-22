@@ -108,7 +108,7 @@ class Controller_Deals extends Controller {
 					$new_user['email'] 			= $posts['email'];
 					$new_user['password'] 	= $posts['password'];
 					$new_user['password_confirm'] = $posts['password_confirm'];
-					$new_user['username'] 	= substr($posts['email'], 0, strpos($posts['email'], "@"));
+					$new_user['username'] 	= $posts['email']; //substr($posts['email'], 0, strpos($posts['email'], "@"));
 					$new_user['group_id'] 	= 1;
 					$new_user['fullname'] 	= $posts['fullname'];
 					$new_user['user_type']  = 'user';
@@ -167,6 +167,7 @@ class Controller_Deals extends Controller {
 			}
 			// Check if no error on user creation if none,
 			// process order variables
+			
 			if(empty($errors)) {
 				// Order section
 				$order['deal_id'] = $deals['ID'];
