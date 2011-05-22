@@ -187,8 +187,9 @@
             </div>
             <div class="clear"></div>
           </li>
-          <li><?php echo Form::label('deal_refno', __(LBL_REFERENCE_NO)); ?>
-              <?php echo Form::input('deal_refno', $deal_refno, array('style' => 'width: 95%;')); ?>
+          <li><?php echo Form::label('deal_refno', __(LBL_REFERENCE_NO_PREFIX)); ?>
+              <?php echo Form::input('deal_refno', $deal_refno, array('style' => 'width: 100px; text-align: center;',
+																																			'maxlength' => 4)) . ' ' . __(LBL_REFERENCE_NO_PREFIX_DESC); ?>
           </li>
           <li class="separator">
 							<?php echo Form::label('deal_expiry_date', __(LBL_DEAL_EXPIRY_DATE)); ?>
