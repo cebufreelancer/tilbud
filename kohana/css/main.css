@@ -502,6 +502,7 @@ footer {
 #myforms input[type="email"],
 #myforms input[type="url"],
 #myforms input[type="tel"],
+#myforms input[type="submit"],
 #myforms select {
   border:1px solid #DEDEDE;
   color:#525151;
@@ -518,8 +519,9 @@ footer {
 }
 #myforms input[type="file"] { font-size: 13px; font-weight: bold; }
 #myforms select { 
-	margin-bottom:10px; 
-  width: auto; 
+	margin-bottom:10px;
+  width: auto;
+  height: 36px;
 }
    /** Again, without IE6 these would be element type selectors. We need a small margin. **/
    input.radio, input.checkbox {
@@ -545,39 +547,14 @@ footer {
   font-size: 18px;
   padding-left: 10px;
   padding-right: 10px;
+  width: auto;
+  height: 36px;
 }
+#myforms input[type="submit"]:hover { color: #369bcf; }
 #myforms .record-value {
   padding: 10px;
   color: #666666;
 }
-
-#search-form {
-	border: 1px solid #DEDEDE;
-  padding: 0px;
-  width: 490px;
-  overflow: hidden;
-}
-#search-form input.field {
-  width: 250px; 
-  border: none; 
-  margin: 0; 
-}
-#search-form select {
-  margin: 0px;
-	padding: 0px 3px;
-  border: none;
-  margin: 0;
-}
-#search-form input[type="submit"] {
-  padding: 7px 10px; 
-  margin: 0;
-  float: right;
-  border: none;
-  font-size: 16px;
-  font-weight: bold;
-  text-transform: uppercase;
-}
-#search-form input[type="submit"]:hover { color: #369bcf; }
 
 #deals-content-form {
  	width: 600px;
