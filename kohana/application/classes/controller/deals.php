@@ -179,6 +179,7 @@ class Controller_Deals extends Controller {
 				
 				// Add Order now to DB and redirect to merchant/payment gateway page
 				$proc_order = ORM::factory('order');
+				$order['refno'] = $proc_order->generate_reference_no(8, $order['deal_id']);
 				$proc_order->values($order);
 				if($proc_order->save()) {
 
