@@ -124,6 +124,14 @@
 						$delete_url = HTML::anchor('admin/deals/delete/' . $deal['ID'], __(LBL_DELETE), array('class' => 'delete'));
 						$email_url = HTML::anchor('admin/deals?action=email&city=' . $deal['city_id'] . '&did=' . $deal['ID'], 'Send Email');
 						$group = ORM::factory('category', $deal['group_id'])->name;
+						
+						switch($deal['status']) {
+						case 'active': $status = __(LBL_ACTIVE); break;
+						case 'draft': $status = __(LBL_DRAFT); break;
+						case 'cancelled': $status = __(LBL_CANCELLED); break;
+						case 'expired': $status = __(LBL_EXPIRED); break;
+						}
+						
 						echo '<tr ' . $serving_css . '>';
 						echo '<td style="width:400px;"><b>' . $deal['description'] . '</b>' .
 						     '<div>' . $edit_url . ' | ' . $delete_url . ' | ' . $email_url . '</div>' .
@@ -133,7 +141,7 @@
 						echo '<td>' . date("F d, Y", strtotime($deal['end_date'])) . '</td>';
 						echo '<td align="center">' . $deal['total_sold'] . '</td>';
 						//echo '<td>' . $deal['end_date'] . '</td>';
-						echo '<td>' . ucwords($deal['status']) . '</td>';
+						echo '<td>' . ucwords($status) . '</td>';
 						echo '<td>' . date("F d, Y", strtotime($deal['date_create'])) . '</td>';
 						echo '</tr>';
 					}		
