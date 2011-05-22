@@ -90,6 +90,7 @@ class Model_Deal extends ORM {
     $result = ORM::factory('deal')
              ->order_by('ID', 'DESC')
              ->where('status', '=', 'active')
+             ->where("end_date",'<=', "DATE_FORMAT(NOW(), '%Y-%m-%d')")
   	         ->limit($limit)
              ->find_all();
 		$deals = array();
@@ -110,9 +111,10 @@ class Model_Deal extends ORM {
 	  $deals = ORM::factory('deal')
 	          ->where('is_featured', '=', 1)
 	          ->and_where('status', '=', 'active')
-	          ->and_where('start_date', '=', date('Y-m-d'))
+	          ->and_where('start_date', '>=', date('Y-m-d'))
+	          ->and_where('end_date', '<=', date('Y-m-d'))
 	          ->limit(1)
-	          ->order_by('date_create', 'DESC')
+	          ->order_by('end_date', 'DESC')
 	          ->find_all();
 
     $d = NULL;
