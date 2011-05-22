@@ -22,8 +22,8 @@
 				}
 				?>
         <li>
-        	<?php echo Form::submit('submit', 'Ok'); ?>
-          <?php echo Form::submit('submit', 'Cancel'); ?>
+        	<?php echo Form::submit('submit', 'Ok', array('class' => 'addbutton')); ?>
+        <?php echo HTML::anchor($_SERVER['HTTP_REFERER'], LBL_CANCEL, array('class' => 'cancel')); ?>
         </li>
       </ul>
       <?php echo Form::close(); ?>

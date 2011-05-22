@@ -172,6 +172,47 @@ class Controller_Admin_Orders extends Controller {
 		}
 	}
 
+	public function action_delete($id)
+	{
+		$page = View::factory('tilbud/admin/confirm_delete');
+	
+		$orders = ORM::factory('order', $id);
+		
+		// Get posts
+		$posts = $this->request->post();
+		
+		// This will check if submitted
+		if(!empty($posts)) {
+			$refno = $orders->refno;
+			if(strcmp($posts['submit'], 'Ok') == 0) {
+				if($orders->loaded()) {
+					$orders->delete();
+				}
+			}
+		
+			// message: save success
+			Message::add('success', sprintf(LBL_SUCCESS_DELETE, LBL_ORDER, $refno));
+		
+			// Assuming all is correct
+			Request::current()->redirect('admin/orders');
+			return;
+
+		} else {
+			$users = ORM::factory('user', $orders->user_id);
+			$deal = ORM::factory('deal', $orders->deal_id);
+			
+			$rec[LBL_REFERENCE_NO] 	= $orders->refno;
+			$rec[LBL_CUSTOMER_NAME] = $users->firstname . ' ' . $users->lastname;
+			$rec[LBL_DEAL] 					= $deal->description;
+			$rec[LBL_QUANTITY] 			= $orders->quantity;
+			$rec[LBL_AMOUNT_PAID] 	= $orders->total_count . ' DKK';
+		}
+		$this->response->body(View::factory('tilbud/admin/confirm_delete')
+														->set('records',$rec)
+														->set('label', __(LBL_ORDER_DELETE))
+											);
+	}
+
 	public function action_edit($id)
 	{	
 		$page = View::factory('tilbud/admin/orders/order_form');

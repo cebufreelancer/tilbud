@@ -113,7 +113,7 @@
 					$total = 0;
           foreach($orders as $order) {
             $edit_url = HTML::anchor('admin/orders/edit/' . $order['ID'], __(LBL_EDIT));
-            $delete_url = HTML::anchor('admin/vendors/delete/' . $order['ID'], __(LBL_DELETE), array('class' => 'delete'));
+            $delete_url = HTML::anchor('admin/orders/delete/' . $order['ID'], __(LBL_DELETE), array('class' => 'delete'));
 						$total += $order['total_count'];
             echo '<tr>';
 						echo '<td style="width: 5px;">' . Form::checkbox('obox', '', array('id' => $order['ID'])) . '</td>';

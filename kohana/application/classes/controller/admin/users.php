@@ -88,7 +88,7 @@ class Controller_Admin_Users extends Controller_Useradmin_User {
 												->where('email', 'in', $emails)
 												->find_all();
 				} else {
-					$result = array();
+					$result = array(0);
 					$pagination->total_items = 0;
 				}
 			} // End of show users by subscriber
@@ -283,7 +283,7 @@ class Controller_Admin_Users extends Controller_Useradmin_User {
 			}
 			
 			// message: save success
-			Message::add('success', __('User ' . $name . ' ' . __(LBL_Successfully_deleted)));
+			Message::add('success', sprintf(LBL_SUCCESS_DELETE, LBL_USER, $name));
 			
 			// Assuming all is correct
 			Request::current()->redirect('admin/users');
