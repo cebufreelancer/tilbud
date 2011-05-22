@@ -6,72 +6,179 @@ class Controller_Admin_Deals extends Controller {
 	{		
 
 		$page = View::factory('tilbud/admin/deals/index');
-		
-		// Check if send mail is accessed
-		if(!empty($_GET)) {
-			$send = false;
-			
-			$random_hash = md5(date('r', time())); 
-			// Headers
-			$headers  = 'Content-Type: multipart/alternative; boundary="PHP-alt-' . $random_hash . '"' . "\r\n"; 
-			//$headers .= 'MIME-Version: 1.0' . "\r\n";
-
-			$headers .= "From: TilbudiByen <no-reply@tilbudibyen.com>" . "\r\n".
-		              "Reply-To: no-reply@tilbudibyen.com" . "\r\n".
-		              "X-Mailer: PHP/" . phpversion();
-			// Subject
-			$subject = ORM::factory('deal', (int)$_GET['did'])->title;
-
-			// Message
-			$deals = ORM::factory('deal', (int)$_GET['did']);
-			
-			ob_start();
-			include_once(APPPATH . 'views/tilbud/template_email.php');
-			$content = ob_get_clean();
-
-			$message  = 'Content-type: text/html; charset="iso-8859-1"' . "\r\n";
-			$message .= $content;
-
-			$subscribers = ORM::factory('category')->get_subscribers($_GET['city']);
-			
-			if(!empty($subscribers)) {
-				foreach($subscribers as $sub) {
-					if(mail($sub['email'], $subject, $message, $headers)) {
-						$send=true;
-					}
-				}
-			} else {
-				Message::add('success', __('No user has been subscribe on this city.'));
-			}
-			
-			if($send==true) {
-				// message: save success
-        Message::add('success', __('Email has been sent to subscribers'));
-				
-				Request::current()->redirect('admin/deals');
-				return;
-			}
-		}
-		
 		$deals = ORM::factory('deal');
 		
-		// This is an example of how to use Kohana pagination
-    // Get the total count for the pagination
-		$res = array();
 		$total = $deals->count_all();
-		if($total > 0) {
-			$pagination = new Pagination(array(
-										 'total_items' 		=> $total,
-										 'items_per_page'	=> 10, 
-										 'auto_hide' 			=> false,
-										 'view'           => 'pagination/useradmin',));
-			$sort = isset($_GET['sort']) ? $_GET['sort'] : 'ID'; // set default sorting direction here
-			$dir  = isset($_GET['dir']) ? 'DESC' : 'ASC';
-			$result = $deals->limit($pagination->items_per_page)->offset($pagination->offset)->order_by($sort, $dir)
-								->find_all();
-								
+		$pagination = new Pagination(array(
+									 'total_items' 		=> $total,
+									 'items_per_page'	=> 10, 
+									 'auto_hide' 			=> false,
+									 'view'           => 'pagination/useradmin',));
+		$sort = isset($_GET['sort']) ? $_GET['sort'] : 'ID'; // set default sorting direction here
+		$dir  = isset($_GET['dir']) ? 'DESC' : 'ASC';
+		$result = $deals->limit($pagination->items_per_page)->offset($pagination->offset)->order_by($sort, $dir)
+							->find_all();
+				
+		// Check for actions
+		if(!empty($_GET)) {
+			$get = $_GET;
+			
+			// Filter for dates
+			if(isset($get['s']) && isset($get['f']) && (strlen($get['s']) > 0 || strlen($get['df']) > 0 || strlen($get['dt']) > 0)) {
+				
+				$search_str = strip_tags(strtolower($get['s']));
+				
+				switch($get['f']) {
+				case 'deals':
+					// Search for Email
+					$total = $deals->where('description', 'like', '%' . $search_str . '%')->count_all();
+					$search = $deals->where('description', 'like', '%' . $search_str . '%')
+																->limit($pagination->items_per_page)
+																->offset($pagination->offset)
+																->find_all();
+					break;
+				
+				case 'startdate':
+					$from = strlen($get['df']) > 0 ? $get['df'] : date("Y-m-d");
+					$to   = strlen($get['dt']) > 0 ? $get['dt'] : date("Y-m-d");
+					
+					if(strlen($from) > 0 && strlen($to) > 0) {
+						$total = $deals->where(DB::expr('DATE(start_date)'), '>=', $from)->and_where(DB::expr('DATE(start_date)'), '<=', $to)->count_all();
+						$search = $deals->where(DB::expr('DATE(start_date)'), '>=', $from)->and_where(DB::expr('DATE(start_date)'), '<=', $to)
+														->limit($pagination->items_per_page)
+														->offset($pagination->offset)
+														->find_all();
+						$search_str = __(LBL_DEAL_START_DATE) . ': ' . date("Y-m-d", strtotime($from)) . ' - ' . date("Y-m-d", strtotime($to));
+					} else {
+						
+					}
+					break;
+					
+				case 'enddate':
+					$from = strlen($get['df']) > 0 ? $get['df'] : date("Y-m-d");
+					$to   = strlen($get['dt']) > 0 ? $get['dt'] : date("Y-m-d");
+					
+					if(strlen($from) > 0 && strlen($to) > 0) {
+						$total = $deals->where(DB::expr('DATE(end_date)'), '>=', $from)->and_where(DB::expr('DATE(end_date)'), '<=', $to)->count_all();
+						$search = $deals->where(DB::expr('DATE(end_date)'), '>=', $from)->and_where(DB::expr('DATE(end_date)'), '<=', $to)
+														->limit($pagination->items_per_page)
+														->offset($pagination->offset)
+														->find_all();
+						$search_str = __(LBL_DEAL_END_DATE) . ': ' . date("Y-m-d", strtotime($from)) . ' - ' . date("Y-m-d", strtotime($to));
+					} else {
+						
+					}
+					break;
+					
+				case 'date':
+					$from = strlen($get['df']) > 0 ? $get['df'] : date("Y-m-d");
+					$to   = strlen($get['dt']) > 0 ? $get['dt'] : date("Y-m-d");
+					
+					if(strlen($from) > 0 && strlen($to) > 0) {
+						$total = $deals->where(DB::expr('DATE(start_date)'), '>=', $from)->and_where(DB::expr('DATE(end_date)'), '<=', $to)->count_all();
+						$search = $deals->where(DB::expr('DATE(start_date)'), '>=', $from)->and_where(DB::expr('DATE(end_date)'), '<=', $to)
+														->limit($pagination->items_per_page)
+														->offset($pagination->offset)
+														->find_all();
+						$search_str = __(LBL_DEAL_START_DATE) . ': ' . date("Y-m-d", strtotime($from)) . ' - ' .
+													__(LBL_DEAL_END_DATE). ': ' . date("Y-m-d", strtotime($to));
+					} else {
+						
+					}
+					break;
+				}
+				
+				$page->query_result = sprintf(__(LBL_SEARCH_RESULT), $search_str, $total);
+				$pagination->total_items = $total;
+				$result = $search;
+			}
+			
+			// Filter for City and Category
+			if(isset($get['cid']) && isset($get['gid']) && (strlen($get['cid']) > 0 || strlen($get['gid']) > 0)) {
+					$city_id = (int)$get['cid'] > 0 ? (int)$get['cid'] : "";
+					$cat_id  = (int)$get['gid'] > 0 ? (int)$get['gid'] : "";
+					
+				if($city_id > 0 || $cat_id > 0) {
+					if($city_id > 0 && $cat_id > 0) {
+						$total = $deals->where('city_id', '=', $city_id)->and_where('group_id', '=', $cat_id)->count_all();
+						$search = $deals->where('city_id', '=', $city_id)->and_where('group_id', '=', $cat_id)
+																	->limit($pagination->items_per_page)
+													  			->offset($pagination->offset)
+																	->find_all();
+						
+						$search_str = __(LBL_CITY) . ': ' . ORM::factory('city', $city_id)->name . ' , ' . 
+													__(LBL_GROUP) . ': ' . ORM::factory('category', $cat_id)->name;
+					} else {
+						$id = $city_id>0 ? $city_id : $cat_id;
+						$col = $city_id>0 ? 'city_id' : 'group_id';
+						$model = $city_id>0 ? 'city' : 'category';
+						$label = $city_id>0 ? __(LBL_CITY) : __(LBL_GROUP);
+						
+						$total = $deals->where($col, '=', $id)->count_all();
+						$search = $deals->where($col, '=', $id)->limit($pagination->items_per_page)
+													  											 ->offset($pagination->offset)
+																									 ->find_all();
+																	
+						$search_str = $label . ': ' . ORM::factory($model, $id)->name;
+					}
+					
+					$page->query_result = sprintf(__(LBL_SEARCH_RESULT), $search_str, $total);
+					$pagination->total_items = $total;
+					$result = $search;
+				} 
+			}
+						
+			// Check if send mail is accessed
+			if(isset($_GET['action']) && $_GET['action'] = 'email') {
+				$send = false;
+				
+				$random_hash = md5(date('r', time())); 
+				// Headers
+				$headers  = 'Content-Type: multipart/alternative; boundary="PHP-alt-' . $random_hash . '"' . "\r\n"; 
+				//$headers .= 'MIME-Version: 1.0' . "\r\n";
+	
+				$headers .= "From: TilbudiByen <no-reply@tilbudibyen.com>" . "\r\n".
+										"Reply-To: no-reply@tilbudibyen.com" . "\r\n".
+										"X-Mailer: PHP/" . phpversion();
+				// Subject
+				$subject = ORM::factory('deal', (int)$_GET['did'])->title;
+	
+				// Message
+				$deals = ORM::factory('deal', (int)$_GET['did']);
+				
+				ob_start();
+				include_once(APPPATH . 'views/tilbud/template_email.php');
+				$content = ob_get_clean();
+	
+				$message  = 'Content-type: text/html; charset="iso-8859-1"' . "\r\n";
+				$message .= $content;
+	
+				$subscribers = ORM::factory('category')->get_subscribers($_GET['city']);
+				
+				if(!empty($subscribers)) {
+					foreach($subscribers as $sub) {
+						if(mail($sub['email'], $subject, $message, $headers)) {
+							$send=true;
+						}
+					}
+				} else {
+					Message::add('success', __('No user has been subscribe on this city.'));
+				}
+				
+				if($send==true) {
+					// message: save success
+					Message::add('success', __('Email has been sent to subscribers'));
+					
+					Request::current()->redirect('admin/deals');
+					return;
+				}
+			}
+		}
+			
+		if(!empty($result)) {
+			$res = array();
 			foreach($result as $ven) {
-				$res[] = $ven->as_array();
+				$res[] = !is_array($ven) ? $ven->as_array() : $ven;
 			}
 			
 			// Show Pager
@@ -80,7 +187,10 @@ class Controller_Admin_Deals extends Controller {
 			$page->paging = $pagination;
 			$page->deals = $res;
 			$page->show_pager = $show_page;
-		}
+		}	
+	
+		$page->cities = Kohana::config('global.cities');
+		$page->categories = Kohana::config('global.categories');
 		
 		$this->response->body($page);
 	}
@@ -362,7 +472,7 @@ class Controller_Admin_Deals extends Controller {
 				}
 			  
 				// message: save success
-        Message::add('success', __('Deal ' . $deals->title . 'has been successfully added.'));
+        Message::add('success', __(sprintf(LBL_SUCCESS_UPDATE, LBL_DEALS, $deals->title)));
 				
 				// Update all the Category Relationships
 				$posts['category'] = !empty($posts['category']) ? $posts['category'] : array();		

@@ -198,6 +198,9 @@ define("LBL_GROUP_DELETE", "Slet en gruppe");
 define("LBL_DEAL_DELETE", "Slet tilbud");
 define("LBL_SHOW_GROUP", "Vis efter gruppe");
 define("LBL_SHOW_CITY", "Vis efter");
+define("LBL_DEALS_ADD", "Add a Deal");
+define("LBL_DEAL_EDIT", "Edit a Deal");
+define("LBL_DEALS_DELETE", "Delete a Deal");
 
 define("LBL_DELETE_CONFIRM", "Er du sikker på du vil slette dette?");
 define("LBL_PASSWORD_CHANGE_NOTIFY", "Venligst opdatere din adgangskode. :password_url for at ændre din adgangskode.");
