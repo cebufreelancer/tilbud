@@ -339,7 +339,7 @@ class Controller_Admin_Deals extends Controller {
 		$page->deal_min_buy 	= isset($posts['deal_min_buy']) ? $posts['deal_min_buy'] : 0;
 		$page->deal_max_buy 	= isset($posts['deal_max_buy']) ? $posts['deal_max_buy'] : 5;
 		$page->deal_min_sold 	= isset($posts['deal_min_sold']) ? $posts['deal_min_sold'] : 5;
-		$page->deal_max_sold 	= isset($posts['deal_max_sold']) ? $posts['deal_max_sold'] : 5;
+		$page->deal_max_sold 	= isset($posts['deal_max_sold']) ? $posts['deal_max_sold'] : 0;
 		$page->start_date 		= isset($posts['deal_start_date']) ? $posts['deal_start_date'] : date("Y/m/d");
 		$page->end_date 			= isset($posts['deal_end_date']) ? $posts['deal_end_date'] : date("Y/m/d");
 		$page->expiry_date 		= isset($posts['deal_expiry_date']) ? $posts['deal_expiry_date'] : '';
