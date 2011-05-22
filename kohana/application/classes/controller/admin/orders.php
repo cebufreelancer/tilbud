@@ -129,14 +129,14 @@ class Controller_Admin_Orders extends Controller {
 			foreach($result as $ven) {
 				$res[] = !is_array($ven) ? $ven->as_array() : $ven;
 			}
+			
+			// Show Pager
+			$show_page = ($total > $pagination->items_per_page) ? TRUE : FALSE;
+	
+			$page->paging = $pagination;
+			$page->orders	= $res;
+			$page->show_pager = $show_page;
 		}
-		
-		// Show Pager
-		$show_page = ($total > $pagination->items_per_page) ? TRUE : FALSE;
-
-		$page->paging = $pagination;
-		$page->orders	= $res;
-		$page->show_pager = $show_page;
 		
 		$page->cities = Kohana::config('global.cities');
 		$page->categories = Kohana::config('global.categories');
