@@ -12,11 +12,12 @@ define("LBL_MY_ACCOUNT", "MIN KONTO");
 define("LBL_Billing_Info", "Betalingsoplysninger");
 define("LBL_My_Deals", "Mine køb");
 define("LBL_My_Orders", "Min ordre");
-define("LBL__LINKS", "Del med dine venner");
+define("LBL_SHARE_LINKS", "Del med dine venner");
 define("LBL_TAG_LINE", "De bedste tilbud på restauranter, rejser, wellness og meget andet.");
 define("LBL_MORE", "Mere");
 define("LBL_SEARCH", "SØG");
 define("LBL_SEARCH_RESULT", "Søgnings resultat for '<b>'%s'</b>' er i alt <b>%d</b> resultater");
+define("LBL_GO", "GO");
 
 define("LBL_PURCHASE", "Din bestiling");
 define("LBL_MY_PRICE", "Samlet pris");
@@ -31,7 +32,7 @@ define("LBL_PROMO_ENDED", "Tilbud stoppet");
 define("LBL_OFFER_ACTIVE_WHEN", "Tilbuddet bliver aktiv ved");
 define("LBL_BUY", "køb");
 define("LBL_BOUGHT", "har købt");
-define("LBL__ON_FACEBOOK", "Del på facebook!");
+define("LBL_SHARE_ON_FACEBOOK", "Del på facebook!");
 define("LBL_SPAR", "SPAR");
 define("LBL_WHAT_YOU_GET", "Det får du");
 define("LBL_INFORMATION", "Praktiske oplysninger");
@@ -161,6 +162,8 @@ define("LBL_GROUP", "Gruppe");
 define("LBL_PRODUCT", "Produkt");
 define("LBL_DEAL", "Tilbud");
 define("LBL_REFERENCE_NO", "Reference Nr");
+define("LBL_REFERENCE_NO_PREFIX", "Reference Nr Prefix");
+define("LBL_REFERENCE_NO_PREFIX_DESC", "Example: GG or ABC");
 define("LBL_YOUTUBE_VIDEO_URL", "YouTube Video Url");
 define("LBL_CITY_NAME", "Navn på by");
 
@@ -201,6 +204,7 @@ define("LBL_PASSWORD_CHANGE_NOTIFY", "Venligst opdatere din adgangskode. :passwo
 
 //  TO FRIEND
 define("LBL_SHARE_TO_FRIEND", "Du er blevet tilmeldt TilbudiByen hvor du modtager et tilbud hverdag");
+define("LBL_SHARE_LINK", "Del med dine venner");
 
 //Notification message
 define("LBL_SUCCESS_ADD", "%s %s Er blevet tilføjet med succes.");
