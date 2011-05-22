@@ -90,8 +90,7 @@ class Model_Deal extends ORM {
     $result = ORM::factory('deal')
              ->order_by('ID', 'DESC')
              ->where('status', '=', 'active')
-             ->where("DATE_FORMAT(NOW(), '%Y-%m-%d')",'<=', "DATE_FORMAT(start_date, '%Y-%m-%d')" )
-             ->where( "DATE_FORMAT(end_date, '%Y-%m-%d')", '>=' , "DATE_FORMAT(NOW(), '%Y-%m-%d')" )
+             ->where("end_date",'<=', "DATE_FORMAT(NOW(), '%Y-%m-%d')")
   	         ->limit($limit)
              ->find_all();
 		$deals = array();
