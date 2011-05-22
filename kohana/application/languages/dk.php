@@ -169,6 +169,7 @@ define("LBL_CITY_NAME", "Navn på by");
 
 define("LBL_ORDER", "Ordre");
 define("LBL_ORDER_EDIT", "Rediger en ordre");
+define("LBL_ORDER_DELETE", "Order Delete");
 define("LBL_ORDER_NEW", "Ny");
 define("LBL_ORDER_DELIVERED", "Leveret");
 define("LBL_ORDER_CANCELLED", "Annuleret");
@@ -200,7 +201,15 @@ define("LBL_SHOW_GROUP", "Vis efter gruppe");
 define("LBL_SHOW_CITY", "Vis efter");
 define("LBL_DEALS_ADD", "Add a Deal");
 define("LBL_DEAL_EDIT", "Edit a Deal");
-define("LBL_DEALS_DELETE", "Delete a Deal");
+define("LBL_DEALS_DELETE", "Slet tilbud");
+
+// EMAILS
+define("LBL_SEE_EMAIL", "See Email");
+define("LBL_EMAIL_TEMPLATES", "Email Templates");
+define("LBL_EMAIL_SUBJECT", "Subject");
+define("LBL_EMAIL_BODY", "Body");
+define("LBL_EMAIL_HTML", "Email HTML");
+define("LBL_EMAIL_PLAIN", "Email Plain-Text");
 
 define("LBL_DELETE_CONFIRM", "Er du sikker på du vil slette dette?");
 define("LBL_PASSWORD_CHANGE_NOTIFY", "Venligst opdatere din adgangskode. :password_url for at ændre din adgangskode.");
@@ -212,6 +221,7 @@ define("LBL_SHARE_LINK", "Del med dine venner");
 //Notification message
 define("LBL_SUCCESS_ADD", "%s %s Er blevet tilføjet med succes.");
 define("LBL_SUCCESS_UPDATE", "%s %s er blevet opdateret med susses.");
+define("LBL_SUCCESS_DELETE", "%s %s has been successfully deleted.");
 define("LBL_Successfully", "%s %s er blevet opdateret med susses.");
 define("LBL_Successfully_added", "Tilføjet med succes.");
 define("LBL_Successfully_saved", "Gemt med succes.");
