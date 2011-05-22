@@ -20,22 +20,70 @@
 					echo '</div></div>';
 				}
 				?>
-        
+
         <?php
 				$filters = array('email' => __(LBL_EMAIL),
 												 'name' => __(LBL_FULLNAME),
 												 'order' => __(LBL_ORDER),
-												 'refno' => __(LBL_REFERENCE_NO));
+												 'refno' => __(LBL_REFERENCE_NO),
+												 'date' => __(LBL_DATE));
 				
-				echo Form::open(Url::base(TRUE) . 'admin/orders', array('style' => 'margin-bottom: 25px;'));
+				echo Form::open(Url::base(TRUE) . 'admin/orders', array('method' => 'get'));
 					echo Form::label('show_order', __(LBL_ORDER_SEARCH));
-					echo '<div id="search-form">';
-					echo Form::input('search_string', '', array('class' => 'field', 'style' => 'width: 230px;'));
-					echo Form::select('search_filter', $filters);
+					echo Form::input('s', '', array('id' => 'search_string', 'class' => 'field', 'style' => 'width: 230px;'));
+					echo Form::input('df', '', array('id' => 'datefrom', 'class' => 'field', 'style' => 'width: 130px; display: none;'));
+					echo Form::input('dt', '', array('id' => 'dateto', 'class' => 'field', 'style' => 'width: 130px; display: none;'));
+					echo Form::select('f', $filters, NULL, array('id' => 'search_filter'));
 					echo Form::submit(NULL, __(LBL_SEARCH));
-					echo '</div>';
 				echo Form::close(); 
 				?>
+        <script type="text/javascript">
+					$(function() {
+						var dates = $( "#datefrom, #dateto" ).datepicker({
+							defaultDate: "+1w",
+							changeMonth: true,
+							dateFormat: "yy-mm-dd",
+							numberOfMonths: 3,
+							onSelect: function( selectedDate ) {
+								var option = this.id == "datefrom" ? "minDate" : "maxDate",
+									instance = $( this ).data( "datepicker" ),
+									date = $.datepicker.parseDate(
+										instance.settings.dateFormat ||
+										$.datepicker._defaults.dateFormat,
+										selectedDate, instance.settings );
+								dates.not( this ).datepicker( "option", option, date );
+							}
+						});
+					});
+					$("#search_filter").change(function() {
+						if($(this).val() == 'date') {
+							$("#datefrom").fadeIn('slow');
+							$("#dateto").fadeIn('slow');
+							$("#search_string").hide('fast');
+						} else {
+							$("#datefrom").hide();
+							$("#dateto").hide();
+							$("#search_string").show();
+						}
+					});
+				</script>
+        
+        <?php				
+				if(!empty($cities)) {
+					$cities[0] = "";
+					$categories[0] = "";
+					
+					ksort($cities);
+					ksort($categories);
+	
+					echo Form::open(Url::base(TRUE) . 'admin/orders', array('style' => 'margin-bottom: 25px;',
+																																	'method' => 'GET'));
+						echo Form::label('show_city', __(LBL_SHOW_CITY));
+						echo Form::select('cid', $cities, 0);
+						echo Form::select('gid', $categories, 0);
+						echo Form::submit(NULL, __(LBL_GO));
+					echo Form::close(); 
+				} ?>
         
 				<?php 
 				// Display query string result for searches
@@ -50,8 +98,8 @@
           <thead>
           <tr>
           	<td style="width:5px;"><?php echo Form::checkbox('obox_all', '', '',array('id' => 'obox_all')); ?></td>
-            <td width="550"><?php echo LBL_ORDERED_DEAL; ?></td>
-            <td>REF</td>
+            <td width="450"><?php echo LBL_ORDERED_DEAL; ?></td>
+            <td width="100">REF</td>
             <td><?php echo LBL_QUANTITY; ?></td>
             <td width="120"><?php echo LBL_PAID; ?></td>
             <td><?php echo LBL_STATUS; ?></td>

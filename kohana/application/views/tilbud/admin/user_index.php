@@ -29,8 +29,8 @@
 				
 				echo Form::open(Url::base(TRUE) . 'admin/users', array('style' => 'margin-top: 10px;'));
 					echo Form::label('show_city', __(LBL_USER_SEARCH));
-					echo '<div id="search-form">';
-					echo Form::input('search_string', '', array('class' => 'field'));
+					echo '<div id="">';
+					echo Form::input('search_string', '', array('class' => 'field', 'style' => 'width: 230px;'));
 					echo Form::select('search_filter', $filters);
 					echo Form::submit(NULL, __(LBL_SEARCH));
 					echo '</div>';
@@ -39,8 +39,9 @@
         
         <?php				
 				if(!empty($cities)) {
-					$cities = array_merge(array("0" => "All"), $cities);
-	
+					$cities[0] = "";				
+					ksort($cities);
+
 					echo Form::open(Url::base(TRUE) . 'admin/users', array('style' => 'margin-top: 10px;'));
 						echo Form::label('show_city', __(LBL_SHOW_CITY));
 						echo Form::select('show_city', $cities, $group, array('onChange' => 'javascript:submit(); return true;'));
@@ -71,8 +72,8 @@
           <?php
           foreach($users as $user) {
             $cur_user = ORM::factory('user', $user['id']);
-            $edit_url = HTML::anchor('admin/users/edit/' . $user['id'], 'Edit');
-            $delete_url = HTML::anchor('admin/users/delete/' . $user['id'], 'Delete');
+            $edit_url = HTML::anchor('admin/users/edit/' . $user['id'], __(LBL_EDIT));
+            $delete_url = HTML::anchor('admin/users/delete/' . $user['id'], __(LBL_DELETE), array('class' => 'delete'));
             $last_login = $user['last_login'] == NULL ? __(LBL_NEVER) : date("F j, Y",$user['last_login']);
             $is_admin = $cur_user->is_admin($cur_user) ? __(LBL_USER_ADMIN) : __(LBL_USER_MEMBER);
             $city = $cur_user->get_city($cur_user->email);

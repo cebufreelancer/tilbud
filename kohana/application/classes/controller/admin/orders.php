@@ -20,23 +20,30 @@ class Controller_Admin_Orders extends Controller {
 							->find_all();
 							
 		// For Search 
-		$posts = $this->request->post();		
-		if(!empty($posts)) {
-			if(isset($posts['search_string']) && isset($posts['search_filter'])
-				&& strlen($posts['search_string']) > 0) {
+		$get = $_GET;
+		
+		if(!empty($get)) {
+			if(isset($get['s']) && isset($get['f'])
+				&& (strlen($get['s']) > 0 || strlen($get['df']) > 0 || strlen($get['dt']) > 0)) {
 				
-				$search_str = strip_tags(strtolower($posts['search_string']));
+				$search_str = strip_tags(strtolower($get['s']));
 				
-				switch($posts['search_filter']) {
+				switch($get['f']) {
 				case 'email':
 					// Search for Email
 					$total = DB::select()->from('v_orders')->where(DB::expr('LOWER(email)'), 'like', '%' . $search_str . '%')->execute()->count();
-					$search = DB::select()->from('v_orders')->where(DB::expr('LOWER(email)'), 'like', '%' . $search_str . '%')->execute();
+					$search = DB::select()->from('v_orders')->where(DB::expr('LOWER(email)'), 'like', '%' . $search_str . '%')
+																->limit($pagination->items_per_page)
+																->offset($pagination->offset)
+																->execute();
 					break;
 					
 				case 'name':
 					$total = DB::select()->from('v_orders')->where(DB::expr('LOWER(lastname)'), 'like', '%' . $search_str . '%')->execute()->count();
-					$search = DB::select()->from('v_orders')->where(DB::expr('LOWER(lastname)'), 'like', '%' . $search_str . '%')->execute();
+					$search = DB::select()->from('v_orders')->where(DB::expr('LOWER(lastname)'), 'like', '%' . $search_str . '%')
+																->limit($pagination->items_per_page)
+																->offset($pagination->offset)
+																->execute();
 					break;
 					
 				case 'order':
@@ -50,13 +57,70 @@ class Controller_Admin_Orders extends Controller {
 					break;
 				case 'refno':
 					$total = $orders->where('refno', 'like', "%$search_str%")->count_all();
-					$search = $orders->where('refno', 'like', "%$search_str%")->find_all();
+					$search = $orders->where('refno', 'like', "%$search_str%")
+													 ->limit($pagination->items_per_page)
+													 ->offset($pagination->offset)
+													 ->find_all();
+					break;
+				case 'date':
+					$from = strlen($get['df']) > 0 ? $get['df'] : date("Y-m-d");
+					$to   = strlen($get['dt']) > 0 ? $get['dt'] : date("Y-m-d");
+					
+					if(strlen($from) > 0 && strlen($to) > 0) {
+						$total = $orders->where(DB::expr('DATE(date_created)'), '>=', $from)->and_where(DB::expr('DATE(date_created)'), '<=', $to)->count_all();
+						$search = $orders->where(DB::expr('DATE(date_created)'), '>=', $from)->and_where(DB::expr('DATE(date_created)'), '<=', $to)
+														 ->limit($pagination->items_per_page)
+														 ->offset($pagination->offset)
+														 ->find_all();
+						$search_str = date("Y-m-d", strtotime($from)) . ' - ' . date("Y-m-d", strtotime($to));
+					} else {
+						
+					}
+					
+					//$total = $orders->where(DB::expr('DATE(date_created)'), '=', '');
 					break;
 				}
 				
 				$page->query_result = sprintf(__(LBL_SEARCH_RESULT), $search_str, $total);
 				$pagination->total_items = $total;
 				$result = $search;
+			}
+			
+			// For filters
+			if(isset($get['cid']) && isset($get['gid'])
+				&& (strlen($get['cid']) > 0 || strlen($get['gid']) > 0)) {
+					$city_id = (int)$get['cid'] > 0 ? (int)$get['cid'] : "";
+					$cat_id  = (int)$get['gid'] > 0 ? (int)$get['gid'] : "";
+					
+				if($city_id > 0 || $cat_id > 0) {
+					if($city_id > 0 && $cat_id > 0) {
+						$total = DB::select()->from('v_orders')->where('city_id', '=', $city_id)->and_where('group_id', '=', $cat_id)->execute()->count();
+						$search = DB::select()->from('v_orders')->where('city_id', '=', $city_id)->and_where('group_id', '=', $cat_id)
+																	->limit($pagination->items_per_page)
+													  			->offset($pagination->offset)
+																	->execute();
+						
+						$search_str = __(LBL_CITY) . ': ' . ORM::factory('city', $city_id)->name . ' , ' . 
+													__(LBL_GROUP) . ': ' . ORM::factory('category', $cat_id)->name;
+					} else {
+						$id = $city_id>0 ? $city_id : $cat_id;
+						$col = $city_id>0 ? 'city_id' : 'group_id';
+						$model = $city_id>0 ? 'city' : 'category';
+						$label = $city_id>0 ? __(LBL_CITY) : __(LBL_GROUP);
+						
+						$total = DB::select()->from('v_orders')->where($col, '=', $id)->execute()->count();
+						$search = DB::select()->from('v_orders')->where($col, '=', $id)
+																	->limit($pagination->items_per_page)
+													  			->offset($pagination->offset)
+																	->execute();
+																	
+						$search_str = $label . ': ' . ORM::factory($model, $id)->name;
+					}
+					
+					$page->query_result = sprintf(__(LBL_SEARCH_RESULT), $search_str, $total);
+					$pagination->total_items = $total;
+					$result = $search;
+				} 
 			}
 		}
 
@@ -73,6 +137,9 @@ class Controller_Admin_Orders extends Controller {
 		$page->paging = $pagination;
 		$page->orders	= $res;
 		$page->show_pager = $show_page;
+		
+		$page->cities = Kohana::config('global.cities');
+		$page->categories = Kohana::config('global.categories');
 		
 		$this->response->body($page);
 	}
