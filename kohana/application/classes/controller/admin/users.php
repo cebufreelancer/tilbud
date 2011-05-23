@@ -138,7 +138,7 @@ class Controller_Admin_Users extends Controller_Useradmin_User {
 				$clean['username'] = substr($posts['email'], 0, strpos($posts['email'], "@"));
 				$clean['password'] = $posts['password'];
 				$clean['password_confirm'] = $posts['password_confirm'];
-				$clean['user_type'] = $posts['user_type'];
+				$clean['user_type'] = 'user'; // default  $posts['user_type'];
 				$clean['group_id'] = $posts['group'];
 				$clean['mobile'] = $posts['mobile'];
 				$clean['address']		= $posts['address'];
@@ -207,7 +207,7 @@ class Controller_Admin_Users extends Controller_Useradmin_User {
 			$clean['lastname'] 	= $posts['lastname'];
 			$clean['email'] 		= $posts['email'];
 			$clean['username'] 	= substr($posts['email'], 0, strpos($posts['email'], "@"));
-			$clean['user_type'] = $posts['user_type'];
+			$clean['user_type'] = 'user'; //$posts['user_type'];
 			$clean['group_id'] 	= $posts['group'];
 			$clean['mobile'] 		= $posts['mobile'];
 			$clean['address']		= $posts['address'];

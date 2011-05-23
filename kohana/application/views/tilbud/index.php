@@ -18,7 +18,7 @@
 
               <div id="slider">
                 <?php if (sizeof($images) == 1) {?>
-                  <img src="<?php echo URL::base(TRUE); ?>uploads/<?php echo $deal->ID . "/". rawurlencode("$images[0]"); ?>">
+                  <img src="<?php echo URL::base(TRUE); ?>uploads/<?php echo $deal['ID'] . "/". rawurlencode("$images[0]"); ?>">
                 <?php }else{?>
                   <ul id="sliderContent"> 
                     <?php foreach($images as $img) {?>
@@ -53,8 +53,8 @@
               	  <p class="huge buy-label" style="width: 935px;"><?php echo $newprice . ',-' . HTML::anchor('deals/buy/' . $deal['ID'], HTML::image('images/buy.png', array('title' => LBL_Buy_now, 'style' => 'margin-bottom: -10px;'))); ?>
 								
       								<?php 
-      								if(isset($deal->youtube_url) && $deal->youtube_url != "") {
-      									echo HTML::anchor($deal->youtube_url, 
+      								if(isset($deal['youtube_url']) && $deal['youtube_url'] != "") {
+      									echo HTML::anchor($deal['youtube_url'], 
       																		HTML::image('images/play.png', array('class' => 'playbutton')), 
       																		array('id' => 'youtubevideo',
       																					'title' => 'Promo Video'));

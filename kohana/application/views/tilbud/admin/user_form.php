@@ -46,9 +46,15 @@
                                                      'required' => true,
                                                      'type' => 'tel')); ?>
     </li>
+    <!--
+    <?php
+    /*
     <li><?php echo $form->label('user_type', __(LBL_USER_TYPE)); ?>
         <?php echo $form->select('user_type', $user_types, $user_type); ?>
     </li>
+    */
+    ?>
+    -->
     <li>
       <?php echo $form->submit(NULL, __(LBL_SAVE)); ?>
       <?php echo HTML::anchor($_SERVER['HTTP_REFERER'], LBL_CANCEL, array('class' => 'cancel')); ?>
