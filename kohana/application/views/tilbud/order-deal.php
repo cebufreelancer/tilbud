@@ -34,12 +34,12 @@
 					 $form->errors = $errors;
 				}
 				
-				$deal_title = $deal->title;
-				$qmin = isset($deal->min_buy) ? $deal->min_buy : 1;
-				$qmax = isset($deal->max_buy) ? $deal->max_buy : 1;
+				$deal_title = $deal['title'];
+				$qmin = isset($deal['min_buy']) ? $deal['min_buy'] : 1;
+				$qmax = isset($deal['max_buy']) ? $deal['max_buy'] : 1;
 				for($i=$qmin; $i<=$qmax; $i++) { $quantity[$i] = $i; }
-				if(isset($deal->regular_price)) {
-					$deal_price = ($deal->regular_price * (100 - $deal->discount)) / 100;
+				if(isset($deal['regular_price'])) {
+					$deal_price = ($deal['regular_price'] * (100 - $deal['discount'])) / 100;
 					$price = number_format($deal_price, 2, '.', '');
 				} else {
 					$price = 0;
@@ -62,7 +62,7 @@
 				<tbody>
 					<tr>
 						<td><?php echo $deal_title; ?>
-            	<div style="font-size: 11px; font-weight: normal; color: #999999;"><?php echo $deal->contents_title; ?></div>
+            	<div style="font-size: 11px; font-weight: normal; color: #999999;"><?php echo $deal['contents_title']; ?></div>
             </td>
 
 						<td><?php echo Form::select('quantity', isset($quantity) ? $quantity : array(1=>1), 0, array('autofocus' => true)); ?> </td>
@@ -220,7 +220,7 @@
           </li>
         </ul>
         <?php 
-				echo $form->hidden('did', $deal->ID);
+				echo $form->hidden('did', $deal['ID']);
 				echo $form->close(); 
 				?>
 				

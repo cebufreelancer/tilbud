@@ -26,9 +26,9 @@
             <?php echo $email; ?><br /><br/>
             
             <b><?php echo __(LBL_SELLER); ?></b><br/>
-            TilbudiByen.dk<br/>
-            Nørregade 7B<br/>
-            1165 København K<br/>
+            <?php echo mb_convert_encoding("TilbudiByen.dk", "ISO-8859-1", "UTF-8"); ?><br/>
+            <?php echo mb_convert_encoding("Nørregade 7B", "ISO-8859-1", "UTF-8"); ?><br/>
+            <?php echo mb_convert_encoding("1165 København K", "ISO-8859-1", "UTF-8"); ?><br/>
             CVR nummer: 33583400<br/>
             </td>
             <td width="50%">
@@ -72,17 +72,20 @@
           </tfoot>
           </table>
           
-          <p>Husk at oplyse dit Ordernummer hvis du skulle få brug for at henvende dig til TilbudiByens kundeservice i forbindelse med din bestilling.</p>
+          <p>
+            <?php echo mb_convert_encoding("Husk at oplyse dit Ordernummer hvis du skulle få brug for at henvende dig til TilbudiByens kundeservice i forbindelse med din bestilling.", "ISO-8859-1", "UTF-8"); ?><br/>
+            
+          </p>
           
           <p>Med venlig hilsen<br />
              TilbudiByen.dk<br />
              <?php echo HTML::image('images/logo.png', array('alt' => 'Tilbug i Byen', 'style' => 'background: #000; width: 200px;')); ?>
              
              <br /><br />
-  TilbudIbyen.dk ApS, Nørregade 7B, 1165 København K <br />
-  CVR nummer: 33583400
-  <br /><br />
-  Du kan ikke svare direkte på denne e-mail. Du bedes benytte kontakt-siden på TilbudiByen.dk
+             <?php echo mb_convert_encoding("TilbudIbyen.dk ApS, Nørregade 7B, 1165 København K", "ISO-8859-1", "UTF-8"); ?><br/>
+              CVR nummer: 33583400
+              <br /><br />
+
           </p>
         </div>
 			</div>

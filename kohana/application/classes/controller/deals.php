@@ -238,7 +238,7 @@ class Controller_Deals extends Controller {
 		}
 		
 		if(isset($deal_id)) {
-			$deal = ORM::factory('deal', $deal_id);
+			$deal = ORM::factory('deal', $deal_id)->as_array();
 			$page->deal = $deal;
 			$page->cardtypes = array("visa" => "VISA", 
 															 "mastercard" => "Master Card",
