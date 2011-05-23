@@ -67,8 +67,8 @@ class Controller_Admin_Emails extends Controller {
 		
 		$name  = $user['lastname'] . ', ' . $user['firstname'];
 		
-		$to = $user['email'];
-		$subject = "Tillykke med dit køb: {$deal['contents_title']} hos TilbudiByen.dk (Ordrenummer {$order['ID']}";
+		$to = $_POST['TEST_EMAIL'];
+		$subject = "Tillykke med dit køb: {$deal['contents_title']} hos TilbudiByen.com (Ordrenummer {$order['ID']}";
 		$headers = 'MIME-Version: 1.0' . "\r\n";
 		$headers .= "Content-type: text/html; charset=UTF-8" . "\r\n";
 		$headers .= "From: no-reply@tilbudibyen.com" . "\r\n".
