@@ -31,91 +31,104 @@ class Controller_Admin_Emails extends Controller {
 											);
 	}
 	
+	public function action_view($deal_id)
+	{
+		$page  = View::factory('tilbud/admin/emails/view');
+		$deals = ORM::factory('deal', $deal_id);
+		$emails = ORM::factory('email', 1);
+		
+		$posts = $this->request->post();
+		if(!empty($posts)) {
+			
+		}
+		
+		switch($_GET['type']) {
+			case 'deals': 
+				$email_id = 2; 
+				
+				// Load Variables
+					// construct URL *kludge*
+				$DEAL 					= $deals->description;
+				$EMAILFORMATURL = HTML::anchor(Url::base(TRUE) . 'deals/email_format/'.$deals->ID, 'klik her');
+				$BGHEADER				= url::base(TRUE) . 'images/bg-header.png';
+				$LOGO						= HTML::Image(Url::base(TRUE).'images/logo.png');
+				$FACEBOOK				= HTML::Image(Url::base(TRUE).'images/facebook-like.png');
+				
+				$DEALTITLE			= $deals->title;
+				$DEALURL				= HTML::anchor(Url::base(TRUE) . 'deals/view/' . $deals->ID, 
+													HTML::Image(Url::base(TRUE) . 'images/ordernow.png', array('alt' => 'Order Now',
+																																										 'style' => 'margin-bottom: 20px;')));
+				$DEALREGPRICE		= $deals->regular_price;
+				$DEALPRICE			= ($deals->regular_price * (100 - $deals->discount)) / 100;
+				$DEALCLASS			= strlen($DEALPRICE) > 5 ? ' font-size: 45px;' : '';
+				$DEALDISCOUNT		= $deals->discount;
+				$DEALSAVINGS		= $deals->regular_price - $DEALPRICE;
+				$DEALINFO				= $deals->information;
+				$DEALIMAGE			= HTML::Image(Url::base(TRUE) . 'uploads/' . $deals->ID . '/' . rawurlencode($deals->image), 
+															array('width' => 445, 
+																		'height' => 300, 
+																		'style' => 'margin-bottom: 20px;'));
+				$DEALCONTENTS 	= $deals->contents;
+				
+				$LOCATION				= $deals->addresses;
+				break;
+			default:  		$email_id = 1; break;
+		}
+		
+		$emails = ORM::factory('email', $email_id);
+		
+		$subject = addslashes($emails->subject);
+		$body    = addslashes($emails->text);
+		
+		eval("\$text=\"$body\";");
+		eval("\$subject=\"$subject\";");
+		
+		$page->subject = html_entity_decode($subject);
+		$page->body		 = html_entity_decode($text);
+		
+		$this->response->body($page);
+	}
+	
 	public function action_add()
 	{		
-		$category = ORM::factory('category');
-		
+		$page  = View::factory('tilbud/admin/emails/form');
+		$page->label = __(LBL_EMAIL_TEMPLATE_ADD);
+
+		$emails = ORM::factory('email');
+
 		// Get posts
 		$posts = $this->request->post();
-		
-		// This will check if submitted
 		if(!empty($posts)) {
-					
-			$category->name = htmlentities($posts['group']);
-			$category->url_code = '';
-			//$category->order = (int)$posts['order'];
-					
-			if($category->save()) {
+			
+			$emails->name = $posts['template_name'];
+			$emails->subject = $posts['subject'];
+			$emails->text = $posts['body'];
+			
+			if($emails->save()) {
 				// message: save success
-        Message::add('success', __(sprintf(LBL_SUCCESS_ADD, LBL_GROUP, $category->name)));
-						
+        Message::add('success', __(sprintf(LBL_SUCCESS_ADD, LBL_EMAIL_TEMPLATES, $emails->name)));
+				
 				// Assuming all is correct
-				Request::current()->redirect('admin/groups');
+				Request::current()->redirect('admin/emails');
 				return;
 			}
 		}
-				
-		$this->response->body(View::factory('tilbud/admin/categories/category_form')
-														->set('category', isset($posts['city']) ? $posts['city'] : '')
-														->set('label', __(LBL_GROUP_ADD))
-											);
+		
+		$page->body = isset($posts['body']) ? $posts['body'] : '';
+		$page->subject = isset($posts['subject']) ? $posts['subject'] : '';
+		$page->template_name = isset($posts['template_name']) ? $posts['template_name'] : '';
+		
+		$this->response->body($page);
 	}
 	
 	public function action_edit($id=NULL)
 	{
-		$category = ORM::factory('category', $id);
 		
-		// Get posts
-		$posts = $this->request->post();
-		
-		// This will check if submitted
-		if(!empty($posts)) {
-			$category->name = htmlentities($posts['group']);
-					
-			if($category->save()) {
-				// message: save success
-        Message::add('success', __(sprintf(LBL_SUCCESS_UPDATE, LBL_GROUP, $category->name)));
-						
-				// Assuming all is correct
-				Request::current()->redirect('admin/groups');
-				return;
-			}
-		}
-				
-		$this->response->body(View::factory('tilbud/admin/categories/category_form')
-														->set('category', isset($posts['group']) ? $posts['group'] : html_entity_decode($category->name))
-														->set('label', __(LBL_CITY_EDIT))
-											);
 	}
 	
 	public function action_delete($id=NULL)
 	{
-		$page = View::factory('tilbud/admin/confirm_delete');
-	
-		$category = ORM::factory('category', $id);
 		
-		// Get posts
-		$posts = $this->request->post();
-		
-		// This will check if submitted
-		if(!empty($posts)) {
-			if(strcmp($posts['submit'], 'Ok') == 0) {
-				if($category->loaded()) {
-					$category->delete();
-				}
-			}
-		
-			// Assuming all is correct
-			Request::current()->redirect('admin/groups');
-			return;
-
-		} else {
-			$rec['group'] = html_entity_decode($category->name);
-		}
-		$this->response->body(View::factory('tilbud/admin/confirm_delete')
-														->set('records',$rec)
-														->set('label', __(LBL_GROUP_DELETE))
-											);
 	}
 	
 	public function before() 
