@@ -7,11 +7,37 @@ class Controller_Home extends Controller {
     require('fpdf.php');
     $contents = "TILBUDIBYEN";
 
+$contents = "
+TILBUDIBYEN
+
+
+2 take a way
+";
     $pdf=new FPDF();
     $pdf->AddPage();
-    $pdf->SetFont('Arial','B',16);
-    $pdf->Cell(40,10, $contents);
+
+    $pdf->SetFont('Arial','',12);
+    //Background color
+    $pdf->SetFillColor(200,220,255);
+    //Title
+    $pdf->Cell(0,6,"Chapter 1 : label",0,1,'L',true);
+    //Line break
+    $pdf->Ln(4);
+
+  	$pdf->MultiCell(0,5,$contents);
+  	//Line break
+  	$pdf->Ln();
+  	//Mention in italics
+  	$pdf->SetFont('','I');
+  	$pdf->Cell(0,5,'(end of excerpt)');
+
+    
     $pdf->Output('testing123.pdf', 'F');
+
+
+
+
+    
   }
 
 	public function action_index()
