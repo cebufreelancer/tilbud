@@ -160,26 +160,18 @@ class Controller_Admin_Emails extends Controller {
 					if(!empty($err_mails))
 						$errors['to'] = __(INVALID_EMAIL . " - " . implode(",", $err_mails));
 				}
-				echo '<pre>'; print_r($posts); echo '</pre>';
 				
 				if(!empty($errors)) {
 					$page->errors = $errors;
 				} else {
 					// Send Emails
-									
-					$to = implode(",", $emails);
-					$subject = $posts['subject'];
-					$headers = 'MIME-Version: 1.0' . "\r\n";
-					$headers .= "Content-type: text/html; charset=UTF-8" . "\r\n";
-					$headers .= "From: no-reply@tilbudibyen.com" . "\r\n".
-											"Reply-To: no-reply@tilbudibyen.com" . "\r\n".
-											"X-Mailer: PHP/" . phpversion();
-					
-					$message = $posts['body'];
-					
-					if(mail($to, $subject, $message, $headers)) {
+					$mailer = new XMail();
+					$mailer->subject = $posts['subject'];
+					$mailer->message = $posts['body'];
+					$mailer->to			 = implode(",", $emails);
+
+					if($mailer->send()) {					
 						Message::add('success', __(LBL_EMAIL_SENT));
-						
 						$this->request->redirect('admin/deals');
 						return;
 					} // End of Mailer
