@@ -91,7 +91,7 @@ $contents = sprintf("
   Det med småt
   Kan indløses man-lør 11-15.
   Jailhouse Cph, Studiestræde 12, kld, 1455 København K. Tlf. 33152255
-", $deal['title'], $deal['description'] )
+", $deal['title'], $deal['description'] );
 
     $pdf = new FPDF('P', 'pt', array(500,233));
     $pdf->AddPage();
