@@ -174,7 +174,7 @@ $contents = sprintf("
 							$err_mails[] = $mail;
 											
 						if(!empty($err_mails))
-							$errors['to'] = __(INVALID_EMAIL . " - " . implode(",", $err_mails));
+							$errors['to'] = __(LBL_INVALID_EMAIL . " - " . implode(",", $err_mails));
 					}
 				}
 				
