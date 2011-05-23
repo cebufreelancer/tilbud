@@ -105,7 +105,7 @@ class Controller_Home extends Controller {
 				// Add email to users
 				try {
 					// Construct username
-					$username = substr($email, 0, strpos($email, "@"));
+					$username = $email; // substr($email, 0, strpos($email, "@"));
 					
 					$user['username'] = $username;
 					$user['firstname'] = $username;
