@@ -30,16 +30,56 @@ class Controller_Admin_Emails extends Controller {
 													->set('no_pager', TRUE)
 											);
 	}
-	
+
 	public function action_view($deal_id)
 	{
 		$page  = View::factory('tilbud/admin/emails/view');
 		$deals = ORM::factory('deal', $deal_id);
-		$emails = ORM::factory('email', 1);
-		
+				
+		// Send or Send to Subscribers is requested
 		$posts = $this->request->post();
 		if(!empty($posts)) {
-			
+		
+			if(isset($posts['submit']) || isset($posts['submitall'])) {
+				
+				$_GET['type'] = 'deals';
+				
+				$emails = explode(",", $posts['to']);
+				$err_mails = array();
+				foreach($emails as $mail) {
+					
+					if(!Valid::email(trim($mail)))
+						$err_mails[] = $mail;
+										
+					if(!empty($err_mails))
+						$errors['to'] = __(INVALID_EMAIL . " - " . implode(",", $err_mails));
+				}
+				echo '<pre>'; print_r($posts); echo '</pre>';
+				
+				if(!empty($errors)) {
+					$page->errors = $errors;
+				} else {
+					// Send Emails
+									
+					$to = implode(",", $emails);
+					$subject = $posts['subject'];
+					$headers = 'MIME-Version: 1.0' . "\r\n";
+					$headers .= "Content-type: text/html; charset=UTF-8" . "\r\n";
+					$headers .= "From: no-reply@tilbudibyen.com" . "\r\n".
+											"Reply-To: no-reply@tilbudibyen.com" . "\r\n".
+											"X-Mailer: PHP/" . phpversion();
+					
+					$message = $posts['body'];
+					
+					if(mail($to, $subject, $message, $headers)) {
+						Message::add('success', __(LBL_EMAIL_SENT));
+						
+						$this->request->redirect('admin/deals');
+						return;
+					} // End of Mailer
+				
+				} // End of Error Checking
+			} // End of Posts Submit
 		}
 		
 		switch($_GET['type']) {
@@ -47,7 +87,6 @@ class Controller_Admin_Emails extends Controller {
 				$email_id = 2; 
 				
 				// Load Variables
-					// construct URL *kludge*
 				$DEAL 					= $deals->description;
 				$EMAILFORMATURL = HTML::anchor(Url::base(TRUE) . 'deals/email_format/'.$deals->ID, 'klik her');
 				$BGHEADER				= url::base(TRUE) . 'images/bg-header.png';
@@ -71,10 +110,12 @@ class Controller_Admin_Emails extends Controller {
 				$DEALCONTENTS 	= $deals->contents;
 				
 				$LOCATION				= $deals->addresses;
+				
+				$page->type			= $_GET['type'];
 				break;
 			default:  		$email_id = 1; break;
 		}
-		
+
 		$emails = ORM::factory('email', $email_id);
 		
 		$subject = addslashes($emails->subject);
@@ -85,6 +126,7 @@ class Controller_Admin_Emails extends Controller {
 		
 		$page->subject = html_entity_decode($subject);
 		$page->body		 = html_entity_decode($text);
+		$page->to			 = isset($posts['to']) ? $posts['to'] : '';
 		
 		$this->response->body($page);
 	}

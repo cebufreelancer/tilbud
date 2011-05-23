@@ -214,6 +214,7 @@ define("LBL_EMAIL_PLAIN", "Email Plain-Text");
 define("LBL_EMAIL_TEMPLATE_ADD", "Add Email Template");
 define("LBL_EMAIL_TEMPLATE_NAME", "Template Name");
 define("LBL_EMAIL_TAGS", "Email Available Tags");
+define("LBL_EMAIL_SENT", "Email has been successfully sent.");
 
 define("LBL_DELETE_CONFIRM", "Er du sikker på du vil slette dette?");
 define("LBL_PASSWORD_CHANGE_NOTIFY", "Venligst opdatere din adgangskode. :password_url for at ændre din adgangskode.");
@@ -235,6 +236,7 @@ define("LBL_Successfully_deleted", "Slettet med succes.");
 define("LBL_THANKYOU_FOR_INVITING", "Tak fordi du hjælper med at dele tilbudet");
 define("LBL_INVALID_SESSION", "Ugyldig session");
 define("LBL_SEND", "Send");
+define("LBL_SEND_ALL", "Send to Subscribers");
 
 define("LBL_COMMA_DELIMITED", "Adskild med komma (,)");
 define("LBL_CONFIRM", "bekræft");
