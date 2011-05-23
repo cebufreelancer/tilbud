@@ -231,8 +231,8 @@ class Controller_Admin_Users extends Controller_Useradmin_User {
 			
 			if(empty($errors)) {
 				// Update Roles
-				$user->remove('roles');
-				$user->add('roles', ORM::factory('role')->where('name', '=', 'login')->find());
+				//$user->remove('roles');
+				//$user->add('roles', ORM::factory('role')->where('name', '=', 'login')->find());
 				/*
 					Removed upon clients requests --(x x)--
 					if($posts['user_type'] == 'admin') {
