@@ -190,15 +190,13 @@ $contents = sprintf("
 						$subscribers = ORM::factory('category')->get_subscribers($deals->city_id);
 						
 						if(!empty($subscribers)) {
-							$i=0;
 							foreach($subscribers as $sub) {
-								if($i==0) {
-									$mailer->to = $sub['email'];
-								} else {
-									$mailer->addBCC('',$sub['email']);
-								}
-								$i++;
+								$mailer->to = $sub['email'];
+								$mailer->send();
 							}
+							Message::add('success', __(LBL_EMAIL_SENT));
+							$this->request->redirect('admin/deals');
+							return;
 						} else {
 							Message::add('success', __(LBL_NO_SUBSCRIBERS));
 							$this->request->redirect('admin/deals');
