@@ -187,7 +187,7 @@ class Controller_Deals extends Controller {
 						 *    Email the user
 						************************/ 
 						$to = $user->email;
-						$subject = "Tillykke med dit køb: {$this_deal->contents_title} hos TilbudiByen.dk (Ordrenummer {$this_deal->ID}";
+						$subject = "Tillykke med dit køb: {$this_deal->contents_title} hos TilbudiByen.dk (Ordrenummer {$proc_order->ID}";
 						$headers = 'MIME-Version: 1.0' . "\r\n";
 						$headers .= "Content-type: text/html; charset=UTF-8" . "\r\n";
 						$headers .= "From: no-reply@tilbudibyen.com" . "\r\n".
@@ -200,7 +200,7 @@ class Controller_Deals extends Controller {
 						$user = ORM::factory('user', $order->user_id);
 
 						ob_start();
-						include_once(APPPATH . 'views/tilbud/template_order.php');
+						include_once(APPPATH . 'views/tilbud/template_after_order.php');
 						$content = ob_get_clean();
 						
 						$message = $content;
