@@ -237,6 +237,7 @@ define("LBL_THANKYOU_FOR_INVITING", "Tak fordi du hjælper med at dele tilbudet")
 define("LBL_INVALID_SESSION", "Ugyldig session");
 define("LBL_SEND", "Send");
 define("LBL_SEND_ALL", "Send to Subscribers");
+define("LBL_NO_SUBSCRIBERS", "There are no subscribers on this city");
 
 define("LBL_COMMA_DELIMITED", "Adskild med komma (,)");
 define("LBL_CONFIRM", "bekræft");

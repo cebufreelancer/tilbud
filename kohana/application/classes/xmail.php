@@ -52,7 +52,11 @@ class XMail
 		// Set BCC
 		if(!empty($this->BCC)) {
 			foreach($this->BCC as $bcc) {
-				$b[] = "{$bcc['name']} <{$bcc['email']}>";
+				if(isset($bcc['name'])) {
+					$b[] = "{$bcc['name']} <{$bcc['email']}>";
+				} else {
+					$b[] = $bcc['email'];
+				}
 			}
 			$headers .= "BCC: " . implode(", ", $b) . "\n";
 		}
@@ -93,8 +97,8 @@ class XMail
 		$to 		 = isset($to) ? $to : $this->to;
 		$subject = isset($subject) ? $subject : $this->subject;
 		$message = isset($message) ? $message : $this->message;
-		
-		return mail($to, $subject, $message, $headers);
+		echo $this->__headers();
+		//return mail($to, $subject, $message, $headers);
 	}
 }
 ?>
