@@ -19,10 +19,10 @@ class Controller_Deals extends Controller {
 	}
 	
 	public function action_view($id){
-    $deal 	= ORM::factory('deal', $id);
-    $deal_images = ORM::factory('deal')->get_mainimages($deal->ID);
-    $orders = ORM::factory('order')->get_orders($deal->ID);
-    $product = ORM::factory('product')->get_product($deal->product_id);
+    $deal 	= ORM::factory('deal', $id)->as_array();
+    $deal_images = ORM::factory('deal')->get_mainimages($deal['ID']);
+    $orders = ORM::factory('order')->get_orders($deal['ID']);
+    $product = ORM::factory('product')->get_product($deal['product_id']);
     $vendor = ORM::factory('vendor')->get_vendor($product->vendor_id);
     $address = $vendor->address;
 

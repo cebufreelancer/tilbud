@@ -17,14 +17,14 @@ class Controller_Home extends Controller {
 	{
 		$page = View::factory('tilbud/index');
     $deal = ORM::factory('deal')->get_featured();  
-    $deal_images = ORM::factory('deal')->get_mainimages($deal->ID);
+    $deal_images = ORM::factory('deal')->get_mainimages($deal['ID']);
     $total_qty = 0;
 		
 		if(!empty($deal)) {
-			$orders = ORM::factory('order')->get_orders($deal->ID);
-			$product = ORM::factory('product')->get_product($deal->product_id);
+			$orders = ORM::factory('order')->get_orders($deal['ID']);
+			$product = ORM::factory('product')->get_product($deal['product_id']);
 			//$vendor = ORM::factory('vendor')->get_vendor($product->vendor_id);
-			$address = $deal->addresses;
+			$address = $deal['addresses'];
 			
 			$page->deal = $deal;
 			$page->images = $deal_images;

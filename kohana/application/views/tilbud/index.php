@@ -10,8 +10,8 @@
       <ul id="deals-container">
       	<li>
           <div class="deal-title">
-            <h1><a href=""><?php echo $deal->title ?></a></h1>
-            <p><?php echo substr(html_entity_decode(strip_tags($deal->description)), 0, 200); ?></p>
+            <h1><a href=""><?php echo $deal['title'] ?></a></h1>
+            <p><?php echo substr(html_entity_decode(strip_tags($deal['description'])), 0, 200); ?></p>
           </div>
 
           <div class="deal-banner" style="position: static" >
@@ -23,7 +23,7 @@
                   <ul id="sliderContent"> 
                     <?php foreach($images as $img) {?>
                       <li class="sliderImage"> 
-                          <img src="<?php echo URL::base(TRUE); ?>uploads/<?php echo $deal->ID . "/". rawurlencode("$img"); ?>">
+                          <img src="<?php echo URL::base(TRUE); ?>uploads/<?php echo $deal['ID'] . "/". rawurlencode("$img"); ?>">
                           <span class="top"></span> 
                       </li>
                     <?php } ?>
@@ -35,7 +35,7 @@
               <div class="buy-container" style="z-index: 99; position: relative">
               	  <?php 
 
-              	  $price = (float) ($deal->regular_price * (100 - $deal->discount)) / 100 ;
+              	  $price = (float) ($deal['regular_price'] * (100 - $deal['discount'])) / 100 ;
               	  $pricex = explode(".", $price);
 
                   if (sizeof($pricex) > 1) {
@@ -50,7 +50,7 @@
                   
               	  
               	  ?>
-              	  <p class="huge buy-label" style="width: 935px;"><?php echo $newprice . ',-' . HTML::anchor('deals/buy/' . $deal->ID, HTML::image('images/buy.png', array('title' => LBL_Buy_now, 'style' => 'margin-bottom: -10px;'))); ?>
+              	  <p class="huge buy-label" style="width: 935px;"><?php echo $newprice . ',-' . HTML::anchor('deals/buy/' . $deal['ID'], HTML::image('images/buy.png', array('title' => LBL_Buy_now, 'style' => 'margin-bottom: -10px;'))); ?>
 								
       								<?php 
       								if(isset($deal->youtube_url) && $deal->youtube_url != "") {
@@ -84,13 +84,13 @@
               </div>
 							
               <div class="buy-container" style="z-index: 100; position: relative" >
-              	<p class="discounts" style="text-align: left">Værdi <?php echo number_format($deal->regular_price, 2, '.', ''); ?>,- <span style="float:right;">Rabat <?php echo number_format($deal->discount, 0, '.', ''); ?>%</span></p>
+              	<p class="discounts" style="text-align: left">Værdi <?php echo number_format($deal['regular_price'], 2, '.', ''); ?>,- <span style="float:right;">Rabat <?php echo number_format($deal['discount'], 0, '.', ''); ?>%</span></p>
               </div>
             
               <div style="z-index: 151; position: relative">
                 <div class="buy-container" style="">
                   <?php
-                  $tmp_end_date = strtotime($deal->end_date);
+                  $tmp_end_date = strtotime($deal['end_date']);
                   $end_date = date("D M d Y", $tmp_end_date);
                   ?>
                 	<script type="text/javascript">
@@ -110,17 +110,17 @@
             
               <div style="z-index: 101; position: relative">
                 <div class="offer-container" style="z-index: 87">
-                	<p class="period-label"><?= LBL_OFFER_ACTIVE_WHEN ?> <?php echo $deal->min_sold; ?> <?= LBL_BUY ?></p>
+                	<p class="period-label"><?= LBL_OFFER_ACTIVE_WHEN ?> <?php echo $deal['min_sold']; ?> <?= LBL_BUY ?></p>
                   <p class="period"><?php echo $total_qty; ?> <?= LBL_BOUGHT ?></p>
                 </div>
 
                 <div class="social-container" style="z-index: 86">
-                  <a target="_blank" href="http://www.addthis.com/bookmark.php?v=250&amp;winname=addthis&amp;pub=ra-4d6e3a782d6e35f6&amp;source=tbx-250&amp;lng=da&amp;s=facebook&amp;url=<?php echo url::base(true) . "deals/view/" . $deal->ID?>">
+                  <a target="_blank" href="http://www.addthis.com/bookmark.php?v=250&amp;winname=addthis&amp;pub=ra-4d6e3a782d6e35f6&amp;source=tbx-250&amp;lng=da&amp;s=facebook&amp;url=<?php echo url::base(true) . "deals/view/" . $deal['ID']?>">
                 	  <?php echo HTML::image('images/facebook.jpg', array('alt' => LBL_SHARE_ON_FACEBOOK)); ?>
                 	</a>
                 </div>
               
-                <div class="save-label"><?= LBL_SPAR ?> <?php echo number_format($deal->discount, 0, '.', ''); ?>%</div>
+                <div class="save-label"><?= LBL_SPAR ?> <?php echo number_format($deal['discount'], 0, '.', ''); ?>%</div>
                 <div class="clear"></div>
               </div>
             
@@ -131,19 +131,19 @@
     	
     	<div id="body-content">
       	<div class="posts">
-        	<h1><a href="" class="posts-title"><?php echo html_entity_decode($deal->contents_title); ?></a></h1>
+        	<h1><a href="" class="posts-title"><?php echo html_entity_decode($deal['contents_title']); ?></a></h1>
           
-          <p><?php echo str_replace("\n", "<br/>", html_entity_decode($deal->contents)); ?></p>
+          <p><?php echo str_replace("\n", "<br/>", html_entity_decode($deal['contents'])); ?></p>
 
 					<div id="deals-info">
             <ul>
               <li class="dhead-one"><?= LBL_WHAT_YOU_GET?></li>
-              <li><p><?php echo html_entity_decode($deal->whatyouget); ?>   </p>
+              <li><p><?php echo html_entity_decode($deal['whatyouget']); ?>   </p>
               </li>
             </ul>
             <ul>
             	<li class="dhead-two "><?= LBL_INFORMATION ?></li>
-              <li><p> <?php echo html_entity_decode($deal->information); ?></p></li>
+              <li><p> <?php echo html_entity_decode($deal['information']); ?></p></li>
             </ul>
         	</div>
         	
@@ -152,7 +152,7 @@
               <li class="dhead-one"> <?= LBL_ADDRESS?> </li>
               <li><p> 
               <?php
-              $decoded_address = html_entity_decode($deal->addresses);
+              $decoded_address = html_entity_decode($deal['addresses']);
               $clean_address = str_replace("\n", "<br/>", $decoded_address);
               echo $clean_address;
               ?></p> </li>

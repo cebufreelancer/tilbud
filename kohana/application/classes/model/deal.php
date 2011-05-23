@@ -108,35 +108,9 @@ class Model_Deal extends ORM {
 	}
 
 	public function get_featured() {
-	  $deals = ORM::factory('deal')
-	          ->where('is_featured', '=', 1)
-	          ->and_where('status', '=', 'active')
-	          ->and_where('start_date', '>=', date('Y-m-d'))
-	          ->and_where('end_date', '<=', date('Y-m-d'))
-	          ->limit(1)
-	          ->order_by('end_date', 'DESC')
-	          ->find_all();
-
-    $d = NULL;
-    foreach($deals as $deal){
-      $d =  $deal;
-    }
-    
-    if ($d == NULL){
-  	  $deals = ORM::factory('deal')
-  	          ->where('is_featured', '=', 1)
-  	          ->and_where('status', '=', 'active')
-  	          ->limit(1)
-  	          ->order_by('date_create', 'DESC')
-  	          ->find_all();
-
-      foreach($deals as $deal){
-        $d =  $deal;
-      }
-      
-    }
-    
-    return $d;
+    $sql = "SELECT `deals`.* FROM `deals` WHERE `is_featured` = 1 AND `status` = 'active' AND (CURDATE() BETWEEN start_date AND end_date) ORDER BY `end_date` DESC LIMIT 1";
+    $deals = DB::query(Database::SELECT, $sql)->execute()->as_array();
+    return $deals[0];
 
 	}
 	
