@@ -136,7 +136,6 @@ class Controller_Admin_Emails extends Controller {
     
   }
   
-	
 	public function action_view($deal_id)
 	{
 		$page  = View::factory('tilbud/admin/emails/view');
@@ -168,7 +167,28 @@ class Controller_Admin_Emails extends Controller {
 					$mailer = new XMail();
 					$mailer->subject = $posts['subject'];
 					$mailer->message = $posts['body'];
-					$mailer->to			 = implode(",", $emails);
+					
+					if(isset($posts['submitall'])) {
+						$subscribers = ORM::factory('category')->get_subscribers($deals->city_id);
+						
+						if(!empty($subscribers)) {
+							$i=0;
+							foreach($subscribers as $sub) {
+								if($i==0) {
+									$mailer->to = $sub['email'];
+								} else {
+									$mailer->addBCC('',$sub['email']);
+								}
+								$i++;
+							}
+						} else {
+							Message::add('success', __(LBL_NO_SUBSCRIBERS));
+							$this->request->redirect('admin/deals');
+							return;
+						}
+					} else {
+						$mailer->to	= implode(",", $emails);
+					}
 
 					if($mailer->send()) {					
 						Message::add('success', __(LBL_EMAIL_SENT));
