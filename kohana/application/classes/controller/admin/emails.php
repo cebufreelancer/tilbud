@@ -38,13 +38,14 @@ class Controller_Admin_Emails extends Controller {
 		$deal_sql = "select * from deals where ID='" . $deal_id . "'";
 		$deal_result = DB::query(Database::SELECT, $deal_sql)->execute()->as_array();
 		$deal = $deal_result[0];
+		$user = Auth::instance()->get_user()->as_array();
 
     $sql = "select * from orders where deal_id = " . $deal_id;
     $orders = DB::query(Database::SELECT, $sql)->execute()->as_array();
     for($i=0; $i < sizeof($orders); $i++) {
-      $sql2 = "select * from users where id = " . $orders[$i]['user_id'];
-      $user = DB::query(Database::SELECT, $sql2)->execute()->as_array();
-      $orders[$i]['users'] = $user[0];
+      //$sql2 = "select * from users where id = " . $orders[$i]['user_id'];
+      //$user = DB::query(Database::SELECT, $sql2)->execute()->as_array();
+      $orders[$i]['users'] = $user;
     }
     $page->orders = $orders;
     $page->deal = $deal;
@@ -68,7 +69,7 @@ class Controller_Admin_Emails extends Controller {
 		$name  = $user['lastname'] . ', ' . $user['firstname'];
 		
 		$to = $_POST['test_email'];
-		$subject = "Tillykke med dit køb: {$deal['contents_title']} hos TilbudiByen.com (Ordrenummer {$order['ID']}";
+		$subject = "Tillykke med dit køb: " . html_entity_decode($deal['contents_title']) . " hos TilbudiByen.com (Ordrenummer {$order['ID']}";
 		$headers = 'MIME-Version: 1.0' . "\r\n";
 		$headers .= "Content-type: text/html; charset=UTF-8" . "\r\n";
 		$headers .= "From: no-reply@tilbudibyen.com" . "\r\n".
@@ -78,19 +79,34 @@ class Controller_Admin_Emails extends Controller {
 		ob_start();
 		include_once(APPPATH . 'views/tilbud/template_test_order.php');
 		$content = ob_get_clean();
-		
 		$message = $content;
-//		mail($to, $subject, $message, $headers);
 
     require('fpdf.php');
 
+$contents = sprintf("
+  %s
+  %s
+  
+  Referencenummer: 317541-QL
+  Det med småt
+  Kan indløses man-lør 11-15.
+  Jailhouse Cph, Studiestræde 12, kld, 1455 København K. Tlf. 33152255
+", $deal['title'], $deal['description'] );
+
     $pdf = new FPDF('P', 'pt', array(500,233));
     $pdf->AddPage();
-    //$pdf->Image('lib/fpdf/image.jpg',0,0,500);
     $pdf->SetFont('Arial','B',16);
-    $pdf->Cell(40,10,'Hello World!');
+    $pdf->Cell(40,10,'TILBUDIBYEN');
 
-    // email stuff (change data below)
+    //Line break
+    $pdf->Ln(3);
+
+  	$pdf->MultiCell(0,5,$contents);
+  	//Line break
+  	$pdf->Ln();
+  	//Mention in italics
+  	$pdf->SetFont('','I');
+  	$pdf->Cell(0,5,'(end of excerpt)');
 
     $from = "no-reply@tilbudibyen.com"; 
 
