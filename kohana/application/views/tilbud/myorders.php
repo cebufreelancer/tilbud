@@ -15,7 +15,6 @@
   
   <div id="action-button">
   	<?php echo HTML::anchor('user/myaccount', LBL_My_Account, array('class' => 'addbutton')); ?>
-    <?php echo HTML::anchor('user/billing', LBL_Billing_Info, array('class' => 'addbutton')); ?>
     <?php echo HTML::anchor('user/orders', LBL_My_Orders, array('class' => 'addbutton')); ?>
   </div>
 
@@ -62,7 +61,7 @@
   <?php 
     echo ($show_pager) ? $paging->render() : ''; 
   } else { ?>
-    <p>You have not made any purchases as of the moment.</p>
+    <p><?php echo __(LBL_NO_PURCHASES_MADE)?></p>
   <?php } ?>
 
 </div>  

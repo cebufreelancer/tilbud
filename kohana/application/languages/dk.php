@@ -256,4 +256,6 @@ define("LBL_PURCHASE_RECEIPT", "Kvittering");
 define("LBL_ORDER_FINISH_HEADER", "Tak for din bestilling, du vil modtage en e-mail med refferance nummeret når tilbudet er afsluttet!");
 define("LBL_ORDER_FINISH_DESCRIPTION", "Del tilbudet med dine venner og famillie, jo flere vi er, jo billigere bliver det.");
 
+define("LBL_CUSTOMERS", "Customers");
+define("LBL_NO_PURCHASES_MADE", "You have not made any purchases as of the moment.");
 ?>

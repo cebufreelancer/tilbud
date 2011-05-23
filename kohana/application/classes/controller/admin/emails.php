@@ -30,6 +30,122 @@ class Controller_Admin_Emails extends Controller {
 													->set('no_pager', TRUE)
 											);
 	}
+
+	public function action_viewcustomers($deal_id)
+	{
+		$page  = View::factory('tilbud/admin/emails/viewcustomers');
+		$deal_sql = "select * from deals where ID='" . $deal_id . "'";
+		$deal_result = DB::query(Database::SELECT, $deal_sql)->execute()->as_array();
+		$deal = $deal_result[0];
+
+    $sql = "select * from orders where deal_id = " . $deal_id;
+    $orders = DB::query(Database::SELECT, $sql)->execute()->as_array();
+    for($i=0; $i < sizeof($orders); $i++) {
+      $sql2 = "select * from users where id = " . $orders[$i]['user_id'];
+      $user = DB::query(Database::SELECT, $sql2)->execute()->as_array();
+      $orders[$i]['users'] = $user[0];
+    }
+    $page->orders = $orders;
+    $page->deal = $deal;
+		$this->response->body($page);
+  }
+  
+  public function action_sendtest()
+  {
+		$user_sql = "select * from users where email='" . $_POST['test_email'] . "'";
+		$user_result = DB::query(Database::SELECT, $user_sql)->execute()->as_array();
+		$user = $user_result[0];
+		
+		$deal_sql = "select * from deals where ID='" . $_POST['deal_id'] . "'";
+		$deal_result = DB::query(Database::SELECT, $deal_sql)->execute()->as_array();
+		$deal = $deal_result[0];
+
+		$order_sql = "select * from orders ORDER BY ID DESC limit 0,1";
+		$order_result = DB::query(Database::SELECT, $order_sql)->execute()->as_array();
+		$order = $order_result[0];
+		
+		$name  = $user['lastname'] . ', ' . $user['firstname'];
+		
+		$to = $user['email'];
+		$subject = "Tillykke med dit køb: {$deal['contents_title']} hos TilbudiByen.dk (Ordrenummer {$order['ID']}";
+		$headers = 'MIME-Version: 1.0' . "\r\n";
+		$headers .= "Content-type: text/html; charset=UTF-8" . "\r\n";
+		$headers .= "From: no-reply@tilbudibyen.com" . "\r\n".
+								"Reply-To: no-reply@tilbudibyen.com" . "\r\n".
+								"X-Mailer: PHP/" . phpversion();
+
+		ob_start();
+		include_once(APPPATH . 'views/tilbud/template_test_order.php');
+		$content = ob_get_clean();
+		
+		$message = $content;
+//		mail($to, $subject, $message, $headers);
+
+    require('fpdf.php');
+
+    $pdf = new FPDF('P', 'pt', array(500,233));
+    $pdf->AddPage();
+    //$pdf->Image('lib/fpdf/image.jpg',0,0,500);
+    $pdf->SetFont('Arial','B',16);
+    $pdf->Cell(40,10,'Hello World!');
+
+    // email stuff (change data below)
+
+    $from = "no-reply@tilbudibyen.com"; 
+
+    // a random hash will be necessary to send mixed content
+    $separator = md5(time());
+
+    // carriage return type (we use a PHP end of line constant)
+    $eol = PHP_EOL;
+
+    // attachment name
+    $filename = "testing123.pdf";
+
+    // encode data (puts attachment in proper format)
+    $pdfdoc = $pdf->Output("", "S");
+    $attachment = chunk_split(base64_encode($pdfdoc));
+
+
+    // main header (multipart mandatory)
+    $headers  = "From: ".$from.$eol;
+    $headers .= "MIME-Version: 1.0".$eol; 
+    $headers .= "Content-Type: multipart/mixed; boundary=\"".$separator."\"".$eol.$eol; 
+    $headers .= "Content-Transfer-Encoding: 7bit".$eol;
+    $headers .= "This is a MIME encoded message.".$eol.$eol;
+
+    // message
+    $headers .= "--".$separator.$eol;
+    $headers .= "Content-Type: text/html; charset=\"iso-8859-1\"".$eol;
+    $headers .= "Content-Transfer-Encoding: 8bit".$eol.$eol;
+    $headers .= $message.$eol.$eol;
+
+    // attachment
+    $headers .= "--".$separator.$eol;
+    $headers .= "Content-Type: application/octet-stream; name=\"".$filename."\"".$eol; 
+    $headers .= "Content-Transfer-Encoding: base64".$eol;
+    $headers .= "Content-Disposition: attachment".$eol.$eol;
+    $headers .= $attachment.$eol.$eol;
+    $headers .= "--".$separator."--";
+
+    // send message
+		mail($to, $subject, $message, $headers);
+  
+    echo "done.";
+    
+  }
+
+	public function action_pdf()
+	{
+    require('fpdf.php');
+    $contents = "TILBUDIBYEN";
+    $pdf=new FPDF();
+    $pdf->AddPage();
+    $pdf->SetFont('Arial','B',16);
+    $pdf->Cell(40,10, $contents);
+    $pdf->Output('testing123.pdf', 'F');
+  }
+  
 	
 	public function action_view($deal_id)
 	{

@@ -5,12 +5,13 @@ class Controller_Home extends Controller {
 	public function action_pdf()
 	{
     require('fpdf.php');
+    $contents = "TILBUDIBYEN";
 
     $pdf=new FPDF();
     $pdf->AddPage();
     $pdf->SetFont('Arial','B',16);
-    $pdf->Cell(40,10,'Hello World!');
-    $pdf->Output('testing.pdf', 'F');
+    $pdf->Cell(40,10, $contents);
+    $pdf->Output('testing123.pdf', 'F');
   }
 
 	public function action_index()
