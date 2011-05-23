@@ -97,8 +97,8 @@ class XMail
 		$to 		 = isset($to) ? $to : $this->to;
 		$subject = isset($subject) ? $subject : $this->subject;
 		$message = isset($message) ? $message : $this->message;
-		echo $this->__headers();
-		//return mail($to, $subject, $message, $headers);
+
+		return mail($to, $subject, $message, $headers);
 	}
 }
 ?>
