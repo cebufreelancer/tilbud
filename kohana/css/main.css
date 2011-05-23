@@ -713,7 +713,7 @@ span.block {
 .right { float: right; }
 .addbutton {
   padding: 5px 15px;
-  color: #FFF;
+  color: #FFF !important;
   font-weight: bold;
 	background: #53a3fe; /* old browsers */
   -webkit-border-radius: 3px;

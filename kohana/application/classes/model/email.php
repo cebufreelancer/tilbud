@@ -4,7 +4,7 @@
  */
 class Model_Email extends ORM {
 	
-	protected $_table_name = 'email_templates';
+	protected $_table_name = 'mail_templates';
 	protected $_primary_key = 'ID';
 	protected $_primary_val = 'ID';
 	
@@ -12,6 +12,7 @@ class Model_Email extends ORM {
 		'ID'		=> array('data_type' => 'int'),
 		'name'	=> array('data_type' => 'string', 'is_nullable' => TRUE),
 		'text'	=> array('data_type' => 'string', 'is_nullable' => TRUE),
+		'subject' => array('data_type' => 'string', 'is_nullable' => TRUE),
 		);
 
-} // End of Product Model
+} // End of Mail Model

@@ -527,7 +527,7 @@ class Controller_Admin_Deals extends Controller {
 	public function action_delete($id=NULL)
 	{
 		$page = View::factory('tilbud/admin/confirm_deals_delete');
-		$page->label = 'Delete Deal';
+		$page->label = __(LBL_DEAL_DELETE);
 	
 		$deal = ORM::factory('deal', $id);
 		
@@ -549,8 +549,8 @@ class Controller_Admin_Deals extends Controller {
 
 		} else {
 		
-			$rec['title'] 			= html_entity_decode($deal->title);
-			$rec['description'] = html_entity_decode($deal->description);
+			$rec[LBL_TITLE] 			= html_entity_decode($deal->title);
+			$rec[LBL_DESCRIPTION] = html_entity_decode($deal->description);
 			
 			$page->records = $rec;
 		}

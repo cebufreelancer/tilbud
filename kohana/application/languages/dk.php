@@ -169,14 +169,14 @@ define("LBL_CITY_NAME", "Navn på by");
 
 define("LBL_ORDER", "Ordre");
 define("LBL_ORDER_EDIT", "Rediger en ordre");
-define("LBL_ORDER_DELETE", "Order Delete");
+define("LBL_ORDER_DELETE", "Slet ordre");
 define("LBL_ORDER_NEW", "Ny");
 define("LBL_ORDER_DELIVERED", "Leveret");
 define("LBL_ORDER_CANCELLED", "Annuleret");
 define("LBL_ORDER_NOTREACHED", "Ikke opnået");
 define("LBL_ORDER_NUMBER", "Bestillingsnummer");
 define("LBL_ORDER_SEARCH", "Søg Ordre");
-define("LBL_ORDER_DATE", "Date Ordered");
+define("LBL_ORDER_DATE", "Ordre dato");
 define("LBL_USER", "Bruger");
 define("LBL_USER_ADD", "Tilføj en User");
 define("LBL_USER_EDIT", "Redigere en User");
@@ -199,17 +199,21 @@ define("LBL_GROUP_DELETE", "Slet en gruppe");
 define("LBL_DEAL_DELETE", "Slet tilbud");
 define("LBL_SHOW_GROUP", "Vis efter gruppe");
 define("LBL_SHOW_CITY", "Vis efter");
-define("LBL_DEALS_ADD", "Add a Deal");
-define("LBL_DEAL_EDIT", "Edit a Deal");
+define("LBL_DEALS_ADD", "Tilføj et tilbud");
+define("LBL_DEAL_EDIT", "Rediger et tilbud");
 define("LBL_DEALS_DELETE", "Slet tilbud");
 
 // EMAILS
-define("LBL_SEE_EMAIL", "See Email");
-define("LBL_EMAIL_TEMPLATES", "Email Templates");
-define("LBL_EMAIL_SUBJECT", "Subject");
+define("LBL_SEE_EMAIL", "Se email");
+define("LBL_EMAIL_TEMPLATES", "E-mail skabeloner");
+define("LBL_EMAIL_TO", "Send To");
+define("LBL_EMAIL_SUBJECT", "Emne");
 define("LBL_EMAIL_BODY", "Body");
 define("LBL_EMAIL_HTML", "Email HTML");
 define("LBL_EMAIL_PLAIN", "Email Plain-Text");
+define("LBL_EMAIL_TEMPLATE_ADD", "Add Email Template");
+define("LBL_EMAIL_TEMPLATE_NAME", "Template Name");
+define("LBL_EMAIL_TAGS", "Email Available Tags");
 
 define("LBL_DELETE_CONFIRM", "Er du sikker på du vil slette dette?");
 define("LBL_PASSWORD_CHANGE_NOTIFY", "Venligst opdatere din adgangskode. :password_url for at ændre din adgangskode.");

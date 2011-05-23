@@ -120,16 +120,16 @@
 					    $serving_css = "";
 					  }
 					  
-						$edit_url = HTML::anchor('admin/deals/edit/' . $deal['ID'], __(LBL_EDIT));
+						$edit_url 	= HTML::anchor('admin/deals/edit/' . $deal['ID'], __(LBL_EDIT));
 						$delete_url = HTML::anchor('admin/deals/delete/' . $deal['ID'], __(LBL_DELETE), array('class' => 'delete'));
-						$email_url = HTML::anchor('admin/deals?action=email&city=' . $deal['city_id'] . '&did=' . $deal['ID'], 'Send Email');
-						$group = ORM::factory('category', $deal['group_id'])->name;
+						$email_url 	= HTML::anchor('admin/emails/view/' . $deal['ID'] . '?type=deals', __(LBL_SEE_EMAIL));
+						$group 			= ORM::factory('category', $deal['group_id'])->name;
 						
 						switch($deal['status']) {
-						case 'active': $status = __(LBL_ACTIVE); break;
-						case 'draft': $status = __(LBL_DRAFT); break;
+						case 'active': 		$status = __(LBL_ACTIVE); break;
+						case 'draft': 		$status = __(LBL_DRAFT); break;
 						case 'cancelled': $status = __(LBL_CANCELLED); break;
-						case 'expired': $status = __(LBL_EXPIRED); break;
+						case 'expired': 	$status = __(LBL_EXPIRED); break;
 						}
 						
 						echo '<tr ' . $serving_css . '>';

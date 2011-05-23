@@ -13,7 +13,7 @@
       
 			<?php echo Form::open(Request::current(), array('id' => 'myforms')); ?>
       <ul>
-      	<li><p class="medium">Are you sure you want to delete this record?</li>
+      	<li><p class="medium"><?php echo __(LBL_DELETE_CONFIRM); ?></li>
         <?php
 				foreach($records as $key => $val) {
 					echo '<li>' . Form::label($key, __(ucfirst($key))) . '</li>';
@@ -25,7 +25,7 @@
 				?>
         <li>
         	<?php echo Form::submit('submit', 'Ok', array('class' => 'addbutton')); ?>
-        <?php echo HTML::anchor($_SERVER['HTTP_REFERER'], LBL_CANCEL, array('class' => 'cancel')); ?>
+        	<?php echo HTML::anchor($_SERVER['HTTP_REFERER'], LBL_CANCEL, array('class' => 'cancel')); ?>
         </li>
       </ul>
       <?php echo Form::close(); ?>
