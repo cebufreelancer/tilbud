@@ -165,15 +165,17 @@ $contents = sprintf("
 				
 				$_GET['type'] = 'deals';
 				
-				$emails = explode(",", $posts['to']);
-				$err_mails = array();
-				foreach($emails as $mail) {
-					
-					if(!Valid::email(trim($mail)))
-						$err_mails[] = $mail;
-										
-					if(!empty($err_mails))
-						$errors['to'] = __(INVALID_EMAIL . " - " . implode(",", $err_mails));
+				if(isset($posts['submit'])) {
+					$emails = explode(",", $posts['to']);
+					$err_mails = array();
+					foreach($emails as $mail) {
+						
+						if(!Valid::email(trim($mail)))
+							$err_mails[] = $mail;
+											
+						if(!empty($err_mails))
+							$errors['to'] = __(INVALID_EMAIL . " - " . implode(",", $err_mails));
+					}
 				}
 				
 				if(!empty($errors)) {
