@@ -22,13 +22,15 @@
 			?>
 			<script type="text/javascript">
 				tinyMCE.init({
-					mode : "specific_textareas",
+					mode : "exact",
 					theme : "advanced",
-					editor_selector : "emailEditor",
 					width: "100%",
 					height: "600",
+					elements : 'relurlstopage',
+					relative_urls : true,
+					document_base_url : 'http://tilbudibyen.com/',
 					
-					plugins : "table,fullscreen,inlinepopups",
+					plugins : "table,fullscreen,inlinepopups,advlink",
 					
 					// Theme options
         theme_advanced_buttons1 : "bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,|,formatselect,fontsizeselect,|,bullist,numlist,|,outdent,indent,|,link,unlink,|,code,fullscreen",
@@ -50,7 +52,7 @@
 						<?php echo Form::input('subject', $subject, array('style' => 'width: 99%')); ?>
         </li>
         <li><?php echo Form::label('body', __(LBL_EMAIL_BODY)); ?>
-						<?php echo Form::textarea('body', $body, array('class' => 'emailEditor')); ?>
+						<?php echo Form::textarea('body', $body, array('id' => 'relurlstopage')); ?>
         </li>
         <li>
             <?php echo Form::submit('submit', __(LBL_SEND)); ?>
