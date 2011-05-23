@@ -157,9 +157,11 @@ class Controller_Admin_Users extends Controller_Useradmin_User {
 				if(empty($errors)) {
 					// Update Roles
 					$user->add('roles', ORM::factory('role')->where('name', '=', 'login')->find());
+					/*
+					Removed upon clients requests --(x x)--
 					if($posts['user_type'] == 'admin') {
 						$user->add('roles', ORM::factory('role')->where('name', '=', 'admin')->find());
-					} 
+					} */
 					
 					// message: save success
 					Message::add('success', __('User ' . $user->email . ' has been successfully added.'));
@@ -231,9 +233,11 @@ class Controller_Admin_Users extends Controller_Useradmin_User {
 				// Update Roles
 				$user->remove('roles');
 				$user->add('roles', ORM::factory('role')->where('name', '=', 'login')->find());
-				if($posts['user_type'] == 'admin') {
-					$user->add('roles', ORM::factory('role')->where('name', '=', 'admin')->find());
-				} 
+				/*
+					Removed upon clients requests --(x x)--
+					if($posts['user_type'] == 'admin') {
+						$user->add('roles', ORM::factory('role')->where('name', '=', 'admin')->find());
+					} */
 				
 				// message: save success
 				Message::add('success', __(sprintf(LBL_SUCCESS_UPDATE, LBL_USER, $user->email)));

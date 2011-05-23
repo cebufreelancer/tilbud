@@ -115,6 +115,7 @@
             echo "Email address already exists.";
          }} ?>
         
+        <?php echo HTML::image(Url::base(TRUE) . 'images/payment-logos.png'); ?>
 				<h2><?php echo __(LBL_PAYMENT_METHOD); ?><br />&nbsp;</h2>
 				
         <?php if(Auth::instance()->logged_in() == false) { 
