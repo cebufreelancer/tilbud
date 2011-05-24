@@ -195,6 +195,14 @@
               <?php echo Form::input('deal_expiry_date', $expiry_date, array('id' => 'deal_expiry_date',
 																																						'style' => 'width: 150px;')); ?>
           </li>
+          <li>
+							<?php echo Form::label('deal_regno', __(LBL_DEALS_REGNO)); ?>
+              <?php echo Form::input('deal_regno', $regno, array('style' => 'width: 95%')); ?>
+          </li>
+          <li class="separator">
+							<?php echo Form::label('deal_itemno', __(LBL_DEALS_KONTO)); ?>
+              <?php echo Form::input('deal_itemno', $itemno, array('style' => 'width: 95%')); ?>
+          </li>
           <?php /*
           <li><?php echo Form::label('deal_vouchers', __(LBL_NUMBER_OF_VOUCHERS)); ?>
               <?php echo Form::input('deal_vouchers', $deal_vouchers, array('style' => 'width: 100px;',

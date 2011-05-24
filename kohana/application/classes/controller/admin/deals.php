@@ -258,6 +258,8 @@ class Controller_Admin_Deals extends Controller {
 			$deals->expiry_date = date("Y-m-d H:i:S", strtotime($posts['deal_expiry_date'] . " 23:59:59"));
 			$deals->addresses		= htmlentities($posts['deal_address']);
 			$deals->is_featured = 1;
+			$deals->regno				= $posts['deal_regno'];
+			$deals->itemno			= $posts['deal_itemno'];
 			
 			if (isset($_FILES['deal_image'])) {
 			  $deals->image = $_FILES['deal_image']['name'];
@@ -353,6 +355,8 @@ class Controller_Admin_Deals extends Controller {
 		$page->deal_image4     = $deals->image4;
 		$page->deal_image5     = $deals->image5;
 		$page->deal_facebook_image     = $deals->facebook_image;
+		$page->regno				  = isset($posts['deal_regno']) ? $posts['deal_regno'] : '';
+		$page->itemno					= isset($posts['deal_itemno']) ? $posts['deal_itemno'] : '';
 
 
 
@@ -417,6 +421,8 @@ class Controller_Admin_Deals extends Controller {
 			$deals->last_update = date("Y-m-d H:i:S");
 			$deals->addresses		= htmlentities($posts['deal_address']);
 			$deals->is_featured = 1;
+			$deals->regno				= $posts['deal_regno'];
+			$deals->itemno			= $posts['deal_itemno'];
 
 			if ($_FILES['deal_image']['name'] != "") {
 			  $deals->image = $_FILES['deal_image']['name'];
@@ -515,6 +521,8 @@ class Controller_Admin_Deals extends Controller {
 		$page->deal_image5     = $deals->image5;
 		$page->deal_facebook_image     = $deals->facebook_image;
 		$page->deal_id        = $deals->ID;
+		$page->regno				  = isset($posts['deal_regno']) ? $posts['deal_regno'] : $deals->regno;
+		$page->itemno					= isset($posts['deal_itemno']) ? $posts['deal_itemno'] : $deals->itemno;
 
 		$page->cities = Kohana::config('global.cities');
 		$page->products = $products;
