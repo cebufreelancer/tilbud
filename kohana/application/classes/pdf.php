@@ -115,13 +115,13 @@ function BasicTable($header,$data)
 {
     //Header
     foreach($header as $col)
-        $this->Cell(45,10,$col,1);
+        $this->Cell(55,10,$col,1);
     $this->Ln();
     //Data
     foreach($data as $row)
     {
         foreach($row as $col)
-            $this->Cell(45,12,$col,1);
+            $this->Cell(55,12,$col,1);
         $this->Ln();
     }
 }
