@@ -361,3 +361,20 @@ INSERT INTO `mail_templates` (`ID`, `name`, `text`, `subject`) VALUES
 ALTER TABLE  `deals` 
 	ADD  `itemno` VARCHAR( 150 ) NULL ,
 	ADD  `regno` VARCHAR( 150 ) NULL;
+	
+--
+-- May 25 2011 Updates
+--
+--
+-- Table structure for table `forget_passwords`
+--
+
+CREATE TABLE IF NOT EXISTS `forget_passwords` (
+  `id` int(11) NOT NULL auto_increment,
+  `email` varchar(255) NOT NULL,
+  `token` varchar(255) NOT NULL,
+  `status` varchar(255) NOT NULL,
+  `valid_until` date NOT NULL,
+  `date_created` datetime NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
