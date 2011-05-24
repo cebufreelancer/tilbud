@@ -53,6 +53,14 @@
 
             	return false;
             });
+            
+            $("#select_all").click(function() {
+              $("[type=checkbox]").attr('checked', true);
+            })
+
+            $("#deselect_all").click(function() {
+              $("[type=checkbox]").attr('checked', false);
+            })
 
             
           });
@@ -70,6 +78,8 @@
       <br/>
       
       <form action="" name="sendall_email_form" id="sendall_email_form" method="post">
+      <input type="button" value="Select All" id="select_all">
+      <input type="button" value="Deselect All" id="deselect_all">
       <table cellpadding="5" cellspacing="5"  border="1">
         <?php
         for($i=0; $i < sizeof($orders); $i++) {

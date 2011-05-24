@@ -266,4 +266,18 @@ define("LBL_CUSTOMERS", "Customers");
 define("LBL_NO_PURCHASES_MADE", "You have not made any purchases as of the moment.");
 define("LBL_SIGNUP_SUBJECT", "Bekræft din registrering af TilbudiByens daglige tilbud.");
 define("LBL_PLEASE_SELECT_EMAIL_ADDRESS", "Please select email address.");
+define("LBL_EMAIL_DOESNT_EXISTS", "Email address does not exists.");
+define("LBL_PLEASE_ENTER_EMAIL_ADDRESS", "Please enter email address");
+define("LBL_FORGOT_PASSWORD_SENT", "We have sent the instructions to your email. Go check it.");
+define("LBL_RESET_PASSWORD_SUBJECT", "Reset your TilbudIbyen password");
+define("LBL_CHANGE_YOUR_TILBUD_PASSWORD", "Change your TilbudIbyen password");
+define("LBL_TILBUD_SEND_RESET_INSTRUCTIONS", "TilbudIbyen will send password reset instructions to the email address associated with your account.");
+define("LBL_PLEASE_ENTER_YOUR_EMAIL_ADDRESS", "Please enter your email address.");
+define("LBL_SEND_INSTRUCTIONS", "Send Instructions");
+define("LBL_CHANGE", "Change");
+define("LBL_CHOOSE_PASSWORD", "Please choose a password to use with your TilbudIbyen account");
+define("LBL_PASSWORD_DONT_MATCH", "Password does not match.");
+define("LBL_NEW_PASSWORD", "New password");
+define("LBL_VERIFY_NEW_PASSWORD", "Verify new password");
+define("LBL_PASSWORD_EMPTY", "Password should not be empty");
 ?>

@@ -187,7 +187,10 @@ class Controller_Deals extends Controller {
 						 *    Email the user
 						************************/ 
 						$to = $user->email;
-						$subject = "Tillykke med dit køb: {$this_deal->contents_title} hos TilbudiByen.dk (Ordrenummer {$proc_order->ID}";
+						$title = str_replace('<p>','', $this_deal->contents_title);
+						$title = str_replace('</p>', '',$title);
+
+						$subject = "Tillykke med dit køb: {$title} hos TilbudiByen.dk (Ordrenummer {$proc_order->ID}";
 						$headers = 'MIME-Version: 1.0' . "\r\n";
 						$headers .= "Content-type: text/html; charset=UTF-8" . "\r\n";
 						$headers .= "From: no-reply@tilbudibyen.com" . "\r\n".

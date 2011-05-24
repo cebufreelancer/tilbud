@@ -53,10 +53,89 @@ Sådan bruger du dit værdibevis <br>
     
     $pdf->Output('testing123.pdf', 'F');
 
+  }
 
+  public function action_changepassword()
+  {
+    // TODO: change password here
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+    $confirm_password = $_POST['confirm_password'];
 
+	  $sql = "select * from users where email='$email'";
+	  $result = DB::query(Database::SELECT, $sql)->execute()->as_array();
 
+    //return to ajax call
+    echo "success";
+  }
+
+  public function action_password_reset()
+  {
+    $error = array();
+    $page = View::factory('tilbud/password_reset');
     
+    $sql = "select * from users where email='" . $_GET['email'] . "'";
+		$result = DB::query(Database::SELECT, $sql)->execute()->as_array();
+		
+		if (sizeof($result) > 0) {
+		  // validate link
+		  $token = $_GET['token'];
+		  $email = $_GET['email'];
+		  $sql = "select * from forget_passwords where email='$email' and token='$token' and NOW() <= valid_until";
+		  $result = DB::query(Database::SELECT, $sql)->execute()->as_array();
+		  if (sizeof($result) > 0) {
+		    // do nothing
+		  }else {
+		    $error[] = "Invalid change password session.";
+		  }
+		}else{
+		  $error[] = "User / Email address does not exists.";
+		}
+		
+		$this->response->body($page);
+    
+  }
+  
+  public function action_forgot()
+  {
+    $page = View::factory('tilbud/forgot');
+
+    if (isset($_POST['email'])) {
+      $sql = "select * from users where email='" . $_POST['email'] . "'";
+  		$result = DB::query(Database::SELECT, $sql)->execute()->as_array();
+  		if (sizeof($result) > 0) {
+  		  $user = $result[0];
+  		  
+  		  $email = $user['email'];
+  		  $token = md5(date("Y-m-d H:i:s"));
+  		  $valid_until = date("Y-m-d", strtotime("+2 days"));
+  		  $date_created = date("Y-m-d H:i:s");
+
+  		  $sql = "Insert into forget_passwords (email, token, status, valid_until, date_created) values('$email', '$token', 'pending', '$valid_until', '$date_created')";
+  		  $result = DB::query(Database::INSERT, $sql)->execute();
+
+  		  $reset_url = url::base(true) . "home/password_reset?email=" . $user['email'] . "&token=" . $token;
+        $mailer = new XMail();
+        $mailer->subject = __(LBL_RESET_PASSWORD_SUBJECT);
+        $mailer->message = "Forgot your password " . $user['firstname'] . " ($email)?
+
+If you want to reset your password, click on the link below (or copy and paste the URL into your browser):
+$reset_url
+
+";
+        $mailer->to = $email;
+        $mailer->send();
+        
+        echo __(LBL_FORGOT_PASSWORD_SENT);
+      }else{
+        // email doesnt exists
+        echo __(LBL_EMAIL_DOESNT_EXISTS);
+      }
+    }else{
+      $this->response->body($page);
+    }
+
+
   }
 
 	public function action_index()
