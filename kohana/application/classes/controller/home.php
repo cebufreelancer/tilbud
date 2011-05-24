@@ -4,33 +4,52 @@ class Controller_Home extends Controller {
 
 	public function action_pdf()
 	{
-    require('fpdf.php');
-    $contents = "TILBUDIBYEN";
+    $tilbud = "TILBUDIBYEN";
+    $datas[] = "Michael Gimena;04-05-2011;5.august 2011";
 
-$contents = "
-TILBUDIBYEN
+    $title = "this is a title";
+    $description = "this is a little description";
+    $refno = "Referencenummer: 22424-ABC";
+    $address = "cebu city";
+    $second = mb_convert_encoding('Købsdato', "ISO-8859-1", "UTF-8");
+    $third = mb_convert_encoding('Udløbsdato', "ISO-8859-1", "UTF-8");
 
+$guide = mb_convert_encoding("
+Sådan bruger du dit værdibevis <br>
+- Print værdibeviset ud<br>
+- Hæng det op på køleskabet eller læg det i din pung<br>
+- Nyd oplevelsen med dine venner eller familie", "ISO-8859-1", "UTF-8");
+    
+    $pdf=new PDF();
+    //Column titles
+    $header=array('Indehave',$second,$third);
+    //Data loading
+    $data=$pdf->LoadData($datas);
+    $pdf->SetFont('Arial','B',20);
+    $pdf->AddPage();    
+    
+    $pdf->Cell(0,20,$tilbud,0,1);
 
-2 take a way
-";
-    $pdf=new FPDF();
-    $pdf->AddPage();
+    $pdf->SetFont('Arial','B',12);
+    $pdf->Cell(0,6,$title,0,1);
+    $pdf->SetFont('Arial','',11);
+    $pdf->Cell(0,6,$description,0,1);
+    $pdf->Ln();
+        
+    $pdf->BasicTable($header,$data);
+    $pdf->Ln();
+    $pdf->SetFont('Arial','B',11);    
+    $pdf->Cell(0,7,$refno,0,1);
 
-    $pdf->SetFont('Arial','',12);
-    //Background color
-    $pdf->SetFillColor(200,220,255);
-    //Title
-    $pdf->Cell(0,6,"Chapter 1 : label",0,1,'L',true);
-    //Line break
-    $pdf->Ln(4);
+    $pdf->SetFont('Arial','',10);
+    $pdf->Cell(0,5,$address,0,1);
 
-  	$pdf->MultiCell(0,5,$contents);
-  	//Line break
-  	$pdf->Ln();
-  	//Mention in italics
-  	$pdf->SetFont('','I');
-  	$pdf->Cell(0,5,'(end of excerpt)');
-
+    $pdf->Ln();
+    $pdf->WriteHTML($guide);
+    $pdf->Ln();
+    $pdf->Cell(0,6, "TilbudIbyen kundeservice", 0,1);
+    $pdf->Cell(0,6, "Mail: kundeservice@tilbudibyen.com", 0,1);
+    $pdf->Cell(0,6, mb_convert_encoding("Vi ses på www.tilbudibyen.com","ISO-8859-1", "UTF-8"), 0,1);
     
     $pdf->Output('testing123.pdf', 'F');
 

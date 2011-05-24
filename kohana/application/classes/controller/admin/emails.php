@@ -43,13 +43,138 @@ class Controller_Admin_Emails extends Controller {
     $sql = "select * from orders where deal_id = " . $deal_id;
     $orders = DB::query(Database::SELECT, $sql)->execute()->as_array();
     for($i=0; $i < sizeof($orders); $i++) {
-      //$sql2 = "select * from users where id = " . $orders[$i]['user_id'];
-      //$user = DB::query(Database::SELECT, $sql2)->execute()->as_array();
-      $orders[$i]['users'] = $user;
+      $sql2 = "select * from users where id = " . $orders[$i]['user_id'];
+      $u = DB::query(Database::SELECT, $sql2)->execute()->as_array();
+      $orders[$i]['users'] = $u[0];
     }
     $page->orders = $orders;
     $page->deal = $deal;
 		$this->response->body($page);
+  }
+
+  public function action_notify_buyers()
+  {
+    if (isset($_POST['semail'])) {
+      foreach($_POST['semail'] as $email) {
+
+    		$user_sql = "select * from users where email='" . $email . "'";
+    		$user_result = DB::query(Database::SELECT, $user_sql)->execute()->as_array();
+    		$user = $user_result[0];
+
+    		$deal_sql = "select * from deals where ID='" . $_POST['deal_id'] . "'";
+    		$deal_result = DB::query(Database::SELECT, $deal_sql)->execute()->as_array();
+    		$deal = $deal_result[0];
+
+    		$order_sql = "select * from orders ORDER BY ID DESC limit 0,1";
+    		$order_result = DB::query(Database::SELECT, $order_sql)->execute()->as_array();
+    		$order = $order_result[0];
+
+    		$name  = $user['lastname'] . ', ' . $user['firstname'];
+
+    		$to = $email;
+    		$subject = "Tillykke med dit køb: " . html_entity_decode($deal['contents_title']) . " hos TilbudiByen.com (Ordrenummer {$order['ID']}";
+    		$headers = 'MIME-Version: 1.0' . "\r\n";
+    		$headers .= "Content-type: text/html; charset=UTF-8" . "\r\n";
+    		$headers .= "From: no-reply@tilbudibyen.com" . "\r\n".
+    								"Reply-To: no-reply@tilbudibyen.com" . "\r\n".
+    								"X-Mailer: PHP/" . phpversion();
+
+    		ob_start();
+    		include_once(APPPATH . 'views/tilbud/template_test_order.php');
+    		$content = ob_get_clean();
+    		$message = $content;
+
+            $tilbud = "TILBUDIBYEN";
+            $datas[] = $user['firstname'] . " " . $user['lastname'] . ";" . $order['date_paid'] . ";" . $deal['expiry_date'];
+
+            $title = $deal['title'];
+            $description = $deal['description'];
+            $refno = "Referencenummer: ". $order['refno'];
+            $address = $deal['addresses'];
+            $second = mb_convert_encoding('Købsdato', "ISO-8859-1", "UTF-8");
+            $third = mb_convert_encoding('Udløbsdato', "ISO-8859-1", "UTF-8");
+
+            $guide = mb_convert_encoding("
+            Sådan bruger du dit værdibevis <br>
+            - Print værdibeviset ud<br>
+            - Hæng det op på køleskabet eller læg det i din pung<br>
+            - Nyd oplevelsen med dine venner eller familie", "ISO-8859-1", "UTF-8");
+
+            $pdf=new PDF();
+            //Column titles
+            $header=array('Indehave',$second,$third);
+            //Data loading
+            $data=$pdf->LoadData($datas);
+            $pdf->SetFont('Arial','B',20);
+            $pdf->AddPage();    
+
+            $pdf->Cell(0,20,$tilbud,0,1);
+
+            $pdf->SetFont('Arial','B',12);
+            $pdf->Cell(0,6,$title,0,1);
+            $pdf->SetFont('Arial','',11);
+            $pdf->Cell(0,6,$description,0,1);
+            $pdf->Ln();
+
+            $pdf->BasicTable($header,$data);
+            $pdf->Ln();
+            $pdf->SetFont('Arial','B',11);    
+            $pdf->Cell(0,7,$refno,0,1);
+
+            $pdf->SetFont('Arial','',10);
+            $pdf->Cell(0,5,$address,0,1);
+
+            $pdf->Ln();
+            $pdf->WriteHTML($guide);
+            $pdf->Ln();
+            $pdf->Cell(0,6, "TilbudIbyen kundeservice", 0,1);
+            $pdf->Cell(0,6, "Mail: kundeservice@tilbudibyen.com", 0,1);
+            $pdf->Cell(0,6, mb_convert_encoding("Vi ses på www.tilbudibyen.com","ISO-8859-1", "UTF-8"), 0,1);
+
+        $from = "no-reply@tilbudibyen.com"; 
+        // a random hash will be necessary to send mixed content
+        $separator = md5(time());
+
+        // carriage return type (we use a PHP end of line constant)
+        $eol = PHP_EOL;
+
+        // attachment name
+        $filename = "Værdibevis-" . $order['refno'] . ".pdf";
+
+        // encode data (puts attachment in proper format)
+        $pdfdoc = $pdf->Output("", "S");
+        $attachment = chunk_split(base64_encode($pdfdoc));
+
+
+        // main header (multipart mandatory)
+        $headers  = "From: ".$from.$eol;
+        $headers .= "MIME-Version: 1.0".$eol; 
+        $headers .= "Content-Type: multipart/mixed; boundary=\"".$separator."\"".$eol.$eol; 
+        $headers .= "Content-Transfer-Encoding: 7bit".$eol;
+        $headers .= "This is a MIME encoded message.".$eol.$eol;
+
+        // message
+        $headers .= "--".$separator.$eol;
+        $headers .= "Content-Type: text/html; charset=\"iso-8859-1\"".$eol;
+        $headers .= "Content-Transfer-Encoding: 8bit".$eol.$eol;
+        $headers .= $message.$eol.$eol;
+
+        // attachment
+        $headers .= "--".$separator.$eol;
+        $headers .= "Content-Type: application/octet-stream; name=\"".$filename."\"".$eol; 
+        $headers .= "Content-Transfer-Encoding: base64".$eol;
+        $headers .= "Content-Disposition: attachment".$eol.$eol;
+        $headers .= $attachment.$eol.$eol;
+        $headers .= "--".$separator."--";
+
+        // send message
+    		mail($to, $subject, $message, $headers);
+      }
+        echo "Done sending emails.";
+      
+    }else{
+      echo __(LBL_PLEASE_SELECT_EMAIL_ADDRESS);
+    }
   }
   
   public function action_sendtest()
@@ -81,35 +206,54 @@ class Controller_Admin_Emails extends Controller {
 		$content = ob_get_clean();
 		$message = $content;
 
-    require('fpdf.php');
+        $tilbud = "TILBUDIBYEN";
+        $datas[] = $user['firstname'] . " " . $user['lastname'] . ";" . $order['date_paid'] . ";" . $deal['expiry_date'];
 
-$contents = sprintf("
-  %s
-  %s
-  
-  Referencenummer: 317541-QL
-  Det med småt
-  Kan indløses man-lør 11-15.
-  Jailhouse Cph, Studiestræde 12, kld, 1455 København K. Tlf. 33152255
-", $deal['title'], $deal['description'] );
+        $title = $deal['title'];
+        $description = $deal['description'];
+        $refno = "Referencenummer: ". $order['refno'];
+        $address = $deal['addresses'];
+        $second = mb_convert_encoding('Købsdato', "ISO-8859-1", "UTF-8");
+        $third = mb_convert_encoding('Udløbsdato', "ISO-8859-1", "UTF-8");
 
-    $pdf = new FPDF('P', 'pt', array(500,233));
-    $pdf->AddPage();
-    $pdf->SetFont('Arial','B',16);
-    $pdf->Cell(40,10,'TILBUDIBYEN');
+        $guide = mb_convert_encoding("
+        Sådan bruger du dit værdibevis <br>
+        - Print værdibeviset ud<br>
+        - Hæng det op på køleskabet eller læg det i din pung<br>
+        - Nyd oplevelsen med dine venner eller familie", "ISO-8859-1", "UTF-8");
 
-    //Line break
-    $pdf->Ln(3);
+        $pdf=new PDF();
+        //Column titles
+        $header=array('Indehave',$second,$third);
+        //Data loading
+        $data=$pdf->LoadData($datas);
+        $pdf->SetFont('Arial','B',20);
+        $pdf->AddPage();    
 
-  	$pdf->MultiCell(0,5,$contents);
-  	//Line break
-  	$pdf->Ln();
-  	//Mention in italics
-  	$pdf->SetFont('','I');
-  	$pdf->Cell(0,5,'(end of excerpt)');
+        $pdf->Cell(0,20,$tilbud,0,1);
+
+        $pdf->SetFont('Arial','B',12);
+        $pdf->Cell(0,6,$title,0,1);
+        $pdf->SetFont('Arial','',11);
+        $pdf->Cell(0,6,$description,0,1);
+        $pdf->Ln();
+
+        $pdf->BasicTable($header,$data);
+        $pdf->Ln();
+        $pdf->SetFont('Arial','B',11);    
+        $pdf->Cell(0,7,$refno,0,1);
+
+        $pdf->SetFont('Arial','',10);
+        $pdf->Cell(0,5,$address,0,1);
+
+        $pdf->Ln();
+        $pdf->WriteHTML($guide);
+        $pdf->Ln();
+        $pdf->Cell(0,6, "TilbudIbyen kundeservice", 0,1);
+        $pdf->Cell(0,6, "Mail: kundeservice@tilbudibyen.com", 0,1);
+        $pdf->Cell(0,6, mb_convert_encoding("Vi ses på www.tilbudibyen.com","ISO-8859-1", "UTF-8"), 0,1);
 
     $from = "no-reply@tilbudibyen.com"; 
-
     // a random hash will be necessary to send mixed content
     $separator = md5(time());
 
@@ -117,7 +261,7 @@ $contents = sprintf("
     $eol = PHP_EOL;
 
     // attachment name
-    $filename = "testing123.pdf";
+    $filename = "Værdibevis-" . $order['refno'] . ".pdf";
 
     // encode data (puts attachment in proper format)
     $pdfdoc = $pdf->Output("", "S");

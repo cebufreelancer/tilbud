@@ -62,7 +62,7 @@
 				<tbody>
 					<tr>
 						<td><?php echo $deal_title; ?>
-            	<div style="font-size: 11px; font-weight: normal; color: #999999;"><?php echo $deal['contents_title']; ?></div>
+            	<div style="font-size: 11px; font-weight: normal; color: #999999;"><?php echo html_entity_decode($deal['contents_title']); ?></div>
             </td>
 
 						<td><?php echo Form::select('quantity', isset($quantity) ? $quantity : array(1=>1), 0, array('autofocus' => true)); ?> </td>
