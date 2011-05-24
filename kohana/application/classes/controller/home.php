@@ -62,11 +62,17 @@ Sådan bruger du dit værdibevis <br>
     $password = $_POST['password'];
     $confirm_password = $_POST['confirm_password'];
 
-	  $sql = "select * from users where email='$email'";
-	  $result = DB::query(Database::SELECT, $sql)->execute()->as_array();
-
-    //return to ajax call
-    echo "success";
+		$user = ORM::factory('user')->where('email', '=', $email)->find();
+		
+		if($user->loaded()) {
+			$clean['password'] = $password;
+			$clean['password_confirm'] = $confirm_password;
+			$user->update_user($clean, array('password'));
+			
+			echo "success";
+		} else {
+    	echo "fail";
+		}
   }
 
   public function action_password_reset()
@@ -93,7 +99,6 @@ Sådan bruger du dit værdibevis <br>
 		}
 		
 		$this->response->body($page);
-    
   }
   
   public function action_forgot()
@@ -107,7 +112,7 @@ Sådan bruger du dit værdibevis <br>
   		  $user = $result[0];
   		  
   		  $email = $user['email'];
-  		  $token = md5(date("Y-m-d H:i:s"));
+  		  $token = ORM::factory('user')->generate_token();
   		  $valid_until = date("Y-m-d", strtotime("+2 days"));
   		  $date_created = date("Y-m-d H:i:s");
 
@@ -134,8 +139,6 @@ $reset_url
     }else{
       $this->response->body($page);
     }
-
-
   }
 
 	public function action_index()
