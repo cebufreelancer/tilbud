@@ -85,7 +85,7 @@ class Controller_Admin_Emails extends Controller {
     		$message = $content;
 
             $tilbud = "TILBUDIBYEN";
-            $datas[] = $user['firstname'] . " " . $user['lastname'] . ";" . $order['date_paid'] . ";" . $deal['expiry_date'];
+            $datas[] = $user['firstname'] . " " . $user['lastname'] . ";" . strftime("%Y-%m-%d", strtotime($order['date_paid'])) . ";" . strftime("%Y-%m-%d", strtotime($deal['expiry_date']));            
 
             $title = mb_convert_encoding($deal['title'], "ISO-8859-1", "UTF-8");
             $description = mb_convert_encoding($deal['description'], "ISO-8859-1", "UTF-8");
@@ -208,10 +208,12 @@ class Controller_Admin_Emails extends Controller {
 		$message = $content;
 
         $tilbud = "TILBUDIBYEN";
-        $datas[] = $user['firstname'] . " " . $user['lastname'] . ";" . $order['date_paid'] . ";" . $deal['expiry_date'];
+        $datas[] = $user['firstname'] . " " . $user['lastname'] . ";" . strftime("%Y-%m-%d", strtotime($order['date_paid'])) . ";" . strftime("%Y-%m-%d", strtotime($deal['expiry_date']));
 
-        $title = $deal['title'];
-        $description = $deal['description'];
+        $title = mb_convert_encoding($deal['title'], "ISO-8859-1", "UTF-8");
+        $description = mb_convert_encoding($deal['description'], "ISO-8859-1", "UTF-8");
+        $description = substr($description, 0, 100) . "...";
+        
         $refno = "Referencenummer: ". $order['refno'];
         $address = $deal['addresses'];
         $second = mb_convert_encoding('Købsdato', "ISO-8859-1", "UTF-8");
