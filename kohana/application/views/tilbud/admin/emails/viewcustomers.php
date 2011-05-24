@@ -37,7 +37,6 @@
             });
             
             $("#sendall_email_form").bind("submit", function() {
-              alert('pass');
               
 
             	$.fancybox.showActivity();
