@@ -242,6 +242,7 @@ $contents = sprintf("
 																		'height' => 300, 
 																		'style' => 'margin-bottom: 20px;'));
 				$DEALCONTENTS 	= $deals->contents;
+				$SEE_VIDEO_DEALS = mb_convert_encoding("Se dagens tilbud på video - klik her.", "ISO-8859-1", "UTF-8");
 				
 				$LOCATION				= $deals->addresses;
 				
