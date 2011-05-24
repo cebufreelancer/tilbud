@@ -63,5 +63,5 @@ For at undgå misbrug vil vi bede dig til at bekræfte din tilmelding ved at klikk
 
 <p style="text-align: center; font-size: 11px;"><?php echo  mb_convert_encoding("Du modtager denne e-mail fordi du er tilmeldt nyhedsbrevet hos TilbudiByen.dk.Hvis du ikke ønsker at modtage Dagens Tilbud i Byen på e-mail længere kan du altid afmelde dig ved at klike her.", "ISO-8859-1", "UTF-8");?></p>
 
-<p style="text-align: center; font-size: 11px;"><?php echo  mb_convert_encoding("Nyhedsbrevet udsendes af Tilbudibyen.dk ApS - Nørregade 7B - 1165 København K", "ISO-8859=1", "UTF-8");?></p>
+<p style="text-align: center; font-size: 11px;"><?php echo  mb_convert_encoding("Nyhedsbrevet udsendes af Tilbudibyen.dk ApS - Nørregade 7B - 1165 København K", "ISO-8859-1", "UTF-8");?></p>
 </div>
