@@ -111,7 +111,7 @@ TILBUDIBYEN
 			$city  = $posts['city'];
 		
 		  $to = $posts['semail'];
-		  $subject = "Bekræft din registrering af TilbudiByens daglige tilbud.";
+		  $subject = __(LBL_SIGNUP_SUBJECT);
 		  $headers = 'MIME-Version: 1.0' . "\r\n";
 		  $headers .= "Content-type: text/html; charset=UTF-8" . "\r\n";
 		  $headers .= "From: TilbudiByen <no-reply@tilbudibyen.com>" . "\r\n".

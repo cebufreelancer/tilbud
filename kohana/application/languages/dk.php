@@ -264,4 +264,5 @@ define("LBL_ORDER_FINISH_DESCRIPTION", "Del tilbudet med dine venner og famillie
 
 define("LBL_CUSTOMERS", "Customers");
 define("LBL_NO_PURCHASES_MADE", "You have not made any purchases as of the moment.");
+define("LBL_SIGNUP_SUBJECT", "Bekræft din registrering af TilbudiByens daglige tilbud.");
 ?>
