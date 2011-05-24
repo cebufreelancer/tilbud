@@ -39,11 +39,10 @@
           </li>
           <li>
 							<?php echo Form::label('deal_desc', __(LBL_TITLE_DESC)); ?>
-              <?php echo Form::textarea('deal_desc', $deal_desc, array('rows' => 5,
-																																			 'style' => 'width: 97%;')); ?>
+              <?php echo Form::textarea('deal_desc', $deal_desc, array('rows' => 5)); ?>
           </li>
           <li><?php echo Form::label('deal_content_title', __(LBL_CONTENT_TITLE)); ?>
-              <?php echo Form::textarea('deal_content_title', $deal_content_title, array('class' => 'mceNoEditor',
+              <?php echo Form::textarea('deal_content_title', $deal_content_title, array('class' => 'mceEditor',
 																																												 'rows' => 3,
 																																												 'style' => 'font-weight: bold; 
 																																				 						 								 font-size: 20px; 
@@ -51,13 +50,13 @@
 																																										 								 color: #666;')); ?>
           </li>
           <li><?php echo Form::label('deal_desc_long', __(LBL_CONTENT_DESC)); ?>
-              <?php echo Form::textarea('deal_desc_long', $deal_desc_long); ?>
+              <?php echo Form::textarea('deal_desc_long', $deal_desc_long, array('class' => 'mceEditor')); ?>
           </li>
           <li><?php echo Form::label('deal_whatyouget', __(LBL_WHAT_YOU_GET)); ?>
-              <?php echo Form::textarea('deal_whatyouget', $deal_whatyouget, array('rows' => 5)); ?>
+              <?php echo Form::textarea('deal_whatyouget', $deal_whatyouget, array('class' => 'mceEditor', 'rows' => 5)); ?>
           </li>
           <li><?php echo Form::label('deal_information', __(LBL_INFORMATION)); ?>
-              <?php echo Form::textarea('deal_information', $deal_information, array('rows' => 5)); ?>
+              <?php echo Form::textarea('deal_information', $deal_information, array('class' => 'mceEditor', 'rows' => 5)); ?>
           </li>
           <li><?php echo Form::label('deal_video_url', __(LBL_YOUTUBE_VIDEO_URL)); ?>
               <?php echo Form::input('deal_video_url', $deal_video_url, array()); ?>
