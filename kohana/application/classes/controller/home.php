@@ -20,7 +20,7 @@ Sådan bruger du dit værdibevis <br>
 - Hæng det op på køleskabet eller læg det i din pung<br>
 - Nyd oplevelsen med dine venner eller familie", "ISO-8859-1", "UTF-8");
     
-    $pdf=new PDF();
+    $pdf = new PDF('P', 'mm', array(250,200));
     //Column titles
     $header=array('Indehave',$second,$third);
     //Data loading
