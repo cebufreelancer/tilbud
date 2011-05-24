@@ -202,6 +202,8 @@ define("LBL_SHOW_CITY", "Vis efter");
 define("LBL_DEALS_ADD", "Tilføj et tilbud");
 define("LBL_DEAL_EDIT", "Rediger et tilbud");
 define("LBL_DEALS_DELETE", "Slet tilbud");
+define("LBL_DEALS_REGNO", "Reg nr");
+define("LBL_DEALS_KONTO", "Konto Nr");
 
 // EMAILS
 define("LBL_SEE_EMAIL", "Se email");
