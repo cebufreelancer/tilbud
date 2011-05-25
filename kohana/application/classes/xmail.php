@@ -33,13 +33,6 @@ class XMail
 	function __headers()
 	{
 
-		$headers = 'MIME-Version: 1.0' . "\r\n";
-		$headers .= "Content-type: text/html; charset=UTF-8" . "\r\n";
-		$headers .= "From: no-reply@tilbudibyen.com" . "\r\n".
-								"Reply-To: no-reply@tilbudibyen.com" . "\r\n".
-								"X-Mailer: PHP/" . phpversion();
-
-	  
 		$headers  = "MIME-Version: 1.0" . "\r\n";
 		$headers .= "Content-type: {$this->contentType}; charset='{$this->charset}'" . "\r\n";
 		
