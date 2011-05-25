@@ -24,7 +24,7 @@
 						$.ajax({
 							type		: "POST",
 							cache	: false,
-							url		: "/home/changepassword",
+							url		: "<?php echo Url::base(TRUE); ?>/home/changepassword",
 							data		: $(this).serializeArray(),
 							success: function(data) {
 								$.fancybox.hideActivity();
@@ -53,11 +53,11 @@
 					<ul>
 						<li><?php echo Form::hidden('email', $_GET['email']); ?>
 								<?php echo Form::label('password', __(LBL_NEW_PASSWORD)); ?>
-            		<?php echo Form::password('password', '', array('style' => 'width: 240px;', 'required' => true)); ?>
+            		<?php echo Form::password('password', '', array('style' => 'width: 240px;', 'required' => true, 'id' => 'password')); ?>
             </li>
             <li>
             		<?php echo Form::label('confirm_password', __(LBL_VERIFY_NEW_PASSWORD)); ?>
-            		<?php echo Form::password('confirm_password', '', array('style' => 'width: 240px;', 'required' => true)); ?>
+            		<?php echo Form::password('confirm_password', '', array('style' => 'width: 240px;', 'required' => true, 'id' => 'confirm_password')); ?>
             </li>
 						<li>
             	<?php echo Form::submit('submit', __(LBL_CHANGE)); ?>
