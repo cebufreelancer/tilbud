@@ -25,4 +25,16 @@ class Model_User extends Model_Useradmin_User {
 		
 		return $return;
 	}
+	
+	/**
+	 * This will generate a token string un sha1
+	 */
+	public function generate_token()
+	{
+		do {
+			$token = sha1(uniqid(Text::random(md5(date("Y-m-d H:i:s")), 32), TRUE));
+		} while(ORM::factory('user', array('reset_token' => $token))->loaded());
+		
+		return $token;
+	}
 } // End User Model
