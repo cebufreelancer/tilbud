@@ -122,10 +122,12 @@ Sådan bruger du dit værdibevis <br>
   		  $reset_url = url::base(true) . "home/password_reset?email=" . $user['email'] . "&token=" . $token;
         $mailer = new XMail();
         $mailer->subject = __(LBL_RESET_PASSWORD_SUBJECT);
-        $mailer->message = "Forgot your password " . $user['firstname'] . " ($email)?
+        $mailer->message = "Forgot your password " . $user['firstname'] . " ($email)? \n\n
 
 If you want to reset your password, click on the link below (or copy and paste the URL into your browser):
 $reset_url
+
+TilbudIbyen.com
 
 ";
         $mailer->to = $email;
