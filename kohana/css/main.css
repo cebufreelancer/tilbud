@@ -196,21 +196,22 @@ header, content, footer {
   width: 950px;
   padding: 5px;
 }
-.buy-container, .offer-container,
-.social-container {
+.buy-container, .offer-container {
  	background: url(../images/bg-deals.png) repeat;
   padding: 5px 10px;
   margin-bottom: 5px;
   width: 265px;
 }
-.offer-container, .social-container { 
+.offer-container { 
 	background: #373737;
   float: left;
   margin-right: 5px;
   height: 83px;
 }
-.social-container { 
-	width: 150px; 
+.social-container {
+  background: #373737;
+  padding: 10px 0px;
+	width: 215px; 
 	text-align: center;  
 }
 .buy-img-cont, .clock-img-cont {
