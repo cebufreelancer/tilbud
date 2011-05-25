@@ -14,18 +14,18 @@
           <?php foreach($deals as $deal){ ?>
             <div class="deals-widget">
             	<?php
-							$deal['contents'] = strip_tags($deal['contents']);
+							$deal['contents'] = strip_tags($deal['description']);
 							$title = strlen($deal['contents']) > 65 ? substr($deal['contents'],0,65) . ' ...' : $deal['contents'];
-							$title_url = HTML::anchor('deals/view/' . $deal['ID'], $title, array('title' => $deal['title'],
+							$title_url = HTML::anchor('deals/view/' . $deal['ID'], $title, array('title' => $deal['title'] . '-' . $deal['contents'],
 																																									 'class' => 'widget-title'));
 							$regular_price    = $deal['regular_price'];
 							$discount					= $deal['discount'];
 							$discounted_price = ( $regular_price * (100 - $discount)) / 100;
 							?>
-            	<h2><?php echo  $title_url; ?></h2>
+            	<h2 style="white-space:nowrap; overflow: hidden;"><?php echo  $title_url; ?></h2>
               <div style="margin-top: 10px;">
                 <div class="image" style="float: right">
-                  <img src="<?= url::base(true);?>uploads/<?= $deal['ID'];?>/<?= $deal['image'];?>" width="165" height="105">
+                  <img src="<?= url::base(true);?>uploads/<?= $deal['ID'];?>/<?= $deal['image'];?>" width="165" height="105" title="<?php echo $deal['title'] . '-' . $deal['contents']; ?>">
                 </div>
                 <div style="float :left">
                   <div class="sold"><?php echo count($orders->get_orders($deal['ID'])); ?> <?= LBL_SOLD?></div>
