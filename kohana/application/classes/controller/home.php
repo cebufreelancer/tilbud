@@ -125,6 +125,7 @@ Sådan bruger du dit værdibevis <br>
         $mailer->message = "Forgot your password " . $user['firstname'] . " ($email)? \r\n
 <br/><br/>
 If you want to reset your password, click on the link below (or copy and paste the URL into your browser):
+<br/>
 $reset_url
 
 <br/><br/>
