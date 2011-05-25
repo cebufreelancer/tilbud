@@ -32,21 +32,29 @@ class XMail
 	
 	function __headers()
 	{
-		$headers  = "MIME-Version: 1.0\n";
-		$headers .= "Content-type: {$this->contentType}; charset=\"{$this->charset}\"\n";
+
+		$headers = 'MIME-Version: 1.0' . "\r\n";
+		$headers .= "Content-type: text/html; charset=UTF-8" . "\r\n";
+		$headers .= "From: no-reply@tilbudibyen.com" . "\r\n".
+								"Reply-To: no-reply@tilbudibyen.com" . "\r\n".
+								"X-Mailer: PHP/" . phpversion();
+
+	  
+		$headers  = "MIME-Version: 1.0" . "\r\n";
+		$headers .= "Content-type: {$this->contentType}; charset='{$this->charset}'" . "\r\n";
 		
 		// Set From
 		if(isset($this->from)) {
-			$headers .= "From: {$this->from}\n";
+			$headers .= "From: {$this->from}" . "\r\n";
 		} else {
-			$headers .= "From: TilbudiByen <no-reply@tilbudibyen.com>\n";
+			$headers .= "From: TilbudiByen <no-reply@tilbudibyen.com>" . "\r\n";
 		}
 		
 		// Set Reply-To
 		if(isset($this->replyTo)) {
-			$headers .= "Reply-To: {$this->replyTo}\n";
+			$headers .= "Reply-To: {$this->replyTo}" . "\r\n";
 		} else {
-			$headers .= "Reply-To: no-reply@tilbudibyen.com\n";
+			$headers .= "Reply-To: no-reply@tilbudibyen.com" . "\r\n";
 		}
 		
 		// Set BCC
@@ -61,7 +69,7 @@ class XMail
 			$headers .= "BCC: " . implode(", ", $b) . "\n";
 		}
 		
-		$headers .= "X-Mailer: PHP/" . phpversion() . "\n";
+		$headers .= "X-Mailer: PHP/" . phpversion() ;
 		
 		if($this->is_priority) {
 			$headers .= "X-Priority: 1 (Highest)\n";
