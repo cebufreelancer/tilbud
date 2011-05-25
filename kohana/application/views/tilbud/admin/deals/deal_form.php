@@ -68,33 +68,40 @@
           <li><?php echo Form::label('deal_address', __(LBL_ADDRESS2)); ?>
               <?php echo Form::input('deal_address', $address, array()); ?>
           </li>
-          <li><?php echo Form::label('deal_image', __(LBL_UPLOAD_IMAGE)); ?>
+          <li>
+              <?php echo Form::label('deal_image', __(LBL_UPLOAD_IMAGE)); ?> 
+              <span style="font-size: 10px">Size: 952px x 312px</span>
+              <br/>
               
-              <?php echo Form::file('deal_image', array("style" => "width: 200px")); ?>
+              <?php echo Form::file('deal_image', array("style" => "width: 300px")); ?>
               <?php if ($deal_image != ""){?>
                 <a href="/uploads/<?= $deal_id;?>/<?= $deal_image;?>" target="_blank" class="homelink">View  </a>|
                 <a href="/admin/deals/deleteimage/<?= $deal_id;?>?i=1" class="homelink" onclick="return confirm('Are you sure?')">Remove  </a>
               <?php } ?>
+              <br/>
 
-              <?php echo Form::file('deal_image2', array("style" => "width: 200px")); ?>
+              <?php echo Form::file('deal_image2', array("style" => "width: 300px")); ?>
               <?php if ($deal_image2 != ""){?>
                 <a href="/uploads/<?= $deal_id;?>/<?= $deal_image2;?>" target="_blank" class="homelink">View  </a>|
                 <a href="/admin/deals/deleteimage/<?= $deal_id;?>?i=2" class="homelink" onclick="return confirm('Are you sure?')">Remove  </a>
               <?php }?>
+              <br/>
 
-              <?php echo Form::file('deal_image3', array("style" => "width: 200px"));?>
+              <?php echo Form::file('deal_image3', array("style" => "width: 300px"));?>
               <?php if ($deal_image3 != ""){?>
                 <a href="/uploads/<?= $deal_id;?>/<?= $deal_image3;?>" target="_blank" class="homelink">View  </a>|
                 <a href="/admin/deals/deleteimage/<?= $deal_id;?>?i=3" class="homelink" onclick="return confirm('Are you sure?')">Remove  </a>
               <?php } ?>
+              <br/>
 
-              <?php echo Form::file('deal_image4', array("style" => "width: 200px")); ?>
+              <?php echo Form::file('deal_image4', array("style" => "width: 300px")); ?>
               <?php if ($deal_image4 != ""){?>
                 <a href="/uploads/<?= $deal_id;?>/<?= $deal_image4;?>" target="_blank" class="homelink">View  </a>|
                 <a href="/admin/deals/deleteimage/<?= $deal_id;?>?i=4" class="homelink" onclick="return confirm('Are you sure?')">Remove </a>
               <?php }?>
+              <br/>
 
-              <?php echo Form::file('deal_image5', array("style" => "width: 200px")); ?>
+              <?php echo Form::file('deal_image5', array("style" => "width: 300px")); ?>
               <?php if ($deal_image5 != ""){?>
                 <a href="/uploads/<?= $deal_id;?>/<?= $deal_image5;?>" target="_blank" class="homelink">View  </a>|
                 <a href="/admin/deals/deleteimage/<?= $deal_id;?>?i=5" class="homelink" onclick="return confirm('Are you sure?')">Remove  </a>

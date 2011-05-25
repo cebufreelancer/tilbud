@@ -240,7 +240,7 @@ TilbudIbyen.com
 					$username = $email; // substr($email, 0, strpos($email, "@"));
 					
 					$user['username'] = $username;
-					$user['firstname'] = $username;
+					$user['firstname'] = "";
 					$user['email']		 = $email;
 					$user['status']	 = 'pending';
 					$user['password'] = ORM::factory('user')->generate_password(6);
