@@ -109,7 +109,6 @@ class Controller_Deals extends Controller {
 					$new_user['password'] 	= $posts['password'];
 					$new_user['password_confirm'] = $posts['password_confirm'];
 					$new_user['username'] 	= $posts['email']; //substr($posts['email'], 0, strpos($posts['email'], "@"));
-					$new_user['group_id'] 	= 1;
 					$new_user['fullname'] 	= $posts['fullname'];
 					$new_user['user_type']  = 'user';
 					$new_user['status'] 		= 'active';
@@ -131,7 +130,7 @@ class Controller_Deals extends Controller {
 							$errors['email'] = __(EMAIL_EXIST);
 						}else{    
 							try {
-								$user->create_user($new_user, array('username','password','email','firstname','lastname','group_id','status'));
+								$user->create_user($new_user, array('username','password','email','firstname','lastname','status'));
 								$user_id = $user->id;
 								$user = ORM::factory('user', $user_id);
 								
