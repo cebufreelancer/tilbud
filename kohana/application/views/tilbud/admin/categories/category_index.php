@@ -39,7 +39,7 @@
         <?php
         foreach($categories as $cat) {
 					$edit_url = HTML::anchor('admin/groups/edit/' . $cat['ID'], __(LBL_EDIT));
-					$delete_url = HTML::anchor('admin/groups/delete/' . $cat['ID'], __(LBL_DELETE));
+					$delete_url = HTML::anchor('admin/groups/delete/' . $cat['ID'], __(LBL_DELETE), array('class' => 'delete'));
           echo '<tr>';
           echo '<td>' . $edit_url . ' ' . $delete_url . '</td>';
           echo '<td><b>' . $cat['name'] . '</b></td>';

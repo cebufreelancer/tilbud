@@ -204,6 +204,13 @@ define("LBL_DEAL_EDIT", "Rediger et tilbud");
 define("LBL_DEALS_DELETE", "Slet tilbud");
 define("LBL_DEALS_REGNO", "Reg nr");
 define("LBL_DEALS_KONTO", "Konto Nr");
+define("LBL_PAGE_ADD", "Add a Page");
+define("LBL_PAGE_EDIT", "Edit a Page");
+define("LBL_PAGE_DELETE", "Delete a Page");
+define("LBL_PAGE_CODE", "Page Code");
+define("LBL_PAGE_CONTENT", "Content");
+define("LBL_URL", "URL");
+define("LBL_LAST_UPDATE", "Last Update");
 
 // EMAILS
 define("LBL_SEE_EMAIL", "Se email");

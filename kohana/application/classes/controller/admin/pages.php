@@ -62,7 +62,7 @@ class Controller_Admin_Pages extends Controller {
 	public function action_add()
 	{
 		$page = View::factory('tilbud/admin/page_edit');
-		$page->label = 'Add Page';
+		$page->label = __(LBL_PAGE_ADD);
 		$thepage = ORM::factory('page');
 
 		$page->thepage = $thepage;
@@ -86,52 +86,10 @@ class Controller_Admin_Pages extends Controller {
 		
 	}
 
-
-	public function action_addzzzz()
-	{
-		$page = View::factory('tilbud/admin/product_form');
-		$page->label = 'Add a Product';
-		
-		$products = ORM::factory('product');
-		$page->vendors = $products->get_vendors(TRUE);
-		
-		// Get posts
-		$posts = $this->request->post();
-		
-		// This will check if submitted
-		if(!empty($posts)) {
-					
-			$products->vendor_id 	 = $posts['product_vendor'];
-			$products->title 			 = htmlentities($posts['product_name']);
-			$products->description = htmlentities($posts['product_desc']);
-			$products->price 	 		 = $posts['product_price'];
-			
-			if(isset($_FILES['product_vendor'])) {
-				$products->image = $_FILES['product_image']['name'];
-			}
-			
-			if($products->save()) {
-				// message: save success
-        Message::add('success', __('Values saved.'));
-						
-				// Assuming all is correct
-				Request::current()->redirect('admin/products');
-				return;
-			}
-		}
-		
-		$page->prod_vid = isset($posts['product_vendor']) ? $posts['product_vendor'] : '';
-		$page->prod_title = isset($posts['product_name']) ? $posts['product_name'] : '';
-		$page->prod_desc = isset($posts['product_desc']) ? $posts['product_desc'] : '';
-		$page->prod_price = isset($posts['product_price']) ? $posts['product_price'] : '';
-		
-		$this->response->body($page);
-	}
-	
 	public function action_edit($id=NULL)
 	{
 		$page = View::factory('tilbud/admin/page_edit');
-		$page->label = 'Edit Page';
+		$page->label = __(LBL_PAGE_EDIT);
 		$thepage = ORM::factory('page')->get_page_byid($id);
 
 		$page->thepage = $thepage;

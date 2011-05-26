@@ -6,7 +6,7 @@
   	<div class="centered">
     	
       <div id="htitle">
-      	<h2>Pages</h2>
+      	<h2><?php echo __(LBL_PAGES); ?></h2>
       </div>
       
       <div id="myforms">
@@ -21,7 +21,7 @@
 				?>
       
         <div id="action-button">
-          <?php echo HTML::anchor('admin/pages/add', 'Add a page', array('class' => 'addbutton')); ?>
+          <?php echo HTML::anchor('admin/pages/add', __(LBL_PAGE_ADD), array('class' => 'addbutton')); ?>
         </div>
         
         <?php echo $paging->render(); ?>
@@ -29,18 +29,18 @@
         <table class="table">
         <thead>
         <tr>
-          <td>Action</td>
-          <td width="200">page code</td>
-          <td>Description</td>
-          <td>URL</td>          
-          <td>Last updated</td>
+          <td><?php echo __(LBL_ACTION); ?></td>
+          <td width="200"><?php echo __(LBL_PAGE_CODE); ?></td>
+          <td><?php echo __(LBL_DESCRIPTION); ?></td>
+          <td><?php echo __(LBL_URL); ?></td>          
+          <td><?php echo __(LBL_LAST_UPDATE); ?></td>
         </tr>
         </thead>
         <tbody>
         <?php
         foreach($pages as $page) {
-					$edit_url = HTML::anchor('admin/pages/edit/' . $page['id'], 'Edit');
-					$delete_url = HTML::anchor('admin/pages/delete/' . $page['id'], 'Delete');
+					$edit_url = HTML::anchor('admin/pages/edit/' . $page['id'], __(LBL_EDIT));
+					$delete_url = HTML::anchor('admin/pages/delete/' . $page['id'], __(LBL_DELETE), array('class' => 'delete'));
           echo '<tr>';
           echo '<td>' . $edit_url . ' ' . $delete_url . '</td>';
           echo '<td><b>' . $page['page_code'] . '</b></td>';

@@ -41,7 +41,7 @@
         <?php
         foreach($cities as $city) {
 					$edit_url = HTML::anchor('admin/cities/edit/' . $city['ID'], __(LBL_EDIT));
-					$delete_url = HTML::anchor('admin/cities/delete/' . $city['ID'], __(LBL_DELETE));
+					$delete_url = HTML::anchor('admin/cities/delete/' . $city['ID'], __(LBL_DELETE), array('class' => 'delete'));
           echo '<tr>';
           echo '<td>' . $edit_url . ' ' . $delete_url . '</td>';
 					echo '<td>' . $city['order'] . '</td>';
