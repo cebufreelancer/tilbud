@@ -204,11 +204,21 @@
           </li>
           <li>
 							<?php echo Form::label('deal_regno', __(LBL_DEALS_REGNO)); ?>
-              <?php echo Form::input('deal_regno', $regno, array('style' => 'width: 95%')); ?>
+              <?php echo Form::input('deal_regno', $regno, array('style' => 'width: 100px; text-align: center;',
+																																 'maxlength' => 4,
+																																 'pattern' => "[0-9]{0,4}")); ?>
+							<div style="font-size: 11px; line-height: 15px">
+              e.g. : <strong>8273</strong>
+              </div>
           </li>
           <li class="separator">
 							<?php echo Form::label('deal_itemno', __(LBL_DEALS_KONTO)); ?>
-              <?php echo Form::input('deal_itemno', $itemno, array('style' => 'width: 95%')); ?>
+              <?php echo Form::input('deal_itemno', $itemno, array('style' => 'width: 95%; text-align: center;',
+																																	 'maxlength' => 12,
+																																	 'pattern' => "[0-9]{0,12}")); ?>
+							<div style="font-size: 11px; line-height: 15px">
+              e.g. : <strong>123456789012</strong>
+              </div>
           </li>
           <?php /*
           <li><?php echo Form::label('deal_vouchers', __(LBL_NUMBER_OF_VOUCHERS)); ?>
