@@ -378,3 +378,8 @@ CREATE TABLE IF NOT EXISTS `forget_passwords` (
   `date_created` datetime NOT NULL,
   PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+--
+-- May 26 2011 Updates
+--
+ALTER TABLE  `users` DROP  `group_id`;

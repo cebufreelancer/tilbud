@@ -21,8 +21,8 @@ class Controller_Admin_Users extends Controller_Useradmin_User {
 		));
 		
 		// Get the items for the query
-		$sort = isset($_GET['sort']) ? $_GET['sort'] : 'username'; // set default sorting direction here
-		$dir = isset($_GET['dir']) ? 'DESC' : 'ASC';
+		$sort = isset($_GET['sort']) ? $_GET['sort'] : 'created'; // set default sorting direction here
+		$dir = isset($_GET['dir']) ? 'ASC' : 'DESC';
 		$result = $users->limit($pagination->items_per_page)
 									  ->offset($pagination->offset)
 										->order_by($sort, $dir)
@@ -129,9 +129,8 @@ class Controller_Admin_Users extends Controller_Useradmin_User {
 			$posts = $this->request->post();
 			
 			if(!empty($posts)) {
-				$fields = array('username','email','firstname','lastname','group_id','mobile','address','password');
+				$fields = array('username','email','firstname','lastname','mobile','address','password');
 				
-				$clean['group'] = $posts['group'];
 				$clean['firstname'] = $posts['firstname'];
 				$clean['lastname'] = $posts['lastname'];
 				$clean['email'] = $posts['email'];
@@ -139,7 +138,6 @@ class Controller_Admin_Users extends Controller_Useradmin_User {
 				$clean['password'] = $posts['password'];
 				$clean['password_confirm'] = $posts['password_confirm'];
 				$clean['user_type'] = 'user'; // default  $posts['user_type'];
-				$clean['group_id'] = $posts['group'];
 				$clean['mobile'] = $posts['mobile'];
 				$clean['address']		= $posts['address'];
 				
@@ -179,10 +177,7 @@ class Controller_Admin_Users extends Controller_Useradmin_User {
 			$view->email 		 = isset($posts['email']) ? $posts['email'] : '';
 			$view->mobile		 = isset($posts['mobile']) ? $posts['mobile'] :'';
 			$view->user_type = isset($posts['user_type']) ? $posts['user_type'] : 'user';
-			$view->group		 = isset($posts['group']) ? $posts['group'] : 0;
 			$view->address	 = isset($posts['address']) ? $posts['address'] : '';
-			
-			$view->groups 	 = Kohana::config('global.categories');
 
       $this->template->content = $view;
 	}
@@ -202,15 +197,13 @@ class Controller_Admin_Users extends Controller_Useradmin_User {
 		
 		if(!empty($posts)) {
 			
-			$fields = array('username','email','firstname','lastname','group_id','mobile','address');
+			$fields = array('username','email','firstname','lastname','mobile','address');
 			
-			$clean['group'] 		= $posts['group'];
 			$clean['firstname'] = $posts['firstname'];
 			$clean['lastname'] 	= $posts['lastname'];
 			$clean['email'] 		= $posts['email'];
 			$clean['username'] 	= substr($posts['email'], 0, strpos($posts['email'], "@"));
 			$clean['user_type'] = 'user'; //$posts['user_type'];
-			$clean['group_id'] 	= $posts['group'];
 			$clean['mobile'] 		= $posts['mobile'];
 			$clean['address']		= $posts['address'];
 			
@@ -257,11 +250,8 @@ class Controller_Admin_Users extends Controller_Useradmin_User {
 		$view->email 		 = isset($posts['email']) ? $posts['email'] : $user->email;
 		$view->mobile		 = isset($posts['mobile']) ? $posts['mobile'] : $user->mobile;
 		$view->user_type = isset($posts['user_type']) ? $posts['user_type'] : $user_type;
-		$view->group		 = isset($posts['group']) ? $posts['group'] : $user->group_id;
 		$view->address	 = isset($posts['address']) ? $posts['address'] : $user->address;
 		$view->is_edit	 = TRUE;
-		
-		$view->groups 	 = Kohana::config('global.categories');
 
 		$this->template->content = $view;
 	}

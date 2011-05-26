@@ -15,9 +15,6 @@
   
   <?php echo $form->open(Request::current(), array('id' => 'myforms')); ?>
   <ul>
-  	<li><?php echo $form->label('group', __(LBL_GROUPS)); ?>
-        <?php echo $form->select('group', $groups, $group); ?>
-    </li>
     <li><?php echo $form->label('firstname', __(LBL_FIRSTNAME)); ?>
         <?php echo Form::input('firstname', $firstname, array('style' => 'width: 215px;',
                                                         'required' => true)); ?> <?php echo __(LBL_LASTNAME); ?> 
@@ -46,7 +43,6 @@
                                                      'required' => true,
                                                      'type' => 'tel')); ?>
     </li>
-    <!--
     <?php
     /*
     <li><?php echo $form->label('user_type', __(LBL_USER_TYPE)); ?>
@@ -54,7 +50,6 @@
     </li>
     */
     ?>
-    -->
     <li>
       <?php echo $form->submit(NULL, __(LBL_SAVE)); ?>
       <?php echo HTML::anchor($_SERVER['HTTP_REFERER'], LBL_CANCEL, array('class' => 'cancel')); ?>
