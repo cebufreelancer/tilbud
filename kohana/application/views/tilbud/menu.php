@@ -21,13 +21,13 @@
       <li><?php echo HTML::anchor('alldeals', LBL_ALLDEALS); ?></li>
 
       <?php if (!$is_logged){?>
-      	<li><?php echo HTML::anchor('#signup-form', LBL_SIGNUP, array('id' => 'signup')); ?></li>
+      	<li><?php echo HTML::anchor('#signup-form', LBL_SIGNUP, array('id' => 'signup', 'class' => 'signup')); ?></li>
       <?php } ?>
 
       
-      <li><a id="iabout" href="<?= url::base(true)?>ipages?p=about"><?= LBL_ABOUTUS?></a></li>
-      <li><a id="icontact" href="<?= url::base(true)?>ipages?p=contact"><?= LBL_CONTACTUS ?></a></li>      
-      <li><a id="ifaq" href="<?= url::base(true)?>ipages?p=faq"><?= LBL_FAQ?></a></li>
+      <li><a class="ipages" id="iabout" href="<?= url::base(true)?>ipages?p=about"><?= LBL_ABOUTUS?></a></li>
+      <li><a class="ipages" id="icontact" href="<?= url::base(true)?>ipages?p=contact"><?= LBL_CONTACTUS ?></a></li>      
+      <li><a class="ipages" id="ifaq" href="<?= url::base(true)?>ipages?p=faq"><?= LBL_FAQ?></a></li>
       <?php if (!$is_logged){?>
       	<li><?php echo HTML::anchor('#loginform', LBL_LOGIN, array('id' => 'tip5')); ?></li>
       <?php } ?>

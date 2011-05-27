@@ -52,9 +52,14 @@ class Controller_User extends Controller_App {
 
 					// Check Auth if the post data validates using the rules setup in the user model
 					if ( Auth::instance()->login($_REQUEST['username'], $_REQUEST['password']) ) {
-						 // redirect to the user account
-						 $this->request->redirect('user/');
-						 return;
+						
+						// Check Cookie if set and update cookie value
+						Cookie::set('tib', md5(date("Ymd")), Date::WEEK*2);
+						
+						// redirect to the user account
+						$this->request->redirect('user/');
+						return;
+						
 					} else {
 						 $view->set('username', $_REQUEST['username']);
 						 // Get errors for display in view
@@ -204,7 +209,7 @@ class Controller_User extends Controller_App {
 		}
 
 		$view = View::factory('tilbud/signup');
-		$view->header = 'Sign Up';
+		$view->header = __(LBL_SIGNUP);
 
 		$posts = $this->request->post();
 
@@ -263,4 +268,5 @@ class Controller_User extends Controller_App {
 		
 		$this->template->content = $page;
 	}
+	
 } // End of Admin Users

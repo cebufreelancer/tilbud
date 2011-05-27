@@ -215,24 +215,20 @@ TilbudIbyen.com
 			$email = $posts['semail'];
 			$city  = $posts['city'];
 		
-		  $to = $posts['semail'];
-		  $subject = __(LBL_SIGNUP_SUBJECT);
-		  $headers = 'MIME-Version: 1.0' . "\r\n";
-		  $headers .= "Content-type: text/html; charset=UTF-8" . "\r\n";
-		  $headers .= "From: TilbudiByen <no-reply@tilbudibyen.com>" . "\r\n".
-		              "Reply-To: no-reply@tilbudibyen.com" . "\r\n".
-		              "X-Mailer: PHP/" . phpversion();
-
 			$subscriber = ORM::factory('subscriber');
 			
 			// check if email and city already subscribed			
 			if(!$subscriber->is_subscribed($email, $city)) {
 				// Add to Subcribers DB
 				$subscriber->add($email, $city);
+				// Add to Cookie that user is already subscribed
+				Cookie::set('tib', md5(date("Ymd")), Date::WEEK*2);
 			}
 			
 			// Check if user already registered
-			if(!ORM::factory('user')->email_exist($email)) {
+			// And is not subscriber only
+			if(!ORM::factory('user')->email_exist($email)
+			   && !isset($posts['subscriber'])) {
 			
 				// Add email to users
 				try {
@@ -255,27 +251,34 @@ TilbudIbyen.com
 				}
 							
 				// Send email to activate
+				$mailer = new XMail();
+				$mailer->subject = __(LBL_SIGNUP_SUBJECT);
+				$mailer->to = $posts['semail'];
+
 				$confirm_url = "http://www.tilbudibyen.com/verify?e=" . $email;
 				ob_start();
 				include_once(APPPATH . 'views/tilbud/template_confirm.php');
 				$content = ob_get_clean();
 				
-				$message = $content;
+				$mailer->message = $content;
 				
-				if(mail($to, $subject, $message, $headers)) {
+				if($mailer->send()) {
 					// Should notify to check email for verification process
-					$page			= View::factory('tilbud/signup2');
+					$page	= View::factory('tilbud/signup2');
 				}
 				
 		    $this->response->body($page);
 			}else {
 			  // email already exists
-			  $ret = "Email already exists!";
-		    $this->response->body($ret);			  
+				// TODO: if email exists (paul)
+				//   - asks if enter another email or login
+				// $page = View::factory('tilbud/login');
+				$page = View::factory('tilbud/signupform');
+				$errors['email'] = __(EMAIL_EXIST);
+				$page->errors = $errors;
+		    $this->response->body($page);			  
 			}
 		}
-		
-
 	}
 	
 	public function action_verify()

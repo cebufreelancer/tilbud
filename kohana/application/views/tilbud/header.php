@@ -5,9 +5,9 @@
   <meta CONTENT="text/html; charset=utf-8"/>
   <title>TilbudiByen</title>
 	
-  <link rel="stylesheet" href="<?php echo url::base()?>js/jquery-ui.css" type="text/css" media="all" /> 
-	<link rel="stylesheet" media="all" href="<?php echo url::base(TRUE)?>css/main.css"/>
-	<link rel="stylesheet" media="all" href="<?php echo url::base(TRUE)?>css/s3Slider.css"/>
+  <link rel="stylesheet" href="<?php echo url::base()?>js/jquery-ui.css" type="text/css" media="all" />
+  <link rel="stylesheet" media="all" href="<?php echo url::base(TRUE)?>css/main.css"/>
+  <link rel="stylesheet" media="all" href="<?php echo url::base(TRUE)?>css/s3Slider.css"/>
 	
   <?php if (isset($deal)) {?>
   <meta property="og:type" content="restaurant"/> 
@@ -67,26 +67,8 @@
   <?php } ?>
   <script type="text/javascript">
     jQuery(document).ready(function() {
-
-    	$("#thesignupform").bind("submit", function() {
-  	    $.fancybox.showActivity();
-
-    		$.ajax({
-    			type	: "POST",
-    			cache	: false,
-    			url		: "/home/signup",
-    			data	: $(this).serializeArray(),
-    			success: function(data) {
-    				$.fancybox(data);
-    			}
-    		});
-
-        $.fancybox.hideActivity();
-    		return false;
-    	});
-    	
   		$("#accountverified").fancybox({
-  			'scrolling'		: false,
+				'scrolling'		: false,
   			'titleShow'		: false,
   			'autoScale'	: false,
   			'frameWidth'		: 900,
@@ -96,15 +78,12 @@
   			'transitionIn' : 'elastic',
   			'showCloseButton' : true,
   			'onClosed'		: function() {
-  					$("#login_error").hide();
+  				$("#login_error").hide();
   			}
   		});
-    	
-    	
   });      
   </script>
     
-  
   <!--[if lt IE 9]>
   	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
@@ -112,7 +91,7 @@
 </head>
 <body <?php if (isset($address)) { echo  'onLoad="initialize()" onunload="GUnload()"'; }?>>
 
-  <a href="#account_verified" id="accountverified" ></a>
+  <a href="#account_verified" id="accountverified"></a><a href="#signup-form" id="newvisitor" ></a>
   
 	<?php if(isset($account_verified)) { ?>		  
 	  <script>
@@ -122,41 +101,41 @@
 		</script>
   <?php } ?>
 
-	
 		<?php if(isset($is_referral)) { ?>
+    <div style="display:none"><div id="account_verified"><?php include 'referral.php'; ?></div></div>
     <a href="<?php echo Url::base(TRUE) . 'referral'; ?>" id="referral-form" ></a>
     <script type="text/javascript">
 			$(document).ready(function() {
 				$("#referral-form").fancybox({
       		'scrolling'		: false,
-  			'titleShow'		: false,
-  			'autoScale'	: false,
-  			'width'		: 760,
-  			'height'		: 420,
-  			'overlayOpacity' : 0.7,
-  			'centerOnScroll' : true,
-  			'transitionIn' : 'elastic',
-  			'showCloseButton' : false,
-  			'hideOnOverlayClick' : false,
-  			'hideOnContentClick' : false,
-				'type' : 'iframe',
+					'titleShow'		: false,
+					'autoScale'	: false,
+					'width'		: 760,
+					'height'		: 420,
+					'overlayOpacity' : 0.7,
+					'centerOnScroll' : true,
+					'transitionIn' : 'elastic',
+					'showCloseButton' : false,
+					'hideOnOverlayClick' : false,
+					'hideOnContentClick' : false,
+					'type' : 'iframe',
       	}).trigger('click');				
     	});
 		</script>
     <?php } ?>
 
 		<?php if(isset($msg)) { ?>
-		<div id="notification">
-			<p><?php echo $msg; ?> 
-			<?php echo HTML::image(Url::base(TRUE) . 'images/close.png', array('align' => 'right', 'width' => 10, 'id' => 'closeme')); ?>
-			</p>
-		</div>
-		<script type="text/javascript">
-		$("#notification").slideDown('fast');
-		$("#closeme").click(function(){
-			$("#notification").slideToggle('fast');
-		});
-		</script>
+      <div id="notification">
+        <p><?php echo $msg; ?> 
+        <?php echo HTML::image(Url::base(TRUE) . 'images/close.png', array('align' => 'right', 'width' => 10, 'id' => 'closeme')); ?>
+        </p>
+      </div>
+      <script type="text/javascript">
+      $("#notification").slideDown('fast');
+      $("#closeme").click(function(){
+        $("#notification").slideToggle('fast');
+      });
+      </script>
 		<?php }	?>
 
     <?php
@@ -165,36 +144,36 @@
         $address = strtolower(html_entity_decode($address));
         $map_address = str_replace("\n", " ", $address);
     ?>
-      <script type="text/javascript">
-          var map = null;
-          var geocoder = null;
+		<script type="text/javascript">
+        var map = null;
+        var geocoder = null;
 
-          function initialize() {
-            if (GBrowserIsCompatible()) {
-              map = new GMap2(document.getElementById("map_canvas"));
-              map.addControl(new GLargeMapControl());
-              map.setCenter(new GLatLng(10.3455617, 123.8969328), 15);
-              geocoder = new GClientGeocoder();
-              showAddress("<?= $map_address . " denmark " ?>");
-            }
+        function initialize() {
+          if (GBrowserIsCompatible()) {
+            map = new GMap2(document.getElementById("map_canvas"));
+            map.addControl(new GLargeMapControl());
+            map.setCenter(new GLatLng(10.3455617, 123.8969328), 15);
+            geocoder = new GClientGeocoder();
+            showAddress("<?= $map_address . " denmark " ?>");
           }
+        }
 
-          function showAddress(address) {
-            geocoder.getLatLng(
-              address,
-              function(point) {
-                if (!point) {
-                  //alert(address + " not found");
-                } else {
-                  map.setCenter(point, 15);
-                  var marker = new GMarker(point);
-                  map.addOverlay(marker);
-                  //marker.openInfoWindowHtml(address);
-                }
+        function showAddress(address) {
+          geocoder.getLatLng(
+            address,
+            function(point) {
+              if (!point) {
+                //alert(address + " not found");
+              } else {
+                map.setCenter(point, 15);
+                var marker = new GMarker(point);
+                map.addOverlay(marker);
+                //marker.openInfoWindowHtml(address);
               }
-            );
-          }
-      </script>
+            }
+          );
+        }
+    </script>
   <?php } ?>
 
 	<!-- header starts here -->
@@ -205,7 +184,6 @@
         <div class="hcaption"><?= LBL_TAG_LINE ?></div>
         <div class="hsocial">
         	<span><?= LBL_SHARE_LINKS ?></span><br />
-
 
           <div class="addthis_toolbox addthis_default_style ">
             <div class="addthis_toolbox addthis_default_style ">              
@@ -247,7 +225,7 @@
   					$("#login_error").hide();
   			}
   		});
-
+			
   		$("#tip5").fancybox({
   			'scrolling'		: false,
   			'titleShow'		: false,
@@ -264,19 +242,7 @@
   					$("#login_error").hide();
   			}
   		});
-
-  		$("#tip5-old").fancybox({
-  			'scrolling'		: 'true',
-  			'titleShow'		: false,
-  			'hideOnOverlayClick' : false,
-  			'hideOnContentClick' : false,
-  			'showCloseButton' : true,
-  			'onClosed'		: function() {
-  					$("#login_error").hide();
-  			}
-  		});
-  		
-  		$("#ifaq").fancybox({
+			$("a.ipages").fancybox({
       		'width'				: 712,
       		'height'			: 458,
           'autoDimensions' : false,
@@ -284,171 +250,51 @@
       		'transitionOut'		: 'none',
       		'type'				: 'iframe'
       });
-  		$("#ifaq2").fancybox({
-      		'width'				: 712,
-      		'height'			: 458,
-          'autoDimensions' : false,
-              'transitionIn'		: 'none',
-      		'transitionOut'		: 'none',
-      		'type'				: 'iframe'
-      });
 
-  		$("#icontact").fancybox({
-      		'width'				: 712,
-      		'height'			: 458,
-          'autoDimensions' : false,
-              'transitionIn'		: 'none',
-      		'transitionOut'		: 'none',
-      		'type'				: 'iframe'
-      });
-
-  		$("#icontact2").fancybox({
-      		'width'				: 712,
-      		'height'			: 458,
-          'autoDimensions' : false,
-              'transitionIn'		: 'none',
-      		'transitionOut'		: 'none',
-      		'type'				: 'iframe'
-      });
-      
-      $("#iabout").fancybox({
-      		'width'				: 712,
-      		'height'			: 458,
-          'autoDimensions' : false,
-              'transitionIn'		: 'none',
-      		'transitionOut'		: 'none',
-      		'type'				: 'iframe'
-      });
-
-      $("#iabout2").fancybox({
-      		'width'				: 712,
-      		'height'			: 458,
-          'autoDimensions' : false,
-              'transitionIn'		: 'none',
-      		'transitionOut'		: 'none',
-      		'type'				: 'iframe'
-      });
-      
-      
-      $("#ihow").fancybox({
-      		'width'				: 712,
-      		'height'			: 458,
-          'autoDimensions' : false,
-              'transitionIn'		: 'none',
-      		'transitionOut'		: 'none',
-      		'type'				: 'iframe'
-      });
-      
-      $("#iterms").fancybox({
-      		'width'				: 712,
-      		'height'			: 458,
-          'autoDimensions' : false,
-              'transitionIn'		: 'none',
-      		'transitionOut'		: 'none',
-      		'type'				: 'iframe'
-      });
-      
-      $("#iterms2").fancybox({
-      		'width'				: 712,
-      		'height'			: 458,
-          'autoDimensions' : false,
-              'transitionIn'		: 'none',
-      		'transitionOut'		: 'none',
-      		'type'				: 'iframe'
-      });
-
-  		
-  		$("#isuggest").fancybox({
-      		'width'				: 712,
-      		'height'			: 458,
-          'autoDimensions' : false,
-              'transitionIn'		: 'none',
-      		'transitionOut'		: 'none',
-      		'type'				: 'iframe'
-      });
-  		$("#iwhy").fancybox({
-      		'width'				: 712,
-      		'height'			: 458,
-          'autoDimensions' : false,
-              'transitionIn'		: 'none',
-      		'transitionOut'		: 'none',
-      		'type'				: 'iframe'
-      });
-      $("#igetyourbusiness").fancybox({
-      		'width'				: 712,
-      		'height'			: 458,
-          'autoDimensions' : false,
-              'transitionIn'		: 'none',
-      		'transitionOut'		: 'none',
-      		'type'				: 'iframe'
-      });
-
-      $("#signup").fancybox({
-    		'scrolling' : 'no',
-    		'titleShow'	: false,
-    		'onClosed'	: function() {
-    		    $("#login_error").hide();
-    		}
-    	});
-    	
-  		$("#xxsignup").fancybox({
-  			'scrolling'		: false,
-  			'titleShow'		: false,
-				'autoDimensions' : true,
-				'width'		: 710,
-  			'height'		: 455,
-  			'overlayOpacity' : 0.7,
-  			'centerOnScroll' : true,
-  			'transitionIn' : 'fade',
-  			'showCloseButton' : true,
-				'enableEscapeButton' : true,
-  			'hideOnOverlayClick' : false,
-  			'hideOnContentClick' : false,
-				'href'	: '<?php echo Url::base(TRUE); ?>signup',
-  			'onClosed'		: function() {
-  					$("#login_error").hide();
-  			}
-  		});
-
-      $("#signup-footer").fancybox({
-    		'scrolling' : 'no',
-    		'titleShow'	: false,
-    		'onClosed'	: function() {
-    		    $("#login_error").hide();
-    		}
-    	});
-
-  		$("#xxsignup-footer").fancybox({
-  			'scrolling'		: false,
-  			'titleShow'		: false,
-  			'autoScale'	: true,
-  			'overlayOpacity' : 0.7,
-  			'centerOnScroll' : true,
-  			'transitionIn' : 'elastic',
-  			'showCloseButton' : true,
-  			'hideOnOverlayClick' : false,
-  			'hideOnContentClick' : false,
-  			'onClosed'		: function() {
-  					$("#login_error").hide();
-  			}
-  		});
-  		
   	});
-    
   	</script>
 
-  	<div style="display:none">
-    	<div id="loginform"><?php include 'login.php'; ?></div>
-    </div>
-
-  	<div style="display:none">
-    	<div id="account_verified"><?php include 'referral.php'; ?></div>
-    </div>
-
-  	<div style="display:none">
-    	<div id="signup-form"><?php include 'signupform.php'; ?></div>
-    </div>
-
-  	<div style="display:none">
-    	<div id="signup-form-footer"><?php include 'signupform.php'; ?></div>
-    </div>
+		<?php if(!$is_logged) { ?>
+    
+			<script type="text/javascript">
+      jQuery(document).ready(function() {
+        $("a.signup").fancybox({
+        'scrolling' : 'no',
+        'titleShow'	: false,
+        'onClosed'	: function() { 
+          $("#login_error").hide(); }	
+        });
+      });
+      </script>
+      <div style="display:none">
+        <div id="loginform"><?php include 'login.php'; ?></div>
+      </div>
+  
+      <div style="display:none">
+        <div id="signup-form"><?php include 'signupform.php'; ?></div>
+      </div>
+    
+			<?php 
+			// Check if visitor has already visited the website
+			// Cookie expiration is set to 2 weeks or 
+			if (is_null(Cookie::get('tib'))) { ?>
+        <script type="text/javascript">
+        $(document).ready(function() {
+          $("#newvisitor").fancybox({
+            'scrolling'		: false,
+            'titleShow'		: false,
+            'autoScale'	: false,
+            'frameWidth'		: 900,
+            'frameHeight'		: 460,
+            'overlayOpacity' : 0.7,
+            'centerOnScroll' : true,
+            'transitionIn' : 'elastic',
+            'showCloseButton' : false,
+            'enableEscapeButton' : false,
+            'hideOnOverlayClick' : false
+          }).trigger('click');
+        });
+        </script>
+      <?php } ?>
+      
+		<?php } ?>
