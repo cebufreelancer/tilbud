@@ -61,6 +61,7 @@ I18n::lang('en-us');
  * Set the cookie configuration
  */
 Cookie::$salt = 'DealsTilbud i Byen 2011'; 
+Cookie::$domain = 'tilbudibyen.com';
 
 /**
  * Set Kohana::$environment if a 'KOHANA_ENV' environment variable has been supplied.
