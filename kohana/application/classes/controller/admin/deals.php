@@ -226,8 +226,6 @@ class Controller_Admin_Deals extends Controller {
 
 		// This will check if submitted
 		if(!empty($posts)) {
-			//echo '<pre>'; print_r($posts); echo '</pre>'; exit;
-		  //$deals->product_id 	= (int)$posts['deal_product'];
 			$deals->title 			= htmlentities($posts['deal_title'], ENT_QUOTES ,"ISO8859-1");
 			$deals->description = htmlentities($posts['deal_desc']);
 			$deals->contents_title = htmlentities($posts['deal_content_title']);
@@ -316,7 +314,7 @@ class Controller_Admin_Deals extends Controller {
 								
 						$mailer = new XMail();
 						$mailer->subject = html_entity_decode($deals->description);
-						$mailer->message = $this->template_deals($deals);
+						$mailer->message = ORM::factory('email')->template_deals($deals);
 						
 						$subscribers = ORM::factory('category')->get_subscribers($deals->city_id);
 						
@@ -326,16 +324,11 @@ class Controller_Admin_Deals extends Controller {
 								$mailer->send();
 							}
 						}
-					}
-					
+					}			
 				}
 			  
 				// message: save success
         Message::add('success', __(sprintf(LBL_SUCCESS_ADD, LBL_DEAL,$deals->title)));
-		
-				// Update all the Category Relationships
-				//$posts['category'] = !empty($posts['category']) ? $posts['category'] : array();		
-				//ORM::factory('category')->update_relationship($deals->ID, $posts['category']);
 				
 				// Assuming all is correct
 				Request::current()->redirect('admin/deals');
@@ -375,48 +368,11 @@ class Controller_Admin_Deals extends Controller {
 		$page->regno				  = isset($posts['deal_regno']) ? $posts['deal_regno'] : '';
 		$page->itemno					= isset($posts['deal_itemno']) ? $posts['deal_itemno'] : '';
 
-
-
 		$page->cities = $citylist;
 		$page->products = $products;
 		$page->categories = Kohana::config('global.categories');
 
 		$this->response->body($page);
-	}
-	
-	public function template_deals($deals)
-	{
-		$emails = ORM::factory('email', 2);
-		// Load Variables
-		$DEAL 					= $deals->description;
-		$EMAILFORMATURL = HTML::anchor(Url::base(TRUE) . 'deals/email_format/'.$deals->ID, 'klik her');
-		$BGHEADER				= url::base(TRUE) . 'images/bg-header.png';
-		$LOGO						= HTML::Image(Url::base(TRUE).'images/logo.png');
-		$FACEBOOK				= HTML::Image(Url::base(TRUE).'images/facebook-like.png');
-		
-		$DEALTITLE			= $deals->title;
-		$DEALURL				= HTML::anchor(Url::base(TRUE) . 'deals/view/' . $deals->ID, 
-											HTML::Image(Url::base(TRUE) . 'images/ordernow.png', array('alt' => 'Order Now',
-																																								 'style' => 'margin-bottom: 20px;')));
-		$DEALREGPRICE		= $deals->regular_price;
-		$DEALPRICE			= ($deals->regular_price * (100 - $deals->discount)) / 100;
-		$DEALCLASS			= strlen($DEALPRICE) > 5 ? ' font-size: 45px;' : '';
-		$DEALDISCOUNT		= $deals->discount;
-		$DEALSAVINGS		= $deals->regular_price - $DEALPRICE;
-		$DEALINFO				= $deals->information;
-		$DEALIMAGE			= HTML::Image(Url::base(TRUE) . 'uploads/' . $deals->ID . '/' . rawurlencode($deals->image), 
-													array('width' => 445, 
-																'height' => 300, 
-																'style' => 'margin-bottom: 20px;'));
-		$DEALCONTENTS 	= $deals->contents;
-		$SEE_VIDEO_DEALS = mb_convert_encoding("Se dagens tilbud på video - klik her.", "ISO-8859-1", "UTF-8");
-		
-		$LOCATION				= $deals->addresses;
-		
-		$body = addslashes($emails->text);
-		eval("\$text=\"$body\";");
-		
-		return html_entity_decode($text);
 	}
 	
 	public function action_edit($id=NULL)

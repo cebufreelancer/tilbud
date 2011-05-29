@@ -72,6 +72,7 @@
 	
 	<div id="deal-content">
 		<h2>Se dagens tilbud på video - klik her.</h2>
+    <?php echo Html::image(url::base(TRUE) . 'uploads/' . $deals->ID . '/' . rawurlencode($deals->image), array('width' => 445, 'height' => 300)); ?>
 		<img src="<?php echo url::base(TRUE)?>images/sample-image.jpg" width="445" height="300" style="margin-bottom: 20px;"/>
 		<?php echo html_entity_decode($deals->contents); ?>
 	</div>

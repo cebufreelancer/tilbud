@@ -368,7 +368,7 @@ class Controller_Admin_Emails extends Controller {
 				$email_id = 2; 
 				
 				// Load Variables
-				$DEAL 					= $deals->description;
+				$DEAL 					= html_entity_decode($deals->description);
 				$EMAILFORMATURL = HTML::anchor(Url::base(TRUE) . 'deals/email_format/'.$deals->ID, 'klik her');
 				$BGHEADER				= url::base(TRUE) . 'images/bg-header.png';
 				$LOGO						= HTML::Image(Url::base(TRUE).'images/logo.png');
@@ -383,7 +383,7 @@ class Controller_Admin_Emails extends Controller {
 				$DEALCLASS			= strlen($DEALPRICE) > 5 ? ' font-size: 45px;' : '';
 				$DEALDISCOUNT		= $deals->discount;
 				$DEALSAVINGS		= $deals->regular_price - $DEALPRICE;
-				$DEALINFO				= $deals->information;
+				$DEALINFO				= html_entity_decode($deals->information);
 				$DEALIMAGE			= HTML::Image(Url::base(TRUE) . 'uploads/' . $deals->ID . '/' . rawurlencode($deals->image), 
 															array('width' => 445, 
 																		'height' => 300, 
