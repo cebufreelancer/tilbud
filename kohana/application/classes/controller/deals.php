@@ -209,6 +209,7 @@ class Controller_Deals extends Controller {
 						************************/ 
 						$to = $user->email;
 						$title = strip_tags($this_deal->contents_title);
+						$title = html_entity_decode($title);
 
 						$subject = "Tillykke med dit køb: {$title} hos TilbudiByen.dk (Ordrenummer {$proc_order->ID}";
 						$headers = 'MIME-Version: 1.0' . "\r\n";
