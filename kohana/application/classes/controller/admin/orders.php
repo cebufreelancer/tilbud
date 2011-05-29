@@ -231,8 +231,22 @@ class Controller_Admin_Orders extends Controller {
 				// Send Email To Client
 				switch($order->status) {
 				case 'cancelled':
+					
 					break;
 				case 'delivered':
+					$deal = ORM::factory('deal', $order->deal_id);
+					$user = ORM::factory('user', $order->user_id);
+					
+					ob_start();
+					include_once(APPPATH . 'views/tilbud/template_order_pdf.php');
+					$content = ob_get_clean();
+					
+					$mailer = new XMail();
+					$mailer->to = $user->email;
+					$mailer->subject = __(LBL_ORDER_DELIVERED);
+					$mailer->message = $content;
+					
+					$mailer->send();
 					break;
 				}
 				
