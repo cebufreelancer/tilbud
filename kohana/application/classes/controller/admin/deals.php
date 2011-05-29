@@ -15,7 +15,7 @@ class Controller_Admin_Deals extends Controller {
 									 'auto_hide' 			=> false,
 									 'view'           => 'pagination/useradmin',));
 		$sort = isset($_GET['sort']) ? $_GET['sort'] : 'ID'; // set default sorting direction here
-		$dir  = isset($_GET['dir']) ? 'DESC' : 'ASC';
+		$dir  = isset($_GET['dir']) ? 'ASC' : 'DESC';
 		$result = $deals->limit($pagination->items_per_page)->offset($pagination->offset)->order_by($sort, $dir)
 							->find_all();
 				
@@ -194,7 +194,7 @@ class Controller_Admin_Deals extends Controller {
 		
 		$this->response->body($page);
 	}
-	
+		
 	public function action_add()
 	{
 		$page = View::factory('tilbud/admin/deals/deal_form');
@@ -311,14 +311,31 @@ class Controller_Admin_Deals extends Controller {
 			  	}
 			  	move_uploaded_file($_FILES["deal_facebook_image"]["tmp_name"], APPPATH . "../uploads/" . $deals->ID . "/" . $_FILES["deal_facebook_image"]["name"]);
 			  	
+					// Sending of Emails if send mail is checked
+					if($posts['deal_send']) {
+								
+						$mailer = new XMail();
+						$mailer->subject = html_entity_decode($deals->description);
+						$mailer->message = $this->template_deals($deals);
+						
+						$subscribers = ORM::factory('category')->get_subscribers($deals->city_id);
+						
+						if(!empty($subscribers)) {
+							foreach($subscribers as $sub) {
+								$mailer->to = $sub['email'];
+								$mailer->send();
+							}
+						}
+					}
+					
 				}
 			  
 				// message: save success
         Message::add('success', __(sprintf(LBL_SUCCESS_ADD, LBL_DEAL,$deals->title)));
 		
 				// Update all the Category Relationships
-				$posts['category'] = !empty($posts['category']) ? $posts['category'] : array();		
-				ORM::factory('category')->update_relationship($deals->ID, $posts['category']);
+				//$posts['category'] = !empty($posts['category']) ? $posts['category'] : array();		
+				//ORM::factory('category')->update_relationship($deals->ID, $posts['category']);
 				
 				// Assuming all is correct
 				Request::current()->redirect('admin/deals');
@@ -365,6 +382,41 @@ class Controller_Admin_Deals extends Controller {
 		$page->categories = Kohana::config('global.categories');
 
 		$this->response->body($page);
+	}
+	
+	public function template_deals($deals)
+	{
+		$emails = ORM::factory('email', 2);
+		// Load Variables
+		$DEAL 					= $deals->description;
+		$EMAILFORMATURL = HTML::anchor(Url::base(TRUE) . 'deals/email_format/'.$deals->ID, 'klik her');
+		$BGHEADER				= url::base(TRUE) . 'images/bg-header.png';
+		$LOGO						= HTML::Image(Url::base(TRUE).'images/logo.png');
+		$FACEBOOK				= HTML::Image(Url::base(TRUE).'images/facebook-like.png');
+		
+		$DEALTITLE			= $deals->title;
+		$DEALURL				= HTML::anchor(Url::base(TRUE) . 'deals/view/' . $deals->ID, 
+											HTML::Image(Url::base(TRUE) . 'images/ordernow.png', array('alt' => 'Order Now',
+																																								 'style' => 'margin-bottom: 20px;')));
+		$DEALREGPRICE		= $deals->regular_price;
+		$DEALPRICE			= ($deals->regular_price * (100 - $deals->discount)) / 100;
+		$DEALCLASS			= strlen($DEALPRICE) > 5 ? ' font-size: 45px;' : '';
+		$DEALDISCOUNT		= $deals->discount;
+		$DEALSAVINGS		= $deals->regular_price - $DEALPRICE;
+		$DEALINFO				= $deals->information;
+		$DEALIMAGE			= HTML::Image(Url::base(TRUE) . 'uploads/' . $deals->ID . '/' . rawurlencode($deals->image), 
+													array('width' => 445, 
+																'height' => 300, 
+																'style' => 'margin-bottom: 20px;'));
+		$DEALCONTENTS 	= $deals->contents;
+		$SEE_VIDEO_DEALS = mb_convert_encoding("Se dagens tilbud på video - klik her.", "ISO-8859-1", "UTF-8");
+		
+		$LOCATION				= $deals->addresses;
+		
+		$body = addslashes($emails->text);
+		eval("\$text=\"$body\";");
+		
+		return html_entity_decode($text);
 	}
 	
 	public function action_edit($id=NULL)
@@ -475,6 +527,22 @@ class Controller_Admin_Deals extends Controller {
 			  	}
 			  	move_uploaded_file($_FILES["deal_facebook_image"]["tmp_name"], APPPATH . "../uploads/" . $deals->ID . "/" . $_FILES["deal_facebook_image"]["name"]);
 			  	
+					// Sending of Emails if send mail is checked
+					if($posts['deal_send']) {
+								
+						$mailer = new XMail();
+						$mailer->subject = html_entity_decode($deals->description);
+						$mailer->message = $this->template_deals($deals);
+						
+						$subscribers = ORM::factory('category')->get_subscribers($deals->city_id);
+						
+						if(!empty($subscribers)) {
+							foreach($subscribers as $sub) {
+								$mailer->to = $sub['email'];
+								$mailer->send();
+							}
+						}
+					}
 				}
 			  
 				// message: save success

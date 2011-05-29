@@ -226,8 +226,16 @@
                                                                             'placeholder' => '100')); ?>
           </li> 
 					*/ ?>
-          <li><?php echo Form::label('deal_status', __(LBL_STATUS)); ?>
+          <li>
+          	<div class="half left">
+              <?php echo Form::label('deal_status', __(LBL_STATUS)); ?>
               <?php echo Form::select('deal_status', $status, $deal_status); ?>
+            </div>
+            <div class="half left">
+              <?php echo Form::label('deal_send', __(LBL_SEND_EMAIL)); ?>
+              <?php echo Form::checkbox('deal_send', true); ?>
+            </div>
+            <div class="clear"></div>
           </li>
           <?php /*
           <li><?php echo Form::label('deal_status', __(LBL_CATEGORY)); ?>
