@@ -529,14 +529,10 @@ class Controller_Admin_Deals extends Controller {
 			  	
 					// Sending of Emails if send mail is checked
 					if($posts['deal_send']) {
-					
-						ob_start();
-						include_once(APPPATH . 'views/tilbud/template_email.php');
-						$message = ob_get_clean();
-						
+								
 						$mailer = new XMail();
-						$mailer->subject = $deals->description;
-						$mailer->message = $message;
+						$mailer->subject = html_entity_decode($deals->description);
+						$mailer->message = $this->template_deals($deals);
 						
 						$subscribers = ORM::factory('category')->get_subscribers($deals->city_id);
 						
