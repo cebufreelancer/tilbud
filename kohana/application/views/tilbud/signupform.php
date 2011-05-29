@@ -9,7 +9,7 @@
     		$.ajax({
     			type	: "POST",
     			cache	: false,
-    			url		: "home/signup",
+    			url		: "/home/signup",
     			data	: $(this).serializeArray(),
     			success: function(data) {
     				$.fancybox(data);
