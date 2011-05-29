@@ -207,17 +207,13 @@ class Controller_Deals extends Controller {
 						/************************
 						 *    Email the user
 						************************/ 
-						$to = $user->email;
 						$title = strip_tags($this_deal->contents_title);
 						$title = html_entity_decode($title);
-
-						$subject = "Tillykke med dit køb: {$title} hos TilbudiByen.dk (Ordrenummer {$proc_order->ID}";
-						$headers = 'MIME-Version: 1.0' . "\r\n";
-						$headers .= "Content-type: text/html; charset=UTF-8" . "\r\n";
-						$headers .= "From: no-reply@tilbudibyen.com" . "\r\n".
-												"Reply-To: no-reply@tilbudibyen.com" . "\r\n".
-												"X-Mailer: PHP/" . phpversion();
 						
+						$mailer = new XMail();
+						$mailer->to = $user->email;
+						$mailer->subject = __("Tillykke med dit køb: {$title} hos TilbudiByen.dk (Ordrenummer {$proc_order->ID}");
+				
 						// Requires $order, $user, $deal variables
 						$order = ORM::factory('order', $proc_order->ID);
 						$deal = ORM::factory('deal', $order->deal_id);
@@ -225,11 +221,9 @@ class Controller_Deals extends Controller {
 
 						ob_start();
 						include_once(APPPATH . 'views/tilbud/template_after_order.php');
-						$content = ob_get_clean();
+						$mailer->message = ob_get_clean();
 						
-						$message = $content;
-						
-						mail($to, $subject, $message, $headers);
+						$mailer->send();
 					
 						$url = sprintf('deals/buy?did=%d&oid=%d&payment=success', $proc_order->deal_id, $proc_order->ID);
 						$this->request->redirect($url);
