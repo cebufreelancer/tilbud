@@ -115,6 +115,14 @@
             $edit_url = HTML::anchor('admin/orders/edit/' . $order['ID'], __(LBL_EDIT));
             $delete_url = HTML::anchor('admin/orders/delete/' . $order['ID'], __(LBL_DELETE), array('class' => 'delete'));
 						$total += $order['total_count'];
+						
+						switch($order['status']) {
+						case 'delivered': $status = __(LBL_ORDER_DELIVERED); break;
+						case 'notreached': $status = __(LBL_ORDER_NOTREACHED); break;
+						case 'cancelled': $status = __(LBL_ORDER_DELIVERED); break;
+						case 'new': $status = __(LBL_ORDER_NEW); break;
+						}
+						
             echo '<tr>';
 						echo '<td style="width: 5px;">' . Form::checkbox('obox', '', array('id' => $order['ID'])) . '</td>';
             echo '<td>' . ORM::factory('deal', $order['deal_id'])->description . 
@@ -124,7 +132,7 @@
 						echo '<td>' . $order['refno'] . '</td>';
             echo '<td align="center">' . $order['quantity'] . '</td>';
             echo '<td align="right">' . $order['total_count'] . ' <span class="currency">DKK</span></td>';
-            echo '<td>' . ucwords($order['status']) . '</td>';
+            echo '<td>' . ucwords($status) . '</td>';
             echo '<td>' . date("M j, Y", strtotime($order['date_created'])) . '</td>';
             echo '</tr>';
           }		

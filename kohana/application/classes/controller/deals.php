@@ -18,6 +18,28 @@ class Controller_Deals extends Controller {
 															->set('deals', $deals));
 	}
 	
+	public function action_test()
+	{
+		// Requires $order, $user, $deal variables
+		$order = ORM::factory('order', 35);
+		$deal = ORM::factory('deal', 2);
+		$user = ORM::factory('user', 15);
+		$this_deal = $deal;
+		ob_start();
+		//require_once(APPPATH . 'vendor/html2fpdf/exemples/res/exemple01.php');
+		include_once(APPPATH . 'views/tilbud/template_order_pdf.php');
+		$content = ob_get_clean();
+		// conversion HTML => PDF
+	  require_once(APPPATH . 'vendor/html2fpdf/html2pdf.class.php');
+		$html2pdf = new HTML2PDF('P','A4','en');
+		// $html2pdf->setModeDebug();
+		$html2pdf->WriteHTML($content, false);
+		
+		$dl = $html2pdf->Output('uploads/testing.pdf','F');
+		
+		//$this->response->body($pdf);
+	}
+	
 	public function action_view($id){
     $deal 	= ORM::factory('deal', $id)->as_array();
     $deal_images = ORM::factory('deal')->get_mainimages($deal['ID']);
@@ -42,7 +64,7 @@ class Controller_Deals extends Controller {
 	}
 
 	/**
-	EMAIL TEMPLATE FOR PDF
+	EMAIL TEMPLATE FOR PDF*/
 	public function action_viewemail()
 	{
 		$order = ORM::factory('order', 21);
@@ -55,7 +77,7 @@ class Controller_Deals extends Controller {
 															->set('deal', $deal)
 															->set('user', $user));
 	}
-	*/
+	
 	
 	public function action_buy($deal_id=null)
 	{
@@ -174,7 +196,7 @@ class Controller_Deals extends Controller {
 				$order['quantity'] = $deals['quantity'];
 				$order['payment_type'] = 'mastercard';
 				$order['total_count'] = $deals['total'];
-				$order['status'] = strtolower(__(LBL_ORDER_NEW));
+				$order['status'] = 'new';
 				
 				// Add Order now to DB and redirect to merchant/payment gateway page
 				$proc_order = ORM::factory('order');
@@ -186,8 +208,7 @@ class Controller_Deals extends Controller {
 						 *    Email the user
 						************************/ 
 						$to = $user->email;
-						$title = str_replace('<p>','', $this_deal->contents_title);
-						$title = str_replace('</p>', '',$title);
+						$title = strip_tags($this_deal->contents_title);
 
 						$subject = "Tillykke med dit køb: {$title} hos TilbudiByen.dk (Ordrenummer {$proc_order->ID}";
 						$headers = 'MIME-Version: 1.0' . "\r\n";

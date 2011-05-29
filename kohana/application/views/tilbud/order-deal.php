@@ -177,7 +177,9 @@
 							<?php echo isset($errors['cardnumber']) ? '<span class="serror">' . $errors['cardnumber'] . '</span>' : ''; ?>
               <?php echo isset($errors['cardcode']) ? '<span class="serror">' . $errors['cardcode'] . '</span>' : ''; ?>
               <?php echo Form::input('cardnumber', ucwords($cardnumber), array('style' => 'width: 325px; letter-spacing: 5px;',
-																																							 'required' => true)) .  
+																																							 'required' => true,
+																																							 'maxlength' => 16,
+																																							 'pattern' => '[0-9]*')) .  
                     ' ' . __(LBL_SECURITY_CODE) . ' ' .
 
                     Form::input('cardcode', $cardcode, array('style' => 'width: 50px',
@@ -214,7 +216,7 @@
           </li>
           <li>
 
-            <a id="iterms2" class="homelink" href="<?php echo url::base(true) . "ipages?p=terms"; ?>"> <?php echo LBL_READ_TERMS_CONDITIONS ?></a>
+            <a id="iterms2" class="homelink ipages" href="<?php echo url::base(true) . "ipages?p=terms"; ?>"> <?php echo LBL_READ_TERMS_CONDITIONS ?></a>
           </li>
           <li>
             <?php echo $form->submit(NULL, __(LBL_COMPLETE_ORDER),array('class' => 'addbutton')); ?>
