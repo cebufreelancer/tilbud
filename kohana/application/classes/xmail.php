@@ -82,7 +82,16 @@ class XMail
 		
 		// If there are attachments
 		if(!empty($this->attachments)) {
-					
+			
+			// Add Messsage here
+			if(isset($this->message)) {
+				$headers .= "--{$separator}" . "\r\n";
+				$headers .= "Content-type: {$this->contentType}; charset='{$this->charset}'" . "\r\n";
+				$headers .= "Content-Transfer-Encoding: 8bit" . "\r\n\n";
+				$headers .= $this->message . "\r\n\n";
+			}
+			
+			// Construct Attachment
 			foreach($this->attachments as $a) {
 				$attachment = chunk_split(base64_encode($a['file_content']));
 				
