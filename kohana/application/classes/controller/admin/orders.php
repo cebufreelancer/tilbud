@@ -237,10 +237,11 @@ class Controller_Admin_Orders extends Controller {
 					require_once(APPPATH . 'vendor/html2fpdf/html2pdf.class.php');
 					
 					$deal = ORM::factory('deal', $order->deal_id);
-					$user = ORM::factory('user', $order->user_id);			
+					$user = ORM::factory('user', $order->user_id);
+					$this_deal = $deal;		
 					
 					ob_start();
-					include_once(APPPATH . 'views/tilbud/template_order.php');
+					include_once(APPPATH . 'views/tilbud/template_after_order.php');
 					$message = ob_get_clean();
 										
 					$mailer = new XMail();
