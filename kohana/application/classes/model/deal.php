@@ -27,7 +27,7 @@ class Model_Deal extends ORM {
 		'image3' 				=> array('data_type' => 'string', 'is_nullable' => TRUE), 
 		'image4' 				=> array('data_type' => 'string', 'is_nullable' => TRUE), 
 		'image5' 				=> array('data_type' => 'string', 'is_nullable' => TRUE), 
-		'facebook_image' 				=> array('data_type' => 'string', 'is_nullable' => TRUE), 
+		'facebook_image' 	=> array('data_type' => 'string', 'is_nullable' => TRUE), 
 		'regular_price'	=> array('data_type' => 'float'),
 		'discount'    	=> array('data_type' => 'float', 'is_nullable' => TRUE),
 		'vouchers'  	  => array('data_type' => 'int', 'is_nullable' => TRUE),
@@ -44,6 +44,8 @@ class Model_Deal extends ORM {
 		'youtube_url'   => array('data_type' => 'string', 'is_nullable' => TRUE),
 		'date_create' 	=> array('data_type' => 'string'),
 		'last_update' 	=> array('data_type' => 'string'),
+		'regno'   			=> array('data_type' => 'string'),
+		'itemno' 				=> array('data_type' => 'string'),
 		);
 
   // deprecate this please
