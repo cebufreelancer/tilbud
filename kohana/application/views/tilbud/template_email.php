@@ -62,7 +62,7 @@
 		<div class="big">Du sparer:	<span class="align-right"><?php echo $savings; ?>,-</span></div>
 		<div class="clear"></div>
 	
-		<h3 class="subhead">Information</h3>
+		<h3 class="subhead">Praktiske oplysninger</h3>
 		<div class="contents"><?php echo html_entity_decode($deals->information); ?></div>
 
 		<h3 class="subhead">Hvor ligger det</h3>
@@ -72,7 +72,7 @@
 	
 	<div id="deal-content">
 		<h2>Se dagens tilbud på video - klik her.</h2>
-		<img src="<?php echo url::base(TRUE)?>images/sample-image.jpg" width="445" height="300" style="margin-bottom: 20px;"/>
+    <?php echo Html::image(url::base(TRUE) . 'uploads/' . $deals->ID . '/' . rawurlencode($deals->image), array('width' => 445, 'height' => 300)); ?>
 		<?php echo html_entity_decode($deals->contents); ?>
 	</div>
 	<div class="clear"></div>
