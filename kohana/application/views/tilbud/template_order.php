@@ -1,9 +1,9 @@
 <div style="width: 700px; font-family: Arial, Helvetica, sans-serif; font-size: 12px;">
-  Kære <?= $user['firstname']; ?>, 
+  Kære <?= $user->firstname; ?>, 
   <br/>
   <br/>
   <br/>
-  <b>"<?= $deal['description']; ?>"</b> er nu aktiveret.
+  <b>"<?= html_entity_decode($deal->description); ?>"</b> er nu aktiveret.
   <br/><br/>
   I den vedhæftet pdf fil finder du dit værdibevis med dit referencenummer.<br/><br/>
   
@@ -22,8 +22,8 @@
   <tr>
   <td width="50%" style="vertical-align:top;">
   <b>Køber</b><br/>
-  <?= $user['firstname'] . ' ' . $user['lastname']; ?><br />
-  <?= $user['email']; ?><br /><br/>
+  <?= $user->firstname . ' ' . $user->lastname; ?><br />
+  <?= $user->email; ?><br /><br/>
   
   <b><?php echo __(LBL_SELLER); ?></b><br/>
   TilbudiByen.dk<br/>
@@ -34,12 +34,12 @@
   
   <td width="50%" style="font-size: 12px; vertical-align: top;">
   <b>FAKTURA</b><br/>
-  Bestillingsnummer: <?= $order['ID']; ?><br/>
-  Fakturanummer: <?= $order['ID']; ?><br/>
+  Bestillingsnummer: <?= $order->ID; ?><br/>
+  Fakturanummer: <?= $order->ID; ?><br/>
   Dato: <?= date("F j, Y"); ?><br/><br/>
   
-  Betaling: <b><?= strtoupper($order['payment_type']); ?></b><br/>
-  Betalingstatus: <b><?= strtoupper($order['status']); ?></b><br/>   
+  Betaling: <b><?= strtoupper($order->payment_type); ?></b><br/>
+  Betalingstatus: <b><?= strtoupper($order->status); ?></b><br/>   
   </td>
   
   </tr>
@@ -58,14 +58,14 @@
   </thead>
   <tbody>
     <tr style="border-bottom: 1px solid #000;">
-    	<td style="padding: 10px 5px;"><?= $deal['description']; ?></td>
-      <td><?= $order['quantity']; ?></td>
-      <td><?= $deal['regular_price']; ?> DKK</td>
-      <td><?= $order['total_count']; ?> DKK</td>
+    	<td style="padding: 10px 5px;"><?= html_entity_decode($deal->description); ?></td>
+      <td><?= $order->quantity; ?></td>
+      <td><?= $deal->regular_price; ?> DKK</td>
+      <td><?= $order->total_count; ?> DKK</td>
     </tr>
     <tr style="border-bottom: 1px solid #000;">
     	<td style="padding: 10px 5px;">Betalingskortgebyr<br/>
-      <?= strtoupper($order->payment_type); ?>, XXXX XXXX XXXX <?= substr($billing['cardnumber'], -4); ?>
+      <?= strtoupper($order->payment_type); ?>, XXXX XXXX XXXX XXXX <?php //substr($billing['cardnumber'], -4); ?>
       </td>
       <td>1</td>
       <td><?= $cc_int; ?> DKK</td>
@@ -73,7 +73,7 @@
     </tr>
     <tr style="border-bottom: 1px solid #000; font-weight: bold;">
     	<td colspan="3" style="padding: 10px 5px;">Total</td>
-      <td><?= ($cc_int + $order['total_count']); ?> DKK</td>
+      <td><?= ($cc_int + $order->total_count); ?> DKK</td>
     </tr>
     <tr style="border-bottom: 1px solid #000;">
     	<td colspan="3" style="padding: 10px 5px;">Heraf moms (25,00%)</td>
