@@ -224,7 +224,7 @@ class Controller_Deals extends Controller {
 						include_once(APPPATH . 'views/tilbud/template_after_order.php');
 						$mailer->message = ob_get_clean();
 						
-						//$mailer->send();
+						$mailer->send();
 					
 						$url = sprintf('deals/buy?did=%d&oid=%d&payment=success', $proc_order->deal_id, $proc_order->ID);
 						$this->request->redirect($url);
