@@ -240,7 +240,7 @@ class Controller_Admin_Orders extends Controller {
 					$user = ORM::factory('user', $order->user_id);			
 					
 					ob_start();
-					include_once(APPPATH . 'views/tilbud/template_after_order.php');
+					include_once(APPPATH . 'views/tilbud/template_order.php');
 					$message = ob_get_clean();
 										
 					$mailer = new XMail();
