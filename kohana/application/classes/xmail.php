@@ -16,6 +16,7 @@ class XMail
 	var $replyTo;
 	var $bcc;
 	
+	var $attachments;
 	var $is_priority;
 	
 	var $charset;
@@ -28,11 +29,12 @@ class XMail
 		
 		$this->is_priority = TRUE;
 		$this->BCC = array();
+		$this->attachments = array();
 	}
 	
 	function __headers()
 	{
-
+		$separator = md5(time());
 		$headers  = "MIME-Version: 1.0" . "\r\n";
 		$headers .= "Content-type: {$this->contentType}; charset='{$this->charset}'" . "\r\n";
 		
@@ -59,15 +61,28 @@ class XMail
 					$b[] = $bcc['email'];
 				}
 			}
-			$headers .= "BCC: " . implode(", ", $b) . "\n";
+			$headers .= "BCC: " . implode(", ", $b) . "\r\n";
 		}
 		
 		$headers .= "X-Mailer: PHP/" . phpversion() ;
 		
 		if($this->is_priority) {
-			$headers .= "X-Priority: 1 (Highest)\n";
-			$headers .= "X-MSMail-Priority: High\n";
-			$headers .= "Importance: High\n";
+			$headers .= "X-Priority: 1 (Highest)\r\n";
+			$headers .= "X-MSMail-Priority: High\r\n";
+			$headers .= "Importance: High\r\n";
+		}
+		
+		if(!empty($this->attachments)) {
+			foreach($this->attachments as $a) {
+				$attachment = chunk_split(base64_encode($a['file_content']));
+				
+				$headers .= "--" . $separator . "\r\n";
+				$headers .= "Content-Type: application/octet-stream; name=\"{$a['filename']}\"" . "\r\n";
+				$headers .= "Content-Transfer-Encoding: base64" . "\r\n";
+				$headers .= "Content-Disposition: attachment" . "\r\n";
+				$headers .= $attachment . "\r\n\n";
+				$headers .= "--" . $separator . "--";
+			}
 		}
 		
 		$this->headers = $headers;
@@ -84,6 +99,13 @@ class XMail
 		$this->BCC[] = array('name' => $name,
 												 'email' => $email);
 		return $this->BCC;
+	}
+	
+	function addAttachment($filename, $content)
+	{
+		$this->attachments[] = array('filename' => $filename,
+																 'file_content' => $content);
+		return $this->attachments;
 	}
 	
 	function setHeaders($header)
