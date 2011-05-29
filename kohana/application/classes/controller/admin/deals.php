@@ -488,7 +488,7 @@ class Controller_Admin_Deals extends Controller {
 								
 						$mailer = new XMail();
 						$mailer->subject = html_entity_decode($deals->description);
-						$mailer->message = $this->template_deals($deals);
+						$mailer->message = ORM::factory('email')->template_deals($deals);
 						
 						$subscribers = ORM::factory('category')->get_subscribers($deals->city_id);
 						
