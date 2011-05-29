@@ -248,6 +248,7 @@ define("LBL_SEND", "Tilmeld");
 define("LBL_SEND_ALL", "Send to Subscribers");
 define("LBL_NO_SUBSCRIBERS", "There are no subscribers on this city");
 define("LBL_INVALID_EMAIL", "Invalid Email Address");
+define("LBL_SEND_EMAIL", "Send Email");
 
 define("LBL_COMMA_DELIMITED", "Adskild med komma (,)");
 define("LBL_CONFIRM", "bekræft");

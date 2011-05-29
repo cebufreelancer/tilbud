@@ -63,7 +63,7 @@
 		<div class="clear"></div>
 	
 		<h3 class="subhead">Information</h3>
-		<div class="contents"><?php echo $deals->information; ?></div>
+		<div class="contents"><?php echo html_entity_decode($deals->information); ?></div>
 
 		<h3 class="subhead">Hvor ligger det</h3>
 		<div class="contents"><?php echo $deals->addresses; ?></div>

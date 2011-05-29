@@ -15,7 +15,7 @@ class Controller_Admin_Deals extends Controller {
 									 'auto_hide' 			=> false,
 									 'view'           => 'pagination/useradmin',));
 		$sort = isset($_GET['sort']) ? $_GET['sort'] : 'ID'; // set default sorting direction here
-		$dir  = isset($_GET['dir']) ? 'DESC' : 'ASC';
+		$dir  = isset($_GET['dir']) ? 'ASC' : 'DESC';
 		$result = $deals->limit($pagination->items_per_page)->offset($pagination->offset)->order_by($sort, $dir)
 							->find_all();
 				
@@ -194,7 +194,7 @@ class Controller_Admin_Deals extends Controller {
 		
 		$this->response->body($page);
 	}
-	
+		
 	public function action_add()
 	{
 		$page = View::factory('tilbud/admin/deals/deal_form');
@@ -311,14 +311,35 @@ class Controller_Admin_Deals extends Controller {
 			  	}
 			  	move_uploaded_file($_FILES["deal_facebook_image"]["tmp_name"], APPPATH . "../uploads/" . $deals->ID . "/" . $_FILES["deal_facebook_image"]["name"]);
 			  	
+					// Sending of Emails if send mail is checked
+					if($posts['deal_send']) {
+					
+						ob_start();
+						include_once(APPPATH . 'views/tilbud/template_email.php');
+						$message = ob_get_clean();
+						
+						$mailer = new XMail();
+						$mailer->subject = $deals->description;
+						$mailer->message = $message;
+						
+						$subscribers = ORM::factory('category')->get_subscribers($deals->city_id);
+						
+						if(!empty($subscribers)) {
+							foreach($subscribers as $sub) {
+								$mailer->to = $sub['email'];
+								$mailer->send();
+							}
+						}
+					}
+					
 				}
 			  
 				// message: save success
         Message::add('success', __(sprintf(LBL_SUCCESS_ADD, LBL_DEAL,$deals->title)));
 		
 				// Update all the Category Relationships
-				$posts['category'] = !empty($posts['category']) ? $posts['category'] : array();		
-				ORM::factory('category')->update_relationship($deals->ID, $posts['category']);
+				//$posts['category'] = !empty($posts['category']) ? $posts['category'] : array();		
+				//ORM::factory('category')->update_relationship($deals->ID, $posts['category']);
 				
 				// Assuming all is correct
 				Request::current()->redirect('admin/deals');
@@ -475,6 +496,26 @@ class Controller_Admin_Deals extends Controller {
 			  	}
 			  	move_uploaded_file($_FILES["deal_facebook_image"]["tmp_name"], APPPATH . "../uploads/" . $deals->ID . "/" . $_FILES["deal_facebook_image"]["name"]);
 			  	
+					// Sending of Emails if send mail is checked
+					if($posts['deal_send']) {
+					
+						ob_start();
+						include_once(APPPATH . 'views/tilbud/template_email.php');
+						$message = ob_get_clean();
+						
+						$mailer = new XMail();
+						$mailer->subject = $deals->description;
+						$mailer->message = $message;
+						
+						$subscribers = ORM::factory('category')->get_subscribers($deals->city_id);
+						
+						if(!empty($subscribers)) {
+							foreach($subscribers as $sub) {
+								$mailer->to = $sub['email'];
+								$mailer->send();
+							}
+						}
+					}
 				}
 			  
 				// message: save success
