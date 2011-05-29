@@ -234,6 +234,8 @@ class Controller_Admin_Orders extends Controller {
 					
 					break;
 				case 'delivered':
+					require_once(APPPATH . 'vendor/html2fpdf/html2pdf.class.php');
+					
 					$deal = ORM::factory('deal', $order->deal_id);
 					$user = ORM::factory('user', $order->user_id);
 					
@@ -245,6 +247,13 @@ class Controller_Admin_Orders extends Controller {
 					$mailer->to = $user->email;
 					$mailer->subject = __(LBL_ORDER_DELIVERED);
 					$mailer->message = $content;
+					
+					$html2pdf = new HTML2PDF('P','A4','en');
+					$html2pdf->WriteHTML($content, false);
+					
+					$html2out = $html2pdf->Output('','S');
+					$filename = mb_convert_encoding("Værdibevis-" . $order->refno . ".pdf", "ISO-8859-1", "UTF-8");
+					$mailer->addAttachment($filename, $html2out);
 					
 					$mailer->send();
 					break;
