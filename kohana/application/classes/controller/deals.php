@@ -209,10 +209,11 @@ class Controller_Deals extends Controller {
 						************************/ 
 						$title = strip_tags($this_deal->contents_title);
 						$title = html_entity_decode($title);
+						$title = "Tillykke med dit køb: {$title} hos TilbudiByen.dk (Ordrenummer {$proc_order->ID})";
 						
 						$mailer = new XMail();
 						$mailer->to = $user->email;
-						$mailer->subject = __("Tillykke med dit køb: {$title} hos TilbudiByen.dk (Ordrenummer {$proc_order->ID}");
+						$mailer->subject = mb_convert_encoding($title, "ISO-8859-1", "UTF-8");
 				
 						// Requires $order, $user, $deal variables
 						$order = ORM::factory('order', $proc_order->ID);
@@ -223,7 +224,7 @@ class Controller_Deals extends Controller {
 						include_once(APPPATH . 'views/tilbud/template_after_order.php');
 						$mailer->message = ob_get_clean();
 						
-						$mailer->send();
+						//$mailer->send();
 					
 						$url = sprintf('deals/buy?did=%d&oid=%d&payment=success', $proc_order->deal_id, $proc_order->ID);
 						$this->request->redirect($url);

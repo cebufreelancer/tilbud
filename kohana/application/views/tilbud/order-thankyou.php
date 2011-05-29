@@ -32,13 +32,22 @@
             CVR nummer: 33583400<br/>
             </td>
             <td width="50%">
+            <?php
+						switch($orders->status) {
+						case 'delivered': $status = __(LBL_ORDER_DELIVERED); break;
+						case 'notreached': $status = __(LBL_ORDER_NOTREACHED); break;
+						case 'cancelled': $status = __(LBL_ORDER_DELIVERED); break;
+						case 'new': $status = __(LBL_ORDER_NEW); break;
+						}
+						?>
+            
             <b><?php echo __(LBL_INVOICE); ?></b><br/>
             <?php echo __(LBL_ORDER_NUMBER) . ' : ' . $orders->ID; ?><br/>
             <?php echo __(LBL_INVOICE_NUMBER) . ' : ' . $orders->ID; ?><br/>
             <?php echo __(LBL_DATE) . ' : ' . date("F j, Y"); ?><br/><br/>
             
             <?php echo __(LBL_PAYMENT) . ' : <b>' . strtoupper($orders->payment_type); ?></b><br/>
-            <?php echo __(LBL_PAYMENT_STATUS) . ' : <b>' . strtoupper($orders->status); ?></b><br/>          
+            <?php echo __(LBL_PAYMENT_STATUS) . ' : <b>' . strtoupper($status); ?></b><br/>          
             </td>
           </tr>
           </table>
@@ -55,7 +64,7 @@
           <tbody>
             <tr>
               <td><?php echo $title; ?>
-                  <div style="font-size: 11px; font-weight: normal; color: #999999;"><?php echo $contents_title; ?></div>
+                  <div style="font-size: 11px; font-weight: normal; color: #999999;"><?php echo html_entity_decode($description); ?></div>
               </td>
               <td><?php echo $quantity; ?> </td>
               <td style="width:5px; font-size: 13px; color: #999;">x</td>

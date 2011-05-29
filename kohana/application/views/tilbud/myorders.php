@@ -41,13 +41,21 @@
     foreach($orders as $order) {
       $view_url = HTML::anchor('admin/orders/edit/' . $order['ID'], 'View');
       $total += $order['total_count'];
+			
+			switch($order['status']) {
+			case 'delivered': $status = __(LBL_ORDER_DELIVERED); break;
+			case 'notreached': $status = __(LBL_ORDER_NOTREACHED); break;
+			case 'cancelled': $status = __(LBL_ORDER_DELIVERED); break;
+			case 'new': $status = __(LBL_ORDER_NEW); break;
+			}
+						
       echo '<tr>';
       echo '<td><b>' . ORM::factory('deal', $order['deal_id'])->title . '</b>' . 
              '<div>' . ORM::factory('user', $order['user_id'])->firstname . ' ' . ORM::factory('user', $order['user_id'])->lastname . '</div>' .
            '</td>';
       echo '<td align="center">' . $order['quantity'] . '</td>';
       echo '<td align="right">' . $order['total_count'] . '</td>';
-      echo '<td>' . ucwords($order['status']) . '</td>';
+      echo '<td>' . ucwords($status) . '</td>';
       echo '<td>' . date("M j, Y", strtotime($order['date_created'])) . '</td>';
       echo '</tr>';
     }		
