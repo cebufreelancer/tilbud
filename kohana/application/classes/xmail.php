@@ -37,12 +37,6 @@ class XMail
 		$separator = md5(time());
 		
 		$headers  = "MIME-Version: 1.0" . "\r\n";
-		if(empty($this->attachments)) {
-			$headers .= "Content-type: {$this->contentType}; charset='{$this->charset}'" . "\r\n";
-		} else {
-			$headers .= "Content-Type: multipart/mixed; boundary=\"{$separator}\"" . "\r\n\n";
-			$headers .= "Content-Transfer-Encoding: 7bit" . "\r\n";
-		}
 		
 		// Set From
 		if(isset($this->from)) {
@@ -79,8 +73,16 @@ class XMail
 			$headers .= "Importance: High\r\n";
 		}
 		
+		if(empty($this->attachments)) {
+			$headers .= "Content-type: {$this->contentType}; charset='{$this->charset}'" . "\r\n";
+		} else {
+			$headers .= "Content-Type: multipart/mixed; boundary=\"{$separator}\"" . "\r\n\n";
+			$headers .= "Content-Transfer-Encoding: 7bit" . "\r\n";
+		}
+		
 		// If there are attachments
 		if(!empty($this->attachments)) {
+					
 			foreach($this->attachments as $a) {
 				$attachment = chunk_split(base64_encode($a['file_content']));
 				

@@ -237,16 +237,20 @@ class Controller_Admin_Orders extends Controller {
 					require_once(APPPATH . 'vendor/html2fpdf/html2pdf.class.php');
 					
 					$deal = ORM::factory('deal', $order->deal_id);
-					$user = ORM::factory('user', $order->user_id);
+					$user = ORM::factory('user', $order->user_id);			
+					
+					ob_start();
+					include_once(APPPATH . 'views/tilbud/template_after_order.php');
+					$message = ob_get_clean();
+										
+					$mailer = new XMail();
+					$mailer->to = $user->email;
+					$mailer->subject = "Tillykke med dit køb: " . html_entity_decode($deal->contents_title) . " hos TilbudiByen.com (Ordrenummer {$order->ID})";;
+					$mailer->message = $message;
 					
 					ob_start();
 					include_once(APPPATH . 'views/tilbud/template_order_pdf.php');
 					$content = ob_get_clean();
-					
-					$mailer = new XMail();
-					$mailer->to = $user->email;
-					$mailer->subject = __(LBL_ORDER_DELIVERED);
-					$mailer->message = $content;
 					
 					$html2pdf = new HTML2PDF('P','A4','en');
 					$html2pdf->WriteHTML($content, false);
