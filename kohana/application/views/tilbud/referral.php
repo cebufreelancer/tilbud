@@ -2,7 +2,11 @@
 <div id="signup-container">
 	<script type="text/javascript">
 	jQuery(document).ready(function() {
-
+		$("#signup-button").click(function() {
+				$("#email-sent").hide();
+				$("#share-us").show();
+			});
+			
   	$("#thereferralform").bind("submit", function() {
 	    $.fancybox.showActivity();
 
@@ -20,8 +24,7 @@
       $.fancybox.hideActivity();
   		return false;
   	});
-		
-		
+
 	});
 	</script>
 	<div id="email-sent">
