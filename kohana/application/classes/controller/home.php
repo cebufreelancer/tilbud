@@ -386,24 +386,21 @@ TilbudIbyen.com
 			
 			if(!empty($referral)) {
 				
-				$subject = "Du er blevet tilmeldt TilbudiByen af en ven!";
-				$headers = 'MIME-Version: 1.0' . "\r\n";
-				$headers .= "Content-type: text/html; charset=UTF-8" . "\r\n";
-				$headers .= "From: TilbudiByen <no-reply@tilbudibyen.com>" . "\r\n".
-										"Reply-To: no-reply@tilbudibyen.com" . "\r\n".
-										"X-Mailer: PHP/" . phpversion();
-				
+				// Send Referral Message to emails
+				$mailer = new XMail();
+				$mailer->subject = "Du er blevet tilmeldt TilbudiByen af en ven!";
+				$mailer->to = $posts['semail'];
+							
 				ob_start();
 				include_once(APPPATH . 'views/tilbud/template_referral.php');
-				$content = ob_get_clean();
-				
-				$message = $content;
-				
+				$mailer->message = ob_get_clean();
+							
 				foreach($referral as $ref) {
-					mail($ref, $subject, $message, $headers);
+					$mailer->to = $ref;
+					$mailer->send();
 				}
-				$ret_message			= View::factory('tilbud/referral2');
-				
+				echo "Ok!";
+				$ret_message	= View::factory('tilbud/referral2');
 			}
 		}else{
 		  $ret_message = LBL_INVALID_SESSION;

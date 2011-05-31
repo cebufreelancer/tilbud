@@ -42,7 +42,7 @@
     
     <ul id="signup-form-container">
       <li><?php echo Form::input('email', NULL, array('id' => 'signup-email', 
-                                                       'placeholder' => 'Indtast din vens e-mail adresse')) . 
+                                                      'placeholder' => 'Indtast din vens e-mail adresse')) . 
                      Form::submit(NULL, __(LBL_SEND), array('id' => 'signup-button')); ?>
           <span style="color: gray"><?php echo __(LBL_COMMA_DELIMITED);?></span>
     </li>
