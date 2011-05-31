@@ -174,6 +174,7 @@ TilbudIbyen.com
 				case 'verify':
 					//$page->msg = 'Congratulations! Kindly check your email to account verification.';
 					$page->account_verified = true;
+					$page->is_referral = true;
 					break;
 				case 'referral':
 					$page->is_referral = true;

@@ -65,25 +65,7 @@
   <?php if (isset($address)) { ?>
   <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=true&amp;key=ABQIAAAAbQlC_gF4H7R0hbKr8QVz5xQYncROD2BDKvWqEuo4PwsE_DGQgRS20trX2PsZLb7gtB92IP55joerMA" type="text/javascript"></script>  
   <?php } ?>
-  <script type="text/javascript">
-    jQuery(document).ready(function() {
-  		$("#accountverified").fancybox({
-				'scrolling'		: false,
-  			'titleShow'		: false,
-  			'autoScale'	: false,
-  			'frameWidth'		: 900,
-  			'frameHeight'		: 460,
-  			'overlayOpacity' : 0.7,
-  			'centerOnScroll' : true,
-  			'transitionIn' : 'elastic',
-  			'showCloseButton' : true,
-  			'onClosed'		: function() {
-  				$("#login_error").hide();
-  			}
-  		});
-  });      
-  </script>
-    
+      
   <!--[if lt IE 9]>
   	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
@@ -96,7 +78,7 @@
 	<?php if(isset($account_verified)) { ?>		  
 	  <script>
 	    $(document).ready(function() {
-		    $("#accountverified").trigger("click");
+		    $("#referral-form").trigger("click");
       });
 		</script>
   <?php } ?>
