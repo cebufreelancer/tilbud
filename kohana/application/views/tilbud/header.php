@@ -73,14 +73,16 @@
 </head>
 <body <?php if (isset($address)) { echo  'onLoad="initialize()" onunload="GUnload()"'; }?>>
 
-  <a href="#account_verified" id="accountverified"></a><a href="#signup-form" id="newvisitor" ></a>
+  <!-- <a href="#account_verified" id="accountverified"></a> --><a href="#signup-form" id="newvisitor" ></a>
   
-	<?php if(isset($account_verified)) { ?>		  
+	<?php if(isset($account_verified)) { ?>
+  <!--
 	  <script>
 	    $(document).ready(function() {
 		    $("#referral-form").trigger("click");
       });
 		</script>
+  -->
   <?php } ?>
 
 		<?php if(isset($is_referral)) { ?>

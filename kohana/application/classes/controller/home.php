@@ -265,7 +265,7 @@ TilbudIbyen.com
 				
 				if($mailer->send()) {
 					// Should notify to check email for verification process
-					$page	= View::factory('tilbud/signup2');
+					$page	= View::factory('tilbud/referralform');
 				}
 				
 		    $this->response->body($page);
