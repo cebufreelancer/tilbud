@@ -12,7 +12,8 @@
   			url		: "/home/referral",
   			data	: $(this).serializeArray(),
   			success: function(data) {
-  				$.fancybox(data);
+  				//$.fancybox(data);
+					$.fancybox.close();
   			}
   		});
 
@@ -23,8 +24,14 @@
 		
 	});
 	</script>
-
-	<div id="share-us" ">    
+	<div id="email-sent">
+    <h2>Vi har sendt dig en e-mail</h2>
+    
+    <?php echo HTML::image(Url::base(TRUE) . 'images/bekraeft_din_tilmelding.jpg', array('width' => 600)); ?>
+    <br />
+    <span id="signup-button" style="cursor: pointer;">NEXT</span>
+  </div>
+	<div id="share-us" style="display: none;">    
     <h2>Tak for din tilmelding!<br /><br />
         Giv dine venner eller familie samme mulighed</h2>
     
