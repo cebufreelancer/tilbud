@@ -311,7 +311,7 @@ TilbudIbyen.com
 					$user->add('roles', 1);
 					
 					// Auto Login User
-					Auth::instance()->force_login($user->username);
+					// Auth::instance()->force_login($user->username);
 					
 					//Message::add('success', __('Your account has been verified. '));
 					
@@ -399,7 +399,6 @@ TilbudIbyen.com
 					$mailer->to = $ref;
 					$mailer->send();
 				}
-				echo "Ok!";
 				$ret_message	= View::factory('tilbud/referral2');
 			}
 		}else{
