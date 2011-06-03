@@ -238,8 +238,9 @@ header, content, footer {
   font-weight: bold;
   padding: 0px;
 }
+.buy-cont				{ height: 73px; width: 935px; }
 .clock-img-cont { margin-top: -83px; height: 82px; }
-.buy-label			{ font-size: 66px; letter-spacing: 5px; margin-bottom: 0px; padding: 0px; }  
+.buy-label			{ font-size: 66px; letter-spacing: 5px; margin-bottom: 0px; padding: 0px; width: 935px; height: 73px; }
 .discounts 		  { font-size: 20px; text-align: center; padding-top: 5px; }
 .period 			  { font-size: 27px; margin-top: -5px; }
 .period-label   { font-size: 15px; padding-top: 5px; font-weight: normal; }
