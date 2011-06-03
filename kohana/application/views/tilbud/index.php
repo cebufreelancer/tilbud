@@ -50,7 +50,7 @@
                   
               	  
               	  ?>
-              	  <p class="huge buy-label" style="width: 935px;"><?php echo $newprice . ',-' . HTML::anchor('deals/buy/' . $deal['ID'], HTML::image('images/buy.png', array('title' => LBL_Buy_now, 'style' => 'margin-bottom: -10px;'))); ?>
+              	  <p class="huge buy-label" style="width: 935px;">9<?php echo $newprice . ',-' . HTML::anchor('deals/buy/' . $deal['ID'], HTML::image('images/buy.png', array('title' => LBL_Buy_now, 'style' => 'margin-bottom: -10px; margin-left: 60px'))); ?>
 								
       								<?php 
       								if(isset($deal['youtube_url']) && $deal['youtube_url'] != "") {

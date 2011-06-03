@@ -127,6 +127,7 @@
       if (isset($address)) {
         $address = strtolower(html_entity_decode($address));
         $map_address = str_replace("\n", " ", $address);
+        $map_address = str_replace("<br>", "", $map_address);
     ?>
 		<script type="text/javascript">
         var map = null;
