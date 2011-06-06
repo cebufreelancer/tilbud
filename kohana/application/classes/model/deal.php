@@ -112,7 +112,15 @@ class Model_Deal extends ORM {
 	public function get_featured() {
     $sql = "SELECT `deals`.* FROM `deals` WHERE `is_featured` = 1 AND `status` = 'active' AND (CURDATE() BETWEEN start_date AND end_date) ORDER BY `end_date` DESC LIMIT 1";
     $deals = DB::query(Database::SELECT, $sql)->execute()->as_array();
-    return $deals[0];
+    if (sizeof($deals) > 0) {
+      return $deals[0];
+    }else {
+      // didn't found any
+      $sql = "SELECT `deals`.* FROM `deals` WHERE `is_featured` = 1 AND `status` = 'active' AND (start_date < CURDATE()) ORDER BY `end_date` DESC LIMIT 1";
+      $deals = DB::query(Database::SELECT, $sql)->execute()->as_array();
+      return $deals[0];
+    }
+    
 
 	}
 	
