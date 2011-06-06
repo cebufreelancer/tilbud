@@ -119,7 +119,7 @@ Kohana::modules(array(
    'kohana-email' => MODPATH.'kohana-email',        // Kohana-Email for email
 	// 'cache'      => MODPATH.'cache',      // Caching with multiple backends
 	// 'codebench'  => MODPATH.'codebench',  // Benchmarking tool
-	// 'image'      => MODPATH.'image',      // Image manipulation
+	 'image'      => MODPATH.'image',      // Image manipulation
 	// 'unittest'   => MODPATH.'unittest',   // Unit testing
 	// 'userguide'  => MODPATH.'userguide',  // User guide and API documentation
 	));
@@ -175,3 +175,7 @@ Route::set('default', '(<controller>(/<action>(/<id>)))')
 		'controller' => 'home',
 		'action'     => 'index',
 	));
+
+define('UPLOADPATH',	DOCROOT . 'uploads\\');
+define('BANNER_WIDTH_MAX',	950);
+define('BANNER_HEIGHT_MAX', 310);
