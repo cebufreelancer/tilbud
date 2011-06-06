@@ -259,74 +259,58 @@ class Controller_Admin_Deals extends Controller {
 			$deals->regno				= $posts['deal_regno'];
 			$deals->itemno			= $posts['deal_itemno'];
 			
-			if (isset($_FILES['deal_image'])) {
-			  $deals->image = $_FILES['deal_image']['name'];
+			// Form Images
+			if(!empty($_FILES['deal_image'])) {
+				$imgs = $_FILES['deal_image'];
+				for($i=0; $i<count($imgs['name']); $i++) {
+					if((int)$imgs['error'][$i] <= 0) {
+						$deal_image[] = array('name' => $imgs['name'][$i],
+																	'type' => $imgs['type'][$i],
+																	'size' => $imgs['size'][$i],
+																	'error' => $imgs['error'][$i],
+																	'tmp_name' => $imgs['tmp_name'][$i]);
+					}
+				}
 			}
-			if (isset($_FILES['deal_image2'])) {
-			  $deals->image2 = $_FILES['deal_image2']['name'];
-			}
-			if (isset($_FILES['deal_image3'])) {
-			  $deals->image3 = $_FILES['deal_image3']['name'];
-			}
-			if (isset($_FILES['deal_image4'])) {
-			  $deals->image4 = $_FILES['deal_image4']['name'];
-			}
-			if (isset($_FILES['deal_image5'])) {
-			  $deals->image5 = $_FILES['deal_image5']['name'];
-			}
-			
+				
 			if (isset($_FILES['deal_facebook_image']) && $_FILES['deal_facebook_image'] != "") {
 			  $deals->facebook_image = $_FILES['deal_facebook_image']['name'];
 			}
 			
 			
 			if($deals->save()) {
-				if(!empty($_FILES)) {
-				  
-				  if (!file_exists(APPPATH . "../uploads/". $deals->ID)) {
-			  	  mkdir(APPPATH . "../uploads/". $deals->ID);
-			  	}
-			  	
-				  if ($_FILES['deal_image']) {
-  			  	move_uploaded_file($_FILES["deal_image"]["tmp_name"], APPPATH . "../uploads/" . $deals->ID . "/" . $_FILES["deal_image"]["name"]);
-  			  }
-  			  if ($_FILES['deal_image2']) {
-			  	  move_uploaded_file($_FILES["deal_image2"]["tmp_name"], APPPATH . "../uploads/" . $deals->ID . "/" . $_FILES["deal_image2"]["name"]);
-		  	  }
-		  	  if ($_FILES['deal_image3']) {
-			  	  move_uploaded_file($_FILES["deal_image3"]["tmp_name"], APPPATH . "../uploads/" . $deals->ID . "/" . $_FILES["deal_image3"]["name"]);
-			  	}
-			  	if ($_FILES['deal_image4']) {
-			  	  move_uploaded_file($_FILES["deal_image4"]["tmp_name"], APPPATH . "../uploads/" . $deals->ID . "/" . $_FILES["deal_image4"]["name"]);
-		  	  }
-		  	  if ($_FILES['deal_image5']) {
-			  	  move_uploaded_file($_FILES["deal_image5"]["tmp_name"], APPPATH . "../uploads/" . $deals->ID . "/" . $_FILES["deal_image5"]["name"]);
-		  	  }
-			  	
-
-				  if (!file_exists(APPPATH . "../uploads/". $deals->ID)) {
-			  	  mkdir(APPPATH . "../uploads/". $deals->ID);
-			  	}
-			  	move_uploaded_file($_FILES["deal_facebook_image"]["tmp_name"], APPPATH . "../uploads/" . $deals->ID . "/" . $_FILES["deal_facebook_image"]["name"]);
-			  	
-					// Sending of Emails if send mail is checked
-					if($posts['deal_send']) {
-								
-						$mailer = new XMail();
-						$mailer->subject = html_entity_decode($deals->description);
-						$mailer->message = ORM::factory('email')->template_deals($deals);
-						
-						$subscribers = ORM::factory('category')->get_subscribers($deals->city_id);
-						
-						if(!empty($subscribers)) {
-							foreach($subscribers as $sub) {
-								$mailer->to = $sub['email'];
-								$mailer->send();
-							}
+				
+				// Sending of Emails if send mail is checked
+				if(isset($posts['deal_send'])) {
+							
+					$mailer = new XMail();
+					$mailer->subject = html_entity_decode($deals->description);
+					$mailer->message = ORM::factory('email')->template_deals($deals);
+					
+					$subscribers = ORM::factory('category')->get_subscribers($deals->city_id);
+					
+					if(!empty($subscribers)) {
+						foreach($subscribers as $sub) {
+							$mailer->to = $sub['email'];
+							$mailer->send();
 						}
-					}			
+					}
 				}
-			  
+				
+				if(!empty($deal_image)) {
+					foreach($deal_image as $imgs) {
+						$img = $this->add_image($deals->ID, $imgs);
+						if(!empty($img)) {
+							// Store to Image DB if ok!
+							$image = ORM::factory('image');
+							$image->path = $img['filename'];
+							$image->caption = $img['filename'];
+							$image->tid = $deals->ID;
+							$image->save();
+						}
+					}
+				}
+						  				
 				// message: save success
         Message::add('success', __(sprintf(LBL_SUCCESS_ADD, LBL_DEAL,$deals->title)));
 				
@@ -341,13 +325,12 @@ class Controller_Admin_Deals extends Controller {
 		$page->deal_title 		= isset($posts['deal_title']) ? $posts['deal_title'] : 'Dagens Tilbud';
 		$page->deal_desc 			= isset($posts['deal_desc']) ? $posts['deal_desc'] : '';
 		$page->deal_desc_long = isset($posts['deal_desc_long']) ? $posts['deal_desc_long'] : '';
-		$page->deal_whatyouget = isset($posts['deal_whatyouget']) ? $posts['deal_whatyouget'] : '';
+		$page->deal_whatyouget 		= isset($posts['deal_whatyouget']) ? $posts['deal_whatyouget'] : '';
 		$page->deal_content_title = isset($posts['deal_content_title']) ? $posts['deal_content_title'] : '';
-		$page->deal_information = isset($posts['deal_information']) ? $posts['deal_information'] : '';
+		$page->deal_information 	= isset($posts['deal_information']) ? $posts['deal_information'] : '';
 		$page->deal_city 			= isset($posts['deal_city']) ? $posts['deal_city'] : '';
 		$page->deal_regular_price = isset($posts['deal_regular_price']) ? $posts['deal_regular_price'] : 0.00;
 		$page->deal_discount 	= isset($posts['deal_discount']) ? $posts['deal_discount'] : 50;
-		//$page->deal_vouchers 	= isset($posts['deal_vouchers']) ? $posts['deal_vouchers'] : '';
 		$page->deal_min_buy 	= isset($posts['deal_min_buy']) ? $posts['deal_min_buy'] : 0;
 		$page->deal_max_buy 	= isset($posts['deal_max_buy']) ? $posts['deal_max_buy'] : 5;
 		$page->deal_min_sold 	= isset($posts['deal_min_sold']) ? $posts['deal_min_sold'] : 5;
@@ -360,11 +343,11 @@ class Controller_Admin_Deals extends Controller {
 		$page->deal_refno			= isset($posts['deal_refno']) ? $posts['deal_refno'] : '';
 		$page->address		    = isset($posts['deal_address']) ? $posts['deal_address'] : $deals->addresses;
 		$page->deal_image     = $deals->image;
-		$page->deal_image2     = $deals->image2;
-		$page->deal_image3     = $deals->image3;
-		$page->deal_image4     = $deals->image4;
-		$page->deal_image5     = $deals->image5;
-		$page->deal_facebook_image     = $deals->facebook_image;
+		$page->deal_image2    = $deals->image2;
+		$page->deal_image3    = $deals->image3;
+		$page->deal_image4    = $deals->image4;
+		$page->deal_image5    = $deals->image5;
+		$page->deal_facebook_image	= $deals->facebook_image;
 		$page->regno				  = isset($posts['deal_regno']) ? $posts['deal_regno'] : '';
 		$page->itemno					= isset($posts['deal_itemno']) ? $posts['deal_itemno'] : '';
 
@@ -391,18 +374,16 @@ class Controller_Admin_Deals extends Controller {
 		  $products[$p_arr['ID']] = $p_arr['title'];
 		}
 
-
 		// Get posts
 		$posts = $this->request->post();
 
 		// This will check if submitted
 		if(!empty($posts)) {
-			//echo '<pre>'; print_r($posts); echo '</pre>'; exit;
 		  //$deals->product_id 	= htmlentities($posts['deal_product']);
 			$deals->title 			= htmlentities($posts['deal_title'], ENT_QUOTES ,"ISO8859-1");
 			$deals->description = htmlentities($posts['deal_desc']);
 			$deals->contents_title = htmlentities($posts['deal_content_title']);
-			$deals->contents		= htmlentities($posts['deal_desc_long']);
+			$deals->contents		= Html::entities($posts['deal_desc_long']);
 			$deals->whatyouget	= htmlentities($posts['deal_whatyouget']);
 			$deals->information	= htmlentities($posts['deal_information']);
 			$deals->city_id 	 	= (int)$posts['deal_city'];
@@ -427,78 +408,62 @@ class Controller_Admin_Deals extends Controller {
 			$deals->end_date		= date("Y-m-d H:i:S", strtotime($posts['deal_end_date'] . " 23:59:59"));
 			$deals->expiry_date = date("Y-m-d H:i:S", strtotime($posts['deal_expiry_date'] . " 23:59:59"));
 			$deals->last_update = date("Y-m-d H:i:S");
-			$deals->addresses		= htmlentities($posts['deal_address']);
+			//$deals->addresses		= htmlentities($posts['deal_address']);
 			$deals->is_featured = 1;
 			$deals->regno				= $posts['deal_regno'];
 			$deals->itemno			= $posts['deal_itemno'];
 
-			if ($_FILES['deal_image']['name'] != "") {
-			  $deals->image = $_FILES['deal_image']['name'];
-			}
-			if ($_FILES['deal_image2']['name'] != "") {
-			  $deals->image2 = $_FILES['deal_image2']['name'];
-			}
-			if ($_FILES['deal_image3']['name'] != "") {
-			  $deals->image3 = $_FILES['deal_image3']['name'];
-			}
-			if ($_FILES['deal_image4']['name'] != "") {
-			  $deals->image4 = $_FILES['deal_image4']['name'];
-			}
-			if ($_FILES['deal_image5']['name'] != "") {
-			  $deals->image5 = $_FILES['deal_image5']['name'];
+			// Form Images
+			if(!empty($_FILES['deal_image'])) {
+				$imgs = $_FILES['deal_image'];
+				for($i=0; $i<count($imgs['name']); $i++) {
+					if((int)$imgs['error'][$i] <= 0) {
+						$deal_image[] = array('name' => $imgs['name'][$i],
+																	'type' => $imgs['type'][$i],
+																	'size' => $imgs['size'][$i],
+																	'error' => $imgs['error'][$i],
+																	'tmp_name' => $imgs['tmp_name'][$i]);
+					}
+				}
 			}
 
 			if (isset($_FILES['deal_facebook_image']) && $_FILES['deal_facebook_image'] != "") {
 			  $deals->facebook_image = $_FILES['deal_facebook_image']['name'];
 			}
 
-
-
 			if($deals->save()) {
 
-				if(!empty($_FILES)) {
-				  if (!file_exists(APPPATH . "../uploads/". $deals->ID)) {
-			  	  mkdir(APPPATH . "../uploads/". $deals->ID);
-			  	}
-				  
-				  if ($_FILES['deal_image'] != "") {
-  			  	move_uploaded_file($_FILES["deal_image"]["tmp_name"], APPPATH . "../uploads/" . $deals->ID . "/" . $_FILES["deal_image"]["name"]);
-  			  }
-  			  if ($_FILES['deal_image2'] != "") {
-			  	  move_uploaded_file($_FILES["deal_image2"]["tmp_name"], APPPATH . "../uploads/" . $deals->ID . "/" . $_FILES["deal_image2"]["name"]);
-		  	  }
-		  	  if ($_FILES['deal_image3'] != "") {
-			  	  move_uploaded_file($_FILES["deal_image3"]["tmp_name"], APPPATH . "../uploads/" . $deals->ID . "/" . $_FILES["deal_image3"]["name"]);
-			  	}
-			  	if ($_FILES['deal_image4'] != "") {
-			  	  move_uploaded_file($_FILES["deal_image4"]["tmp_name"], APPPATH . "../uploads/" . $deals->ID . "/" . $_FILES["deal_image4"]["name"]);
-		  	  }
-		  	  if ($_FILES['deal_image5'] != "") {
-            print_r($_FILES['deal_image5']);		  	    
-			  	  move_uploaded_file($_FILES["deal_image5"]["tmp_name"], APPPATH . "../uploads/" . $deals->ID . "/" . $_FILES["deal_image5"]["name"]);
-		  	  }
-			  	
-				  if (!file_exists(APPPATH . "../uploads/". $deals->ID)) {
-			  	  mkdir(APPPATH . "../uploads/". $deals->ID);
-			  	}
-			  	move_uploaded_file($_FILES["deal_facebook_image"]["tmp_name"], APPPATH . "../uploads/" . $deals->ID . "/" . $_FILES["deal_facebook_image"]["name"]);
-			  	
-					// Sending of Emails if send mail is checked
-					if($posts['deal_send']) {
-								
-						$mailer = new XMail();
-						$mailer->subject = html_entity_decode($deals->description);
-						$mailer->message = ORM::factory('email')->template_deals($deals);
-						
-						$subscribers = ORM::factory('category')->get_subscribers($deals->city_id);
-						
-						if(!empty($subscribers)) {
-							foreach($subscribers as $sub) {
-								$mailer->to = $sub['email'];
-								$mailer->send();
-							}
+				// Sending of Emails if send mail is checked
+				if(isset($posts['deal_send'])) {
+							
+					$mailer = new XMail();
+					$mailer->subject = html_entity_decode($deals->description);
+					$mailer->message = ORM::factory('email')->template_deals($deals);
+					
+					$subscribers = ORM::factory('category')->get_subscribers($deals->city_id);
+					
+					if(!empty($subscribers)) {
+						foreach($subscribers as $sub) {
+							$mailer->to = $sub['email'];
+							$mailer->send();
 						}
 					}
+				}
+
+				if(!empty($deal_image)) {
+					foreach($deal_image as $imgs) {
+						$img = $this->add_image($deals->ID, $imgs);
+						if(!empty($img)) {
+							// Store to Image DB if ok!
+							$image = ORM::factory('image');
+							$image->path = $img['filename'];
+							$image->caption = $img['filename'];
+							$image->tid = $deals->ID;
+							$image->save();
+						}
+					}
+					
+					$this->writeXml($deals->ID, $deal_image);
 				}
 			  
 				// message: save success
@@ -514,7 +479,6 @@ class Controller_Admin_Deals extends Controller {
 			}
 		}
 		
-		//$page->deal_product 	= isset($posts['deal_product']) ? $posts['deal_product'] : $deals->product_id;
 		$page->city_id				= isset($posts['deal_group']) ? $posts['deal_group'] : $deals->city_id;
 		$page->group					= isset($posts['deal_group']) ? $posts['deal_group'] : $deals->group_id;
 		$page->deal_title 		= isset($posts['deal_title']) ? $posts['deal_title'] : html_entity_decode($deals->title);
@@ -538,12 +502,14 @@ class Controller_Admin_Deals extends Controller {
 		$page->expiry_date 		= isset($posts['deal_expiry_date']) ? $posts['deal_expiry_date'] : date("Y/m/d", strtotime($deals->expiry_date));
 		$page->deal_refno			= isset($posts['deal_refno']) ? $posts['deal_refno'] : $deals->reference_no;
 		$page->address		    = isset($posts['deal_address']) ? $posts['deal_address'] : html_entity_decode($deals->addresses);
-		$page->deal_image     = $deals->image;
+		$page->images_count		= ORM::factory('image')->where('tid', '=', $deals->ID)->count_all();
+		$page->images					= ORM::factory('image')->where('tid', '=', $deals->ID)->find_all()->as_array();
+		/*$page->deal_image     = $deals->image;
 		$page->deal_image2     = $deals->image2;
 		$page->deal_image3     = $deals->image3;
 		$page->deal_image4     = $deals->image4;
 		$page->deal_image5     = $deals->image5;
-		$page->deal_facebook_image     = $deals->facebook_image;
+		$page->deal_facebook_image     = $deals->facebook_image;*/
 		$page->deal_id        = $deals->ID;
 		$page->regno				  = isset($posts['deal_regno']) ? $posts['deal_regno'] : $deals->regno;
 		$page->itemno					= isset($posts['deal_itemno']) ? $posts['deal_itemno'] : $deals->itemno;
@@ -587,7 +553,49 @@ class Controller_Admin_Deals extends Controller {
 			$page->records = $rec;
 		}
 		$this->response->body($page);
-
+	}
+	
+	public function writeXml($deal_id, $imgs)
+	{	 
+		$doc = new DOMDocument(); 
+		$doc->formatOutput = true; 
+		 
+		$plist = $doc->createElement("playlist"); 
+		$plist->setAttribute('version', 1);
+		$plist->setAttribute('xmlns', "http://xspf.org/ns/0/");
+		$doc->appendChild($plist); 
+		 
+		$tlist = $doc->createElement("trackList");
+		$plist->appendChild($tlist);
+		
+		foreach($imgs as $img) {
+			$track = $doc->createElement("track");
+			
+			// title
+			$title = $doc->createElement("title");
+			$title->nodeValue = "";
+			$track->appendChild($title);
+			
+			// creator
+			$creator = $doc->createElement("creator");
+			$creator->nodeValue = "";
+			$track->appendChild($creator);
+			
+			// location
+			$location = $doc->createElement("location");
+			$location->nodeValue = Url::base(TRUE) . 'uploads/' . $deal_id . '/' . $img['name'];
+			$track->appendChild($location);
+			
+			// info
+			$info = $doc->createElement("info");
+			$info->nodeValue = "";
+			$track->appendChild($info);
+			
+			$tlist->appendChild($track);
+		}
+		
+	
+		$doc->save("uploads/" . $deal_id . "/"  . $deal_id . ".xml");
 	}
 	
 	public function before() 
@@ -616,6 +624,55 @@ class Controller_Admin_Deals extends Controller {
 				Request::current()->redirect('user/login?u=' . urlencode($_SERVER['REDIRECT_URL']));
 			}
 		}
+	}
+	
+	/**
+	 *
+	 * @param	int			$deal_id		
+	 * @param	array		$imgs				$imgs['name']
+	 *														$imgs['path']
+	 *														$imgs['type']
+	 *														$imgs['size']
+	 */
+	public function add_image($deal_id, $imgs)
+	{
+		// Check if image is empty
+		if(empty($imgs)) {
+			return FALSE;
+		}
+		
+		// Check if deal is not valid
+		if($deal_id < 0) {
+			return FALSE;
+		}
+		
+		$img = explode(".", $imgs['name']);
+		$name = $img[0];
+		$ext  = $img[1];
+		
+		$filename = UPLOADPATH . $deal_id . '\\' . $imgs['name'];
+		$filename_thumb = UPLOADPATH . $deal_id . '\\' . $name . '_thumb.' . $ext;
+		
+		$image = Image::factory($imgs['tmp_name']);
+		
+		// Set Max Width & Height
+		$maxWidth  = ($image->width >= BANNER_WIDTH_MAX) ? BANNER_WIDTH_MAX : NULL;
+		$maxHeight = ($image->height >= BANNER_HEIGHT_MAX) ? BANNER_HEIGHT_MAX : NULL;
+		$image->resize($maxWidth, $maxHeight);
+		
+		if($image->save($filename)) {
+		
+			// Create Thumbnail
+			$image->resize(NULL, 105);
+			$image->crop(165, 105);
+			$image->save($filename_thumb);
+	
+			$imgs['filename'] = 'uploads/' . $deal_id . '/' . $imgs['name'];
+					
+			return $imgs;
+		}
+		
+		return FALSE;
 	}
 	
 	public function clean_video_url($url)
