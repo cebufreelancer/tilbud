@@ -45,18 +45,7 @@
 	<link rel="stylesheet" type="text/css" href="<?php echo url::base()?>js/fancybox/jquery.fancybox-1.3.4.css" media="screen" />
   <script type="text/javascript" src="<?php echo url::base()?>js/jquery.countdown.pack.js"></script>
 
-	<?php if(strcmp($_SERVER['REQUEST_URI'], URL::base()) == 0) { ?>
-		<script type="text/javascript" src="<?php echo url::base()?>js/s3Slider.js"></script>
-    <script type="text/javascript"> 
-        $(document).ready(function() {
-            $('#slider').s3Slider({
-                timeOut: 5000
-            });
-        });
-    </script>
-  <?php } ?>
-
-  <!-- for live -->
+	<!-- for live -->
   <?php
   $live = '<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=true&amp;key=ABQIAAAAbQlC_gF4H7R0hbKr8QVz5xTh1Xu1DCtyDZLHCop3sXObMWlGYBRqFcGWz0zY_HTPH9tdC_yHU2a-Ag" type="text/javascript"></script>';
   $local = '<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=true&amp;key=ABQIAAAAbQlC_gF4H7R0hbKr8QVz5xTb-vLQlFZmc2N8bgWI8YDPp5FEVBR0fbtPlG0ajsdbFHG0Bo4Nt1JTHA" type="text/javascript"></script>';
@@ -73,17 +62,7 @@
 </head>
 <body <?php if (isset($address)) { echo  'onLoad="initialize()" onunload="GUnload()"'; }?>>
 
-  <!-- <a href="#account_verified" id="accountverified"></a> --><a href="#signup-form" id="newvisitor" ></a>
-  
-	<?php if(isset($account_verified)) { ?>
-  <!--
-	  <script>
-	    $(document).ready(function() {
-		    $("#referral-form").trigger("click");
-      });
-		</script>
-  -->
-  <?php } ?>
+  <a href="#signup-form" id="newvisitor" ></a>
 
 		<?php if(isset($is_referral)) { ?>
     <div style="display:none"><div id="account_verified"><?php include 'referral.php'; ?></div></div>

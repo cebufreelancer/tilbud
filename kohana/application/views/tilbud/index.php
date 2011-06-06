@@ -16,26 +16,27 @@
 
           <div class="deal-banner" style="position: static" >
 
-              <div id="slider">
-                <?php if (sizeof($images) == 1) {?>
-                  <img src="<?php echo URL::base(TRUE); ?>uploads/<?php echo $deal['ID'] . "/". rawurlencode("$images[0]"); ?>">
-                <?php }else{?>
-                  <ul id="sliderContent"> 
-                    <?php foreach($images as $img) {?>
-                      <li class="sliderImage"> 
-                          <img src="<?php echo URL::base(TRUE); ?>uploads/<?php echo $deal['ID'] . "/". rawurlencode("$img"); ?>">
-                          <span class="top"></span> 
-                      </li>
-                    <?php } ?>
-                      <div class="clear sliderImage"></div> 
-                  </ul>                   
-                <?php }?>
+							<?php $xml = Url::base() . 'uploads/' . $deal['ID'] . '/' . $deal['ID'] . '.xml'; ?>
+
+              <div id="banner" style="margin-bottom: -315px;">
+              	<script type="text/javascript" src="<?php echo Url::base();?>js/imagerotator/swfobject.js"></script>
+								<script type="text/javascript">
+                  var s1 = new SWFObject("<?php echo Url::base(); ?>js/imagerotator/imagerotator.swf","rotator","950","310","7");
+                  s1.addParam("allowfullscreen","false");
+									s1.addParam("wmode","transparent");
+                  s1.addVariable("shownavigation", "false");
+                  s1.addVariable("transition", "bubbles");
+                  s1.addVariable("file","<?php echo $xml; ?>");
+                  s1.addVariable("width","950");
+                  s1.addVariable("height","310");
+                  s1.write("banner");
+                </script>
               </div>
               
               <div class="buy-container" style="z-index: 99; position: relative;">
               	  <?php 
 
-              	  $price = (float) ($deal['regular_price'] * (100 - $deal['discount'])) / 100 ;
+              	  $price = (float)($deal['regular_price'] * (100 - $deal['discount'])) / 100 ;
               	  $pricex = explode(".", $price);
 
                   if (sizeof($pricex) > 1) {
@@ -48,7 +49,6 @@
                     $newprice = $price;
                   }
                   
-              	  
               	  ?>
               	  <div class="buy-label"><p class="huge buy-label" style="width: 200px; min-width: 200px; float: left;"><?php echo $newprice; ?>,- </p> <?php echo HTML::anchor('deals/buy/' . $deal['ID'], HTML::image('images/buy.png', array('title' => LBL_Buy_now, 'style' => 'margin-bottom: -10px;'))); ?>
 								
@@ -74,9 +74,9 @@
                       			'height'		: 495,
                       			'href'			: this.href.replace(new RegExp("watch\\?v=", "i"), 'v/'),
                       			'type'			: 'swf',
-                      			'swf'			: {
-                      			   	 'wmode'		: 'transparent',
-                      				'allowfullscreen'	: 'true'
+                      			'swf'				: {
+                      					'wmode'		: 'transparent',
+                      					'allowfullscreen'	: 'true'
                       			}
                       		});
  
