@@ -65,48 +65,79 @@
               e.g. : http://www.youtube.com/watch?v=g9f-6jygRJk<strong>&autoplay=1</strong>
               </div>
           </li>
-          <li><?php echo Form::label('deal_address', __(LBL_ADDRESS2)); ?>
-              <?php echo Form::input('deal_address', $address, array()); ?>
-          </li>
-          <li>
-              <?php echo Form::label('deal_image', __(LBL_UPLOAD_IMAGE)); ?> 
-              <span style="font-size: 10px">Size: 952px x 312px</span>
-              <br/>
+          <li id="address-container">
+							<?php echo Form::label('deal_address', __(LBL_ADDRESS2));
               
-              <?php echo Form::file('deal_image', array("style" => "width: 300px")); ?>
-              <?php if ($deal_image != ""){?>
-                <a href="/uploads/<?= $deal_id;?>/<?= $deal_image;?>" target="_blank" class="homelink">View  </a>|
-                <a href="/admin/deals/deleteimage/<?= $deal_id;?>?i=1" class="homelink" onclick="return confirm('Are you sure?')">Remove  </a>
-              <?php } ?>
-              <br/>
-
-              <?php echo Form::file('deal_image2', array("style" => "width: 300px")); ?>
-              <?php if ($deal_image2 != ""){?>
-                <a href="/uploads/<?= $deal_id;?>/<?= $deal_image2;?>" target="_blank" class="homelink">View  </a>|
-                <a href="/admin/deals/deleteimage/<?= $deal_id;?>?i=2" class="homelink" onclick="return confirm('Are you sure?')">Remove  </a>
-              <?php }?>
-              <br/>
-
-              <?php echo Form::file('deal_image3', array("style" => "width: 300px"));?>
-              <?php if ($deal_image3 != ""){?>
-                <a href="/uploads/<?= $deal_id;?>/<?= $deal_image3;?>" target="_blank" class="homelink">View  </a>|
-                <a href="/admin/deals/deleteimage/<?= $deal_id;?>?i=3" class="homelink" onclick="return confirm('Are you sure?')">Remove  </a>
-              <?php } ?>
-              <br/>
-
-              <?php echo Form::file('deal_image4', array("style" => "width: 300px")); ?>
-              <?php if ($deal_image4 != ""){?>
-                <a href="/uploads/<?= $deal_id;?>/<?= $deal_image4;?>" target="_blank" class="homelink">View  </a>|
-                <a href="/admin/deals/deleteimage/<?= $deal_id;?>?i=4" class="homelink" onclick="return confirm('Are you sure?')">Remove </a>
-              <?php }?>
-              <br/>
-
-              <?php echo Form::file('deal_image5', array("style" => "width: 300px")); ?>
-              <?php if ($deal_image5 != ""){?>
-                <a href="/uploads/<?= $deal_id;?>/<?= $deal_image5;?>" target="_blank" class="homelink">View  </a>|
-                <a href="/admin/deals/deleteimage/<?= $deal_id;?>?i=5" class="homelink" onclick="return confirm('Are you sure?')">Remove  </a>
-              <?php }?>
+							$remove = ' <a href="" id="remove-image" class="cancel" onclick="javascript: removeThis(this);"> Remove </a>';
+							$html = '<div>' . Form::input('deal_address[]', '', array('style' => 'width: 500px;')) . $remove . '</div>';
+							?>
+              <script type="text/javascript">
+							$(function() {
+								var fileHtml = '<?php echo $html; ?>';
+							 	$("#addAddress").click(function(ez){
+									ez.preventDefault();
+									var dealsImage = document.getElementsByName("deal_address[]").length;
+									if(dealsImage<5) {
+										$("#address-container").append(fileHtml);
+									} else {
+										return false;
+									}
+							 	});
+							});
+							</script>
+              <div><?php echo Form::input('deal_address[]', $address, array('style' => 'width: 500px;')) . $remove; ?></div>
           </li>
+          <li><a id="addAddress" href="" class="blue"><b>Add More Address</b></a><br /></li>
+          <li id="image-container">
+          		<?php echo Form::label('deal_image', __(LBL_UPLOAD_IMAGE)); ?>
+              <span style="font-size: 10px">Size: 952px x 312px</span><br />
+              <?php
+							$remove = ' <a href="" id="remove-image" class="cancel" onclick="javascript: removeThis(this);"> Remove </a>';
+							$html   = '<div>' . Form::file('deal_image[]', array("style" => "width: 500px")) . $remove . '</div>';
+							$img_count = isset($images_count) ? $images_count : 0;
+							?>
+              <script type="text/javascript">
+							$(function() {
+								var fileHtml = '<?php echo $html; ?>';
+							 	$("#addImage").click(function(ez){
+									ez.preventDefault();
+									var dealsImage = document.getElementsByName("deal_image[]").length;
+									var existingImage = document.getElementsByName("imgs[]").length;
+									if((dealsImage+existingImage)<5) {
+										$("#image-container").append(fileHtml);
+									} else {
+										return false;
+									}
+							 	});
+							});
+							
+							function removeThis(elem) {
+								$(this).click(function(ez) {
+									ez.preventDefault();
+									$(elem).parent().fadeOut("fast", function() {
+										$(elem).parent().remove();
+									});
+								});
+							}
+							</script>
+          </li>
+          <li><a id="addImage" href="" class="blue"><b>Add Image</b></a><br /></li>
+          <?php if($img_count > 0) { ?>
+          <li>
+         		<?php foreach($images as $img) {
+							$tmp = explode(".", $img->path);
+							$thumb = $tmp[0] . "_thumb.{$tmp[1]}";
+							echo '<div>';
+							echo Html::image($thumb);
+							echo Form::hidden('imgs[]', $img->ID);
+							echo Html::anchor('', ' Remove', array('class' => 'cancel',
+																										 'onclick' => 'javascript: removeThis(this);'));
+							echo '</div>';
+						} ?>
+          </li>
+          <?php } ?>
+          <?php
+					/*
           <li><?php echo Form::label('deal_facebook_image', __(LBL_UPLOAD_FACEBOOK_IMAGE)); ?>
               <?php echo Form::file('deal_facebook_image'); ?>
           </li>
@@ -115,6 +146,7 @@
               <img src="/uploads/<?= $deal_id; ?>/<?= $deal_facebook_image?>" width="200" height="70">
           </li>
           <?php } ?>
+					*/ ?>
           <li></li>
         </ul>
 			</div>
