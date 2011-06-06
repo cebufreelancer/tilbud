@@ -383,3 +383,20 @@ CREATE TABLE IF NOT EXISTS `forget_passwords` (
 -- May 26 2011 Updates
 --
 ALTER TABLE  `users` DROP  `group_id`;
+
+-- 
+-- June 4 2011 Updates
+--
+
+--
+-- Table structure for table `images`
+--
+
+CREATE TABLE IF NOT EXISTS `images` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `path` varchar(250) NOT NULL,
+  `caption` text,
+  `type` varchar(25) NOT NULL DEFAULT 'deals',
+  `tid` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
