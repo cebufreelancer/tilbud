@@ -112,16 +112,8 @@ class Model_Deal extends ORM {
 	public function get_featured() {
     $sql = "SELECT `deals`.* FROM `deals` WHERE `is_featured` = 1 AND `status` = 'active' AND (CURDATE() BETWEEN start_date AND end_date) ORDER BY `end_date` DESC LIMIT 1";
     $deals = DB::query(Database::SELECT, $sql)->execute()->as_array();
-    if (sizeof($deals) > 0) {
-      return $deals[0];
-    }else {
-      // didn't found any
-      $sql = "SELECT `deals`.* FROM `deals` WHERE `is_featured` = 1 AND `status` = 'active' AND (start_date < CURDATE()) ORDER BY `end_date` DESC LIMIT 1";
-      $deals = DB::query(Database::SELECT, $sql)->execute()->as_array();
-      return $deals[0];
-    }
-    
-
+		
+		return $deals[0];
 	}
 	
 	public function get_categories($deal_id)
@@ -147,6 +139,34 @@ class Model_Deal extends ORM {
 												 ->as_array();
 												 
 		return $query;
+	}
+	
+	/**
+	 * Removed the images from the database
+	 * TODO: To follow the files as well
+	 * 
+	 * @param		array			$imgs		image ids
+	 * @return 	integer		count		number of images deleted
+	 * @author	Paul Winston S. Villacorta
+	 */
+	public function delete_images($imgs)
+	{
+		$images = DB::select()->from('images')->where('ID', 'IN', $imgs)->execute()->as_array();
+
+		// Delete images from directory
+		foreach($images as $img) {
+			$tmp = explode(".", $img['path']);
+			@unlink(realpath($img['path'])); 									// remove files
+			@unlink(realpath($tmp[0] . '_thumb.' . $tmp[1]));	// remove thumbnail
+		}
+
+		$result = DB::delete('images')->where('ID', 'IN', $imgs)->execute();
+		
+		if($result) {
+			return count($imgs);
+		}
+		
+		return FALSE;
 	}
 	
 } // End of Product Model
