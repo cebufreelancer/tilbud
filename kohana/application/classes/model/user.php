@@ -37,4 +37,26 @@ class Model_User extends Model_Useradmin_User {
 		
 		return $token;
 	}
+	
+	public function admin_count($type='all')
+	{
+		$ad_count = 0;
+		$mem_count = 0;
+		
+		foreach(parent::find_all()->as_array() as $user) {
+			if($user->has('roles', 1) && $user->has('roles', 2)) {
+				$ad_count++;
+			} else {
+				$mem_count++;
+			}
+		}
+		
+		if($type == 'member') {
+			return $mem_count;
+		} else if($type == 'admin') {
+			return $ad_count;
+		} else {
+			return array('admin' => $ad_count, 'member' => $mem_count);
+		}
+	}
 } // End User Model
