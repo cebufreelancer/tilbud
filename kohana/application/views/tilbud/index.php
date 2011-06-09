@@ -51,7 +51,6 @@
                   
               	  ?>
               	  <div class="buy-label"><p class="huge buy-label" style="width: 200px; min-width: 200px; float: left;"><?php echo $newprice; ?>,- </p> <?php echo HTML::anchor('deals/buy/' . $deal['ID'], HTML::image('images/buy.png', array('title' => LBL_Buy_now, 'style' => 'margin-bottom: -10px;'))); ?>
-
 								
       								<?php 
       								if(isset($deal['youtube_url']) && $deal['youtube_url'] != "") {
@@ -59,6 +58,8 @@
       																		HTML::image('images/play.png', array('class' => 'playbutton')), 
       																		array('id' => 'youtubevideo',
       																					'title' => 'Promo Video'));
+												
+												echo '<div style="width: 180px; float: right; margin-right: -280px; margin-top: 20px;">' . HTML::image('images/video-text.png') . '</div>';
       								}
       								?>
                   	<div class="clear"></div>
@@ -146,12 +147,11 @@
         	<div id="deals-info">
             <ul>
               <li class="dhead-one"> <?= LBL_ADDRESS?> </li>
-              <li><p> 
+              <li>
               <?php
-              $decoded_address = html_entity_decode($deal['addresses']);
-              $clean_address = str_replace("\n", "<br/>", $decoded_address);
-              echo $clean_address;
-              ?></p> </li>
+              $address = unserialize($deal['addresses']);
+              echo implode("<br />", $address);
+              ?></li>
             </ul>            
             <ul>
               <li class="dhead-two"> <?= LBL_MAP ?> </li>
