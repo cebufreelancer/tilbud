@@ -176,6 +176,6 @@ Route::set('default', '(<controller>(/<action>(/<id>)))')
 		'action'     => 'index',
 	));
 
-define('UPLOADPATH',	DOCROOT . 'uploads\\');
+define('UPLOADPATH',	realpath(DOCROOT . 'uploads'));
 define('BANNER_WIDTH_MAX',	950);
 define('BANNER_HEIGHT_MAX', 310);

@@ -614,7 +614,7 @@ class Controller_Admin_Deals extends Controller {
 			$tlist->appendChild($track);
 		}
 		
-		$deal_path = UPLOADPATH . $deal_id . '\\';
+		$deal_path = UPLOADPATH . $deal_id;
 		
 		// Create deal directory if not existent
 		if(!is_dir($deal_path)) {
@@ -658,6 +658,11 @@ class Controller_Admin_Deals extends Controller {
 		}
 	}
 	
+	public function action_test()
+	{
+		echo realpath(DOCROOT . 'uploads');
+	}
+	
 	/**
 	 *
 	 * @param	int			$deal_id		
@@ -682,7 +687,7 @@ class Controller_Admin_Deals extends Controller {
 		$name = $img[0];
 		$ext  = $img[1];
 		
-		$deal_path = UPLOADPATH . $deal_id . '\\';
+		$deal_path = UPLOADPATH . $deal_id;
 		
 		// Create deal directory if not existent
 		if(!is_dir($deal_path)) {
