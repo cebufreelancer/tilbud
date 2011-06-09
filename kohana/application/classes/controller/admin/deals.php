@@ -618,7 +618,7 @@ class Controller_Admin_Deals extends Controller {
 		
 		// Create deal directory if not existent
 		if(!is_dir($deal_path)) {
-			mkdir($deal_path);
+			mkdir(UPLOADPATH . $deal_id);
 		}
 		
 		// Change directory to deal directory
@@ -686,7 +686,7 @@ class Controller_Admin_Deals extends Controller {
 		
 		// Create deal directory if not existent
 		if(!is_dir($deal_path)) {
-			mkdir($deal_path);
+			mkdir(UPLOADPATH . $deal_id);
 			
 		}
 		
