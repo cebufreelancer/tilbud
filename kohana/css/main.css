@@ -277,10 +277,12 @@ header, content, footer {
 
 /** Deals Widget **/
 .deals-widget {
-  margin-right: 5px;
   width: 330px; 
   float: left;
-  height: 200px; 
+  height: 200px;
+}
+.deals-widget:nth-child(odd) {
+  margin-left: 10px;
 }
 .deals-widget .sold {
 	background: url(../images/bg-button.png) center top repeat-x;

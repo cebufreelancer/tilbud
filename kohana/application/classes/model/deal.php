@@ -169,4 +169,25 @@ class Model_Deal extends ORM {
 		return FALSE;
 	}
 	
+	/**
+	 * This function will retrieve an image from a deal
+	 * 
+	 * @param		integer				$id			deal id
+	 * @return	string/bool		image path/false
+	 * @author	Paul Winston S. Villacorta
+	 */
+	public function get_random_image($id, $type='thumb')
+	{
+		$images = ORM::factory('image')->where('tid', '=', $id)->find_all()->as_array();
+		if(!empty($images)) {
+			if($type == 'regular') {
+				return $images[rand(0,count($images)-1)]->path;
+			} else if($type == 'thumb') {			
+				$img = explode(".", $images[rand(0, count($images)-1)]->path);
+				return $img[0] . '_thumb.' . $img[1];				
+			}
+		}
+		
+		return "images/default_thumb.jpg";
+	}
 } // End of Product Model

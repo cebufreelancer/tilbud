@@ -14,24 +14,27 @@
           <?php foreach($deals as $deal){ ?>
             <div class="deals-widget">
             	<?php
-							$deal['contents'] = strip_tags($deal['description']);
-							$title = strlen($deal['contents']) > 65 ? substr($deal['contents'],0,65) . ' ...' : $deal['contents'];
-							$title_url = HTML::anchor('deals/view/' . $deal['ID'], $title, array('title' => $deal['title'] . '-' . $deal['contents'],
+							$deal_contents = html_entity_decode(strip_tags($deal->description));
+							$title = strlen($deal_contents) > 65 ? substr($deal_contents,0,65) . ' ...' : $deal_contents;
+							$title_url = HTML::anchor('deals/view/' . $deal->ID, $title, array('title' => $deal->title . '-' . $deal_contents,
 																																									 'class' => 'widget-title'));
-							$regular_price    = $deal['regular_price'];
-							$discount					= $deal['discount'];
+							$regular_price    = $deal->regular_price;
+							$discount					= $deal->discount;
 							$discounted_price = ( $regular_price * (100 - $discount)) / 100;
 							?>
-            	<h2 style="white-space:nowrap; overflow: hidden;"><?php echo  $title_url; ?></h2>
+            	<h2 style="white-space:nowrap; overflow: hidden; width: 95%;"><?php echo  $title_url; ?></h2>
               <div style="margin-top: 10px;">
-                <div class="image" style="float: right">
-                  <img src="<?= url::base(true);?>uploads/<?= $deal['ID'];?>/<?= $deal['image'];?>" width="165" height="105" title="<?php echo $deal['title'] . '-' . $deal['contents']; ?>">
+                <div class="image" style="float: right; background: url(images/default_thumb.jpg) top left no-repeat;">
+                	<?php
+                  $img = $deal->get_random_image($deal->ID, 'thumb');
+									echo Html::image($img, array('title' => $deal_contents)); ?>
+                  
                 </div>
                 <div style="float :left">
-                  <div class="sold"><?php echo count($orders->get_orders($deal['ID'])); ?> <?= LBL_SOLD?></div>
+                  <div class="sold"><?php echo count($orders->get_orders($deal->ID)); ?> <?= LBL_SOLD?></div>
                   <div class="widget-label"><?= LBL_PRICE?> <span><?= $discounted_price; ?></span></div>
-                  <div class="widget-label"><?= LBL_VALUE?> <span><?= $deal['regular_price']?></span></div>
-                  <div class="widget-label"><?= LBL_SAVINGS ?><span><?= $deal['discount']?> %</span></div>
+                  <div class="widget-label"><?= LBL_VALUE?> <span><?= $deal->regular_price; ?></span></div>
+                  <div class="widget-label"><?= LBL_SAVINGS ?><span><?= $deal->discount; ?> %</span></div>
                   <div class="price"></div>                
                 </div>
               </div>

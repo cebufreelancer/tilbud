@@ -4,9 +4,11 @@ class Controller_Deals extends Controller {
 
 	public function action_index()
 	{	
-    $deals = ORM::factory('deal')->get_active_deals('active', 20);
+		//$deals = ORM::factory('deal')->get_active_deals('active', 20);
 		$orders = ORM::factory('order');
-    $this->response->body(View::factory('tilbud/deals')
+		$deals = ORM::factory('deal')->where('status', '=', 'active')->find_all();
+
+		$this->response->body(View::factory('tilbud/deals')
                    ->set('deals', $deals)
 									 ->set('orders', $orders));
 	}
@@ -17,7 +19,7 @@ class Controller_Deals extends Controller {
 			$this->response->body(View::factory('tilbud/template_email')
 															->set('deals', $deals));
 	}
-	
+	/*
 	public function action_test()
 	{
 		// Requires $order, $user, $deal variables
@@ -38,7 +40,7 @@ class Controller_Deals extends Controller {
 		$dl = $html2pdf->Output('uploads/testing.pdf','F');
 		
 		//$this->response->body($pdf);
-	}
+	}*/
 	
 	public function action_view($id){
     $deal 	= ORM::factory('deal', $id)->as_array();
@@ -64,7 +66,7 @@ class Controller_Deals extends Controller {
 	}
 
 	/**
-	EMAIL TEMPLATE FOR PDF*/
+	EMAIL TEMPLATE FOR PDF
 	public function action_viewemail()
 	{
 		$order = ORM::factory('order', 21);
@@ -76,7 +78,7 @@ class Controller_Deals extends Controller {
 															->set('order', $order)
 															->set('deal', $deal)
 															->set('user', $user));
-	}
+	}*/
 	
 	
 	public function action_buy($deal_id=null)
