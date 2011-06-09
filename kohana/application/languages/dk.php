@@ -185,6 +185,7 @@ define("LBL_USER_TYPE", "Bruger type");
 define("LBL_USER_ADMIN", "Admin");
 define("LBL_USER_MEMBER", "Medlem");
 define("LBL_USER_SEARCH", "Søg");
+define("LBL_USER_ALL", "All");
 define("LBL_USER_EMPTY", "Der er ikke fundet nogen bruger");
 define("LBL_PRODUCT_DEAL", "Produkt tilbud");
 define("LBL_AMOUNT_PAID", "Betalt Kr.");

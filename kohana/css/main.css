@@ -445,7 +445,7 @@ footer {
 	color: #333333; 
 }
 
-#myforms .cancel, .table .delete { color: #D00216; font-size: 11px; }
+#myforms .cancel, .table .delete { color: #D00216; font-size: 11px; cursor: pointer; }
 #myforms .cancel:hover, .table .delete:hover { font-weight: bold; }
 
 /* Forms */
@@ -736,6 +736,13 @@ span.block {
   -webkit-border-radius: 15px;
 	-moz-border-radius: 15px;
 	border-radius: 15px;
+}
+.user-url {
+  color: #666666;
+  margin-right: 10px; 
+}
+.user-url:hover {
+  border-bottom: 1px dotted #666666; 
 }
 
 #signupform {
