@@ -556,7 +556,7 @@ class Controller_Admin_Deals extends Controller {
 				if($deal->loaded()) {
 					if($deal->delete()) {
 						// Delete deal folders
-						rmdir(UPLOADPATH . '\\' . $id . '\\');
+						rmdir(UPLOADPATH . $id);
 					}
 				}
 			}
