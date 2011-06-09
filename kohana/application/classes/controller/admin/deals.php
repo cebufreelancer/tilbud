@@ -614,8 +614,20 @@ class Controller_Admin_Deals extends Controller {
 			$tlist->appendChild($track);
 		}
 		
-	
-		$doc->save("uploads/" . $deal_id . "/"  . $deal_id . ".xml");
+		$deal_path = UPLOADPATH . $deal_id . '\\';
+		
+		// Create deal directory if not existent
+		if(!is_dir($deal_path)) {
+			mkdir($deal_path);
+		}
+		
+		// Change directory to deal directory
+		chdir($deal_path);
+		
+		$doc->save($deal_id . ".xml");
+		
+		// return to docroot path
+		chdir(DOCROOT);
 	}
 	
 	public function before() 
