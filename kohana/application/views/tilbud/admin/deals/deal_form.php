@@ -68,7 +68,7 @@
           <li id="address-container">
 							<?php echo Form::label('deal_address', __(LBL_ADDRESS2));
               
-							$remove = ' <a href="" id="remove-image" class="cancel" onclick="javascript: removeThis(this);"> Remove </a>';
+							$remove = ' <span id="remove-image" class="cancel" onclick="javascript: removeMe(this);"> Remove </span>';
 							$html = '<div>' . Form::input('deal_address[]', '', array('style' => 'width: 500px;')) . $remove . '</div>';
 							?>
               <script type="text/javascript">
@@ -83,70 +83,78 @@
 										return false;
 									}
 							 	});
+								
+								
+								
 							});
+							
+							function removeMe(elem) {
+								$(elem).parent().fadeOut("fast", function(ez) {
+									$(elem).parent().remove();
+								});
+							}
+							
 							</script>
-              <div><?php echo Form::input('deal_address[]', $address, array('style' => 'width: 500px;')) . $remove; ?></div>
+              <?php
+							if(!empty($address)) {
+								foreach($address as $add) {
+             			echo '<div>' . Form::input('deal_address[]', html_entity_decode($add), array('style' => 'width: 500px;')) . $remove . '</div>';
+								}
+							} else {
+								echo '<div>' . Form::input('deal_address[]', '', array('style' => 'width: 500px;')) . $remove . '</div>';
+							}
+							?>
           </li>
           <li><a id="addAddress" href="" class="blue"><b>Add More Address</b></a><br /></li>
           <li id="image-container">
-          		<?php echo Form::label('deal_image', __(LBL_UPLOAD_IMAGE)); ?>
-              <span style="font-size: 10px">Size: 952px x 312px</span><br />
-              <?php
-							$remove = ' <a href="" id="remove-image" class="cancel" onclick="javascript: removeThis(this);"> Remove </a>';
-							$html   = '<div>' . Form::file('deal_image[]', array("style" => "width: 500px")) . $remove . '</div>';
-							$img_count = isset($images_count) ? $images_count : 0;
-							?>
-              <script type="text/javascript">
-							$(function() {
-								var fileHtml = '<?php echo $html; ?>';
-							 	$("#addImage").click(function(ez){
-									ez.preventDefault();
-									var dealsImage = document.getElementsByName("deal_image[]").length;
-									var existingImage = document.getElementsByName("imgs[]").length;
-									if((dealsImage+existingImage)<5) {
-										$("#image-container").append(fileHtml);
-									} else {
-										return false;
-									}
-							 	});
-							});
-							
-							function removeThis(elem) {
-								$(this).click(function(ez) {
-									ez.preventDefault();
-									$(elem).parent().fadeOut("fast", function() {
-										$(elem).parent().remove();
-									});
-								});
-							}
-							</script>
+						<?php echo Form::label('deal_image', __(LBL_UPLOAD_IMAGE)); ?>
+            <span style="font-size: 10px">Size: 952px x 312px</span><br />
+            <?php
+            $remove = ' <a href="" id="remove-image" class="cancel" onclick="javascript: removeThis(this);"> Remove </a>';
+            $html   = '<div>' . Form::file('deal_image[]', array("style" => "width: 500px")) . $remove . '</div>';
+            $img_count = isset($images_count) ? $images_count : 0;
+            ?>
+            <script type="text/javascript">
+            $(function() {
+              var fileHtml = '<?php echo $html; ?>';
+              $("#addImage").click(function(ez){
+                ez.preventDefault();
+                var dealsImage = document.getElementsByName("deal_image[]").length;
+                var existingImage = document.getElementsByName("imgs[]").length;
+                if((dealsImage+existingImage)<5) {
+                  $("#image-container").append(fileHtml);
+                } else {
+                  return false;
+                }
+              });
+            });
+            
+            function removeThis(id) {
+							$("#rimg_" + id).parent().fadeOut("fast", function(ez) {
+              	$("#rimg_" + id).parent().remove();
+              });
+							$("#rimg_" + id).click(function (z){ z.preventDefault(); });
+            }
+            </script>
           </li>
           <li><a id="addImage" href="" class="blue"><b>Add Image</b></a><br /></li>
           <?php if($img_count > 0) { ?>
           <li>
-         		<?php foreach($images as $img) {
+         		<?php
+						echo Form::hidden('rimgs', '', array('id' => 'rimgs'));
+						foreach($images as $img) {
 							$tmp = explode(".", $img->path);
 							$thumb = $tmp[0] . "_thumb.{$tmp[1]}";
 							echo '<div>';
-							echo Html::image($thumb);
-							echo Form::hidden('imgs[]', $img->ID);
-							echo Html::anchor('', ' Remove', array('class' => 'cancel',
-																										 'onclick' => 'javascript: removeThis(this);'));
+								echo Html::image($thumb);
+								echo Form::hidden('imgs[]', $img->ID);
+								echo Html::anchor("#rimgs", ' Remove', array('class' 	=> "cancel",
+																														 'id'    	=> "rimg_{$img->ID}",
+																														 'onclick' => "return removeThis({$img->ID});"));
 							echo '</div>';
 						} ?>
           </li>
           <?php } ?>
-          <?php
-					/*
-          <li><?php echo Form::label('deal_facebook_image', __(LBL_UPLOAD_FACEBOOK_IMAGE)); ?>
-              <?php echo Form::file('deal_facebook_image'); ?>
-          </li>
-          <?php if(isset($deal_id)) { ?>
-          <li>
-              <img src="/uploads/<?= $deal_id; ?>/<?= $deal_facebook_image?>" width="200" height="70">
-          </li>
-          <?php } ?>
-					*/ ?>
           <li></li>
         </ul>
 			</div>
@@ -252,12 +260,6 @@
               e.g. : <strong>123456789012</strong>
               </div>
           </li>
-          <?php /*
-          <li><?php echo Form::label('deal_vouchers', __(LBL_NUMBER_OF_VOUCHERS)); ?>
-              <?php echo Form::input('deal_vouchers', $deal_vouchers, array('style' => 'width: 100px;',
-                                                                            'placeholder' => '100')); ?>
-          </li> 
-					*/ ?>
           <li>
           	<div class="half left">
               <?php echo Form::label('deal_status', __(LBL_STATUS)); ?>
@@ -269,33 +271,8 @@
             </div>
             <div class="clear"></div>
           </li>
-          <?php /*
-          <li><?php echo Form::label('deal_status', __(LBL_CATEGORY)); ?>
-          		<?php
-							$deal_categories = isset($deal_categories) ? $deal_categories : array();
-							foreach($categories as $k => $cat) {
-								$is_checked = in_array($k, $deal_categories) ? TRUE : NULL;
-								echo '<div class="deals-category-container">';
-								echo Form::label("category_$k", $cat);
-								echo Form::checkbox("category[]", $k, $is_checked ,array('id' => "category_$k"));
-								echo '<div class="clear"></div>';
-								echo '</div>';
- 							}
-							?>              
-          </li>
-					*/ ?>
-          <?php
-					/*
-					Not needed anymore
-          <li><?php echo Form::label('deal_isfeatured', __('Featured')); ?>
-              <?php echo Form::radio('deal_isfeatured', '1', true); ?>
-              Yes
-              <?php echo Form::radio('deal_isfeatured', '0', false); ?>
-              No        		
-          </li>
-					*/ ?>
           <li>
-            <?php echo Form::submit(NULL, __(LBL_SAVE)); ?>
+            <?php echo Form::submit('submit', __(LBL_SAVE), array('id' => 'submit')); ?>
             <?php echo HTML::anchor('admin/deals', LBL_CANCEL, array('class' => 'cancel',
 																																		 'style' => 'font-size: 11px;')) ?>
           </li>	

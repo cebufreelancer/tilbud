@@ -254,10 +254,17 @@ class Controller_Admin_Deals extends Controller {
 			$deals->start_date	= date("Y-m-d H:i:S", strtotime($posts['deal_start_date']));
 			$deals->end_date		= date("Y-m-d H:i:S", strtotime($posts['deal_end_date'] . " 23:59:59"));
 			$deals->expiry_date = date("Y-m-d H:i:S", strtotime($posts['deal_expiry_date'] . " 23:59:59"));
-			$deals->addresses		= htmlentities($posts['deal_address']);
 			$deals->is_featured = 1;
 			$deals->regno				= $posts['deal_regno'];
 			$deals->itemno			= $posts['deal_itemno'];
+			
+			// Form Addresses
+			if(!empty($posts['deal_address'])) {
+				foreach($posts['deal_address'] as $add) {
+					$addresses[] = htmlentities($add);
+				}
+				$deals->addresses = serialize($addresses);
+			}
 			
 			// Form Images
 			if(!empty($_FILES['deal_image'])) {
@@ -272,11 +279,6 @@ class Controller_Admin_Deals extends Controller {
 					}
 				}
 			}
-				
-			if (isset($_FILES['deal_facebook_image']) && $_FILES['deal_facebook_image'] != "") {
-			  $deals->facebook_image = $_FILES['deal_facebook_image']['name'];
-			}
-			
 			
 			if($deals->save()) {
 				
@@ -408,11 +410,18 @@ class Controller_Admin_Deals extends Controller {
 			$deals->end_date		= date("Y-m-d H:i:S", strtotime($posts['deal_end_date'] . " 23:59:59"));
 			$deals->expiry_date = date("Y-m-d H:i:S", strtotime($posts['deal_expiry_date'] . " 23:59:59"));
 			$deals->last_update = date("Y-m-d H:i:S");
-			//$deals->addresses		= htmlentities($posts['deal_address']);
 			$deals->is_featured = 1;
 			$deals->regno				= $posts['deal_regno'];
 			$deals->itemno			= $posts['deal_itemno'];
 
+			// Form Addresses
+			if(!empty($posts['deal_address'])) {
+				foreach($posts['deal_address'] as $add) {
+					$addresses[] = htmlentities($add);
+				}
+				$deals->addresses = serialize($addresses);
+			}
+			
 			// Form Images
 			if(!empty($_FILES['deal_image'])) {
 				$imgs = $_FILES['deal_image'];
@@ -427,8 +436,12 @@ class Controller_Admin_Deals extends Controller {
 				}
 			}
 
-			if (isset($_FILES['deal_facebook_image']) && $_FILES['deal_facebook_image'] != "") {
-			  $deals->facebook_image = $_FILES['deal_facebook_image']['name'];
+			$dimages = ORM::factory('image')->where('tid', '=', $deals->ID)->find_all()->as_array();
+			if(!empty($dimages)) {
+				foreach($dimages as $d) {
+					$dimgs[] = $d->ID;
+				}
+				$rimgs = !empty($posts['imgs']) ? array_diff($dimgs, $posts['imgs']) : $dimgs;
 			}
 
 			if($deals->save()) {
@@ -450,6 +463,12 @@ class Controller_Admin_Deals extends Controller {
 					}
 				}
 
+				// Remove deleted images from DB
+				if(!empty($rimgs)) {
+					$deals->delete_images($rimgs);
+				}
+
+				// Add new images to DB
 				if(!empty($deal_image)) {
 					foreach($deal_image as $imgs) {
 						$img = $this->add_image($deals->ID, $imgs);
@@ -501,15 +520,10 @@ class Controller_Admin_Deals extends Controller {
 		$page->end_date 			= isset($posts['deal_end_date']) ? $posts['deal_end_date'] : date("Y/m/d", strtotime($deals->end_date));
 		$page->expiry_date 		= isset($posts['deal_expiry_date']) ? $posts['deal_expiry_date'] : date("Y/m/d", strtotime($deals->expiry_date));
 		$page->deal_refno			= isset($posts['deal_refno']) ? $posts['deal_refno'] : $deals->reference_no;
-		$page->address		    = isset($posts['deal_address']) ? $posts['deal_address'] : html_entity_decode($deals->addresses);
+		$page->address		    = isset($posts['deal_address']) ? $posts['deal_address'] : unserialize($deals->addresses);
 		$page->images_count		= ORM::factory('image')->where('tid', '=', $deals->ID)->count_all();
 		$page->images					= ORM::factory('image')->where('tid', '=', $deals->ID)->find_all()->as_array();
-		/*$page->deal_image     = $deals->image;
-		$page->deal_image2     = $deals->image2;
-		$page->deal_image3     = $deals->image3;
-		$page->deal_image4     = $deals->image4;
-		$page->deal_image5     = $deals->image5;
-		$page->deal_facebook_image     = $deals->facebook_image;*/
+
 		$page->deal_id        = $deals->ID;
 		$page->regno				  = isset($posts['deal_regno']) ? $posts['deal_regno'] : $deals->regno;
 		$page->itemno					= isset($posts['deal_itemno']) ? $posts['deal_itemno'] : $deals->itemno;
@@ -537,7 +551,10 @@ class Controller_Admin_Deals extends Controller {
 			
 			if(strcmp($posts['submit'], 'Ok') == 0) {
 				if($deal->loaded()) {
-					$deal->delete();
+					if($deal->delete()) {
+						// Delete deal folders
+						rmdir(UPLOADPATH . '\\' . $id . '\\');
+					}
 				}
 			}
 						
@@ -650,8 +667,19 @@ class Controller_Admin_Deals extends Controller {
 		$name = $img[0];
 		$ext  = $img[1];
 		
-		$filename = UPLOADPATH . $deal_id . '\\' . $imgs['name'];
-		$filename_thumb = UPLOADPATH . $deal_id . '\\' . $name . '_thumb.' . $ext;
+		$deal_path = UPLOADPATH . $deal_id . '\\';
+		
+		// Create deal directory if not existent
+		if(!is_dir($deal_path)) {
+			mkdir($deal_path);
+			
+		}
+		
+		// Change directory to deal directory
+		chdir($deal_path);
+		
+		$filename = $imgs['name'];
+		$filename_thumb = $name . '_thumb.' . $ext;
 		
 		$image = Image::factory($imgs['tmp_name']);
 		
@@ -671,6 +699,9 @@ class Controller_Admin_Deals extends Controller {
 					
 			return $imgs;
 		}
+		
+		// return to docroot path
+		chdir(DOCROOT);
 		
 		return FALSE;
 	}
