@@ -622,7 +622,7 @@ class Controller_Admin_Deals extends Controller {
 		}
 		
 		// Change directory to deal directory
-		chdir($deal_path);
+		chdir(UPLOADPATH . $deal_id);
 		
 		$doc->save($deal_id . ".xml");
 		
@@ -691,7 +691,7 @@ class Controller_Admin_Deals extends Controller {
 		}
 		
 		// Change directory to deal directory
-		chdir($deal_path);
+		chdir(UPLOADPATH . $deal_id);
 		
 		$filename = $imgs['name'];
 		$filename_thumb = $name . '_thumb.' . $ext;
