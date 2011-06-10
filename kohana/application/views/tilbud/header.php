@@ -101,17 +101,17 @@
       </script>
 		<?php }	?>
 
-
-
     <?php
       $map_address = "";
       if (isset($address)) {
-	$address = unserialize($address);
-         $map_address  = html_entity_decode($address[1]);
+				$address = unserialize($address);
+				 ;
+        $map_address  = html_entity_decode($address[1]);
     ?>
 		<script type="text/javascript">
         var map = null;
         var geocoder = null;
+				var addressMaps = new Array("<?= implode('","', $address); ?>");
 
         function initialize() {
           if (GBrowserIsCompatible()) {
@@ -119,18 +119,19 @@
             map.addControl(new GLargeMapControl());
             map.setCenter(new GLatLng(10.3455617, 123.8969328), 15);
             geocoder = new GClientGeocoder();
-            showAddress("<?= $map_address . " denmark " ?>");
+						$(addressMaps).each(function(index, value) {
+            	showAddress(value);
+						});
           }
         }
 
         function showAddress(address) {
           geocoder.getLatLng(
-            address,
+            address,  
             function(point) {
               if (!point) {
                 //alert(address + " not found");
               } else {
-		var mapsAddress = "<?= $map_address; ?>";
                 map.setCenter(point, 15);
                 var marker = new GMarker(point);
                 map.addOverlay(marker);
