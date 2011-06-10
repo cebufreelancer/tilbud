@@ -101,10 +101,13 @@
       </script>
 		<?php }	?>
 
+
+
     <?php
       $map_address = "";
       if (isset($address)) {
-				$map_address = '"' . implode('","', $address) . '"';
+	$address = unserialize($address);
+         $map_address  = html_entity_decode($address[1]);
     ?>
 		<script type="text/javascript">
         var map = null;
@@ -127,7 +130,7 @@
               if (!point) {
                 //alert(address + " not found");
               } else {
-								var mapsAddress = <?= $map_address; ?>;
+		var mapsAddress = "<?= $map_address; ?>";
                 map.setCenter(point, 15);
                 var marker = new GMarker(point);
                 map.addOverlay(marker);

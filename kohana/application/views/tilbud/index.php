@@ -154,6 +154,8 @@
               ?></li>
             </ul>            
             <ul>
+
+
               <li class="dhead-two"> <?= LBL_MAP ?> </li>
               <li><center><div id="map_canvas" style="width: 390px; height: 300px;"></div></center>  </li>
             </ul>
