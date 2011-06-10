@@ -104,8 +104,7 @@
     <?php
       $map_address = "";
       if (isset($address)) {
-				$address = unserialize($address);
-				 ;
+				$address = @unserialize($address);
         $map_address  = html_entity_decode($address[1]);
     ?>
 		<script type="text/javascript">
