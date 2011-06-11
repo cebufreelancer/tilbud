@@ -15,7 +15,7 @@ class Controller_Admin_Orders extends Controller {
 										 'view'           => 'pagination/useradmin',));
 
 		$sort = isset($_GET['sort']) ? $_GET['sort'] : 'date_created'; // set default sorting direction here
-		$dir  = isset($_GET['dir']) ? 'DESC' : 'ASC';
+		$dir  = isset($_GET['dir']) ? 'ASC' : 'DESC';
 		$result = $orders->limit($pagination->items_per_page)->offset($pagination->offset)->order_by($sort, $dir)
 							->find_all();
 							
