@@ -254,8 +254,8 @@
           <li class="separator">
 							<?php echo Form::label('deal_itemno', __(LBL_DEALS_KONTO)); ?>
               <?php echo Form::input('deal_itemno', $itemno, array('style' => 'width: 95%; text-align: center;',
-																																	 'maxlength' => 12,
-																																	 'pattern' => "[0-9]{0,12}")); ?>
+																																	 'maxlength' => 10,
+																																	 'pattern' => "[0-9]{0,10}")); ?>
 							<div style="font-size: 11px; line-height: 15px">
               e.g. : <strong>123456789012</strong>
               </div>
