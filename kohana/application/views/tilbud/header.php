@@ -104,13 +104,16 @@
     <?php
       $map_address = "";
       if (isset($address)) {
-				$address = @unserialize($address);
-        $map_address  = html_entity_decode($address[1]);
+				if(!empty($address)) {
+					$map_address = implode('","', $address);
+				} else {
+        	$map_address  = "Denmark";
+				}
     ?>
 		<script type="text/javascript">
         var map = null;
         var geocoder = null;
-				var addressMaps = new Array("<?= implode('","', $address); ?>");
+				var addressMaps = new Array("<?php echo $map_address; ?>");
 
         function initialize() {
           if (GBrowserIsCompatible()) {
