@@ -149,14 +149,14 @@ TilbudIbyen.com
 	{
 		$page = View::factory('tilbud/index');
     $deal = ORM::factory('deal')->get_featured();  
-    $deal_images = ORM::factory('deal')->get_mainimages($deal['ID']);
     $total_qty = 0;
 		
 		if(!empty($deal)) {
 			$orders = ORM::factory('order')->get_orders($deal['ID']);
 			$product = ORM::factory('product')->get_product($deal['product_id']);
+			$deal_images = ORM::factory('deal')->get_mainimages($deal['ID']);
 			//$vendor = ORM::factory('vendor')->get_vendor($product->vendor_id);
-			$address = $deal['addresses'];
+			$address = !@unserialize($deal['addresses']) ? array($deal['addresses']) : @unserialize($deal['addresses']);
 			
 			$page->deal = $deal;
 			$page->images = $deal_images;
