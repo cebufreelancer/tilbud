@@ -258,7 +258,7 @@
             'overlayOpacity' : 0.7,
             'centerOnScroll' : true,
             'transitionIn' : 'elastic',
-            'showCloseButton' : false,
+            'showCloseButton' : true,
             'enableEscapeButton' : false,
             'hideOnOverlayClick' : false
           }).trigger('click');
