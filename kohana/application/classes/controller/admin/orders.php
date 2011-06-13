@@ -188,12 +188,60 @@ class Controller_Admin_Orders extends Controller {
 	{
 		$posts = $this->request->post();
 		if(isset($posts['action'])) {
+			
+			// Substitution for language
+			if($posts['action'] == __(LBL_DELETE)) {
+				$posts['action'] = 'delete';
+			} else if ($posts['action'] == __(LBL_SEND_EMAIL)) {
+				$posts['action'] = 'sendpdf';
+			}
+			
 			$action = strtolower(str_replace(" ", "", $posts['action']));
+			$ids		= $posts['obox'];
+			$label	= count($ids)==1 ? __(LBL_ORDER) : __(LBL_ORDERS);
+			
 			switch($action) {
+				// Send Email
+				case 'sendpdf':
+					foreach($ids as $oid) {
+						$order = ORM::factory('order', $oid);
+						
+						// Update Total Sold
+						if($order->status == 'delivered') {
+							$this->send_mail_template($oid, $status);
+						}
+					}
+	
+					// Delete message
+					Message::add('success', __(LBL_EMAIL_SENT));
+	
+					break;
+				
+				// Delete orders
+				case 'delete':
+					foreach($ids as $oid) {
+						$order = ORM::factory('order', $oid);
+						
+						// Update Total Sold
+						if($order->status == 'delivered') {
+							$deal = ORM::factory('deal', $order->deal_id);
+							$deal->total_sold-=$order->total_count;
+							$deal->save();
+						}
+						
+						if($order->loaded()) {
+							$order->delete();
+							
+							// Delete message
+							Message::add('success', sprintf(__(LBL_SUCCESS_DELETE), $label, __(LBL_STATUS)));
+						}
+					}
+					break;
+				
+				// Update order status
 				case 'set':
 					$status = $posts['status'];
-					$ids		= $posts['obox'];
-					$label	= count($ids)==1 ? __(LBL_ORDER) : __(LBL_ORDERS);
+					
 					switch($status) {
 						case 'new':
 							$query = DB::update('orders')->set(array('status' => $status))
@@ -210,8 +258,15 @@ class Controller_Admin_Orders extends Controller {
 							// Send Emails
 							foreach($ids as $oid) {
 								$this->send_mail_template($oid, $status);
+								
+								// Update deals total sold
+								$order = ORM::factory('order', $oid);
+								$deal = ORM::factory('deal', $order->deal_id);
+								$deal->total_sold+=$order->total_count;
+								$deal->save();
 							}
-
+							
+							// Update 
 							Message::add('success', sprintf(__(LBL_SUCCESS_UPDATE), $label, __(LBL_STATUS)));
 							break;
 							
@@ -222,6 +277,12 @@ class Controller_Admin_Orders extends Controller {
 							// Send Emails
 							foreach($ids as $oid) {
 								$this->send_mail_template($oid, $status);
+								
+								// Update deals total sold
+								$order = ORM::factory('order', $oid);
+								$deal = ORM::factory('deal', $order->deal_id);
+								$deal->total_sold-=$order->total_count;
+								$deal->save();
 							}
 							
 							Message::add('success', sprintf(__(LBL_SUCCESS_UPDATE), $label, __(LBL_STATUS)));
@@ -240,9 +301,6 @@ class Controller_Admin_Orders extends Controller {
 							break;
 					}
 
-					break;
-				case 'sendpdf':
-					echo "SEND PDF";
 					break;
 			}
 		}
@@ -293,6 +351,13 @@ class Controller_Admin_Orders extends Controller {
 			$refno = $orders->refno;
 			if(strcmp($posts['submit'], 'Ok') == 0) {
 				if($orders->loaded()) {
+					
+					if($orders->status == 'delivered') {
+						$deal = ORM::factory('deal', $orders->deal_id);
+						$deal->total_sold-=$orders->total_count;
+						$deal->save();
+					}
+					
 					$orders->delete();
 				}
 			}
@@ -358,14 +423,13 @@ class Controller_Admin_Orders extends Controller {
 		$page->order_date_paid = $order->date_paid;
 		$page->order_date_created = $order->date_created;
 		
-		//print_r($order);
-		
 		$this->response->body($page);
 	}
 	
-	public function send_mail_template($id, $status='new')
+	public function send_mail_template($id, $status=NULL)
 	{
 		$order = ORM::factory('order', $id);
+		$status = isset($status) ? $status : $order->status;
 		
 		// Check if order has values
 		if(is_null($order->ID)) {

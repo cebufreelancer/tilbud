@@ -236,7 +236,7 @@ define("LBL_SHARE_LINK", "Del med dine venner");
 //Notification message
 define("LBL_SUCCESS_ADD", "%s %s Er blevet tilføjet med succes.");
 define("LBL_SUCCESS_UPDATE", "%s %s er blevet opdateret med susses.");
-define("LBL_SUCCESS_DELETE", "%s %s has been successfully deleted.");
+define("LBL_SUCCESS_DELETE", "%s %s er blevet slettet med succes.");
 define("LBL_Successfully", "%s %s er blevet opdateret med susses.");
 define("LBL_Successfully_added", "Tilføjet med succes.");
 define("LBL_Successfully_saved", "Gemt med succes.");
