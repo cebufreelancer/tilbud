@@ -70,8 +70,8 @@
         
         <?php				
 				if(!empty($cities)) {
-					$cities[0] = "";
-					$categories[0] = "";
+					$cities[0] = __(LBL_CITY);
+					$categories[0] = __(LBL_GROUP);
 					
 					ksort($cities);
 					ksort($categories);
@@ -81,6 +81,7 @@
 						echo Form::label('show_city', __(LBL_SHOW_CITY));
 						echo Form::select('cid', $cities, 0);
 						echo Form::select('gid', $categories, 0);
+						echo Form::select('status', $status, 0);
 						echo Form::submit(NULL, __(LBL_GO));
 					echo Form::close(); 
 				} ?>
@@ -92,10 +93,21 @@
         
        	<?php 
 				if(!empty($orders)) {
-					echo ($show_pager) ? $paging->render() : ''; ?>
-
+					echo ($show_pager) ? $paging->render() : '';
+					
+					echo Form::open(Url::base(TRUE) . 'admin/orders/process', array('id' => 'actionForm')); ?>					
           <table class="table">
           <thead>
+          <tr id="actionPanel" style="display:none;">
+          	<td colspan="7" style="text-align:left; padding: 5px 10px;">
+            	<?php 
+							
+							echo Form::select('status', $status, 0, array('class' => 'actionButton')) . Form::submit('action', 'Set', array('class' => 'actionButton'));
+							echo " " . Form::submit('action', 'Send PDF', array('class' => 'actionButton'));
+							echo " " . Form::submit('action', 'Send PDF', array('class' => 'actionButton'));
+							?>
+            </td>
+          </tr>
           <tr>
           	<td style="width:5px;"><?php echo Form::checkbox('obox_all', '', '',array('id' => 'obox_all')); ?></td>
             <td width="450"><?php echo LBL_ORDERED_DEAL; ?></td>
@@ -115,16 +127,16 @@
             $edit_url = HTML::anchor('admin/orders/edit/' . $order['ID'], __(LBL_EDIT));
             $delete_url = HTML::anchor('admin/orders/delete/' . $order['ID'], __(LBL_DELETE), array('class' => 'delete'));
 						$total += $order['total_count'];
-						
+
 						switch($order['status']) {
-						case 'delivered': $status = __(LBL_ORDER_DELIVERED); break;
-						case 'notreached': $status = __(LBL_ORDER_NOTREACHED); break;
-						case 'cancelled': $status = __(LBL_ORDER_DELIVERED); break;
-						case 'new': $status = __(LBL_ORDER_NEW); break;
+						case 'delivered': $status = __(LBL_ORDER_DELIVERED); $class = 'bblue'; break;
+						case 'notreached': $status = __(LBL_ORDER_NOTREACHED); $class = 'bwarm'; break;
+						case 'cancelled': $status = __(LBL_CANCELLED); $class = 'bred'; break;
+						case 'new': $status = __(LBL_ORDER_NEW); $class = 'blime'; break;
 						}
 						
             echo '<tr>';
-						echo '<td style="width: 5px;">' . Form::checkbox('obox', '', array('id' => $order['ID'])) . '</td>';
+						echo '<td style="width: 5px;">' . Form::checkbox('obox[]', $order['ID'], $order['ID'], array('id' => $order['ID'])) . '</td>';
             echo '<td>' . ORM::factory('deal', $order['deal_id'])->description . 
 									 '<div><b>' . ORM::factory('user', $order['user_id'])->firstname . ' ' . ORM::factory('user', $order['user_id'])->lastname . '</b></div>' .
 									 '<div>' . $edit_url . ' | ' . $delete_url . '</div>' .
@@ -132,7 +144,7 @@
 						echo '<td>' . $order['refno'] . '</td>';
             echo '<td align="center">' . $order['quantity'] . '</td>';
             echo '<td align="right">' . $order['total_count'] . ' <span class="currency">DKK</span></td>';
-            echo '<td>' . ucwords($status) . '</td>';
+            echo '<td class="' . $class . '">' . ucwords($status) . '</td>';
             echo '<td>' . date("M j, Y", strtotime($order['date_created'])) . '</td>';
             echo '</tr>';
           }		
@@ -145,11 +157,31 @@
           </tr>
           </tfoot>
           </table>
-        
+        	<?php echo Form::close(); ?>
         	<script type="text/javascript">
 					$("#obox_all").click(function() { 
-						$('[name="obox"]').attr("checked",$("#obox_all").attr("checked")); 
+						$('[name="obox[]"]').attr("checked",$("#obox_all").attr("checked")); 
+						showControl();
+						if($('[name="obox[]"]').attr("checked")) {
+							$('[name="obox[]"]').parent().parent().effect("highlight", {}, 3000);
+						}
 					});
+					
+					$('[name="obox[]"]').change(function() { 
+						showControl();
+						if($(this).attr("checked")) {
+							$(this).parent().parent().effect("highlight", {}, 3000);
+						}
+					});
+					
+					function showControl() {
+						var obox = $(this + ":checked").length;
+						if(obox > 0) {
+							$("#actionPanel").fadeIn("fast");
+						} else {
+							$("#actionPanel").fadeOut("slow");
+						}
+					}
 					</script>
         <?php 
 					echo ($show_pager) ? $paging->render() : ''; 

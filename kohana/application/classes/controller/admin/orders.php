@@ -88,33 +88,62 @@ class Controller_Admin_Orders extends Controller {
 			
 			// For filters
 			if(isset($get['cid']) && isset($get['gid'])
-				&& (strlen($get['cid']) > 0 || strlen($get['gid']) > 0)) {
+				&& (strlen($get['cid']) > 0 || strlen($get['gid']) > 0 || strlen($get['status']) > 0)) {
 					$city_id = (int)$get['cid'] > 0 ? (int)$get['cid'] : "";
 					$cat_id  = (int)$get['gid'] > 0 ? (int)$get['gid'] : "";
-					
-				if($city_id > 0 || $cat_id > 0) {
-					if($city_id > 0 && $cat_id > 0) {
-						$total = DB::select()->from('v_orders')->where('city_id', '=', $city_id)->and_where('group_id', '=', $cat_id)->execute()->count();
-						$search = DB::select()->from('v_orders')->where('city_id', '=', $city_id)->and_where('group_id', '=', $cat_id)
-																	->limit($pagination->items_per_page)
-													  			->offset($pagination->offset)
-																	->execute();
+					$status = isset($get['status']) ? trim($get['status']) : "";
+				
+				if($city_id > 0 || $cat_id > 0 || isset($status)) {
+					if($city_id > 0 && $cat_id > 0 && strlen($status) > 0) {
+						$total = DB::select()->from('v_orders')->where('city_id', '=', $city_id)
+																									 ->and_where('group_id', '=', $cat_id)
+																									 ->and_where('status', '=', $status)
+																									 ->execute()->count();
+						$search = DB::select()->from('v_orders')->where('city_id', '=', $city_id)
+																										->and_where('group_id', '=', $cat_id)
+																										->and_where('status', '=', $status)
+																										->limit($pagination->items_per_page)
+																										->offset($pagination->offset)
+																										->execute();
 						
 						$search_str = __(LBL_CITY) . ': ' . ORM::factory('city', $city_id)->name . ' , ' . 
-													__(LBL_GROUP) . ': ' . ORM::factory('category', $cat_id)->name;
+													__(LBL_GROUP) . ': ' . ORM::factory('category', $cat_id)->name . ' , ' .
+													__(LBL_STATUS) . ': ' . $this->get_lbl_status($status);
 					} else {
 						$id = $city_id>0 ? $city_id : $cat_id;
 						$col = $city_id>0 ? 'city_id' : 'group_id';
 						$model = $city_id>0 ? 'city' : 'category';
 						$label = $city_id>0 ? __(LBL_CITY) : __(LBL_GROUP);
-						
-						$total = DB::select()->from('v_orders')->where($col, '=', $id)->execute()->count();
-						$search = DB::select()->from('v_orders')->where($col, '=', $id)
-																	->limit($pagination->items_per_page)
-													  			->offset($pagination->offset)
-																	->execute();
-																	
-						$search_str = $label . ': ' . ORM::factory($model, $id)->name;
+
+					  if(strlen($status) > 0 && $id==0) {
+							$total = DB::select()->from('v_orders')->where('status', '=', $status)
+																										 ->execute()->count();
+							$search = DB::select()->from('v_orders')->where('status', '=', $status)
+																											->limit($pagination->items_per_page)
+																											->offset($pagination->offset)
+																											->execute();
+																											
+							$search_str = __(LBL_STATUS) . ': ' . $this->get_lbl_status($status);
+						} else if(strlen($status) > 0 && $id > 0) {
+							$total = DB::select()->from('v_orders')->where($col, '=', $id)
+																										 ->and_where('status', '=', $status)
+																										 ->execute()->count();
+							$search = DB::select()->from('v_orders')->where($col, '=', $id)
+																											->and_where('status', '=', $status)
+																											->limit($pagination->items_per_page)
+																											->offset($pagination->offset)
+																											->execute();
+																											
+							$search_str = $label . ': ' . ORM::factory($model, $id)->name . ' , ' . 
+														__(LBL_STATUS) . ': ' . $this->get_lbl_status($status);
+						} else {
+							$total = DB::select()->from('v_orders')->where($col, '=', $id)->execute()->count();
+							$search = DB::select()->from('v_orders')->where($col, '=', $id)
+																		->limit($pagination->items_per_page)
+														  			->offset($pagination->offset)
+																		->execute();
+							$search_str = $label . ': ' . ORM::factory($model, $id)->name;
+						}
 					}
 					
 					$page->query_result = sprintf(__(LBL_SEARCH_RESULT), $search_str, $total);
@@ -138,10 +167,88 @@ class Controller_Admin_Orders extends Controller {
 			$page->show_pager = $show_page;
 		}
 		
+		$status = array('' => __(LBL_STATUS),
+										'new' => __(LBL_ORDER_NEW),
+										'delivered' => __(LBL_ORDER_DELIVERED),
+										'cancelled' => __(LBL_ORDER_CANCELLED),
+										'notreached' => __(LBL_ORDER_NOTREACHED));
+		
+		$page->status = $status;
 		$page->cities = Kohana::config('global.cities');
 		$page->categories = Kohana::config('global.categories');
 		
 		$this->response->body($page);
+	}
+	
+	/**
+	 * This is the operation for the action performed on the
+	 * index page.
+	 */
+	public function action_process()
+	{
+		$posts = $this->request->post();
+		if(isset($posts['action'])) {
+			$action = strtolower(str_replace(" ", "", $posts['action']));
+			switch($action) {
+				case 'set':
+					$status = $posts['status'];
+					$ids		= $posts['obox'];
+					$label	= count($ids)==1 ? __(LBL_ORDER) : __(LBL_ORDERS);
+					switch($status) {
+						case 'new':
+							$query = DB::update('orders')->set(array('status' => $status))
+																					 ->where('ID', 'IN', $ids)
+																					 ->execute();
+							Message::add('success', sprintf(__(LBL_SUCCESS_UPDATE), $label, __(LBL_STATUS)));
+							break;
+							
+						case 'delivered':
+							$query = DB::update('orders')->set(array('status' => $status))
+																					 ->where('ID', 'IN', $ids)
+																					 ->execute();
+							
+							// Send Emails
+							foreach($ids as $oid) {
+								$this->send_mail_template($oid, $status);
+							}
+
+							Message::add('success', sprintf(__(LBL_SUCCESS_UPDATE), $label, __(LBL_STATUS)));
+							break;
+							
+						case 'cancelled':
+							$query = DB::update('orders')->set(array('status' => $status))
+																					 ->where('ID', 'IN', $ids)
+																					 ->execute();
+							// Send Emails
+							foreach($ids as $oid) {
+								$this->send_mail_template($oid, $status);
+							}
+							
+							Message::add('success', sprintf(__(LBL_SUCCESS_UPDATE), $label, __(LBL_STATUS)));
+							break;
+							
+						case 'notreached':
+							$query = DB::update('orders')->set(array('status' => $status))
+																					 ->where('ID', 'IN', $ids)
+																					 ->execute();
+							// Send Emails
+							foreach($ids as $oid) {
+								$this->send_mail_template($oid, $status);
+							}
+							
+							Message::add('success', sprintf(__(LBL_SUCCESS_UPDATE), $label, __(LBL_STATUS)));
+							break;
+					}
+
+					break;
+				case 'sendpdf':
+					echo "SEND PDF";
+					break;
+			}
+		}
+		
+		Request::current()->redirect('admin/orders');
+		return;
 	}
 	
 	public function before() 
@@ -229,39 +336,7 @@ class Controller_Admin_Orders extends Controller {
 			if($order->save()) {
 				
 				// Send Email To Client
-				switch($order->status) {
-				case 'cancelled':
-					
-					break;
-				case 'delivered':
-					require_once(APPPATH . 'vendor/html2fpdf/html2pdf.class.php');
-					
-					$deal = ORM::factory('deal', $order->deal_id);
-					$user = ORM::factory('user', $order->user_id);
-					
-					ob_start();
-					include_once(APPPATH . 'views/tilbud/template_order.php');
-					$message = ob_get_clean();
-										
-					$mailer = new XMail();
-					$mailer->to = $user->email;
-					$mailer->subject = "Tillykke med dit køb: " . html_entity_decode($deal->contents_title) . " hos TilbudiByen.com (Ordrenummer {$order->ID})";;
-					$mailer->message = $message;
-					
-					ob_start();
-					include_once(APPPATH . 'views/tilbud/template_order_pdf.php');
-					$content = ob_get_clean();
-					
-					$html2pdf = new HTML2PDF('P','A4','en');
-					$html2pdf->WriteHTML($content, false);
-					
-					$html2out = $html2pdf->Output('','S');
-					$filename = mb_convert_encoding("Værdibevis-" . $order->refno . ".pdf", "ISO-8859-1", "UTF-8");
-					$mailer->addAttachment($filename, $html2out);
-					
-					$mailer->send();
-					break;
-				}
+				$this->send_mail_template($order->ID, $status);
 				
 				// message: save success
         Message::add('success', sprintf(LBL_Successfully, LBL_ORDER, $order->ID));
@@ -286,5 +361,86 @@ class Controller_Admin_Orders extends Controller {
 		//print_r($order);
 		
 		$this->response->body($page);
+	}
+	
+	public function send_mail_template($id, $status='new')
+	{
+		$order = ORM::factory('order', $id);
+		
+		// Check if order has values
+		if(is_null($order->ID)) {
+			return FALSE;
+		}
+
+		$deal	 = ORM::factory('deal', $order->deal_id);
+		$user = ORM::factory('user', $order->user_id);
+
+		switch($status) {
+			case 'new':
+				break;
+				
+			case 'delivered':
+				require_once(APPPATH . 'vendor/html2fpdf/html2pdf.class.php');
+				
+				ob_start();
+				include_once(APPPATH . 'views/tilbud/template_order.php');
+				$message = ob_get_clean();
+									
+				$mailer = new XMail();
+				$mailer->to = $user->email;
+				$mailer->subject = "Tillykke med dit køb: " . html_entity_decode($deal->contents_title) . " hos TilbudiByen.com (Ordrenummer {$order->ID})";
+				$mailer->message = $message;
+				
+				ob_start();
+				include_once(APPPATH . 'views/tilbud/template_order_pdf.php');
+				$content = ob_get_clean();
+				
+				$html2pdf = new HTML2PDF('P','A4','en');
+				$html2pdf->WriteHTML($content, false);
+				
+				$html2out = $html2pdf->Output('','S');
+				$filename = mb_convert_encoding("Værdibevis-" . $order->refno . ".pdf", "ISO-8859-1", "UTF-8");
+				$mailer->addAttachment($filename, $html2out);
+				
+				$mailer->send();
+
+				break;
+				
+			case 'cancelled':
+				$mailer = new XMail();
+				$mailer->to = $user->email;
+				$mailer->subject = "[" . __(LBL_ORDER_CANCELLED) . "] " . $order->refno . " hos TilbudiByen.com (Ordrenummer {$order->ID})";
+				$mailer->message = __(LBL_ORDER_CANCELLED);
+				
+				$mailer->send();
+				
+				break;
+				
+			case 'notreached':
+				$mailer = new XMail();
+				$mailer->to = $user->email;
+				$mailer->subject = "[" . __(LBL_ORDER_NOTREACHED) . "] " . $order->refno . " hos TilbudiByen.com (Ordrenummer {$order->ID})";
+				$mailer->message = __(LBL_ORDER_NOTREACHED);
+				
+				$mailer->send();
+				
+				break;
+				
+			default:
+				return FALSE;
+				break;
+		}
+	}
+	
+	public function get_lbl_status($s)
+	{
+		switch($s) {
+		case 'delivered': 	$s_lbl = __(LBL_ORDER_DELIVERED); break;
+		case 'notreached': 	$s_lbl = __(LBL_ORDER_NOTREACHED); break;
+		case 'cancelled': 	$s_lbl = __(LBL_ORDER_DELIVERED); break;
+		case 'new': 				$s_lbl = __(LBL_ORDER_NEW); break;
+		}
+		
+		return $s_lbl;
 	}
 } // End Welcome

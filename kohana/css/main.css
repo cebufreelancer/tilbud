@@ -6,6 +6,8 @@
  *
  * COLOR
  * blue - #369bcf
+ * lime - #edfecd
+ * ored - #eca28c
  */
  
 /** Added HTML5 Reset **/
@@ -527,6 +529,7 @@ footer {
 	margin-bottom:10px;
   width: auto;
   height: 36px;
+  padding-right: 1px;
 }
    /** Again, without IE6 these would be element type selectors. We need a small margin. **/
    input.radio, input.checkbox {
@@ -559,6 +562,12 @@ footer {
 #myforms .record-value {
   padding: 10px;
   color: #666666;
+}
+
+.actionButton {
+  font-size: 10px;
+	padding: 2px 5px;
+  margin-bottom: 0px;
 }
 
 #deals-content-form {
@@ -903,6 +912,20 @@ span.block {
   color: #666666;
 }
 
+/** ACTION FORM **/
+#actionForm input[type="submit"].actionButton,
+#actionForm select {
+  font-size: 10px;
+  padding: 0px 5px;
+  margin-bottom: 0px;
+  height: 20px;
+  margin-right: 0px;
+}
+#actionForm select { 
+	padding-right: 0px;
+  margin-right: 0px;
+}
+
 /** NOTIFICATION **/
 #notification {
 	background: #000000;
@@ -918,6 +941,18 @@ span.block {
 	width: 960px;
   margin: auto;
 }
+div.success {
+ 	color: #6C0;
+  border: 1px dotted #95DB04; 
+  padding: 5px;
+  padding-left: 10px;
+  background: #EDFECD;
+}
 
 /** MISC **/
-.blue { color: #369bcf; }
+.blue { color: #369BCF; }
+
+.blime { background: #EDFECD; }
+.bred { background: #ECA28C; }
+.bblue { background: #CCEBF7; }
+.bwarm { background: #FCD3A7; }
