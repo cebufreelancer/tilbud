@@ -449,6 +449,8 @@ footer {
 	color: #333333; 
 }
 
+.table tbody tr.highlight { background: #FFFFCC; }
+
 #myforms .cancel, .table .delete { color: #D00216; font-size: 11px; cursor: pointer; }
 #myforms .cancel:hover, .table .delete:hover { font-weight: bold; }
 
