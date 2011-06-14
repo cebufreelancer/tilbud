@@ -249,7 +249,7 @@
 			if (is_null(Cookie::get('tib'))) { ?>
         <script type="text/javascript">
         $(document).ready(function() {
-          $("#newvisitor").fancybox({
+          $("#renamed_newvisitor").fancybox({
             'scrolling'		: false,
             'titleShow'		: false,
             'autoScale'	: false,
