@@ -125,6 +125,9 @@
 						$email_url 	= HTML::anchor('admin/emails/view/' . $deal['ID'] . '?type=deals', __(LBL_SEE_EMAIL));
 						$view_customers 	= HTML::anchor('admin/emails/viewcustomers/' . $deal['ID'], __(LBL_SEE_EMAIL));
 						$group 			= ORM::factory('category', $deal['group_id'])->name;
+						$img_thumb  = HTML::image(ORM::factory('deal')->get_random_image($deal['ID']), array('width' => 70, 'height' => 50,
+																																																 'align' => 'left', 
+																																																 'style' => 'margin-right: 5px; margin-top: 5px;'));
 						
 						switch($deal['status']) {
 						case 'active': 		$status = __(LBL_ACTIVE); break;
@@ -134,13 +137,13 @@
 						}
 						
 						echo '<tr ' . $serving_css . '>';
-						echo '<td style="width:400px;"><b>' . $deal['description'] . '</b>' .
+						echo '<td style="width:400px;"><div style="font-weight: bold; min-height: 55px;">' . $img_thumb . $deal['description'] . '</div>' .
 						     '<div>' . $edit_url . ' | ' . $delete_url . ' | ' . $email_url . ' | ' . $view_customers . '</div>' .
 						     '</td>';
 						echo '<td>' . $group . '</td>';
 						echo '<td>' . date("F d, Y", strtotime($deal['start_date'])) . '</td>';
 						echo '<td>' . date("F d, Y", strtotime($deal['end_date'])) . '</td>';
-						echo '<td align="center">' . $deal['total_sold'] . '</td>';
+						echo '<td align="center">' . $deal['total_sold'] . ' <span class="currency">DKK</span></td>';
 						//echo '<td>' . $deal['end_date'] . '</td>';
 						echo '<td>' . ucwords($status) . '</td>';
 						echo '<td>' . date("F d, Y", strtotime($deal['date_create'])) . '</td>';

@@ -103,8 +103,8 @@
             	<?php 
 							
 							echo Form::select('status', $status, 0, array('class' => 'actionButton')) . Form::submit('action', 'Set', array('class' => 'actionButton'));
-							echo " " . Form::submit('action', 'Send PDF', array('class' => 'actionButton'));
-							echo " " . Form::submit('action', 'Send PDF', array('class' => 'actionButton'));
+							echo " " . Form::submit('action', __(LBL_SEND_EMAIL), array('class' => 'actionButton'));
+							echo " " . Form::submit('action', __(LBL_DELETE), array('class' => 'actionButton'));
 							?>
             </td>
           </tr>
