@@ -267,3 +267,6 @@
       <?php } ?>
       
 		<?php } ?>
+<!-- comments 
+<?php print_r($_SESSION);?>
+-->

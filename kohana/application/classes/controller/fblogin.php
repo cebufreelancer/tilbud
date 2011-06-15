@@ -8,7 +8,7 @@ class Controller_Fblogin extends Controller {
 //    session_destroy();
 //    die('stop');
 
-    if(isset($_SESSION['email']) && $_SESSION['email'] != ""){
+    if(isset($_SESSION['oauth_uid']) && $_SESSION['oauth_uid'] != ""){
       Request::current()->redirect("/home");
     }
 
