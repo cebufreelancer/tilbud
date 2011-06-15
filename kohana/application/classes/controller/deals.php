@@ -2,6 +2,12 @@
 
 class Controller_Deals extends Controller {
 
+  public function before()
+  {
+      error_reporting(0);
+      session_start();
+  }
+
 	public function action_index()
 	{	
 		//$deals = ORM::factory('deal')->get_active_deals('active', 20);

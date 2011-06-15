@@ -39,6 +39,7 @@ class Kohana_Session_Native extends Session {
 			session_id($id);
 		}
 
+//    error_reporting(0);
 		// Start the session
 		session_start();
 

@@ -84,6 +84,15 @@ class Controller_User extends Controller_App {
 			 $this->template->content = $view;
 		}
 	}
+
+  public function action_fblogout() {
+		// Sign out the user
+		Auth::instance()->logout();
+
+		session_destroy();
+		// redirect to the user account and then the signin page if logout worked as expected
+		$this->request->redirect(URL::base(TRUE));
+  }
 	
 	/**
    * Log the user out.

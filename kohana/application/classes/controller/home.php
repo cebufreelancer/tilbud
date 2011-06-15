@@ -2,6 +2,21 @@
 
 class Controller_Home extends Controller {
 
+  public function action_forcelogin()
+  {
+    $orig_user = ORM::factory('user')->find($_GET['id']);
+    Auth::instance()->force_login($orig_user);
+    Request::current()->redirect("/home?fb=1");
+  }
+  
+  public function before()
+  {
+      error_reporting(0);
+        session_start();
+//        session_destroy();
+//        die();
+
+  }
 	public function action_pdf()
 	{
     $tilbud = "TILBUDIBYEN";

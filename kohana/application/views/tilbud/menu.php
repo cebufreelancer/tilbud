@@ -60,7 +60,13 @@
       	<li><?php echo __(LBL_SETTINGS); ?></li>
         <li><?php echo HTML::anchor('admin/labels', ucwords(strtolower(LBL_LABELS))); ?></li>
       <?php } ?>
-      <li><?php echo HTML::anchor('user/logout', ucwords(strtolower(LBL_LOGOUT))); ?></li>
+      <li>
+        <?php if (isset($_SESSION['oauth_uid']) && $_SESSION['oauth_uid'] != "") {?>
+          <?php echo HTML::anchor('user/fblogout', ucwords(strtolower(LBL_LOGOUT))); ?>
+        <?php }else{ ?>
+          <?php echo HTML::anchor('user/logout', ucwords(strtolower(LBL_LOGOUT))); ?>
+        <?php } ?>
+      </li>
     </ul>
   </nav>
 <?php } ?>

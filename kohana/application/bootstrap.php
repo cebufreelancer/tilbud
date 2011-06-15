@@ -142,6 +142,8 @@ Route::set('page', 'page')->defaults(array('controller' => 'home', 'action' => '
 Route::set('users', 'users')->defaults(array('controller' => 'users', 'action' => 'index'));
 Route::set('referral', 'referral')->defaults(array('controller' => 'home', 'action' => 'referral'));
 
+Route::set('login_facebook', 'login_facebook')->defaults(array('controller' => 'fblogin', 'action' => 'login'));
+
 Route::set('ipages', 'ipages(<controller>(/<action>(/<id>)))')
 		->defaults(array('controller' => 'ipages', 'action' => 'index'));
 Route::set('alldeals', 'alldeals(<controller>(/<action>(/<id>)))')
