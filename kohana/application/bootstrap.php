@@ -116,6 +116,7 @@ Kohana::modules(array(
    'orm'        => MODPATH.'orm',        // Object Relationship Mapping
    'pagination' => MODPATH.'pagination',        // Pagination
    'oauth'      => MODPATH.'oauth',        // Kohana-Oauth for Twitter
+   'facebook'      => MODPATH.'facebook',        // Kohana-Oauth for Facebook
    'kohana-email' => MODPATH.'kohana-email',        // Kohana-Email for email
 	// 'cache'      => MODPATH.'cache',      // Caching with multiple backends
 	// 'codebench'  => MODPATH.'codebench',  // Benchmarking tool

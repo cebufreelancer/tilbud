@@ -77,6 +77,9 @@ class Controller_Fblogin extends Controller {
     		$_SESSION['email'] = $result['email'];
 
     		$orig_user = ORM::factory('user')->find($result['id']);
+
+    		
+
     		Request::current()->redirect("/home/forcelogin?id=".$result['id']);
     	} else {
     		# For testing purposes, if there was an error, let's kill the script

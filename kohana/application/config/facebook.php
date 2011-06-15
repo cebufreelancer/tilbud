@@ -1,6 +1,7 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
 return array(
-   'app_id'          => '197306733648468',
-   'secret'          => '1cf7a43b2e693a53b798fce3c5f98cb7',
+   'app_id'          => '194058777309189',
+   'secret'          => '1c8fe666271e247b48482cf6bc0ebda9',
+   'app_key'         => '47b49b01b4fca715fdca9101bda21618'
 );
