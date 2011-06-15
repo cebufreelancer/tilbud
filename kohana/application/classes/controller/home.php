@@ -2,22 +2,14 @@
 
 class Controller_Home extends Controller {
 
-  public function action_forcelogin()
-  {
-    $orig_user = ORM::factory('user')->find($_GET['id']);
-    //Auth::instance()->complete_fblogin($orig_user);
-    Auth::instance()->force_login($orig_user->username);
-    Request::current()->redirect("/home?fb=1");
-  }
-  
   public function before()
   {
-      error_reporting(0);
-        session_start();
-//        session_destroy();
-//        die();
-
+    if (isset($_GET['facebook_user_id']) && $_GET['facebook_user_id'] != ""){
+      $user = ORM::factory('user')->find($_GET['facebook_user_id']);
+      Auth::instance()->force_login("$user->username");
+    }
   }
+  
 	public function action_pdf()
 	{
     $tilbud = "TILBUDIBYEN";

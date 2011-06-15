@@ -4,7 +4,7 @@ class Controller_Fblogin extends Controller {
 
 	public function action_login()
 	{
-    session_start();
+//    session_start();
 //    session_destroy();
 //    die('stop');
 
@@ -27,6 +27,7 @@ class Controller_Fblogin extends Controller {
 
     # Let's see if we have an active session
     $session = $facebook->getSession();
+    
     if(!empty($session)) {
     	# Active session, let's try getting the user id (getUser()) and user info (api->('/me'))
     	try{
@@ -76,11 +77,7 @@ class Controller_Fblogin extends Controller {
     		$_SESSION['username'] = $result['username'];
     		$_SESSION['email'] = $result['email'];
 
-    		$orig_user = ORM::factory('user')->find($result['id']);
-
-    		
-
-    		Request::current()->redirect("/home/forcelogin?id=".$result['id']);
+    		Request::current()->redirect("/home?facebook_user_id=".$result['id']);
     	} else {
     		# For testing purposes, if there was an error, let's kill the script
     		Request::current()->redirect("/home");

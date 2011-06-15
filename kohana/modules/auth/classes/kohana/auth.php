@@ -135,16 +135,6 @@ abstract class Kohana_Auth {
 		return ($this->get_user() !== NULL);
 	}
 
-	public function complete_fblogin($user)
-	{
-		// Regenerate session_id
-		$this->_session->regenerate();
-
-		// Store username in session
-		$this->_session->set($this->_config['session_key'], $user);
-		return TRUE;
-	}
-
 	/**
 	 * Creates a hashed hmac password from a plaintext password. This
 	 * method is deprecated, [Auth::hash] should be used instead.
