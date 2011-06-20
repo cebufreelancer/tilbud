@@ -4,10 +4,10 @@ class Controller_Home extends Controller {
 
   public function before()
   {
-    if (isset($_GET['facebook_user_id']) && $_GET['facebook_user_id'] != ""){
-      $user = ORM::factory('user')->find($_GET['facebook_user_id']);
-      Auth::instance()->force_login("$user->username");
-    }
+    //if (isset($_GET['facebook_user_id']) && $_GET['facebook_user_id'] != ""){
+    //  $user = ORM::factory('user')->find($_GET['facebook_user_id']);
+    //  Auth::instance()->force_login("$user->username");
+    //}
   }
   
 	public function action_pdf()

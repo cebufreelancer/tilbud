@@ -27,8 +27,10 @@
     <li><?php echo HTML::anchor('/home/forgot', LBL_FORGOT_PASSWORD, array('class' => 'homelink')); ?></li>
     <li>
       <?php echo Form::submit(NULL, LBL_LOGIN); ?>
+      <!-- 
       <a style="color: black" href="/login_facebook">
         <img src="images/fb_login_icon.gif" border="0"></a>
+        -->
       <!--  or <?php echo HTML::anchor('#', LBL_CREATE_ACCOUNT, array('class' => 'homelink')); ?> -->
     </li>
   </ul>
