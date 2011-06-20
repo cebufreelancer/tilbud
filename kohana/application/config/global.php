@@ -1,5 +1,5 @@
 <?php defined('SYSPATH') or die('No direct access allowed.');
-$tcities = ORM::factory('city')->find_all();
+$tcities = ORM::factory('city')->order_by('order','ASC')->find_all();
 foreach($tcities as $city) {
 	$cities[$city->ID] = $city->name;
 }
