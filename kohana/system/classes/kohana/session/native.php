@@ -1,4 +1,5 @@
 <?php defined('SYSPATH') or die('No direct script access.');
+error_reporting(0);
 /**
  * Native PHP session class.
  *
