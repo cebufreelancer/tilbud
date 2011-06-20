@@ -958,3 +958,110 @@ div.success {
 .bred { background: #ECA28C; }
 .bblue { background: #CCEBF7; }
 .bwarm { background: #FCD3A7; }
+
+#deals {
+  border-top: 10px #F6F6F6 solid;
+  margin-left: auto;
+  margin-right: auto;
+  overflow: hidden;
+  padding: 0;
+  width: 790px;
+}
+#deals .recentDealblock {
+  width: 379px;
+  background: white;
+  float: left;
+  margin: 0px 10px 10px 0px;
+  height: 197px;
+  padding: 10px 0 0 0;
+  position: relative
+}
+#deals .recentDealblock .dealTitle {
+  padding: 0;
+  height: 80px;
+}
+#deals .recentDealblock .dealDetails {
+  width: auto;
+  height: 104px;
+  margin: 0;
+  position: relative;
+  overflow: hidden;
+}
+#deals .recentDealblock .dealTitle .date {
+  display: block;
+  font-size: 11px;
+  color: #999;
+  font-weight: bold;
+  margin: 0 10px;
+}
+
+#deals .recentDealblock .dealTitle h4 {
+font-size: 20px;
+line-height: 22px;
+padding: 0 10px;
+font-family: Arial,Helvetica,sans-serif;
+font-weight: bold;
+margin: 0;
+}
+
+#deals .recentDealblock .dealTitle h4 a {
+  color: #06C;
+  text-decoration: none;
+}
+
+#deals .recentDealblock .dealDetails {
+width: auto;
+height: 104px;
+margin: 0;
+position: relative;
+overflow: hidden;
+}
+
+#deals .recentDealblock .dealValue {
+width: 195px;
+float: left;
+margin: 0 4px 0 0;
+}
+
+#deals .recentDealblock .dealValue .btn {
+  border: 1px solid #75A327;
+  left: 18px;
+  position: absolute;
+  top: 0;
+  width: 120px;
+  font-size: 18px;
+  text-shadow: #222 0 1px 0;
+  margin: 0;
+  background: url("/images/selected.gif") repeat-x scroll 0 0 #6EBD05;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  text-align: center;
+  color: white;
+  border: none;
+  font-weight: bold;
+  text-transform: capitalize;
+  cursor: pointer;
+}
+#deals .recentDealblock .dealValue .btn:hover {
+background: #333;
+}
+#deals .recentDealblock .dealValue ul {
+overflow: visible;
+clear: both;
+width: 175px;
+margin: 50px 0 0 0;
+}
+#deals .recentDealblock .dealValue li {
+color: #75A327;
+text-shadow: none;
+width: 54px;
+list-style-type: none;
+float: left;
+text-align: center;
+}
+#deals .recentDealblock .dealImage {
+float: right;
+padding: 0 5px 0 0;
+width: 175px;
+}

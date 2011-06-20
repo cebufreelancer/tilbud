@@ -10,18 +10,53 @@
       	<div class="posts">
         	<h1><a href="" class="posts-title"><?= LBL_ALLDEALS ?></a></h1>
 
+          <div id="deals">
 
           <?php foreach($deals as $deal){ ?>
-            <div class="deals-widget">
             	<?php
 							$deal_contents = html_entity_decode(strip_tags($deal->description));
-							$title = strlen($deal_contents) > 65 ? substr($deal_contents,0,65) . ' ...' : $deal_contents;
+							$title = strlen($deal_contents) > 55 ? substr($deal_contents,0,55) . ' ...' : $deal_contents;
 							$title_url = HTML::anchor('deals/view/' . $deal->ID, $title, array('title' => $deal->title . '-' . $deal_contents,
 																																									 'class' => 'widget-title'));
 							$regular_price    = $deal->regular_price;
 							$discount					= $deal->discount;
 							$discounted_price = ( $regular_price * (100 - $discount)) / 100;
 							?>
+
+              <div class="recentDealblock">
+                <div class="dealTitle">
+                  <p class="date"><?php echo strftime("%d/%m/%Y", strtotime($deal->date_create) ); ?></p>
+                  <h4><a href="/deals/view/<?= $deal->ID;?>" ><?php echo $title;?></a></h4>
+        	      </div>
+                <div class="dealDetails">
+                  <div class="dealValue">
+                    <a href="/deals/view/<?= $deal->ID;?>" class="btn dealBought">
+                      <span class="ttlQty"><?php echo count($orders->get_orders($deal->ID)); ?></span>
+                      <span class="brougtTxt"><?= LBL_SOLD?></span>
+                    </a>
+                    <ul>
+                      <li>
+                        <span><?= LBL_PRICE?></span>
+                        <strong><?= $discounted_price; ?>DKK</strong>
+                      </li>
+                      <li>
+                        <span><?= LBL_VALUE?></span>
+                        <strong><?= $deal->regular_price; ?>DKK</strong>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="dealImage">
+                    <a href="/deals/view/<?= $deal->ID;?>">
+                    <?php
+                      $img = $deal->get_random_image($deal->ID, 'thumb');
+                      echo Html::image($img, array('title' => $deal_contents, 'style' => "width:175px; height: 104px")); 
+                    ?>
+        	          </a>
+                  </div>
+                </div>
+              </div>
+							
+							<!--
             	<h2 style="white-space:nowrap; overflow: hidden; width: 95%;"><?php echo  $title_url; ?></h2>
               <div style="margin-top: 10px;">
                 <div class="image" style="float: right; background: url(images/default_thumb.jpg) top left no-repeat;">
@@ -38,8 +73,11 @@
                   <div class="price"></div>                
                 </div>
               </div>
-            </div>
+              -->
+              
           <?php } ?>
+          
+          </div>
                     
         </div>
         
