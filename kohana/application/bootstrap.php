@@ -1,6 +1,5 @@
 
 <?php defined('SYSPATH') or die('No direct script access.');
-error_reporting(E_ERROR);
 // -- Environment setup --------------------------------------------------------
 
 // Load the core Kohana class
