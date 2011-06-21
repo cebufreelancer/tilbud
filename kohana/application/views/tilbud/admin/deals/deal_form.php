@@ -105,7 +105,7 @@
 //             			echo '<div>' . Form::input('deal_address[]', html_entity_decode($add), array('style' => 'width: 500px;')) . $remove . '</div>';
                   $html = '<div style="background-color: #E5ECFF; padding:3px 3px; margin: 5px 0">' .  $remove . "<br/>" .
                           __(LBL_COMPANY_NAME) . ': ' . Form::input('deal_address_company[]', $add['company_name'], array('style' => 'width: 300px;')) . "<br/>" .
-                          __(LBL_ADDRESS2) . ': ' .Form::input('deal_address[]', $add['address'], array('style' => 'width: 500px;')) .  "<br/>" .
+                          __(LBL_ADDRESS2) . ': ' .Form::input('deal_address[]', html_entity_decode($add['address']), array('style' => 'width: 500px;')) .  "<br/>" .
                           __(LBL_TELEPHONE).': ' . Form::input('deal_address_telno[]', $add['telephone'], array('style' => 'width: 100px;')).
                           '</div>';
                   echo $html;
