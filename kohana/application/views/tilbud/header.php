@@ -112,7 +112,7 @@
 				<?php
 				$address_list = '';
 				for($i=0; $i<sizeof($address); $i++){
-				  $address_list .=  '"' . mb_convert_encoding(html_entity_decode($address[$i]['address'])) . '"';
+				  $address_list .=  '"' . mb_convert_encoding(html_entity_decode($address[$i]['address']), "ISO-8859-1", "UTF-8") . '"';
 				  if($i < sizeof($address)) {
 				    $address_list .= ",";
 				  }
