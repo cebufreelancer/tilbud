@@ -102,28 +102,29 @@
 		<?php }	?>
 
     <?php
-      $map_address = "";
+      $map_address = array();
       if (isset($address)) {
-				if(!empty($address)) {
-					$map_address = implode('","', $address);
-				} else {
-        	$map_address  = "Denmark";
-				}
     ?>
 		<script type="text/javascript">
         var map = null;
         var geocoder = null;
-				var addressMaps = new Array("<?php echo $map_address; ?>");
-
+				var addressMaps = new Array("mabolo cebu city philippines 6000", "mandaue city 6014 philippines");
+        var bounds = new GLatLngBounds();
+        var gmarkers = [];
+        
         function initialize() {
           if (GBrowserIsCompatible()) {
             map = new GMap2(document.getElementById("map_canvas"));
             map.addControl(new GLargeMapControl());
-            map.setCenter(new GLatLng(10.3455617, 123.8969328), 15);
+            //map.setCenter(new GLatLng(10.3455617, 123.8969328), 15);
+            map.setCenter(new GLatLng(0,0),0);
             geocoder = new GClientGeocoder();
+            var bounds = new GLatLngBounds();
 						$(addressMaps).each(function(index, value) {
-            	showAddress(value);
+              showAddress(value);
 						});
+						map.setZoom(map.getBoundsZoomLevel(bounds));
+						map.setCenter(bounds.getCenter());
           }
         }
 
@@ -134,13 +135,21 @@
               if (!point) {
                 //alert(address + " not found");
               } else {
-                map.setCenter(point, 15);
+                map.setCenter(point, 11);
                 var marker = new GMarker(point);
+                gmarkers.push(marker);
                 map.addOverlay(marker);
-                //marker.openInfoWindowHtml(address);
+                GEvent.addListener(marker, "click", function() {
+                        marker.openInfoWindowHtml(address);
+                });
+                marker.openInfoWindowHtml(address);
               }
             }
           );
+        }
+        
+        function myaddress(i) {
+          GEvent.trigger(gmarkers[i], "click");
         }
     </script>
   <?php } ?>

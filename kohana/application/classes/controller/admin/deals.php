@@ -260,11 +260,23 @@ class Controller_Admin_Deals extends Controller {
 			
 			// Form Addresses
 			if(!empty($posts['deal_address'])) {
+  			for($i=0; $i<sizeof($posts['deal_address']); $i++){
+  			  $add = $posts['deal_address'][$i];
+  				$addresses[$i]['address'] = htmlentities($add);
+  				$addresses[$i]['company_name'] = $posts['deal_address_company'][$i];
+  				$addresses[$i]['telephone'] = $posts['deal_address_telno'][$i];
+  			}
+  			$deals->addresses = serialize($addresses);
+		  }
+
+			/*
+			if(!empty($posts['deal_address'])) {
 				foreach($posts['deal_address'] as $add) {
 					$addresses[] = htmlentities($add);
 				}
 				$deals->addresses = serialize($addresses);
 			}
+			*/
 			
 			// Form Images
 			if(!empty($_FILES['deal_image'])) {
@@ -413,14 +425,17 @@ class Controller_Admin_Deals extends Controller {
 			$deals->is_featured = 1;
 			$deals->regno				= $posts['deal_regno'];
 			$deals->itemno			= $posts['deal_itemno'];
-
+			
 			// Form Addresses
 			if(!empty($posts['deal_address'])) {
-				foreach($posts['deal_address'] as $add) {
-					$addresses[] = htmlentities($add);
-				}
-				$deals->addresses = serialize($addresses);
-			}
+  			for($i=0; $i<sizeof($posts['deal_address']); $i++){
+  			  $add = $posts['deal_address'][$i];
+  				$addresses[$i]['address'] = htmlentities($add);
+  				$addresses[$i]['company_name'] = $posts['deal_address_company'][$i];
+  				$addresses[$i]['telephone'] = $posts['deal_address_telno'][$i];
+  			}
+  			$deals->addresses = serialize($addresses);
+		  }			
 			
 			// Form Images
 			if(!empty($_FILES['deal_image'])) {
@@ -523,7 +538,7 @@ class Controller_Admin_Deals extends Controller {
 		
 		$addr = !@unserialize($deals->addresses) ? array($deals->addresses) : @unserialize($deals->addresses);
 	
-		$page->address		    = isset($posts['deal_address']) ? $posts['deal_address'] : $addr;
+		$page->address		    = $addr;
 		$page->images_count		= ORM::factory('image')->where('tid', '=', $deals->ID)->count_all();
 		$page->images					= ORM::factory('image')->where('tid', '=', $deals->ID)->find_all()->as_array();
 

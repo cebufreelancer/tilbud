@@ -68,8 +68,12 @@
           <li id="address-container">
 							<?php echo Form::label('deal_address', __(LBL_ADDRESS2));
               
-							$remove = ' <span id="remove-image" class="cancel" onclick="javascript: removeMe(this);"> Remove </span>';
-							$html = '<div>' . Form::input('deal_address[]', '', array('style' => 'width: 500px;')) . $remove . '</div>';
+							$remove = ' <span id="remove-image" class="cancel" style="float: right" onclick="javascript: removeMe(this);"> Remove </span>';
+							$html = '<div style="background-color: #E5ECFF; padding:3px 3px; margin: 5px 0">' .  $remove . "<br/>" .
+							        __(LBL_COMPANY_NAME) . ': ' . Form::input('deal_address_company[]', '', array('style' => 'width: 300px;')) . "<br/>" .
+							        __(LBL_ADDRESS2) . ': ' .Form::input('deal_address[]', '', array('style' => 'width: 500px;')) .  "<br/>" .
+							        __(LBL_TELEPHONE).': ' . Form::input('deal_address_telno[]', '', array('style' => 'width: 100px;')).
+							        '</div>';
 							?>
               <script type="text/javascript">
 							$(function() {
@@ -98,10 +102,16 @@
               <?php
 							if(!empty($address)) {
 								foreach($address as $add) {
-             			echo '<div>' . Form::input('deal_address[]', html_entity_decode($add), array('style' => 'width: 500px;')) . $remove . '</div>';
+//             			echo '<div>' . Form::input('deal_address[]', html_entity_decode($add), array('style' => 'width: 500px;')) . $remove . '</div>';
+                  $html = '<div style="background-color: #E5ECFF; padding:3px 3px; margin: 5px 0">' .  $remove . "<br/>" .
+                          __(LBL_COMPANY_NAME) . ': ' . Form::input('deal_address_company[]', $add['company_name'], array('style' => 'width: 300px;')) . "<br/>" .
+                          __(LBL_ADDRESS2) . ': ' .Form::input('deal_address[]', $add['address'], array('style' => 'width: 500px;')) .  "<br/>" .
+                          __(LBL_TELEPHONE).': ' . Form::input('deal_address_telno[]', $add['telephone'], array('style' => 'width: 100px;')).
+                          '</div>';
+                  echo $html;
 								}
 							} else {
-								echo '<div>' . Form::input('deal_address[]', '', array('style' => 'width: 500px;')) . $remove . '</div>';
+								echo $html;
 							}
 							?>
           </li>

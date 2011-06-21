@@ -289,4 +289,6 @@ define("LBL_PASSWORD_DONT_MATCH", "Adgangskoderne er ikke ens.");
 define("LBL_NEW_PASSWORD", "Ny adgangskode");
 define("LBL_VERIFY_NEW_PASSWORD", "Gentag ny adgangskode");
 define("LBL_PASSWORD_EMPTY", "Adgangskoden skal angives");
+define("LBL_COMPANY_NAME", "Company Name");
+define("LBL_TELEPHONE", "Tel. Number");
 ?>

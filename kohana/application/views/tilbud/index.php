@@ -116,7 +116,7 @@
                 	<p class="period-label"><?= LBL_OFFER_ACTIVE_WHEN ?> <?php echo $deal['min_sold']; ?> <?= LBL_BUY ?></p>
                   <p class="period"><?php echo $total_qty; ?> <?= LBL_BOUGHT ?></p>
                 </div>
-              
+
                 <div class="save-label"><?= LBL_SPAR ?> <?php echo number_format($deal['discount'], 0, '.', ''); ?>%</div>
                 <div class="clear"></div>
               </div>
@@ -147,11 +147,17 @@
         	<div id="deals-info">
             <ul>
               <li class="dhead-one"> <?= LBL_ADDRESS?> </li>
+              <?php for($i=0; $i<sizeof($address); $i++) {?>
               <li>
-              <?php
-              $address = unserialize($deal['addresses']);
-              echo implode("<br />", $address);
-              ?></li>
+                <div style="padding-bottom: 1px">
+                  <p style="line-height: 19px">
+                  <span style="font-weight: bold; text-decoration: underline; cursor:pointer" onclick="myaddress('<?php echo $i;?>')"><?php echo $address[$i]['company_name']?></span><br/>
+                  <span><?php echo $address[$i]['address']?></span><br/>
+                  <span><?php echo $address[$i]['telephone']?></span>
+                  </p>
+                </div>
+              </li>
+              <?php } ?>
             </ul>            
             <ul>
 
