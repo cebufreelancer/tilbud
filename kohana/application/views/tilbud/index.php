@@ -151,8 +151,8 @@
               <li>
                 <div style="padding-bottom: 1px">
                   <p style="line-height: 19px">
-                  <span style="font-weight: bold; text-decoration: underline; cursor:pointer" onclick="myaddress('<?php echo $i;?>')"><?php echo $address[$i]['company_name']?></span><br/>
-                  <span><?php echo $address[$i]['address']?></span><br/>
+                  <span style="font-weight: bold; text-decoration: underline; cursor:pointer" onclick="myaddress('<?php echo $i;?>')"><?php echo html_entity_decode($address[$i]['company_name'])?></span><br/>
+                  <span><?php echo html_entity_decode($address[$i]['address'])?></span><br/>
                   <span><?php echo $address[$i]['telephone']?></span>
                   </p>
                 </div>
