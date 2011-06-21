@@ -113,13 +113,13 @@
 				$address_list = '';
 				for($i=0; $i<sizeof($address); $i++){
 				  $address_list .=  '"' . html_entity_decode($address[$i]['address']) . '"';
-				  if($i != sizeof($address)) {
+				  if($i < sizeof($address)) {
 				    $address_list .= ",";
 				  }
 				}
 				?>
 				
-				var addressMaps = new Array("<?php echo $address_list;?>");
+				var addressMaps = new Array(<?php echo $address_list;?>);
 				//"mabolo cebu city philippines 6000", "mandaue city 6014 philippines");
         var bounds = new GLatLngBounds();
         var gmarkers = [];
