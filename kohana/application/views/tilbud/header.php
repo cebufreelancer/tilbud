@@ -267,10 +267,3 @@
       <?php } ?>
       
 		<?php } ?>
-<!-- comments 
-<?php 
-print_r($_SESSION);
-$is_logged = Auth::instance()->logged_in();
-echo $is_logged;
-?>
--->
