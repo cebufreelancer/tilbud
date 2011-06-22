@@ -51,7 +51,7 @@
   $local = '<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=true&amp;key=ABQIAAAAbQlC_gF4H7R0hbKr8QVz5xTb-vLQlFZmc2N8bgWI8YDPp5FEVBR0fbtPlG0ajsdbFHG0Bo4Nt1JTHA" type="text/javascript"></script>';
   ?>
 
-  <?php if (isset($address)) { ?>
+  <?php if (isset($address) && sizeof($address) > 0) { ?>
   <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=true&amp;key=ABQIAAAAbQlC_gF4H7R0hbKr8QVz5xQYncROD2BDKvWqEuo4PwsE_DGQgRS20trX2PsZLb7gtB92IP55joerMA" type="text/javascript"></script>  
   <?php } ?>
       
@@ -60,7 +60,7 @@
   <![endif]-->
   
 </head>
-<body <?php if (isset($address)) { echo  'onLoad="initialize()" onunload="GUnload()"'; }?>>
+<body <?php if (isset($address) && sizeof($address) > 0) { echo  'onLoad="initialize()" onunload="GUnload()"'; }?>>
 
   <a href="#signup-form" id="newvisitor" ></a>
 
@@ -103,7 +103,7 @@
 
     <?php
       $map_address = array();
-      if (isset($address)) {
+      if (isset($address) && sizeof($address) > 0) {
     ?>
 		<script type="text/javascript">
         var map = null;
@@ -147,7 +147,7 @@
               if (!point) {
                 //alert(address + " not found");
               } else {
-                map.setCenter(point, 11);
+                map.setCenter(point, 5);
                 var marker = new GMarker(point);
                 gmarkers.push(marker);
                 map.addOverlay(marker);
