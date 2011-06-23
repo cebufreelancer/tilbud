@@ -18,28 +18,6 @@ class Controller_Deals extends Controller {
 			$this->response->body(View::factory('tilbud/template_email')
 															->set('deals', $deals));
 	}
-	/*
-	public function action_test()
-	{
-		// Requires $order, $user, $deal variables
-		$order = ORM::factory('order', 35);
-		$deal = ORM::factory('deal', 2);
-		$user = ORM::factory('user', 15);
-		$this_deal = $deal;
-		ob_start();
-		//require_once(APPPATH . 'vendor/html2fpdf/exemples/res/exemple01.php');
-		include_once(APPPATH . 'views/tilbud/template_order_pdf.php');
-		$content = ob_get_clean();
-		// conversion HTML => PDF
-	  require_once(APPPATH . 'vendor/html2fpdf/html2pdf.class.php');
-		$html2pdf = new HTML2PDF('P','A4','en');
-		// $html2pdf->setModeDebug();
-		$html2pdf->WriteHTML($content, false);
-		
-		$dl = $html2pdf->Output('uploads/testing.pdf','F');
-		
-		//$this->response->body($pdf);
-	}*/
 	
 	public function action_view($id){
     $deal 	= ORM::factory('deal', $id)->as_array();
@@ -79,6 +57,123 @@ class Controller_Deals extends Controller {
 															->set('user', $user));
 	}*/
 	
+	public function action_kob($did)
+	{
+		$page = View::factory('tilbud/order-deal-solo');
+		$page->deal = ORM::factory('deal', $did);
+		$page->user = Auth::instance()->get_user();
+		$page->step	= 1;
+		
+		$posts = $this->request->post();
+		if(!empty($posts)) {
+			$this_deal = ORM::factory('deal', (int)$posts['did']);
+			$deals['ID'] = $posts['did'];
+			$deals['quantity'] = $posts['quantity'];
+			$deals['deal_price'] =( $this_deal->regular_price * (100 - $this_deal->discount)) / 100;
+			$deals['total'] = $deals['quantity'] * $deals['deal_price'];
+			
+			$year = (int)date("Y");
+			$years = range($year, $year+10);
+			
+			// Billing section
+			$billing['cardnumber'] 	= $posts['cardnumber'];
+			$billing['cardcode'] 		= $posts['cardcode'];
+			$billing['expiry_month'] = $posts['expiry_month'];
+			$billing['expiry_year'] = $years[$posts['expiry_year']];
+			$billing['cardtype']		= $posts['cardtype'];
+			$billing['cardname']		= $posts['firstname'] . ' ' . $posts['lastname'];
+			$billing['address'] 		= $posts['address'];
+			$billing['zipcode']			= $posts['zipcode'];
+			$billing['city']				= $posts['city'];
+			
+			$valid_card = Validation::factory($billing);
+			$valid_card->rule('cardname', 'not_empty')
+								 ->rule('cardname', 'regex', array(':value', '/^[A-Za-z\s]+$/'))
+								 ->rule('cardnumber', 'credit_card')
+								 ->rule('cardcode', 'not_empty')
+								 ->rule('cardcode', 'exact_length', array(':value', 3))
+								 ->rule('address', 'not_empty')
+								 ->rule('city', 'not_empty')
+								 ->rule('zipcode', 'not_empty')
+								 ->rule('zipcode', 'min_length', array(':value', 3))
+								 ->rule('zipcode', 'min_length', array(':value', 4));
+								 
+			if($valid_card->check()) {
+				
+				if(!Auth::instance()->logged_in()) {
+					
+				} else {
+					$user_id = Auth::instance()->get_user()->id;
+					$user = Auth::instance()->get_user();
+				}
+
+			} else {
+				$errors = $valid_card->errors('billing');
+			}
+			
+			if(empty($errors)) {
+				// Order section
+				$order['deal_id'] = $deals['ID'];
+				$order['user_id'] = $user_id;
+				$order['quantity'] = $deals['quantity'];
+				$order['payment_type'] = $billing['cardtype'];
+				$order['total_count'] = $deals['total'];
+				$order['status'] = 'new';
+				
+				// Add Order now to DB and redirect to merchant/payment gateway page
+				$proc_order = ORM::factory('order');
+				$order['refno'] = $proc_order->generate_reference_no(8, $order['deal_id']);
+				$proc_order->values($order);
+				if($proc_order->save()) {
+
+						/************************
+						 *    Email the user
+						************************/ 
+						$title = strip_tags($this_deal->contents_title);
+						$title = html_entity_decode($title);
+						$title = "Tillykke med dit køb: {$title} hos TilbudiByen.dk (Ordrenummer {$proc_order->ID})";
+						
+						$mailer = new XMail();
+						$mailer->to = $user->email;
+						$mailer->subject = mb_convert_encoding($title, "ISO-8859-1", "UTF-8");
+				
+						// Requires $order, $user, $deal variables
+						$order = ORM::factory('order', $proc_order->ID);
+						$deal = ORM::factory('deal', $order->deal_id);
+						$user = ORM::factory('user', $order->user_id);
+
+						ob_start();
+						include_once(APPPATH . 'views/tilbud/template_after_order.php');
+						$mailer->message = ob_get_clean();
+						
+						//$mailer->send();
+					
+						$url = sprintf('deals/buy?did=%d&oid=%d&payment=success&t=s', $proc_order->deal_id, $proc_order->ID);
+						$this->request->redirect($url);
+						return;
+				}
+			
+			}
+		}
+			
+		$credit_help = ORM::factory('page')->get_page('credit-help');
+		$page->credit_help = $credit_help;
+		
+		$page->cardtypes = array("visa" => "VISA", 
+														 "mastercard" => "Master Card",
+														 "jcb" => "JCB",
+														 "american-express" => "American Express");
+		
+		$page->cardname		= isset($posts['cardname']) ? $posts['cardname'] : '';
+		$page->cardnumber = isset($posts['cardnumber']) ? $posts['cardnumber'] : '';
+		$page->address 		= isset($posts['address']) ? $posts['address'] : '';
+		$page->city				= isset($posts['city']) ? $posts['city'] : '';
+		$page->zipcode		= isset($posts['zipcode']) ? $posts['zipcode'] : '';
+		$page->cardcode 	= isset($posts['cardcode']) ? $posts['cardcode'] : '';
+		
+		
+		$this->response->body($page);
+	}
 	
 	public function action_buy($deal_id=null)
 	{

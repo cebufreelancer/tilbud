@@ -1,5 +1,11 @@
 <?php defined('SYSPATH') OR die('No direct access allowed.'); ?>
-<?php require_once 'header.php'; ?>
+<?php 
+
+if(isset($_GET['t'])) {
+	require_once 'order-thankyou-solo.php';	
+} else {
+	require_once 'header.php'; 
+?>
 
 	<!-- content starts here -->
   <section id="ad-body">
@@ -98,7 +104,7 @@
           </p>
         </div>
 			</div>
-
+			
 		</div>
   </section>
 			
@@ -107,3 +113,4 @@
   
 </body>
 </html>
+<?php } ?>
