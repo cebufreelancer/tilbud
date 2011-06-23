@@ -103,7 +103,7 @@
 
     <?php
       $map_address = array();
-      if (isset($address) && sizeof($address) > 0) {
+      if (isset($address) && $address != ""){
     ?>
 		<script type="text/javascript">
         var map = null;
