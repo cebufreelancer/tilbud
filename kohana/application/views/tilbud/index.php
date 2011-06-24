@@ -50,7 +50,7 @@
                   }
                   
               	  ?>
-              	  <div class="buy-label"><p class="huge buy-label" style="width: 200px; min-width: 200px; float: left;"><?php echo $newprice; ?>,- </p> <?php echo HTML::anchor('deals/buy/' . $deal['ID'], HTML::image('images/buy.png', array('title' => LBL_Buy_now, 'style' => 'margin-bottom: -10px;'))); ?>
+              	  <div class="buy-label"><p class="huge buy-label" style="width: 200px; min-width: 200px; float: left;"><?php echo $newprice; ?>,- </p> <?php echo HTML::anchor('deals/kob/' . $deal['ID'], HTML::image('images/buy.png', array('title' => LBL_Buy_now, 'style' => 'margin-bottom: -10px;')), array('class' => 'ipages')); ?>
 								
       								<?php 
       								if(isset($deal['youtube_url']) && $deal['youtube_url'] != "") {
