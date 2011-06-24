@@ -48,9 +48,10 @@
                   }else{
                     $newprice = $price;
                   }
-                  
+                  $burl = $is_logged ? 'kob' : 'buy';
+									$burl_class = $is_logged ? 'ipages' : '';
               	  ?>
-              	  <div class="buy-label"><p class="huge buy-label" style="width: 200px; min-width: 200px; float: left;"><?php echo $newprice; ?>,- </p> <?php echo HTML::anchor('deals/kob/' . $deal['ID'], HTML::image('images/buy.png', array('title' => LBL_Buy_now, 'style' => 'margin-bottom: -10px;')), array('class' => 'ipages')); ?>
+              	  <div class="buy-label"><p class="huge buy-label" style="width: 200px; min-width: 200px; float: left;"><?php echo $newprice; ?>,- </p> <?php echo HTML::anchor("deals/$burl/" . $deal['ID'], HTML::image('images/buy.png', array('title' => LBL_Buy_now, 'style' => 'margin-bottom: -10px;')), array('class' => $burl_class)); ?>
 								
       								<?php 
       								if(isset($deal['youtube_url']) && $deal['youtube_url'] != "") {
