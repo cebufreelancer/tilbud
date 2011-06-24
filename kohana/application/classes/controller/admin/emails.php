@@ -72,7 +72,7 @@ class Controller_Admin_Emails extends Controller {
     		$name  = $user['lastname'] . ', ' . $user['firstname'];
 
     		$to = $email;
-    		$subject = "Tillykke med dit køb: " . html_entity_decode($deal['contents_title']) . " hos TilbudiByen.com (Ordrenummer {$order['ID']}";
+    		$subject = "Tillykke med dit " . mb_convert_encoding("køb", "ISO-8859-1", "UTF-8") . ": " . html_entity_decode($deal['contents_title']) . " hos TilbudiByen.com (Ordrenummer {$order['ID']}";
     		$headers = 'MIME-Version: 1.0' . "\r\n";
     		$headers .= "Content-type: text/html; charset=UTF-8" . "\r\n";
     		$headers .= "From: no-reply@tilbudibyen.com" . "\r\n".
@@ -195,7 +195,7 @@ class Controller_Admin_Emails extends Controller {
 		$name  = $user['lastname'] . ', ' . $user['firstname'];
 		
 		$to = $_POST['test_email'];
-		$subject = "Tillykke med dit køb: " . html_entity_decode($deal['contents_title']) . " hos TilbudiByen.com (Ordrenummer {$order['ID']}";
+		$subject = "Tillykke med dit " . mb_convert_encoding("køb", "ISO-8859-1", "UTF-8") . ": " . html_entity_decode($deal['contents_title']) . " hos TilbudiByen.com (Ordrenummer {$order['ID']}";
 		$headers = 'MIME-Version: 1.0' . "\r\n";
 		$headers .= "Content-type: text/html; charset=UTF-8" . "\r\n";
 		$headers .= "From: no-reply@tilbudibyen.com" . "\r\n".
@@ -384,15 +384,35 @@ class Controller_Admin_Emails extends Controller {
 				$DEALDISCOUNT		= $deals->discount;
 				$DEALSAVINGS		= $deals->regular_price - $DEALPRICE;
 				$DEALINFO				= html_entity_decode($deals->information);
-				$DEALIMAGE			= HTML::Image(Url::base(TRUE) . 'uploads/' . $deals->ID . '/' . rawurlencode($deals->image), 
+
+  			$dimages = ORM::factory('image')->where('tid', '=', $deals->ID)->find_all()->as_array();
+  			if(!empty($dimages)) {
+  				foreach($dimages as $d) {
+  					$one_image_path = $d->path;
+  					exit;
+  				}
+  			}
+
+				$DEALIMAGE			= HTML::Image(Url::base(TRUE) . rawurlencode($one_image_path),
 															array('width' => 445, 
 																		'height' => 300, 
 																		'style' => 'margin-bottom: 20px;'));
 				$DEALCONTENTS 	= $deals->contents;
 				$SEE_VIDEO_DEALS = mb_convert_encoding("Se dagens tilbud på video - klik her.", "ISO-8859-1", "UTF-8");
-				
-				$LOCATION				= $deals->addresses;
-				
+
+        $addresses = unserialize($deals->address);
+        $address_list = "";
+        for($i=0; $i<sizeof($addresses); $i++){
+          $address_list .= html_entity_decode($addresses[$i]['company_name']);
+          $address_list .= "<br/>";
+				  $address_list .=  html_entity_decode($addresses[$i]['address']) . '"';
+				  $address_list .= "<br/>";
+				  $address_list .=  html_entity_decode($addresses[$i]['telephone']) . '"';
+				  $address_list .= "<br/>";
+				}
+
+				$LOCATION				= $address_list;
+
 				$page->type			= $_GET['type'];
 				break;
 			default:  		$email_id = 1; break;

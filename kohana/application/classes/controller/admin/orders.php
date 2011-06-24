@@ -452,7 +452,7 @@ class Controller_Admin_Orders extends Controller {
 									
 				$mailer = new XMail();
 				$mailer->to = $user->email;
-				$mailer->subject = "Tillykke med dit køb: " . html_entity_decode($deal->contents_title) . " hos TilbudiByen.com (Ordrenummer {$order->ID})";
+				$mailer->subject = "Tillykke med dit " . mb_convert_encoding("køb", "ISO-8859-1", "UTF-8") . ": " . html_entity_decode($deal->contents_title) . " hos TilbudiByen.com (Ordrenummer {$order->ID})";
 				$mailer->message = $message;
 				
 				ob_start();

@@ -50,8 +50,13 @@
                   }
                   
               	  ?>
-              	  <div class="buy-label"><p class="huge buy-label" style="width: 200px; min-width: 200px; float: left;"><?php echo $newprice; ?>,- </p> <?php echo HTML::anchor('deals/buy/' . $deal['ID'], HTML::image('images/buy.png', array('title' => LBL_Buy_now, 'style' => 'margin-bottom: -10px;'))); ?>
-								
+              	  <div class="buy-label">
+              	    <p class="huge buy-label" style="width: 200px; min-width: 200px; float: left;">
+              	    <?php echo $newprice; ?>,-
+              	    </p>
+
+                      <?php echo HTML::anchor('#buy-dialog', HTML::image('images/buy.png', array('title' => LBL_Buy_now, 'style' => 'margin-bottom: -10px;')), array('id' => "buy-button")); ?>
+
       								<?php 
       								if(isset($deal['youtube_url']) && $deal['youtube_url'] != "") {
       									echo HTML::anchor($deal['youtube_url'], 
@@ -64,7 +69,9 @@
       								?>
                   	<div class="clear"></div>
 								  </div>
-      								<script type="text/javascript">
+								  <?php require_once('buy-dialog.php'); ?>
+
+		                 <script type="text/javascript">
                       	$("#youtubevideo").click(function() {
                       	$.fancybox({
                       			'padding'		: 0,
@@ -72,7 +79,7 @@
                       			'transitionIn'	: 'none',
                       			'transitionOut'	: 'none',
                       			'title'			: this.title,
-                      			'width'		: 680,
+                      			'width'		: 700,
                       			'height'		: 495,
                       			'href'			: this.href.replace(new RegExp("watch\\?v=", "i"), 'v/'),
                       			'type'			: 'swf',

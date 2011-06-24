@@ -79,7 +79,7 @@ define("LBL_RETYPE_PASSWORD","Genindtast din adgangskode");
 define("LBL_FIRSTNAME","Fornavn");
 define("LBL_LASTNAME","Efternavn");
 define("LBL_ACTION", "Handling");
-define("LBL_SUBSCRIBERS", "Medlemer");
+define("LBL_ACTIONRS", "Medlemer");
 define("LBL_JOINED", "Tilmeldt");
 define("LBL_LAST_LOGIN", "Sidste login");
 define("LBL_ALREADY_PURCHASED", "Hvis du allerede har købt hos TilbudiByen kan du logge ind her");
@@ -291,4 +291,7 @@ define("LBL_VERIFY_NEW_PASSWORD", "Gentag ny adgangskode");
 define("LBL_PASSWORD_EMPTY", "Adgangskoden skal angives");
 define("LBL_COMPANY_NAME", "Company Name");
 define("LBL_TELEPHONE", "Tel. Number");
+define("LBL_SUBSCRIBE", "You are now subscribed with Tilbudibyen");
+define("LBL_SUBSCRIBE_THANKYOU", "Thank you for subscribing to Tilbudibyen");
+define("LBL_SUBSCRIBE_NEW", "New subscriber - Tilbudibyen");
 ?>

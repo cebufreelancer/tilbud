@@ -141,6 +141,7 @@ Route::set('contact', 'contact')->defaults(array('controller' => 'home', 'action
 Route::set('page', 'page')->defaults(array('controller' => 'home', 'action' => 'page'));
 Route::set('users', 'users')->defaults(array('controller' => 'users', 'action' => 'index'));
 Route::set('referral', 'referral')->defaults(array('controller' => 'home', 'action' => 'referral'));
+Route::set('payment', 'payment')->defaults(array('controller' => 'payments', 'action' => 'payment'));
 
 Route::set('login_facebook', 'login_facebook')->defaults(array('controller' => 'fblogin', 'action' => 'login'));
 

@@ -209,8 +209,132 @@ TilbudIbyen.com
 	  }
 		
 	}
-	
+
 	public function action_signup()
+	{
+		$page			= View::factory('tilbud/signupform');
+		$citylist = Kohana::config('global.cities');
+		
+		$url   = '';
+    $posts = $this->request->post();
+
+		// This will check if submitted
+		if(!empty($posts)) {
+			$email = $posts['semail'];
+			$city  = $posts['city'];
+
+			$subscriber = ORM::factory('subscriber');
+			// check if email and city already subscribed
+
+			if(!$subscriber->is_subscribed($email, $city)) {
+				// Add to Subcribers DB
+				$subscriber->add($email, $city);
+				// Add to Cookie that user is already subscribed
+				Cookie::set('tib', md5(date("Ymd")), Date::WEEK*2);
+
+    		// Send email to activate
+				$mailer = new XMail();
+				$mailer->subject = __(LBL_SUBSCRIBE);
+				$mailer->to = $email;
+				ob_start();
+				echo __(LBL_SUBSCRIBE_THANKYOU);
+				$mailer->message = ob_get_clean();
+				$mailer->send();
+
+				// Send email to admin
+				$mailer = new XMail();
+				$mailer->subject = __(LBL_SUBSCRIBE_NEW);
+				$mailer->to = "michaxze@gmail.com";
+				ob_start();
+				echo $email;
+				$mailer->message = ob_get_clean();
+				$mailer->send();
+
+				$page	= View::factory('tilbud/referral');
+
+			}else{
+				$page = View::factory('tilbud/signupform');
+				$errors['email'] = __(EMAIL_EXIST);
+				$page->errors = $errors;
+			}
+
+		}
+		    $this->response->body($page);
+	}
+	
+	public function action_signupx()
+	{
+		$page			= View::factory('tilbud/signupform');
+		$citylist = Kohana::config('global.cities');
+		
+		$url   = '';
+    $posts = $this->request->post();
+		
+		// This will check if submitted
+		if(!empty($posts)) {
+	
+			$email = $posts['semail'];
+			$city  = $posts['city'];
+		
+			$subscriber = ORM::factory('subscriber');
+						
+			// Check if user already registered
+			// And is not subscriber only
+			if(!ORM::factory('user')->email_exist($email)
+			   && !isset($posts['subscriber'])) {
+			
+				// Add email to users
+				try {
+					// Construct username
+					$username = $email; // substr($email, 0, strpos($email, "@"));
+					
+					$user['username'] = $username;
+					$user['firstname'] = "";
+					$user['email']		 = $email;
+					$user['status']	 = 'pending';
+					$user['password'] = ORM::factory('user')->generate_password(6);
+					$user['password_confirm'] = $user['password'];
+				
+					ORM::factory('user')->create_user($user, array('username','firstname','email','status','password'));
+					
+				} catch (ORM_Validation_Exception $e) {
+					$errors = $e->errors('register');
+					$errors = array_merge($errors, (isset($errors['_external']) ? $errors['_external'] : array()));
+					//print_r($errors);
+				}
+							
+				// Send email to activate
+				$mailer = new XMail();
+				$mailer->subject = __(LBL_SIGNUP_SUBJECT);
+				$mailer->to = $posts['semail'];
+
+				$confirm_url = "http://www.tilbudibyen.com/verify?e=" . $email;
+				ob_start();
+				include_once(APPPATH . 'views/tilbud/template_confirm.php');
+				$content = ob_get_clean();
+				
+				$mailer->message = $content;
+				
+				if($mailer->send()) {
+					// Should notify to check email for verification process
+					$page	= View::factory('tilbud/referral');
+				}
+				
+		    $this->response->body($page);
+			}else {
+			  // email already exists
+				// TODO: if email exists (paul)
+				//   - asks if enter another email or login
+				// $page = View::factory('tilbud/login');
+				$page = View::factory('tilbud/signupform');
+				$errors['email'] = __(EMAIL_EXIST);
+				$page->errors = $errors;
+		    $this->response->body($page);			  
+			}
+		}
+	}
+
+	public function action_signup_old()
 	{
 		$page			= View::factory('tilbud/signupform');
 		$citylist = Kohana::config('global.cities');
@@ -393,11 +517,11 @@ TilbudIbyen.com
 			}
 			
 			if(!empty($referral)) {
-				
+
 				// Send Referral Message to emails
 				$mailer = new XMail();
 				$mailer->subject = "Du er blevet tilmeldt TilbudiByen af en ven!";
-				$mailer->to = $posts['semail'];
+				$mailer->to = $posts['email'];
 							
 				ob_start();
 				include_once(APPPATH . 'views/tilbud/template_referral.php');
