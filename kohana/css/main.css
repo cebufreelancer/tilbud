@@ -732,6 +732,7 @@ span.block {
   color: #FFF !important;
   font-weight: bold;
 	background: #53a3fe; /* old browsers */
+  cursor: pointer;
   -webkit-border-radius: 3px;
 	-moz-border-radius: 3px;
 	border-radius: 3px;
@@ -1065,3 +1066,14 @@ float: right;
 padding: 0 5px 0 0;
 width: 175px;
 }
+
+/** ORDER-MENU **/
+#order-menu { list-style: none; display: table; width: 100%; }
+#order-menu li { display: table-cell; width: 100px; padding: 8px; background: #999; color: #666; border-right: 1px solid #CCC; }
+#order-menu li.selected { font-weight: bold; color: #FFF; background: #000; }
+
+#order-table { }
+#order-table tr td { padding-right: 5px; padding-bottom: 5px; }
+#order-table label { font-size: 11px; }
+
+.order-container { min-height: 350px; height: 300px; }

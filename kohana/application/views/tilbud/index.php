@@ -48,7 +48,8 @@
                   }else{
                     $newprice = $price;
                   }
-                  
+                  $burl = $is_logged ? 'kob' : 'buy';
+									$burl_class = $is_logged ? 'ipages' : '';
               	  ?>
               	  <div class="buy-label">
               	    <p class="huge buy-label" style="width: 200px; min-width: 200px; float: left;">
@@ -57,6 +58,7 @@
 
                       <?php echo HTML::anchor('#buy-dialog', HTML::image('images/buy.png', array('title' => LBL_Buy_now, 'style' => 'margin-bottom: -10px;')), array('id' => "buy-button")); ?>
 
+								
       								<?php 
       								if(isset($deal['youtube_url']) && $deal['youtube_url'] != "") {
       									echo HTML::anchor($deal['youtube_url'], 

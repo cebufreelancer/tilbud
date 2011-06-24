@@ -18,6 +18,8 @@ define("LBL_MORE", "Mere");
 define("LBL_SEARCH", "SØG");
 define("LBL_SEARCH_RESULT", "Søgnings resultat for '<b>'%s'</b>' er i alt <b>%d</b> resultater");
 define("LBL_GO", "Kør");
+define("LBL_UNDO", "Undo");
+define("LBL_PAY_NOW", "Betal Nu");
 
 define("LBL_PURCHASE", "Din bestiling");
 define("LBL_MY_PRICE", "Samlet pris");
