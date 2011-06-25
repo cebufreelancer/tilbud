@@ -8,6 +8,7 @@
 		$user = $is_logged ? __(LBL_My_Account) : '';
   
     if($is_admin) { ?>
+      <li><?php echo HTML::anchor('/', __(LBL_VIEW_SITE)); ?></li>
       <li><?php echo HTML::anchor('admin/users', __(LBL_USERS)); ?></li>
       <li><?php echo HTML::anchor('admin/cities', __(LBL_CITIES)); ?></li>
       <li><?php echo HTML::anchor('admin/groups', __(LBL_GROUPS)); ?></li>
