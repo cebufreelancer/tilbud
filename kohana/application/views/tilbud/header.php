@@ -112,10 +112,12 @@
 				<?php
 				$address_list = '';
 				for($i=0; $i<sizeof($address); $i++){
+                                  if (sizeof($address[$i]) == 3) {
 				  $address_list .=  '"' . html_entity_decode($address[$i]['address']) . '"';
 				  if($i < sizeof($address)-1) {
 				    $address_list .= ",";
 				  }
+                                  }
 				}
 				?>
 				
