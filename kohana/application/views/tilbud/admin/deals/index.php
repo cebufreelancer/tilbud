@@ -138,7 +138,7 @@
 						
 						echo '<tr ' . $serving_css . '>';
 						echo '<td style="width:400px;"><div style="font-weight: bold; min-height: 55px;">' . $img_thumb . $deal['description'] . '</div>' .
-						     '<div>' . $edit_url . ' | ' . $delete_url . ' | ' . $email_url . ' | ' . $view_url '</div>' .
+						     '<div>' . $edit_url . ' | ' . $delete_url . ' | ' . $email_url . ' | ' . $view_url . '</div>' .
 						     '</td>';
 						echo '<td>' . $group . '</td>';
 						echo '<td>' . date("F d, Y", strtotime($deal['start_date'])) . '</td>';
