@@ -76,9 +76,13 @@ class Model_Order extends ORM {
 		$query = DB::select()->from('v_orders')
 												 ->where('group_id', '=', $cat_id)
 												 ->execute()
-												 ->count();
-												 
-		return $query;
+												 ->as_array();
+
+    $total_qty = 0;
+    foreach($query as $row){
+       $total_qty += $row['quantity'];
+     }
+     return $total_qty;
 	}
 	
 	public function orders_sales_by_city($city_id)
