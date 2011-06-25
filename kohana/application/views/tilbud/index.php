@@ -58,7 +58,9 @@
               	    <?php echo $newprice; ?>,-
               	    </p>
 
-                      <?php echo HTML::anchor('#buy-dialog', HTML::image('images/buy.png', array('title' => LBL_Buy_now, 'style' => 'margin-bottom: -10px;')), array('id' => "buy-button")); ?>
+                      <?php if(strtotime($deal['end_date']) > strtotime(date("Y-m-d H:i:s")) ) {?>
+                        <?php echo HTML::anchor('#buy-dialog', HTML::image('images/buy.png', array('title' => LBL_Buy_now, 'style' => 'margin-bottom: -10px;')), array('id' => "buy-button")); ?>
+                      <?php } ?>
 
 								
       								<?php 

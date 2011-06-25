@@ -298,4 +298,5 @@ define("LBL_SUBSCRIBE_THANKYOU", "Thank you for subscribing to Tilbudibyen");
 define("LBL_SUBSCRIBE_NEW", "New subscriber - Tilbudibyen");
 define("LBL_VIEW_DEAL", "View Deal in Browser");
 define("LBL_VIEW_SITE", "View Site");
+define("LBL_UNSUBSCRIBED_CONFIRM_MESSAGE", "Er du sikker på du vil framelde dig tilbudibyens fantastiske tilbud?");
 ?>

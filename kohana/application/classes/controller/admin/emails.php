@@ -387,12 +387,14 @@ class Controller_Admin_Emails extends Controller {
 				$DEALINFO				= html_entity_decode($deals->information);
 
   			$dimages = ORM::factory('image')->where('tid', '=', $deals->ID)->find_all()->as_array();
+  			$one_image_path = "";
   			if(!empty($dimages)) {
   				foreach($dimages as $d) {
   					$one_image_path = $d->path;
   					break;
   				}
   			}
+  			
 
 				$DEALIMAGE			= HTML::Image(Url::base(TRUE) . $one_image_path,
 															array('width' => 445, 
