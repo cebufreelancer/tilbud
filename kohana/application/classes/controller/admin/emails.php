@@ -369,6 +369,7 @@ class Controller_Admin_Emails extends Controller {
 				
 				// Load Variables
 				$DEAL 					= html_entity_decode($deals->description);
+				$DEALID         = $deals->ID;
 				$EMAILFORMATURL = HTML::anchor(Url::base(TRUE) . 'deals/email_format/'.$deals->ID, 'klik her');
 				$BGHEADER				= url::base(TRUE) . 'images/bg-header.png';
 				$LOGO						= HTML::Image(Url::base(TRUE).'images/logo.png');
@@ -389,18 +390,18 @@ class Controller_Admin_Emails extends Controller {
   			if(!empty($dimages)) {
   				foreach($dimages as $d) {
   					$one_image_path = $d->path;
-  					exit;
+  					break;
   				}
   			}
 
-				$DEALIMAGE			= HTML::Image(Url::base(TRUE) . rawurlencode($one_image_path),
+				$DEALIMAGE			= HTML::Image(Url::base(TRUE) . $one_image_path,
 															array('width' => 445, 
 																		'height' => 300, 
 																		'style' => 'margin-bottom: 20px;'));
 				$DEALCONTENTS 	= $deals->contents;
 				$SEE_VIDEO_DEALS = mb_convert_encoding("Se dagens tilbud på video - klik her.", "ISO-8859-1", "UTF-8");
 
-        $addresses = unserialize($deals->address);
+        $addresses = unserialize($deals->addresses);
         $address_list = "";
         for($i=0; $i<sizeof($addresses); $i++){
           $address_list .= html_entity_decode($addresses[$i]['company_name']);

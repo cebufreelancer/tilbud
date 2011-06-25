@@ -3,7 +3,7 @@
   <!-- content starts here -->
   <section id="main-body">
   	<div class="centered">
-      
+
       <?php if(isset($deal)) { ?>
 
       <!-- DEALS SECTION -->
@@ -15,6 +15,8 @@
           </div>
 
           <div class="deal-banner" style="position: static" >
+
+
 
 							<?php $xml = Url::base() . 'uploads/' . $deal['ID'] . '/' . $deal['ID'] . '.xml'; ?>
 
@@ -120,7 +122,7 @@
                 <div class="clear"></div>
               </div>
             
-              <div style="z-index: 101; position: relative">
+              <div style="z-index: 101; position: relative; margin-top: -1px">
                 <div class="offer-container" style="z-index: 87">
                 	<p class="period-label"><?= LBL_OFFER_ACTIVE_WHEN ?> <?php echo $deal['min_sold']; ?> <?= LBL_BUY ?></p>
                   <p class="period"><?php echo $total_qty; ?> <?= LBL_BOUGHT ?></p>
