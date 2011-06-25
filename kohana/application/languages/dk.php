@@ -296,4 +296,5 @@ define("LBL_TELEPHONE", "Tel. Number");
 define("LBL_SUBSCRIBE", "You are now subscribed with Tilbudibyen");
 define("LBL_SUBSCRIBE_THANKYOU", "Thank you for subscribing to Tilbudibyen");
 define("LBL_SUBSCRIBE_NEW", "New subscriber - Tilbudibyen");
+define("LBL_VIEW_DEAL", "View Deal in Browser");
 ?>
