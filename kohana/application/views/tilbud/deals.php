@@ -31,7 +31,16 @@
                 <div class="dealDetails">
                   <div class="dealValue">
                     <a href="/deals/view/<?= $deal->ID;?>" class="btn dealBought">
-                      <span class="ttlQty"><?php echo count($orders->get_orders($deal->ID)); ?></span>
+                      <span class="ttlQty">
+<?php
+     $total_qty = 0;
+      $orders_made = $orders->get_orders($deal->ID); 
+      for($i=0; $i<sizeof($orders_made); $i++) {
+       $total_qty += $orders_made[$i]['quantity'];
+      }
+echo $total_qty;
+?>
+</span>
                       <span class="brougtTxt"><?= LBL_SOLD?></span>
                     </a>
                     <ul>
