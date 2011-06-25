@@ -65,8 +65,7 @@
       								if(isset($deal['youtube_url']) && $deal['youtube_url'] != "") {
       									echo HTML::anchor($deal['youtube_url'], 
       																		HTML::image('images/play.png', array('class' => 'playbutton')), 
-      																		array('id' => 'youtubevideo',
-      																					'title' => 'Promo Video'));
+      																		array('id' => 'youtubevideo'));
 												
 												echo '<div style="width: 180px; float: right; margin-right: -280px; margin-top: 20px;">' . HTML::image('images/video-text.png') . '</div>';
       								}
