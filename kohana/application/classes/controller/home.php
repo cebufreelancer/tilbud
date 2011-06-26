@@ -1,6 +1,14 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
 class Controller_Home extends Controller {
+  
+  public function action_payment_success(){
+    error_log( print_r($_REQUEST, true), 3, $_SERVER['DOCUMENT_ROOT'] . '/paymentsuccess.txt');    
+  }
+  
+  public function action_payresponse() {
+    error_log( print_r($_REQUEST, true), 3, $_SERVER['DOCUMENT_ROOT'] . '/paymentresponse.txt');
+  }
 
   public function action_unsubscribeme()
   {

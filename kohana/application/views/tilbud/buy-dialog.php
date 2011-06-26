@@ -60,36 +60,36 @@ $newprice = $deal['regular_price'] - ($deal['regular_price']*($deal['discount']/
                           <br><br>
                           <div style="padding-bottom: 0px;">
                             <input type="text" id="pay_from_email" name="pay_from_email" style="width: 250px"  autocomplete="off">
-                            <label for="pay_from_email" style="left: 15px; top:101px; color: #AAAAAA; position: absolute; width: 100px;"><?php echo __(LBL_EMAIL);?></label>
+                            <label for="pay_from_email" style="left: 15px; top:91px; color: #AAAAAA; position: absolute; width: 100px;"><?php echo __(LBL_EMAIL);?></label>
                           </div>
                           <div style="clar:both"></div>
                           
                           <div style="padding-bottom: 5px;">
                             <input type="text" id="firstname" name="firstname" value=""  style="padding-bottom: 3px; color: #515151; border: solid 1px #686868; width: 100px;">
-                            <label for="firstname" style="left: 15px;  top:124px; color: #AAAAAA; position: absolute;">Fornavn</label>
+                            <label for="firstname" style="left: 15px;  top:115px; color: #AAAAAA; position: absolute;">Fornavn</label>
                             <input type="text" id="lastname" name="lastname" value="" style="padding-bottom: 3px; color: #515151; border: solid 1px #686868; width: 210px; margin-left: 8px;">
-                            <label for="lastname" style="left: 128px;  top:124px; color: #AAAAAA; position: absolute;">Efternavn</label>
+                            <label for="lastname" style="left: 135px;  top:115px; color: #AAAAAA; position: absolute;">Efternavn</label>
                           </div>
                           <div style="clar:both"></div>
                           
                           <div style="padding-bottom: 5px;">
                             <input type="text" id="address" name="address" value=""  style="padding-bottom: 3px; color: #515151; border: solid 1px #686868; width: 320px;">
-                            <label for="address" style="left: 15px;  top:152px; color: #AAAAAA; position: absolute; width: 100px;">Adresse</label>
+                            <label for="address" style="left: 15px;  top:146px; color: #AAAAAA; position: absolute; width: 100px;">Adresse</label>
                           </div>
                           <div style="clar:both"></div>
                           
                           <div style="padding-bottom: 5px;">
                             <input type="text" id="postal_code" name="postal_code" value=""  style="padding-bottom: 3px; color: #515151; border: solid 1px #686868;; width: 60px;">
-                            <label for="postal_code" style="left: 15px;  top:181px; color: #AAAAAA; position: absolute; width: 100px;">Postnr.</label>
+                            <label for="postal_code" style="left: 15px;  top:171px; color: #AAAAAA; position: absolute; width: 100px;">Postnr.</label>
                             <input type="text" id="city" name="city" value=""  style="padding-bottom: 3px; color: #515151; border: solid 1px #686868; width: 250px; margin-left: 8px;">
-                            <label for="city" style="left: 90px; top:181px;  color: #AAAAAA; position: absolute; width: 100px;">By</label>
+                            <label for="city" style="left: 90px; top:171px;  color: #AAAAAA; position: absolute; width: 100px;">By</label>
                           </div>
                           <div style="clar:both"></div>
                           
                           <div style="padding-bottom: 5px;">
                             <input type="text" id="phone_number" name="phone_number" value=""  maxlength="8" style="padding-bottom: 3px; color: #515151; border: solid 1px #686868; width: 120px; ">
                             <label for="phone_number" style="left: 15px; top:208px;  color: #AAAAAA; position: absolute; width: 100px;">Mobilnr.</label>
-                            <div id="pay_error" style="float: left; left: 120px;width: 150px;display: none; color: #ffffff; background: #ff0000; border: solid 1px #ffffff; padding: 0px; font-size: 10px; text-align: center;">Husk at udfylde alle felter!</div>
+                            <div id="pay_error" style="float: left; left: 120px; top: 170px; width: 150px;display: none; color: #ffffff; background: #ff0000; border: solid 1px #ffffff; padding: 0px; font-size: 10px; text-align: center;">Husk at udfylde alle felter!</div>
                           </div>
                           <div style="clar:both"></div>
                           <br/>
