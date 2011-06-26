@@ -299,4 +299,8 @@ define("LBL_SUBSCRIBE_NEW", "New subscriber - Tilbudibyen");
 define("LBL_VIEW_DEAL", "View Deal in Browser");
 define("LBL_VIEW_SITE", "View Site");
 define("LBL_UNSUBSCRIBED_CONFIRM_MESSAGE", "Er du sikker på du vil framelde dig tilbudibyens fantastiske tilbud?");
+define("LBL_EMAIL_NOT_ON_LIST", "The email you entered is not on a subscriber");
+define("LBL_EMAIL_UNSUBSCRIBE_SUBJECT", "Please confirm unsubscription from Tilbudibyen.com");
+define("LBL_UNSUBSCRIPTION_SUCCESS_MESSAGE", "You are now unsubscribe from TilbudIbyen.");
+define("LBL_UNSUBSCRIBE_CHECK_EMAIL", "Please check your email to confirm unsubscription process.");
 ?>

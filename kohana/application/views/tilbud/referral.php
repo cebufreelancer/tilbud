@@ -5,7 +5,7 @@
     
     <?php echo HTML::image(Url::base(TRUE) . 'images/bekraeft_din_tilmelding.jpg', array('width' => 600)); ?>
     <br />
-    <span id="signup-button" style="cursor: pointer;">NEXT</span>
+    <!-- ><span id="signup-button" style="cursor: pointer;">NEXT</span> -->
   </div>
 	<div id="share-us" style="display: none;">    
     <h2>Tak for din tilmelding!<br /><br />

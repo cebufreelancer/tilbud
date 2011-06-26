@@ -15,8 +15,9 @@ class Model_Subscriber extends ORM {
 	
 	public function add($email, $city_id)
 	{
-		$insert = DB::insert($this->_table_name, array('email','city_id'))
-								->values(array($email, $city_id));
+	  $date = date("Y-m-d H:i:s");
+		$insert = DB::insert($this->_table_name, array('email','city_id', 'created_at'))
+								->values(array($email, $city_id, $date));
 		
 		list($insert_id, $affected_rows) = $insert->execute();
 		

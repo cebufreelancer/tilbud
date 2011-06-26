@@ -9,6 +9,64 @@ class Controller_Home extends Controller {
     //  Auth::instance()->force_login("$user->username");
     //}
   }
+
+  public function action_unsubscribeme()
+  {
+    $error = array();
+    $page = View::factory('tilbud/unsubscribeme');
+    $token = $_REQUEST['t'];
+    $sql = "select * from subscribers where token='$token'";
+    $result = DB::query(Database::SELECT, $sql)->execute()->as_array();
+
+    if (sizeof($result) > 0) {
+      DB::delete('subscribers')->where('token', '=', $token)->execute();
+      $message = __(LBL_UNSUBSCRIPTION_SUCCESS_MESSAGE);
+    }
+    
+    $page->message = $message;
+    $this->response->body($page);
+
+  }
+  
+  public function action_unsubscribe()
+  {
+    $error = array();
+    $page = View::factory('tilbud/unsubscribe');
+  
+    if (isset($_POST['unsubscribeme'])) {
+      $email = trim($_POST['email']);
+      $sql = "select * from subscribers where email='" . $email . "'";
+  		$result = DB::query(Database::SELECT, $sql)->execute()->as_array();
+
+  		if (sizeof($result) > 0) {
+  		  // validate link
+  		  $token = md5($email . time());
+  		  $result = DB::update('subscribers')->set(array('token' => $token))->where('email', '=', $email);
+
+          $mailer = new XMail();
+          $mailer->subject = __(LBL_EMAIL_UNSUBSCRIBE_SUBJECT);
+          $mailer->message = "
+Please click the link below to unsubscribe from Tilbudibyen.com
+          <br/><br/>
+http://wwww.tilbudibyen.com/unsubscribeme?t=$token
+          <br/>
+
+          <br/><br/>
+          TilbudIbyen.com
+
+          ";
+                  $mailer->to = $email;
+                  $mailer->send();
+            $page->status = 'success';
+
+  		  }else {
+  		    $error[] = __(LBL_EMAIL_NOT_ON_LIST);
+  		  }
+  		}
+
+    $page->error = $error;
+    $this->response->body($page);
+  }
   
 	public function action_pdf()
 	{
