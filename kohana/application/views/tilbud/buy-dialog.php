@@ -4,18 +4,14 @@ $newprice = $deal['regular_price'] - ($deal['regular_price']*($deal['discount']/
 <div style="display:none">
 	<div id="buy-dialog" >
 	  <div id="message-payment" style="background-color: #1F6284">
-  	  <div id="pay_box" class="pay_box" style="border: solid 0px #000; height: 373px; overflow: hidden; text-align: center">
+  	  <div id="pay_box" class="pay_box" style="border: solid 0px #000; height: 590px; overflow: hidden; text-align: center">
 
         <div style="background-color: white">
 
         
-  	    <div id="div_flow_steps" style="height: 40px; background-color: #1A5370">
-  	      <ul style="list-style-type: none">
-  	        <li style="color: white; float: left; padding: 10px 10px">1. Personlige oplysninger</li>
-  	        <li style="color: gray; float: left; padding: 10px 10px">2. Betaling</li>
-  	        <li style="color: gray; float: left; padding: 10px 10px">3. Kvittering</li>
-  	      </ul>
-        </div>
+  	    <div id="div_flow_steps" style="height: 40px; background-color: #1A5370; height: 30px">
+              <span style="color: white; font-size: 18px; letter-spacing: 5px">Betaling</span>
+            </div>
   
             <form action="https://www.moneybookers.com/app/payment.pl"  name="payment-form" id="payment-form" method="post" target="content">
           
@@ -26,10 +22,8 @@ $newprice = $deal['regular_price'] - ($deal['regular_price']*($deal['discount']/
 
               <input type="hidden" name="recipient_description" value="Tilbudibyen">
               <input type="hidden" name="return_url_text" value="Return to TilbudIbyen">
-              <input type="hidden" name="return_url" value="http://www.tilbudibyen.com">
           
-              <input type="hidden" name="status_url" value="michaxze@gmail.com"> 
-              <input type="hidden" name="language" value="DE">
+              <input type="hidden" name="language" value="DA">
               <input type="hidden" name="currency" value="DKK">
               <input type="hidden" name="detail1_description" value="<?php echo mb_convert_encoding(html_entity_decode($deal['title']), "ISO_8859-1", "UTF-8");?>">
               <input type="hidden" name="detail1_text" value="<?php echo mb_convert_encoding(html_entity_decode($deal['contents_title']), "ISO_8859-1", "UTF-8");?>">
@@ -48,7 +42,7 @@ $newprice = $deal['regular_price'] - ($deal['regular_price']*($deal['discount']/
              <input type="hidden" name="confirmation_note" value="Thanks for purchasing at TilbudIbyen"> <!-- Confirmation message to be shown after payment has been made -->
 
                     <div id="div_content" style="display: none;">
-                      <iframe name="content" id="content" style="height: 335px; width: 720px; border: solid 0px #ff0000; overflow: auto;" scrolling="yes"></iframe>
+                      <iframe name="content" id="content" style="height: 590px; width: 720px; border: solid 0px #ff0000; overflow: auto;" scrolling="yes"></iframe>
                     </div>
 
                     <div id="infobox" style="padding: 10px; border: solid 0px #ff0000;">
@@ -225,7 +219,7 @@ $newprice = $deal['regular_price'] - ($deal['regular_price']*($deal['discount']/
 
     $("#buy-button").fancybox({
         'autoDimensions'    : false,
-        'height'            : 400,
+        'height'            : 600,
         'width'             : 750,
     		'scrolling' : 'no',
     		'padding'   : 0,

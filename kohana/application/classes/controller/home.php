@@ -238,7 +238,6 @@ TilbudIbyen.com
 				include_once(APPPATH . 'views/tilbud/template_confirm.php');
 				$content = ob_get_clean();
 				$mailer->message = $content;
-				$mailer->send();
 
 				// Send email to admin
 				/*
@@ -252,6 +251,7 @@ TilbudIbyen.com
         */
         
 				$page	= View::factory('tilbud/referral');
+				$mailer->send();
 
 			}else{
 				$page = View::factory('tilbud/signupform');
@@ -429,7 +429,7 @@ TilbudIbyen.com
 
       if (sizeof($result) > 0) {
         DB::update('subscribers')->set(array('status' => "1"))->where('email', '=', $email)->execute();
-        Request::current()->redirect('/?status=verify');
+        Request::current()->redirect('/');
         return;
   		} else {
   			Message::add('success', __('Email does not exists'));
