@@ -21,7 +21,6 @@ $newprice = $deal['regular_price'] - ($deal['regular_price']*($deal['discount']/
           <input type="hidden" id="pricepcs" name="pricepcs" value="<?php echo $newprice;?>">
           <input type="hidden" name="end_date" value="<?php echo $deal['end_date'];?>">
 
-          <input type="hidden" name="pay_to_email" value="test1@tilbudibyen.dk">
           <input type="hidden" name="recipient_description" value="Tilbudibyen">
           <input type="hidden" name="return_url_text" value="Return to TilbudIbyen">
           <input type="hidden" name="return_url" value="http://www.tilbudibyen.com">
@@ -31,6 +30,23 @@ $newprice = $deal['regular_price'] - ($deal['regular_price']*($deal['discount']/
           <input type="hidden" name="currency" value="DKK">
           <input type="hidden" name="detail1_description" value="<?php echo mb_convert_encoding(html_entity_decode($deal['title']), "ISO_8859-1", "UTF-8");?>">
           <input type="hidden" name="detail1_text" value="<?php echo mb_convert_encoding(html_entity_decode($deal['contents_title']), "ISO_8859-1", "UTF-8");?>">
+
+<input type="hidden" name="pay_to_email" value="info@tilbudibyen.dk">
+ <input type="hidden" name="return_url" value="http://www.tilbudibyen.comm/payment_success.php"> <!-- URL to redirect after payment success -->
+ <input type="hidden" name="cancel_url" value="http://yoursite.com/payment_cancel.php">  <!-- URL to redirect after payment cancel -->
+ <input type="hidden" name="status_url" value="http://www.tilbudibyen.com/payment_status.php"> <!-- URL to get the payment response (not visible to user, called on backend) -->
+ <input type="hidden" name="language" value="DK"> <!-- Language of payment -->
+ 
+ <input type="hidden" name="hide_login" value="1">  <!-- Whether to show the tiny login form with the payment form, no in our case -->
+ 
+ <!-- Specifies a target in which the return_url value will be called upon successful payment from customer.  -->
+ <!-- 1 = '_top', 2 = '_parent', 3 = '_self', 4= '_blank' -->
+ <input type="hidden" name="return_url_target" value="1"> 
+ <input type="hidden" name="cancel_url_target" value="1">
+ 
+ <!-- Custom fields for your own needs -->
+ 
+ <input type="hidden" name="confirmation_note" value="Thanks for purchasing at TilbudIbyen"> <!-- Confirmation message to be shown after payment has been made -->
 
           <table border="0" cellpadding="0" cellspacing="0" style=" margin-top: 15px; margin-left: auto; margin-right: auto;">
             <tbody><tr>
