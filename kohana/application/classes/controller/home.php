@@ -58,59 +58,6 @@ http://wwww.tilbudibyen.com/unsubscribeme?t=$token
     $page->error = $error;
     $this->response->body($page);
   }
-  
-	public function action_pdf()
-	{
-    $tilbud = "TILBUDIBYEN";
-    $datas[] = "Michael Gimena;04-05-2011;5.august 2011";
-
-    $title = "this is a title";
-    $description = "this is a little description";
-    $refno = "Referencenummer: 22424-ABC";
-    $address = "cebu city";
-    $second = mb_convert_encoding('Købsdato', "ISO-8859-1", "UTF-8");
-    $third = mb_convert_encoding('Udløbsdato', "ISO-8859-1", "UTF-8");
-
-$guide = mb_convert_encoding("
-Sådan bruger du dit værdibevis <br>
-- Print værdibeviset ud<br>
-- Hæng det op på køleskabet eller læg det i din pung<br>
-- Nyd oplevelsen med dine venner eller familie", "ISO-8859-1", "UTF-8");
-    
-    $pdf = new PDF('P', 'mm', array(250,200));
-    //Column titles
-    $header=array('Indehave',$second,$third);
-    //Data loading
-    $data=$pdf->LoadData($datas);
-    $pdf->SetFont('Arial','B',20);
-    $pdf->AddPage();    
-    
-    $pdf->Cell(0,20,$tilbud,0,1);
-
-    $pdf->SetFont('Arial','B',12);
-    $pdf->Cell(0,6,$title,0,1);
-    $pdf->SetFont('Arial','',11);
-    $pdf->Cell(0,6,$description,0,1);
-    $pdf->Ln();
-        
-    $pdf->BasicTable($header,$data);
-    $pdf->Ln();
-    $pdf->SetFont('Arial','B',11);    
-    $pdf->Cell(0,7,$refno,0,1);
-
-    $pdf->SetFont('Arial','',10);
-    $pdf->Cell(0,5,$address,0,1);
-
-    $pdf->Ln();
-    $pdf->WriteHTML($guide);
-    $pdf->Ln();
-    $pdf->Cell(0,6, "TilbudIbyen kundeservice", 0,1);
-    $pdf->Cell(0,6, "Mail: kundeservice@tilbudibyen.com", 0,1);
-    $pdf->Cell(0,6, mb_convert_encoding("Vi ses på www.tilbudibyen.com","ISO-8859-1", "UTF-8"), 0,1);
-    
-    $pdf->Output('testing123.pdf', 'F');
-
-  }
 
   public function action_changepassword()
   {
@@ -283,14 +230,17 @@ TilbudIbyen.com
 
     		// Send email to activate
 				$mailer = new XMail();
-				$mailer->subject = __(LBL_SUBSCRIBE);
-				$mailer->to = $email;
+				$mailer->subject = __(LBL_SIGNUP_SUBJECT);
+				$mailer->to = $posts['semail'];
+
+				$confirm_url = "http://www.tilbudibyen.com/verify?e=" . $email;
 				ob_start();
-				echo __(LBL_SUBSCRIBE_THANKYOU);
-				$mailer->message = ob_get_clean();
-				$mailer->send();
+				include_once(APPPATH . 'views/tilbud/template_confirm.php');
+				$content = ob_get_clean();
+				$mailer->message = $content;
 
 				// Send email to admin
+				/*
 				$mailer = new XMail();
 				$mailer->subject = __(LBL_SUBSCRIBE_NEW);
 				$mailer->to = "michaxze@gmail.com";
@@ -298,7 +248,8 @@ TilbudIbyen.com
 				echo $email;
 				$mailer->message = ob_get_clean();
 				$mailer->send();
-
+        */
+        
 				$page	= View::factory('tilbud/referral');
 
 			}else{
@@ -462,8 +413,35 @@ TilbudIbyen.com
 			}
 		}
 	}
-	
+
 	public function action_verify()
+	{ 
+		// Check if already logged in
+		//	Redirect to account page
+		if(Auth::instance()->logged_in()) {
+			Request::current()->redirect('user/myaccount');
+		}
+		
+		if(!empty($_GET)) {
+			$email = $_GET['e'];
+      $result = DB::select()->from('subscribers')->where('email', '=', $email)->execute()->as_array();
+
+      if (sizeof($result) > 0) {
+        DB::update('subscribers')->set(array('status' => "1"))->where('email', '=', $email)->execute();
+        Request::current()->redirect('/?status=verify');
+        return;
+  		} else {
+  			Message::add('success', __('Email does not exists'));
+  			$success = false;
+  		}
+	
+		$this->response->body(View::factory('tilbud/verify')
+						->set('success', $success)
+						->set('email', $email)); 
+	}
+
+	// to be deleted soon
+	public function action_verify_old()
 	{ 
 		// Check if already logged in
 		//	Redirect to account page
