@@ -2,14 +2,6 @@
 
 class Controller_Home extends Controller {
 
-  public function before()
-  {
-    //if (isset($_GET['facebook_user_id']) && $_GET['facebook_user_id'] != ""){
-    //  $user = ORM::factory('user')->find($_GET['facebook_user_id']);
-    //  Auth::instance()->force_login("$user->username");
-    //}
-  }
-
   public function action_unsubscribeme()
   {
     $error = array();
@@ -22,12 +14,11 @@ class Controller_Home extends Controller {
       DB::delete('subscribers')->where('token', '=', $token)->execute();
       $message = __(LBL_UNSUBSCRIPTION_SUCCESS_MESSAGE);
     }
-    
+
     $page->message = $message;
     $this->response->body($page);
-
   }
-  
+
   public function action_unsubscribe()
   {
     $error = array();
