@@ -238,6 +238,7 @@ TilbudIbyen.com
 				include_once(APPPATH . 'views/tilbud/template_confirm.php');
 				$content = ob_get_clean();
 				$mailer->message = $content;
+				$mailer->send();
 
 				// Send email to admin
 				/*
@@ -434,6 +435,7 @@ TilbudIbyen.com
   			Message::add('success', __('Email does not exists'));
   			$success = false;
   		}
+  	}
 	
 		$this->response->body(View::factory('tilbud/verify')
 						->set('success', $success)
