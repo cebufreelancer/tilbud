@@ -28,6 +28,7 @@ class Model_Deal extends ORM {
 		'image4' 				=> array('data_type' => 'string', 'is_nullable' => TRUE), 
 		'image5' 				=> array('data_type' => 'string', 'is_nullable' => TRUE), 
 		'facebook_image' 	=> array('data_type' => 'string', 'is_nullable' => TRUE), 
+		'image_email' 	=> array('data_type' => 'string', 'is_nullable' => TRUE), 
 		'regular_price'	=> array('data_type' => 'float'),
 		'discount'    	=> array('data_type' => 'float', 'is_nullable' => TRUE),
 		'vouchers'  	  => array('data_type' => 'int', 'is_nullable' => TRUE),

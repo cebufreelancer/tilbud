@@ -292,8 +292,8 @@ class Controller_Admin_Deals extends Controller {
 				}
 			}
 			
-      if (!empty($_FILES['deal_image_email']) {
-        $filename = "email_" . $_FILES['deal_image_email'];
+      if (!empty($_FILES['deal_image_email'])) {
+        $filename = "email_" . $_FILES['deal_image_email']['name'];
         $deals->image_email = $filename;
       }
 			
@@ -332,6 +332,9 @@ class Controller_Admin_Deals extends Controller {
 				
         if (!empty($_FILES['deal_image_email']) {
           $upload_path = UPLOADPATH . $deals->ID;
+          if(!file_exists($upload_path)) {
+            mkdir($upload_path);
+          }
           $file = $upload_path . "/" . $filename;
           move_uploaded_file($_FILES['deal_image_email']['tmp_name'], $file);
         }
@@ -498,6 +501,9 @@ class Controller_Admin_Deals extends Controller {
 
         if (!empty($_FILES['deal_image_email']) {
           $upload_path = UPLOADPATH . $deals->ID;
+          if (!file_exists($upload_path)) {
+            mkdir($upload_path);
+          }
           $file = $upload_path . "/" . $filename;
           move_uploaded_file($_FILES['deal_image_email']['tmp_name'], $file);
         }
