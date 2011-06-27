@@ -210,8 +210,6 @@ $newprice = $deal['regular_price'] - ($deal['regular_price']*($deal['discount']/
         return false;
       }
       
-      $("#infobox").hide();
-      $("#div_content").show();
       /*
       $.get("/payments/pay", { 
         firstname: $("#firstname").val(), 
@@ -227,12 +225,15 @@ $newprice = $deal['regular_price'] - ($deal['regular_price']*($deal['discount']/
       });
       */
       
-      return_url = "http://www.tilbudibyen.comm/payment_success?firstname=" + $("#firstname").val() + "&lastname=";
+      var return_url = "http://www.tilbudibyen.comm/payment_success?firstname=" + $("#firstname").val() + "&lastname=";
       return_url = return_url + $("#lastname").val() + "&email=" + $("#email").val() + "&address=" + $("#address").val() ;
       return_url = return_url + "&post_code=" + $("#postal_code").val() + "&city=" + $("#city").val() + "&mobile=" + $("#phone_number").val();
-      return_url = return_url + "&deal_id=" & $("#id").val() + "&pricepcs=" + $("#pricecs").val() + "&qty=" + $("#qty").val();
-      
+      return_url = return_url + "&deal_id=" +  $("#id").val() + "&pricepcs=" + $("#pricecs").val() + "&qty=" + $("#qty").val();
+
       $("#return_url").val(return_url);
+
+      $("#infobox").hide();
+      $("#div_content").show();
       return true;
       
     });

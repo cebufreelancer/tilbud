@@ -1,7 +1,25 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
 class Controller_Home extends Controller {
-  
+ 
+  public function action_sendsms()
+  {
+   /*
+   $message = urlencode(mb_convert_encoding("some text with æøå", "ISO-8859-1", "UTF-8"));
+    $url = "http://www.email2sms.dk/cgi/url_api/incoming.cgi?login=846919dml&password=846919dml&action=send&to=0034689757011&from=tilbudibyen&text=$message";
+    //$url = "http://www.email2sms.dk/cgi/url_api/incoming.cgi?login=846919dml&password=846919dml&action=send&to=00639391751522&from=tilbudibyen&text=$message";
+$ch = curl_init($url);
+$fp = fopen("example_homepage.txt", "w");
+
+curl_setopt($ch, CURLOPT_FILE, $fp);
+curl_setopt($ch, CURLOPT_HEADER, 0);
+
+curl_exec($ch);
+curl_close($ch);
+fclose($fp);
+   */
+  }
+ 
   public function action_payment_success(){
     error_log( print_r($_REQUEST, true), 3, $_SERVER['DOCUMENT_ROOT'] . '/paymentsuccess.txt');
 

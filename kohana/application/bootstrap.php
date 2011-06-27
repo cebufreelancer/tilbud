@@ -130,6 +130,7 @@ Kohana::modules(array(
  */
 // Special Pages Routes
 // Ex: This turns home/login into /login
+Route::set('sendsms', 'sendsms')->defaults(array('controller' => 'home', 'action' => 'sendsms'));
 Route::set('payment-success', 'payment-success')->defaults(array('controller' => 'home', 'action' => 'payment_success'));
 Route::set('payment-response', 'payment-response')->defaults(array('controller' => 'home', 'action' => 'payment_response'));
 Route::set('unsubscribe', 'unsubscribe')->defaults(array('controller' => 'home', 'action' => 'unsubscribe'));
