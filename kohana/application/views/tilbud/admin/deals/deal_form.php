@@ -170,8 +170,8 @@
           <li><?php echo __(LBL_UPLOAD_IMAGE_FOR_EMAIL);?></li>
           <li>
           <?php
-          if (isset($deal_image_email) && $deal_image_email != "") {
-            echo "<img src=\"$deal_image_email\">";
+          if (isset($image_email) && $image_email != "") {
+            echo "<img src=\"" . url::base(true) . "uploads/" . $deal_id . "/" . $image_email . "\">";
           }
           ?>
           <?php echo Form::file('deal_image_email', array("style" => "width: 500px")) ?>

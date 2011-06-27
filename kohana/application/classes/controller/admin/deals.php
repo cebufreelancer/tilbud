@@ -476,7 +476,7 @@ class Controller_Admin_Deals extends Controller {
 			
       if (!empty($_FILES['deal_image_email'])) {
         $filename = "email_" . $_FILES['deal_image_email']['name'];
-        $deals->image_emai = $filename;
+        $deals->image_email = $filename;
       }
 			
 
