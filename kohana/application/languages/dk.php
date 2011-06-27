@@ -306,4 +306,5 @@ define("LBL_UNSUBSCRIBE_CHECK_EMAIL", "Please check your email to confirm unsubs
 define("LBL_THANK_YOU_PAYMENT_SUCCESS_MESSAGE", "Thank you for purchasing a deal from TilbudIbyen");
 define("LBL_UPLOAD_IMAGE_FOR_EMAIL", "Upload Image for Email");
 define("LBL_ADD_IMAGE", "Add Image");
+define("LBL_PRICE_FOR_EMAIL", "Add price for email");
 ?>

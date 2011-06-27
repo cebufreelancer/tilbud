@@ -30,6 +30,7 @@ class Model_Deal extends ORM {
 		'facebook_image' 	=> array('data_type' => 'string', 'is_nullable' => TRUE), 
 		'image_email' 	=> array('data_type' => 'string', 'is_nullable' => TRUE), 
 		'regular_price'	=> array('data_type' => 'float'),
+		'price_for_email'	=> array('data_type' => 'float'),
 		'discount'    	=> array('data_type' => 'float', 'is_nullable' => TRUE),
 		'vouchers'  	  => array('data_type' => 'int', 'is_nullable' => TRUE),
 		'min_buy'    	  => array('data_type' => 'int', 'is_nullable' => TRUE),

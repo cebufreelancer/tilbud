@@ -257,6 +257,7 @@ class Controller_Admin_Deals extends Controller {
 			$deals->is_featured = 1;
 			$deals->regno				= $posts['deal_regno'];
 			$deals->itemno			= $posts['deal_itemno'];
+			$deals->price_for_email = $posts['price_for_email'];
 			
 			// Form Addresses
 			if(!empty($posts['deal_address'])) {
@@ -371,6 +372,7 @@ class Controller_Admin_Deals extends Controller {
 		$page->deal_video_url	= isset($posts['deal_video_url']) ? $posts['deal_video_url'] : '';
 		$page->deal_refno			= isset($posts['deal_refno']) ? $posts['deal_refno'] : '';
 		$page->address		    = isset($posts['deal_address']) ? $posts['deal_address'] : $deals->addresses;
+		$page->price_for_email = isset($posts['price_for_email']) ? $posts['price_for_email'] : '';
 		$page->deal_image     = $deals->image;
 		$page->deal_image2    = $deals->image2;
 		$page->deal_image3    = $deals->image3;
@@ -420,6 +422,7 @@ class Controller_Admin_Deals extends Controller {
 			$deals->regular_price = number_format($posts['deal_regular_price'], 2, '.', '');
 			$deals->discount  	= (int)$posts['deal_discount'];
 			$deals->reference_no= htmlentities($posts['deal_refno']);
+			$deals->price_for_email = $posts['price_for_email'];
 
 			if ($posts['deal_video_url'] != "") {
 			  //$deals->youtube_url	= $this->clean_video_url($posts['deal_video_url']);
@@ -566,6 +569,7 @@ class Controller_Admin_Deals extends Controller {
 		$page->expiry_date 		= isset($posts['deal_expiry_date']) ? $posts['deal_expiry_date'] : date("Y/m/d", strtotime($deals->expiry_date));
 		$page->deal_refno			= isset($posts['deal_refno']) ? $posts['deal_refno'] : $deals->reference_no;
 		$page->image_email		= $deals->image_email;
+		$page->price_for_email = isset($posts['price_for_email']) ? $posts['price_for_email'] : $deals->price_for_email;
 		
 		$addr = !@unserialize($deals->addresses) ? array($deals->addresses) : @unserialize($deals->addresses);
 	
