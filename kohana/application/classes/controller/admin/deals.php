@@ -292,6 +292,11 @@ class Controller_Admin_Deals extends Controller {
 				}
 			}
 			
+      if (!empty($_FILES['deal_image_email']) {
+        $filename = "email_" . $_FILES['deal_image_email'];
+        $deals->image_email = $filename;
+      }
+			
 			if($deals->save()) {
 				
 				// Sending of Emails if send mail is checked
@@ -324,6 +329,13 @@ class Controller_Admin_Deals extends Controller {
 						}
 					}
 				}
+				
+        if (!empty($_FILES['deal_image_email']) {
+          $upload_path = UPLOADPATH . $deals->ID;
+          $file = $upload_path . "/" . $filename;
+          move_uploaded_file($_FILES['deal_image_email']['tmp_name'], $file);
+        }
+
 						  				
 				// message: save success
         Message::add('success', __(sprintf(LBL_SUCCESS_ADD, LBL_DEAL,$deals->title)));
@@ -458,6 +470,12 @@ class Controller_Admin_Deals extends Controller {
 				}
 				$rimgs = !empty($posts['imgs']) ? array_diff($dimgs, $posts['imgs']) : $dimgs;
 			}
+			
+      if (!empty($_FILES['deal_image_email']) {
+        $filename = "email_" . $_FILES['deal_image_email']['name'];
+        $deals->image_emai = $filename;
+      }
+			
 
 			if($deals->save()) {
 
@@ -478,6 +496,12 @@ class Controller_Admin_Deals extends Controller {
 					}
 				}
 
+        if (!empty($_FILES['deal_image_email']) {
+          $upload_path = UPLOADPATH . $deals->ID;
+          $file = $upload_path . "/" . $filename;
+          move_uploaded_file($_FILES['deal_image_email']['tmp_name'], $file);
+        }
+        
 				// Remove deleted images from DB
 				if(!empty($rimgs)) {
 					$deals->delete_images($rimgs);
@@ -535,6 +559,7 @@ class Controller_Admin_Deals extends Controller {
 		$page->end_date 			= isset($posts['deal_end_date']) ? $posts['deal_end_date'] : date("Y/m/d", strtotime($deals->end_date));
 		$page->expiry_date 		= isset($posts['deal_expiry_date']) ? $posts['deal_expiry_date'] : date("Y/m/d", strtotime($deals->expiry_date));
 		$page->deal_refno			= isset($posts['deal_refno']) ? $posts['deal_refno'] : $deals->reference_no;
+		$page->image_email		= $deals->image_email;
 		
 		$addr = !@unserialize($deals->addresses) ? array($deals->addresses) : @unserialize($deals->addresses);
 	

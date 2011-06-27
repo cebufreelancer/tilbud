@@ -38,8 +38,16 @@
   Fakturanummer: <?= $order->ID; ?><br/>
   Dato: <?= date("F j, Y"); ?><br/><br/>
   
+  <?php
+  $order_status = $order->status;
+  if ($order_status == "delivered") {
+    $ostatus = "Leveret";
+  }else
+    $ostatus = $order_status;
+  }
+  ?>
   Betaling: <b><?= strtoupper($order->payment_type); ?></b><br/>
-  Betalingstatus: <b><?= strtoupper($order->status); ?></b><br/>   
+  Betalingstatus: <b><?= strtoupper($ostatus); ?></b><br/>   
   </td>
   
   </tr>
@@ -85,7 +93,7 @@
   Husk at oplyse dit bestillingsnummer hvis du skulle få brug for at henvende dig til Tilbudibyen kundeservice i forbindelse med dit køb.<br/><br/>
   
   Med venlig hilsen<br/>
-  The Tilbudibyen Team
+  Tilbudibyen.dk Aps
   <br/>
   <a href=\"http://www.tilbudibyen.com\">http://www.tilbudibyen.com</a><br/><br/><br/>
   

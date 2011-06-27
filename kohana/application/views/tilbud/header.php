@@ -15,10 +15,28 @@
   <meta property="og:site_name" content="www.tilbudibyen.com"/> 
 	<meta property="og:title" content="<?php echo html_entity_decode($deal['contents_title']) ?>" />
 	<meta property="og:description" content="<?php echo html_entity_decode($deal['description']);?>" />
+
+  <?php
+  if (isset($deal)) {
+    $dealimages= ORM::factory('image')->where('tid', '=', $deal['ID'])->find_all()->as_array();
+    if (sizeof($dealimages > 0)) {
+      $imagerow = $dealimages[0];
+      $facebook_image = $imagerow->path;
+      $facebook_image = $facebook_image;
+      $thumb = explode(".", $facebook_image);
+      $thumb_image = $thumb[0] . "_thumb." . $thumb[1];
+      if (file_exists(DOCROOT . '/' . $thumb_image)) {
+        $fb_image = $thumb_image;
+      }else {
+       $fb_image = "";
+      }
+    }
+  }
+  ?>
 	
-  	<?php if ($deal['facebook_image'] != "") {?>
-  	  <meta property="og:image" content="<?php echo url::base(true) . "uploads/" . $deal['ID'] . "/" . rawurlencode($deal['facebook_image']); ?>" />
-  	  <link rel="image_src"  type="image/jpeg"  href="<?php echo url::base(true) . "uploads/" . $deal['ID'] . "/" . rawurlencode($deal['facebook_image']); ?>" />
+  	<?php if ($fb_image != "") {?>
+  	  <meta property="og:image" content="<?php echo url::base(true) . $fb_image; ?>" />
+  	  <link rel="image_src"  type="image/jpeg"  href="<?php echo url::base(true) . $fb_image; ?>" />
   	<?php }else {?>
   	  <meta property="og:image" content="<?php echo url::base(true) . "images/logo.png";?>"/>
   	  <link rel="image_src" href="<?php echo url::base(true) . "images/logo.png"; ?>"/>

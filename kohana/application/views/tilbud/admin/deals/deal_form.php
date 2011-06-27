@@ -148,7 +148,7 @@
             }
             </script>
           </li>
-          <li><a id="addImage" href="" class="blue"><b>Add Image</b></a><br /></li>
+          <li><a id="addImage" href="" class="blue"><b><?php echo __(LBL_ADD_IMAGE);?></b></a><br /></li>
           <?php if($img_count > 0) { ?>
           <li>
          		<?php
@@ -167,6 +167,15 @@
           </li>
           <?php } ?>
           <li></li>
+          <li><?php echo __(LBL_UPLOAD_IMAGE_FOR_EMAIL);?></li>
+          <li>
+          <?php
+          if (isset($deal_image_email) && $deal_image_email != "") {
+            echo "<img src=\"$deal_image_email\">";
+          }
+          ?>
+          <?php echo Form::file('deal_image_email', array("style" => "width: 500px")) ?>
+          </li>
         </ul>
 			</div>
       

@@ -304,4 +304,6 @@ define("LBL_EMAIL_UNSUBSCRIBE_SUBJECT", "Please confirm unsubscription from Tilb
 define("LBL_UNSUBSCRIPTION_SUCCESS_MESSAGE", "You are now unsubscribe from TilbudIbyen.");
 define("LBL_UNSUBSCRIBE_CHECK_EMAIL", "Please check your email to confirm unsubscription process.");
 define("LBL_THANK_YOU_PAYMENT_SUCCESS_MESSAGE", "Thank you for purchasing a deal from TilbudIbyen");
+define("LBL_UPLOAD_IMAGE_FOR_EMAIL", "Upload Image for Email");
+define("LBL_ADD_IMAGE", "Add Image");
 ?>
