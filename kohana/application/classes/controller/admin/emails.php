@@ -399,7 +399,7 @@ class Controller_Admin_Emails extends Controller {
   			}*/
   			
 
-        $one_image_path = ($deals->image_email != "") ? HTML::Image(Url::base(TRUE).'uploads/' . $deals->ID . '/' . $deals->image_email) : "";
+        $one_image_path = ($deals->image_email != "") ? ('uploads/' . $deals->ID . '/' . $deals->image_email) : "";
 				$IMAGE_FOR_EMAIL			= HTML::Image(Url::base(TRUE) . $one_image_path,
 															array('width' => 445, 
 																		'height' => 300, 
