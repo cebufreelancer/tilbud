@@ -22,16 +22,16 @@ $newprice = $deal['regular_price'] - ($deal['regular_price']*($deal['discount']/
 
               <input type="hidden" name="recipient_description" value="Tilbudibyen">
               <input type="hidden" name="return_url_text" value="Return to TilbudIbyen">
-          
+              <input type="hidden" name="payment_methods" value="DNK,MSC,VSA,">         
               <input type="hidden" name="language" value="DA">
               <input type="hidden" name="currency" value="DKK">
               <input type="hidden" name="detail1_description" value="<?php echo mb_convert_encoding(html_entity_decode($deal['title']), "ISO_8859-1", "UTF-8");?>">
               <input type="hidden" name="detail1_text" value="<?php echo mb_convert_encoding(html_entity_decode($deal['contents_title']), "ISO_8859-1", "UTF-8");?>">
 
              <input type="hidden" name="pay_to_email" value="info@tilbudibyen.dk">
-             <input type="hidden" name="return_url" value="http://www.tilbudibyen.comm/payment_success"> <!-- URL to redirect after payment success -->
+             <input type="hidden" name="return_url" id="return_url" value="http://www.tilbudibyen.com"> <!-- URL to redirect after payment success -->
              <input type="hidden" name="cancel_url" value="http://www.tilbudibyen.com">  <!-- URL to redirect after payment cancel -->
-             <input type="hidden" name="status_url" value="http://www.tilbudibyen.com/payment_response"> <!-- URL to get the payment response (not visible to user, called on backend) -->
+             <input type="hidden" name="status_url" value="http://www.tilbudibyen.com/payment-response"> <!-- URL to get the payment response (not visible to user, called on backend) -->
              <input type="hidden" name="language" value="DK"> <!-- Language of payment -->
              <input type="hidden" name="hide_login" value="1">  <!-- Whether to show the tiny login form with the payment form, no in our case -->
              <!-- Specifies a target in which the return_url value will be called upon successful payment from customer.  -->
