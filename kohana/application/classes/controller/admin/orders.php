@@ -258,12 +258,14 @@ class Controller_Admin_Orders extends Controller {
 							// Send Emails
 							foreach($ids as $oid) {
 								$this->send_mail_template($oid, $status);
-								
 								// Update deals total sold
 								$order = ORM::factory('order', $oid);
 								$deal = ORM::factory('deal', $order->deal_id);
 								$deal->total_sold+=$order->total_count;
 								$deal->save();
+
+                // Send Sms to customer
+								$this->send_sms($order);
 							}
 							
 							// Update 
@@ -424,6 +426,24 @@ class Controller_Admin_Orders extends Controller {
 		$page->order_date_created = $order->date_created;
 		
 		$this->response->body($page);
+	}
+	
+	public function send_sms($order)
+	{
+	  $user = ORM::factory('user', $order->user_id);
+	  if ($user->mobile != "") {
+        $message = "Din ordre er nu leveret. Dit refferance nummer er: '" + $order->refno . "' Hilsen www.Tilbudibyen.dk";
+        $message = urlencode($message);
+        $url = "http://www.email2sms.dk/cgi/url_api/incoming.cgi?login=846919dml&password=846919dml&action=send&to=0063" . trim($user->mobile) . "&from=tilbudibyen&text=$message";
+
+        $ch = curl_init($url);
+        $fp = fopen("sms_sending.log", "w");
+        curl_setopt($ch, CURLOPT_FILE, $fp);
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_exec($ch);
+        curl_close($ch);
+        fclose($fp);
+    }
 	}
 	
 	public function send_mail_template($id, $status=NULL)
