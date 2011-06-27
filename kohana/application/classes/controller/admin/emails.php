@@ -375,7 +375,7 @@ class Controller_Admin_Emails extends Controller {
 				$LOGO						= HTML::Image(Url::base(TRUE).'images/logo.png');
 				$FACEBOOK				= HTML::Image(Url::base(TRUE).'images/facebook-like.png');
 				$PRICE_FOR_EMAIL= ($deals->price_for_email != "") ? $deals->price_for_email : "";
-				$IMAGE_FOR_EMAIL= ($deals->image_email != "") ? HTML::Image(Url::base(TRUE).$deals->image_email) : "";
+				$IMAGE_FOR_EMAIL= ($deals->image_email != "") ? HTML::Image(Url::base(TRUE).'uploads/' . $deals->ID . '/' . $deals->image_email) : "";
 				
 				$DEALTITLE			= $deals->title;
 				$DEALURL				= HTML::anchor(Url::base(TRUE) . 'deals/view/' . $deals->ID, 
