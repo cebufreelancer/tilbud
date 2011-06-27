@@ -17,9 +17,10 @@
 	<meta property="og:description" content="<?php echo html_entity_decode($deal['description']);?>" />
 
   <?php
+  $fb_image = "";
   if (isset($deal)) {
     $dealimages= ORM::factory('image')->where('tid', '=', $deal['ID'])->find_all()->as_array();
-    if (sizeof($dealimages > 0)) {
+    if (sizeof($dealimages) > 0) {
       $imagerow = $dealimages[0];
       $facebook_image = $imagerow->path;
       $facebook_image = $facebook_image;
