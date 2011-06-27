@@ -21,6 +21,7 @@ $newprice = $deal['regular_price'] - ($deal['regular_price']*($deal['discount']/
               <input type="hidden" name="end_date" value="<?php echo $deal['end_date'];?>">
 
               <input type="hidden" name="recipient_description" value="Tilbudibyen">
+              <input type="hidden" name="prepare_only" value="1">
               <input type="hidden" name="return_url_text" value="Return to TilbudIbyen">
               <input type="hidden" name="payment_methods" value="DNK,MSC,VSA,">         
               <input type="hidden" name="language" value="DA">
