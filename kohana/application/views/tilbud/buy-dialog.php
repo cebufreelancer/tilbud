@@ -16,7 +16,7 @@ $newprice = $deal['regular_price'] - ($deal['regular_price']*($deal['discount']/
             <form action="https://www.moneybookers.com/app/payment.pl"  name="payment-form" id="payment-form" method="post" target="content">
           
               <input type="hidden" name="title" value="<?php echo $deal['title'];?>">
-              <input type="hidden" name="id" value="<?php echo $deal['ID'];?>">
+              <input type="hidden" name="id" id="id" value="<?php echo $deal['ID'];?>">
               <input type="hidden" id="pricepcs" name="pricepcs" value="<?php echo $newprice;?>">
               <input type="hidden" name="end_date" value="<?php echo $deal['end_date'];?>">
 
@@ -47,7 +47,7 @@ $newprice = $deal['regular_price'] - ($deal['regular_price']*($deal['discount']/
 
                     <div id="infobox" style="padding: 10px; border: solid 0px #ff0000;">
                       <div style="font-size: 10pt; text-align: left">
-                        Antal <select name="qty" style="padding-bottom: 3px; color: #515151; border: solid 1px #686868; font-size: 12pt; padding-bottom: 3px; color: #515151; border: solid 1px #686868;" 
+                        Antal <select id="qty" name="qty" style="padding-bottom: 3px; color: #515151; border: solid 1px #686868; font-size: 12pt; padding-bottom: 3px; color: #515151; border: solid 1px #686868;" 
                         onchange="computeTotal(this);">
                           <?php
                           for($i=1; $i<=$deal['max_buy']; $i++) {
@@ -89,7 +89,7 @@ $newprice = $deal['regular_price'] - ($deal['regular_price']*($deal['discount']/
                           <div style="padding-bottom: 5px;">
                             <input type="text" id="phone_number" name="phone_number" value=""  maxlength="8" style="padding-bottom: 3px; color: #515151; border: solid 1px #686868; width: 120px; ">
                             <label for="phone_number" style="left: 15px; top:208px;  color: #AAAAAA; position: absolute; width: 100px;">Mobilnr.</label>
-                            <div id="pay_error" style="float: left; left: 120px; top: 170px; width: 150px;display: none; color: #ffffff; background: #ff0000; border: solid 1px #ffffff; padding: 0px; font-size: 10px; text-align: center;">Husk at udfylde alle felter!</div>
+                            <div id="pay_error" style="float: left; left: 120px;width: 150px;display: none; color: #ffffff; background: #ff0000; border: solid 1px #ffffff; padding: 0px; font-size: 10px; text-align: center;">Husk at udfylde alle felter!</div>
                           </div>
                           <div style="clar:both"></div>
                           <br/>
@@ -212,7 +212,27 @@ $newprice = $deal['regular_price'] - ($deal['regular_price']*($deal['discount']/
       
       $("#infobox").hide();
       $("#div_content").show();
-      $.get("/payments/pay", { firstname: $("#firstname").val(), lastname: $("#lastname").val(), email: $("#pay_from_email").val(), address: $("#postal_code").val(), city: $("#city").val(), mobile: $("#phone_number").val() });
+      /*
+      $.get("/payments/pay", { 
+        firstname: $("#firstname").val(), 
+        lastname: $("#lastname").val(), 
+        email: $("#pay_from_email").val(), 
+        address: $("#address").val(), 
+        postal_code: $("#postal_code").val(), 
+        city: $("#city").val(), 
+        mobile: $("#phone_number").val(),
+        deal_id: $("#id").val(),
+        pricepcs: $("#pricepcs").val(),
+        qty: $("#qty").val()
+      });
+      */
+      
+      return_url = "http://www.tilbudibyen.comm/payment_success?firstname=" + $("#firstname").val() + "&lastname=";
+      return_url = return_url + $("#lastname").val() + "&email=" + $("#email").val() + "&address=" + $("#address").val() ;
+      return_url = return_url + "&post_code=" + $("#postal_code").val() + "&city=" + $("#city").val() + "&mobile=" + $("#phone_number").val();
+      return_url = return_url + "&deal_id=" & $("#id").val() + "&pricepcs=" + $("#pricecs").val() + "&qty=" + $("#qty").val();
+      
+      $("#return_url").val(return_url);
       return true;
       
     });

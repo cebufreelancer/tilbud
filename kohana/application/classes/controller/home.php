@@ -3,10 +3,74 @@
 class Controller_Home extends Controller {
   
   public function action_payment_success(){
-    error_log( print_r($_REQUEST, true), 3, $_SERVER['DOCUMENT_ROOT'] . '/paymentsuccess.txt');    
+    error_log( print_r($_REQUEST, true), 3, $_SERVER['DOCUMENT_ROOT'] . '/paymentsuccess.txt');
+
+    $result = DB::select()->from('users')->where('email', '=', $_REQUEST['email'])->execute()->as_array();
+    if (sizeof($result) > 0) {
+      //do nothing i guess
+    }else {
+      // new record
+      $result = DB::insert('users', array('firstname','lastname', 'email', 'address', 'postal_code', 'city', 'mobile', 'status', 'username'))
+              ->values(array($_REQUEST['firstname'], $_REQUEST['lastname'], $_REQUEST['email'], $_REQUEST['address'], $_REQUEST['postal_code'], $_REQUEST['city'], $_REQUEST['mobile'], 'active', $_REQUEST['email']))->execute();
+    }
+
+    $result = DB::select()->from('users')->where('email', '=', $_REQUEST['email'])->execute()->as_array();
+    // get the first and only record
+    $user = $result[0];
+
+    // creating an order
+    $order['deal_id'] = $_REQUEST['deal_id'];
+    $order['user_id'] = $user['id'];
+    $order['quantity'] = $_REQUEST['qty'];
+    $order['status'] = 'new';
+    if (isset($_REQUEST['amount'])) {
+      $order['total_count'] = $_REQUEST['amount'];
+    }
+
+    $payment_type = "";
+    if (isset($_REQUEST['payment_type'])) {
+      $payment_type = $_REQUEST['payment_type'];
+    }
+    $order['payment_type'] = $payment_type;
+
+    $proc_order = ORM::factory('order');
+    $order['refno'] = $proc_order->generate_reference_no(8, $_REQUEST['deal_id']);
+    $proc_order->values($order);
+    $proc_order->save();
+
+    $this_deal = ORM::factory('deal', (int)$_REQUEST['deal_id']);
+
+    /************************
+     *    Email the user
+    ************************/ 
+    $transaction_id = "";
+    if (isset($_REQUEST['transaction_id'])) {
+      $transaction_id = $_REQUEST['transaction_id'];
+    }
+
+
+    $title = "Tillykke med dit køb hos TilbudiByen.dk (Ordrenummer {$transaction_id})";
+
+    $mailer = new XMail();
+    $mailer->to = $user['email'];
+    $mailer->subject = mb_convert_encoding($title, "ISO-8859-1", "UTF-8");
+
+    // Requires $order, $user, $deal variables
+    $order = ORM::factory('order', $proc_order->ID);
+    $deal = ORM::factory('deal', $order->deal_id);
+    $user = ORM::factory('user', $order->user_id);
+
+    ob_start();
+    include_once(APPPATH . 'views/tilbud/template_after_order.php');
+    $mailer->message = ob_get_clean();
+    $mailer->send();
+
+    $page = View::factory('tilbud/payment_success');
+    $this->response->body($page);
+
   }
   
-  public function action_payresponse() {
+  public function action_payment_response() {
     error_log( print_r($_REQUEST, true), 3, $_SERVER['DOCUMENT_ROOT'] . '/paymentresponse.txt');
   }
 

@@ -7,5 +7,5 @@ class Controller_Payments extends Controller {
 	  //error_log( print_r($_REQUEST, true), 3, $_SERVER['DOCUMENT_ROOT'] . '/info_index_log.txt');
 	  //error_log($_REQUEST['firstname']);
 	  //error_log($_REQUEST['lastname']);
-	}
+
 }
