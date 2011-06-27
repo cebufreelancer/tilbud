@@ -375,7 +375,7 @@ class Controller_Admin_Emails extends Controller {
 				$LOGO						= HTML::Image(Url::base(TRUE).'images/logo.png');
 				$FACEBOOK				= HTML::Image(Url::base(TRUE).'images/facebook-like.png');
 				$PRICE_FOR_EMAIL= ($deals->price_for_email != "") ? $deals->price_for_email : "";
-				$IMAGE_FOR_EMAIL= ($deals->image_email != "") ? HTML::Image(Url::base(TRUE).'uploads/' . $deals->ID . '/' . $deals->image_email) : "";
+			
 				
 				$DEALTITLE			= $deals->title;
 				$DEALURL				= HTML::anchor(Url::base(TRUE) . 'deals/view/' . $deals->ID, 
@@ -388,6 +388,7 @@ class Controller_Admin_Emails extends Controller {
 				$DEALSAVINGS		= $deals->regular_price - $DEALPRICE;
 				$DEALINFO				= html_entity_decode($deals->information);
 
+  			/*
   			$dimages = ORM::factory('image')->where('tid', '=', $deals->ID)->find_all()->as_array();
   			$one_image_path = "";
   			if(!empty($dimages)) {
@@ -395,10 +396,11 @@ class Controller_Admin_Emails extends Controller {
   					$one_image_path = $d->path;
   					break;
   				}
-  			}
+  			}*/
   			
 
-				$DEALIMAGE			= HTML::Image(Url::base(TRUE) . $one_image_path,
+        $one_image_path = ($deals->image_email != "") ? HTML::Image(Url::base(TRUE).'uploads/' . $deals->ID . '/' . $deals->image_email) : "";
+				$IMAGE_FOR_EMAIL			= HTML::Image(Url::base(TRUE) . $one_image_path,
 															array('width' => 445, 
 																		'height' => 300, 
 																		'style' => 'margin-bottom: 20px;'));
