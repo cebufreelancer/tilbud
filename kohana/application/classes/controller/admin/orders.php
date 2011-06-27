@@ -432,9 +432,9 @@ class Controller_Admin_Orders extends Controller {
 	{
 	  $user = ORM::factory('user', $order->user_id);
 	  if ($user->mobile != "") {
-        $message = "Din ordre er nu leveret. Dit refferance nummer er: '" + $order->refno . "' Hilsen www.Tilbudibyen.dk";
+        $message = "Din ordre er nu leveret. Dit refferance nummer er: '" . $order->refno . "' Hilsen www.Tilbudibyen.dk";
         $message = urlencode($message);
-        $url = "http://www.email2sms.dk/cgi/url_api/incoming.cgi?login=846919dml&password=846919dml&action=send&to=0063" . trim($user->mobile) . "&from=tilbudibyen&text=$message";
+        $url = "http://www.email2sms.dk/cgi/url_api/incoming.cgi?login=846919dml&password=846919dml&action=send&to=0045" . trim($user->mobile) . "&from=tilbudibyen&text=$message";
 
         $ch = curl_init($url);
         $fp = fopen("sms_sending.log", "w");
