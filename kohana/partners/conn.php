@@ -1,5 +1,5 @@
 <?php
-$conn  = mysql_connect("localhost", "root", "root");
-mysql_select_db("tilbud5");
+$conn  = mysql_connect("localhost", "tilbud", "deal#city123");
+mysql_select_db("tilbud_development");
 
 ?>

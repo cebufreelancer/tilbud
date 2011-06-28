@@ -20,7 +20,7 @@
 
 							<?php $xml = Url::base() . 'uploads/' . $deal['ID'] . '/' . $deal['ID'] . '.xml'; ?>
 
-              <div id="banner" style="margin-bottom: -315px;">
+              <div id="banner" style="margin-bottom: -317px;">
               	<script type="text/javascript" src="<?php echo Url::base();?>js/imagerotator/swfobject.js"></script>
 								<script type="text/javascript">
                   var s1 = new SWFObject("<?php echo Url::base(); ?>js/imagerotator/imagerotator.swf","rotator","950","310","7");
@@ -123,8 +123,8 @@
                 <div class="clear"></div>
               </div>
             
-              <div style="z-index: 101; position: relative; margin-top: -1px">
-                <div class="offer-container" style="z-index: 87">
+              <div style="z-index: 101; position: relative; margin-top: 0px">
+                <div class="offer-container" style="z-index: 87; height: 82px">
                 	<p class="period-label"><?= LBL_OFFER_ACTIVE_WHEN ?> <?php echo $deal['min_sold']; ?> <?= LBL_BUY ?></p>
                   <p class="period"><?php echo $total_qty; ?> <?= LBL_BOUGHT ?></p>
                 </div>
