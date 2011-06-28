@@ -39,7 +39,7 @@ $newprice = $deal['regular_price'] - ($deal['regular_price']*($deal['discount']/
              <input type="hidden" name="return_url_target" value="1"> 
              <input type="hidden" name="cancel_url_target" value="1">
              <!-- Custom fields for your own needs -->
-             <input type="hidden" name="confirmation_note" value="Thanks for purchasing at TilbudIbyen"> <!-- Confirmation message to be shown after payment has been made -->
+             <input type="hidden" name="confirmation_note" value="Tak for din ordre hos Tilbudibyen.dk"> <!-- Confirmation message to be shown after payment has been made -->
 
                     <div id="div_content" style="display: none;">
                       <iframe name="content" id="content" style="height: 590px; width: 720px; border: solid 0px #ff0000; overflow: auto;" scrolling="yes"></iframe>
