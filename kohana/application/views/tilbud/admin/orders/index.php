@@ -105,7 +105,7 @@
 							echo Form::select('status', $status, 0, array('class' => 'actionButton')) . Form::submit('action', 'Set', array('class' => 'actionButton'));
 							echo " " . Form::submit('action', __(LBL_SEND_EMAIL), array('class' => 'actionButton'));
 							echo " " . Form::submit('action', __(LBL_DELETE), array('class' => 'actionButton'));
-							echo " " . Form::submit('action', __(LBL_MARKED_AS_REFNO_USED), array('class' => 'actionButton'));
+							echo " " . Form::submit('action', __(LBL_MARKED_AS_REFNO_PAID), array('class' => 'actionButton'));
 							?> 
             </td>
           </tr>
@@ -129,8 +129,24 @@
             $edit_url = HTML::anchor('admin/orders/edit/' . $order['ID'], __(LBL_EDIT));
             $delete_url = HTML::anchor('admin/orders/delete/' . $order['ID'], __(LBL_DELETE), array('class' => 'delete'));
 						$total += $order['total_count'];
-						$ref_status = ($order['is_claimed'] == "1") ? "Used" : "Not used";
-						$ref_class = ($order['is_claimed'] == "1") ? "style=\"color: green; font-weight: bold\"" : "";
+						
+						if ($order['is_claimed'] == "1") {
+						  $ref_status = __(LBL_USED);
+						}else if ($order['is_claimed'] == "2") {
+						  $ref_status = __(LBL_PAID);
+						}else{
+						  $ref_status = __(LBL_NOT_USED);
+						}
+
+						if ($order['is_claimed'] == "1") {
+						  $ref_class = "style=\"color: green; font-weight: bold\"";
+						}else if ($order['is_claimed'] == "2") {
+						  $ref_class = "style=\"color: orange; font-weight: bold\"";
+						}else{
+						  $ref_class = "style=\"color: gray; font-weight: normal\"";
+						}
+						
+
 
 						switch($order['status']) {
 						case 'delivered': $status = __(LBL_ORDER_DELIVERED); $class = 'bblue'; break;

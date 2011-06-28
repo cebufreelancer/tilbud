@@ -22,6 +22,15 @@
       foreach($orders as $order){
         $user = DB::select()->from('users')->where('id', '=', $order['user_id'])->execute()->as_array();
         if (sizeof($user) > 0) {
+          
+					if ($order['is_claimed'] == "1") {
+					  $ref_status = __(LBL_USED);
+					}else if ($order['is_claimed'] == "2") {
+					  $ref_status = __(LBL_PAID);
+					}else{
+					  $ref_status = __(LBL_NOT_USED);
+					}          
+          
       ?>
       <tbody>
         <tr>
@@ -29,7 +38,7 @@
           <td><?php echo $user[0]['firstname'] . " " .  $user[0]['lastname'];?></td>
           <td> <?php echo $order['refno'];?></td>
           <td> <?php echo $order['total_count'];?></td>
-          <td> <?php echo ($order['is_claimed'] == "1") ? "Used" : "Not used" ?></td>
+          <td> <?php echo $ref_status; ?></td>
         </tr>
       </tbody>
       <?php } } ?>

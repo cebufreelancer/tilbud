@@ -129,6 +129,7 @@
 																																																 'align' => 'left', 
 																																																 'style' => 'margin-right: 5px; margin-top: 5px;'));
             $ref_code_status_link = HTML::anchor('admin/deals/refcode/' . $deal['ID'], __(LBL_VIEW_REF_CODE_STATUS));
+            $resturant_userpassword_link = HTML::anchor('admin/deals/set_user/' . $deal['ID'], __(LBL_SET_USER));
 						
 						switch($deal['status']) {
 						case 'active': 		$status = __(LBL_ACTIVE); break;
@@ -139,7 +140,7 @@
 						
 						echo '<tr ' . $serving_css . '>';
 						echo '<td style="width:400px;"><div style="font-weight: bold; min-height: 55px;">' . $img_thumb . $deal['description'] . '</div>' .
-						     '<div>' . $edit_url . ' | ' . $delete_url . ' | ' . $email_url . ' | ' . $view_url . ' | ' . $ref_code_status_link . '</div>' .
+						     '<div>' . $edit_url . ' | ' . $delete_url . ' | ' . $email_url . ' | ' . $view_url . ' | ' . $ref_code_status_link . ' | ' . $resturant_userpassword_link . '</div>' .
 						     '</td>';
 						echo '<td>' . $group . '</td>';
 						echo '<td>' . date("F d, Y", strtotime($deal['start_date'])) . '</td>';

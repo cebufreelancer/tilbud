@@ -194,8 +194,8 @@ class Controller_Admin_Orders extends Controller {
 				$posts['action'] = 'delete';
 			} else if ($posts['action'] == __(LBL_SEND_EMAIL)) {
 				$posts['action'] = 'sendpdf';
-			} else if ($posts['action'] == __(LBL_MARKED_AS_REFNO_USED)) {
-			  $posts['action'] = 'refno_used';
+			} else if ($posts['action'] == __(LBL_MARKED_AS_REFNO_PAID)) {
+			  $posts['action'] = 'refno_paid';
 			}
 
 			$action = strtolower(str_replace(" ", "", $posts['action']));
@@ -204,11 +204,11 @@ class Controller_Admin_Orders extends Controller {
 			
 			switch($action) {
 				// Marked refno as used.
-				case 'refno_used':
+				case 'refno_paid':
   				foreach($ids as $oid) {
   					$order = ORM::factory('order', $oid);
-  					$order->is_claimed = '1';
-  					$order->claimed_at = date("Y-m-d H:i:s");
+  					$order->is_claimed = '2';
+  					$order->paid_at = date("Y-m-d H:i:s");
   					$order->save();
   				}
           break;

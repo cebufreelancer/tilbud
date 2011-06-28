@@ -72,7 +72,7 @@ if (!isset($_SESSION['b_user']) || $_SESSION['b_user'] == "") {
       <table>
         <?php if(isset($error) && $error != "") {?>
         <tr>
-          <td colspan=2 ><span style="color: red;font-size: 11px"><?php echo $error;?></span></td>
+          <td colspan=2 ><span style="color: red;font-size: 11px"><?php echo $error;?><br/><?php echo LBL_PLEASE_CALL_US;?></span></td>
         </tr>
         <?php } ?>
         
@@ -98,9 +98,6 @@ if (!isset($_SESSION['b_user']) || $_SESSION['b_user'] == "") {
   
 <?php }?>
 
-        <br/><br/><br/>
-        <hr>
-        <p><?php echo LBL_PLEASE_CALL_US;?></p>
         </td> 
       </tr> 
       <tr> 

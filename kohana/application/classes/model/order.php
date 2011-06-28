@@ -22,6 +22,7 @@ class Model_Order extends ORM {
 		'status' 				=> array('data_type' => 'string'),
 		'is_claimed' 		=> array('data_type' => 'int'),
 		'claimed_at' 		=> array('data_type' => 'datetime'),
+		'paid_at' 		=> array('data_type' => 'datetime'),
 		'date_paid' 		=> array('data_type' => 'datetime'),
 		'date_created' 	=> array('data_type' => 'datetime'),
 		);

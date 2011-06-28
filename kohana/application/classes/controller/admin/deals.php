@@ -2,6 +2,22 @@
 
 class Controller_Admin_Deals extends Controller {
 
+  public function action_set_user($id)
+  {
+    $row = DB::select()->from('businesses')->where('deal_id','=', $id)->execute()->as_array();
+    if (sizeof($row) == 0) {
+      $username = "user" . $id;
+      $password = rand(1000, 999999) + ($id * rand(1,10));
+      // lets create user and password
+      DB::insert('businesses', array('username', 'password', 'deal_id', 'status'))->values(array($username, $password, $id, '1'))->execute();
+    }
+
+    $bus = DB::select()->from('businesses')->where('deal_id', '=', $id)->execute()->as_array();
+
+    $page = View::factory('tilbud/admin/deals/set_user');
+    $page->bus = $bus[0];
+    $this->response->body($page);
+  }
   public function action_refcode($id)
   {
     $page = View::factory('tilbud/admin/deals/refcode');
