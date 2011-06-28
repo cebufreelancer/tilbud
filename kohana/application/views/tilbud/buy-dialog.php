@@ -3,10 +3,10 @@ $newprice = $deal['regular_price'] - ($deal['regular_price']*($deal['discount']/
 ?>
 <div style="display:none">
 	<div id="buy-dialog" >
-	  <div id="message-payment" style="background-color: #1F6284">
+	  <div id="message-payment" style="background-color: #1F6284; background-image: url('/images/paybag.jpg'); background-repeat: repeat-x">
   	  <div id="pay_box" class="pay_box" style="border: solid 0px #000; height: 590px; overflow: hidden; text-align: center">
 
-        <div style="background-color: white">
+        <div >
 
         
   	    <div id="div_flow_steps" style="height: 40px; background-color: #1A5370; height: 30px">
@@ -28,10 +28,10 @@ $newprice = $deal['regular_price'] - ($deal['regular_price']*($deal['discount']/
               <input type="hidden" name="detail1_description" value="<?php echo mb_convert_encoding(html_entity_decode($deal['title']), "ISO_8859-1", "UTF-8");?>">
               <input type="hidden" name="detail1_text" value="<?php echo mb_convert_encoding(html_entity_decode($deal['contents_title']), "ISO_8859-1", "UTF-8");?>">
 
-             <input type="hidden" name="pay_to_email" value="info@tilbudibyen.dk">
+             <input type="hidden" name="pay_to_email" value="test1@tilbudibyen.dk">
              <input type="hidden" name="return_url" id="return_url" value="http://www.tilbudibyen.com"> <!-- URL to redirect after payment success -->
              <input type="hidden" name="cancel_url" value="http://www.tilbudibyen.com">  <!-- URL to redirect after payment cancel -->
-             <input type="hidden" name="status_url" value="http://www.tilbudibyen.com/payment-success"> <!-- URL to get the payment response (not visible to user, called on backend) -->
+             <input type="hidden" name="status_url" id="status_url"  value="http://www.tilbudibyen.com/payment-success"> <!-- URL to get the payment response (not visible to user, called on backend) -->
              <input type="hidden" name="language" value="DK"> <!-- Language of payment -->
              <input type="hidden" name="hide_login" value="1">  <!-- Whether to show the tiny login form with the payment form, no in our case -->
              <!-- Specifies a target in which the return_url value will be called upon successful payment from customer.  -->
@@ -39,10 +39,10 @@ $newprice = $deal['regular_price'] - ($deal['regular_price']*($deal['discount']/
              <input type="hidden" name="return_url_target" value="1"> 
              <input type="hidden" name="cancel_url_target" value="1">
              <!-- Custom fields for your own needs -->
-             <input type="hidden" name="confirmation_note" value="Thanks for purchasing at TilbudIbyen"> <!-- Confirmation message to be shown after payment has been made -->
+             <input type="hidden" name="confirmation_note" value="Tak for din ordre hos Tilbudibyen.dk"> <!-- Confirmation message to be shown after payment has been made -->
 
                     <div id="div_content" style="display: none;">
-                      <iframe name="content" id="content" style="height: 590px; width: 720px; border: solid 0px #ff0000; overflow: auto;" scrolling="yes"></iframe>
+                      <iframe name="content" allowtransparency="true" id="content" style="height: 590px; width: 720px; border: solid 0px #ff0000; overflow: auto;" scrolling="yes"></iframe>
                     </div>
 
                     <div id="infobox" style="padding: 10px; border: solid 0px #ff0000;">
@@ -226,9 +226,9 @@ $newprice = $deal['regular_price'] - ($deal['regular_price']*($deal['discount']/
       */
       
       var return_url = "http://www.tilbudibyen.comm/payment-success?firstname=" + $("#firstname").val() + "&lastname=";
-      return_url = return_url + $("#lastname").val() + "&email=" + $("#email").val() + "&address=" + $("#address").val() ;
+      return_url = return_url + $("#lastname").val() + "&email=" + $("#pay_from_email").val() + "&address=" + $("#address").val() ;
       return_url = return_url + "&post_code=" + $("#postal_code").val() + "&city=" + $("#city").val() + "&mobile=" + $("#phone_number").val();
-      return_url = return_url + "&deal_id=" + $("#id").val() + "&pricepcs=" + $("#pricecs").val() + "&qty=" + $("#qty").val();
+      return_url = return_url + "&deal_id=" + $("#id").val() + "&pricepcs=" + $("#pricepcs").val() + "&qty=" + $("#qty").val();
       $("#status_url").val(return_url);
 
       $("#infobox").hide();

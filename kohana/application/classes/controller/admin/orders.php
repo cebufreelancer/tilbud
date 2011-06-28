@@ -324,8 +324,6 @@ class Controller_Admin_Orders extends Controller {
 	
 	public function before() 
 	{
-	  // michael
-	  Auth::instance()->force_login('admin');
 	  
 		// This codeblock is very useful in development sites:
 		// What it does is get rid of invalid sessions which cause exceptions, which may happen
