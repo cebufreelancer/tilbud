@@ -194,13 +194,24 @@ class Controller_Admin_Orders extends Controller {
 				$posts['action'] = 'delete';
 			} else if ($posts['action'] == __(LBL_SEND_EMAIL)) {
 				$posts['action'] = 'sendpdf';
+			} else if ($posts['action'] == __(LBL_MARKED_AS_REFNO_USED)) {
+			  $posts['action'] = 'refno_used';
 			}
-			
+
 			$action = strtolower(str_replace(" ", "", $posts['action']));
 			$ids		= $posts['obox'];
 			$label	= count($ids)==1 ? __(LBL_ORDER) : __(LBL_ORDERS);
 			
 			switch($action) {
+				// Marked refno as used.
+				case 'refno_used':
+  				foreach($ids as $oid) {
+  					$order = ORM::factory('order', $oid);
+  					$order->is_claimed = '1';
+  					$order->claimed_at = date("Y-m-d H:i:s");
+  					$order->save();
+  				}
+          break;
 				// Send Email
 				case 'sendpdf':
 					foreach($ids as $oid) {
@@ -313,6 +324,9 @@ class Controller_Admin_Orders extends Controller {
 	
 	public function before() 
 	{
+	  // michael
+	  Auth::instance()->force_login('admin');
+	  
 		// This codeblock is very useful in development sites:
 		// What it does is get rid of invalid sessions which cause exceptions, which may happen
 		// 1) when you make errors in your code.

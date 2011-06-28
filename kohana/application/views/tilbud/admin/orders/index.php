@@ -105,7 +105,8 @@
 							echo Form::select('status', $status, 0, array('class' => 'actionButton')) . Form::submit('action', 'Set', array('class' => 'actionButton'));
 							echo " " . Form::submit('action', __(LBL_SEND_EMAIL), array('class' => 'actionButton'));
 							echo " " . Form::submit('action', __(LBL_DELETE), array('class' => 'actionButton'));
-							?>
+							echo " " . Form::submit('action', __(LBL_MARKED_AS_REFNO_USED), array('class' => 'actionButton'));
+							?> 
             </td>
           </tr>
           <tr>
@@ -115,6 +116,7 @@
             <td><?php echo LBL_QUANTITY; ?></td>
             <td width="120"><?php echo LBL_PAID; ?></td>
             <td><?php echo LBL_STATUS; ?></td>
+            <td><?php echo LBL_REF_STATUS; ?></td>
             <td width="120"><?php echo LBL_ORDER_DATE; ?></td>
           </tr>
           </thead>
@@ -127,6 +129,8 @@
             $edit_url = HTML::anchor('admin/orders/edit/' . $order['ID'], __(LBL_EDIT));
             $delete_url = HTML::anchor('admin/orders/delete/' . $order['ID'], __(LBL_DELETE), array('class' => 'delete'));
 						$total += $order['total_count'];
+						$ref_status = ($order['is_claimed'] == "1") ? "Used" : "Not used";
+						$ref_class = ($order['is_claimed'] == "1") ? "style=\"color: green; font-weight: bold\"" : "";
 
 						switch($order['status']) {
 						case 'delivered': $status = __(LBL_ORDER_DELIVERED); $class = 'bblue'; break;
@@ -145,6 +149,7 @@
             echo '<td align="center">' . $order['quantity'] . '</td>';
             echo '<td align="right">' . $order['total_count'] . ' <span class="currency">DKK</span></td>';
             echo '<td class="' . $class . '">' . ucwords($status) . '</td>';
+            echo '<td ' . $ref_class . '>' . ucwords($ref_status) . '</td>';
             echo '<td>' . date("M j, Y", strtotime($order['date_created'])) . '</td>';
             echo '</tr>';
           }		

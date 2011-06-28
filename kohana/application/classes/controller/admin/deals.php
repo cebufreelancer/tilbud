@@ -2,6 +2,15 @@
 
 class Controller_Admin_Deals extends Controller {
 
+  public function action_refcode($id)
+  {
+    $page = View::factory('tilbud/admin/deals/refcode');
+    //$orders = DB::select()->from('orders')->where('deal_id', '=', $id)->and_where('status', 'IN',array('delivered','new'))->execute()->as_array();
+    $orders = DB::select()->from('orders')->where('deal_id', '=', $id)->and_where('status', '=', 'delivered')->execute()->as_array();
+
+    $page->orders = $orders;
+		$this->response->body($page);
+  }
 	public function action_index()
 	{		
 
@@ -683,6 +692,8 @@ class Controller_Admin_Deals extends Controller {
 	
 	public function before() 
 	{
+	  // michael
+	  Auth::instance()->force_login('admin');
 		// This codeblock is very useful in development sites:
 		// What it does is get rid of invalid sessions which cause exceptions, which may happen
 		// 1) when you make errors in your code.

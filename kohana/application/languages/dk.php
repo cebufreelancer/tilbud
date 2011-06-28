@@ -308,4 +308,14 @@ define("LBL_THANK_YOU_PAYMENT_SUCCESS_MESSAGE", "Thank you for purchasing a deal
 define("LBL_UPLOAD_IMAGE_FOR_EMAIL", "Upload Image for Email");
 define("LBL_ADD_IMAGE", "Add Image");
 define("LBL_PRICE_FOR_EMAIL", "Add price for email");
+define("LBL_VIEW_REF_CODE_STATUS", "Refcode status");
+define("LBL_REF_STATUS", "REF CODE STATUS");
+
+// RESTAURANTS 
+define("LBL_REF_CODE_ALREADY_USED", "Ref code already used.");
+define("LBL_INVALID_USERNAME_PASSWORD", "Invalid username and password combination");
+define("LBL_REF_CODE_MARKED", "Ref code successfully marked as used.");
+define("LBL_REF_CODE_DONT_EXIST", "Ref code do not exists.");
+define("LBL_PLEASE_CALL_US", "If you have problems validating your ref code, please call us at 60 92 62 61");
+define("LBL_MARKED_AS_REFNO_USED", "Marked Refno as Used");
 ?>

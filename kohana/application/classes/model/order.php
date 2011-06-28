@@ -20,6 +20,8 @@ class Model_Order extends ORM {
 		'total_count'	  => array('data_type' => 'int', 'is_nullable' => FALSE),
 		'payment_type'	=> array('data_type' => 'string', 'is_nullable' => TRUE),
 		'status' 				=> array('data_type' => 'string'),
+		'is_claimed' 		=> array('data_type' => 'int'),
+		'claimed_at' 		=> array('data_type' => 'datetime'),
 		'date_paid' 		=> array('data_type' => 'datetime'),
 		'date_created' 	=> array('data_type' => 'datetime'),
 		);

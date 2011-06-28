@@ -128,6 +128,7 @@
 						$img_thumb  = HTML::image(ORM::factory('deal')->get_random_image($deal['ID']), array('width' => 70, 'height' => 50,
 																																																 'align' => 'left', 
 																																																 'style' => 'margin-right: 5px; margin-top: 5px;'));
+            $ref_code_status_link = HTML::anchor('admin/deals/refcode/' . $deal['ID'], __(LBL_VIEW_REF_CODE_STATUS));
 						
 						switch($deal['status']) {
 						case 'active': 		$status = __(LBL_ACTIVE); break;
@@ -138,7 +139,7 @@
 						
 						echo '<tr ' . $serving_css . '>';
 						echo '<td style="width:400px;"><div style="font-weight: bold; min-height: 55px;">' . $img_thumb . $deal['description'] . '</div>' .
-						     '<div>' . $edit_url . ' | ' . $delete_url . ' | ' . $email_url . ' | ' . $view_url . '</div>' .
+						     '<div>' . $edit_url . ' | ' . $delete_url . ' | ' . $email_url . ' | ' . $view_url . ' | ' . $ref_code_status_link . '</div>' .
 						     '</td>';
 						echo '<td>' . $group . '</td>';
 						echo '<td>' . date("F d, Y", strtotime($deal['start_date'])) . '</td>';
