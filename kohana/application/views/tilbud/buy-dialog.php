@@ -3,10 +3,10 @@ $newprice = $deal['regular_price'] - ($deal['regular_price']*($deal['discount']/
 ?>
 <div style="display:none">
 	<div id="buy-dialog" >
-	  <div id="message-payment" style="background-color: #1F6284">
+	  <div id="message-payment" style="background-color: #1F6284; background-image: url('/images/paybag.jpg'); background-repeat: repeat-x">
   	  <div id="pay_box" class="pay_box" style="border: solid 0px #000; height: 590px; overflow: hidden; text-align: center">
 
-        <div style="background-color: white">
+        <div >
 
         
   	    <div id="div_flow_steps" style="height: 40px; background-color: #1A5370; height: 30px">
@@ -28,7 +28,7 @@ $newprice = $deal['regular_price'] - ($deal['regular_price']*($deal['discount']/
               <input type="hidden" name="detail1_description" value="<?php echo mb_convert_encoding(html_entity_decode($deal['title']), "ISO_8859-1", "UTF-8");?>">
               <input type="hidden" name="detail1_text" value="<?php echo mb_convert_encoding(html_entity_decode($deal['contents_title']), "ISO_8859-1", "UTF-8");?>">
 
-             <input type="hidden" name="pay_to_email" value="info@tilbudibyen.dk">
+             <input type="hidden" name="pay_to_email" value="test1@tilbudibyen.dk">
              <input type="hidden" name="return_url" id="return_url" value="http://www.tilbudibyen.com"> <!-- URL to redirect after payment success -->
              <input type="hidden" name="cancel_url" value="http://www.tilbudibyen.com">  <!-- URL to redirect after payment cancel -->
              <input type="hidden" name="status_url" id="status_url"  value="http://www.tilbudibyen.com/payment-success"> <!-- URL to get the payment response (not visible to user, called on backend) -->
@@ -42,7 +42,7 @@ $newprice = $deal['regular_price'] - ($deal['regular_price']*($deal['discount']/
              <input type="hidden" name="confirmation_note" value="Tak for din ordre hos Tilbudibyen.dk"> <!-- Confirmation message to be shown after payment has been made -->
 
                     <div id="div_content" style="display: none;">
-                      <iframe name="content" id="content" style="filter: alpha (opacity=50); background-image: url('/images/paybag.jpg');height: 590px; width: 720px; border: solid 0px #ff0000; overflow: auto;" scrolling="yes"></iframe>
+                      <iframe name="content" allowtransparency="true" id="content" style="height: 590px; width: 720px; border: solid 0px #ff0000; overflow: auto;" scrolling="yes"></iframe>
                     </div>
 
                     <div id="infobox" style="padding: 10px; border: solid 0px #ff0000;">
