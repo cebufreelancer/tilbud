@@ -129,7 +129,7 @@
 																																																 'align' => 'left', 
 																																																 'style' => 'margin-right: 5px; margin-top: 5px;'));
             $ref_code_status_link = HTML::anchor('admin/deals/refcode/' . $deal['ID'], __(LBL_VIEW_REF_CODE_STATUS));
-            $resturant_userpassword_link = HTML::anchor('admin/deals/set_user/' . $deal['ID'], __(LBL_SET_USER));
+            $resturant_userpassword_link = HTML::anchor('admin/deals/setuser/' . $deal['ID'], __(LBL_SET_USER));
 						
 						switch($deal['status']) {
 						case 'active': 		$status = __(LBL_ACTIVE); break;

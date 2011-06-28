@@ -2,7 +2,7 @@
 
 class Controller_Admin_Deals extends Controller {
 
-  public function action_set_user($id)
+  public function action_setuser($id)
   {
     $row = DB::select()->from('businesses')->where('deal_id','=', $id)->execute()->as_array();
     if (sizeof($row) == 0) {
