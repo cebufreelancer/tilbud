@@ -21,7 +21,6 @@ $newprice = $deal['regular_price'] - ($deal['regular_price']*($deal['discount']/
               <input type="hidden" name="end_date" value="<?php echo $deal['end_date'];?>">
 
               <input type="hidden" name="recipient_description" value="Tilbudibyen">
-              <input type="hidden" name="prepare_only" value="1">
               <input type="hidden" name="return_url_text" value="Return to TilbudIbyen">
               <input type="hidden" name="payment_methods" value="DNK,MSC,VSA,">         
               <input type="hidden" name="language" value="DA">
@@ -32,7 +31,7 @@ $newprice = $deal['regular_price'] - ($deal['regular_price']*($deal['discount']/
              <input type="hidden" name="pay_to_email" value="info@tilbudibyen.dk">
              <input type="hidden" name="return_url" id="return_url" value="http://www.tilbudibyen.com"> <!-- URL to redirect after payment success -->
              <input type="hidden" name="cancel_url" value="http://www.tilbudibyen.com">  <!-- URL to redirect after payment cancel -->
-             <input type="hidden" name="status_url" value="http://www.tilbudibyen.com/payment-response"> <!-- URL to get the payment response (not visible to user, called on backend) -->
+             <input type="hidden" name="status_url" value="http://www.tilbudibyen.com/payment-success"> <!-- URL to get the payment response (not visible to user, called on backend) -->
              <input type="hidden" name="language" value="DK"> <!-- Language of payment -->
              <input type="hidden" name="hide_login" value="1">  <!-- Whether to show the tiny login form with the payment form, no in our case -->
              <!-- Specifies a target in which the return_url value will be called upon successful payment from customer.  -->
@@ -226,11 +225,11 @@ $newprice = $deal['regular_price'] - ($deal['regular_price']*($deal['discount']/
       });
       */
       
-      var return_url = "http://www.tilbudibyen.comm/payment_success?firstname=" + $("#firstname").val() + "&lastname=";
+      var return_url = "http://www.tilbudibyen.comm/payment-success?firstname=" + $("#firstname").val() + "&lastname=";
       return_url = return_url + $("#lastname").val() + "&email=" + $("#email").val() + "&address=" + $("#address").val() ;
       return_url = return_url + "&post_code=" + $("#postal_code").val() + "&city=" + $("#city").val() + "&mobile=" + $("#phone_number").val();
       return_url = return_url + "&deal_id=" + $("#id").val() + "&pricepcs=" + $("#pricecs").val() + "&qty=" + $("#qty").val();
-      $("#return_url").val(return_url);
+      $("#status_url").val(return_url);
 
       $("#infobox").hide();
       $("#div_content").show();

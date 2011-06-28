@@ -40,6 +40,7 @@ define("LBL_WHAT_YOU_GET", "Det får du");
 define("LBL_INFORMATION", "Praktiske oplysninger");
 define("LBL_DEALS_SOLD", "Tilbud Solgt");
 define("LBL_AMOUNT_SOLD", "Solgt for");
+define("LBL_SUBSCRIBERS", "Subscribers");
 
 define("LBL_ADDRESS", "Her finder du os");
 define("LBL_ADDRESS2", "Adresse");
