@@ -28,8 +28,16 @@ fclose($fp);
       //do nothing i guess
     }else {
       // new record
+      $firstname    = (isset($_REQUEST['firstname']) ? $_REQUEST['firstname'] : '' );
+      $lastname     = (isset($_REQUEST['lastname'])  ? $_REQUEST['lastname'] : '' );
+      $email        = (isset($_REQUEST['email'])     ? $_REQUEST['email'] : '' );
+      $address      = (isset($_REQUEST['address'])   ? $_REQUEST['address'] : '' );
+      $postal_code  = (isset($_REQUEST['postal_code']) ? $_REQUEST['postal_code'] : '' );
+      $city         = (isset($_REQUEST['city'])       ? $_REQUEST['city'] : '' );
+      $mobile       = (isset($_REQUEST['mobile'])     ? $_REQUEST['mobile'] : '' );
+      
       $result = DB::insert('users', array('firstname','lastname', 'email', 'address', 'postal_code', 'city', 'mobile', 'status', 'username'))
-              ->values(array($_REQUEST['firstname'], $_REQUEST['lastname'], $_REQUEST['email'], $_REQUEST['address'], $_REQUEST['postal_code'], $_REQUEST['city'], $_REQUEST['mobile'], 'active', $_REQUEST['email']))->execute();
+              ->values(array($firstname, $lastname, $email, $address, $postal_code, $city, $mobile, 'active', $email))->execute();
     }
 
     $result = DB::select()->from('users')->where('email', '=', $_REQUEST['email'])->execute()->as_array();
@@ -41,6 +49,7 @@ fclose($fp);
     $order['user_id'] = $user['id'];
     $order['quantity'] = $_REQUEST['qty'];
     $order['status'] = 'new';
+    $order['total_count'] = "0";
     if (isset($_REQUEST['amount'])) {
       $order['total_count'] = $_REQUEST['amount'];
     }
