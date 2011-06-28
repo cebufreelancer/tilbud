@@ -80,15 +80,15 @@ $newprice = $deal['regular_price'] - ($deal['regular_price']*($deal['discount']/
                           
                           <div style="padding-bottom: 5px;">
                             <input type="text" id="postal_code" name="postal_code" value=""  style="padding-bottom: 3px; color: #515151; border: solid 1px #686868;; width: 60px;">
-                            <label for="postal_code" style="left: 15px;  top:171px; color: #AAAAAA; position: absolute; width: 100px;">Postnr.</label>
+                            <label for="postal_code" style="left: 15px;  top:172px; color: #AAAAAA; position: absolute; width: 100px;">Postnr.</label>
                             <input type="text" id="city" name="city" value=""  style="padding-bottom: 3px; color: #515151; border: solid 1px #686868; width: 250px; margin-left: 8px;">
-                            <label for="city" style="left: 90px; top:171px;  color: #AAAAAA; position: absolute; width: 100px;">By</label>
+                            <label for="city" style="left: 90px; top:172px;  color: #AAAAAA; position: absolute; width: 100px;">By</label>
                           </div>
                           <div style="clar:both"></div>
                           
                           <div style="padding-bottom: 5px;">
                             <input type="text" id="phone_number" name="phone_number" value=""  maxlength="8" style="padding-bottom: 3px; color: #515151; border: solid 1px #686868; width: 120px; ">
-                            <label for="phone_number" style="left: 15px; top:208px;  color: #AAAAAA; position: absolute; width: 100px;">Mobilnr.</label>
+                            <label for="phone_number" style="left: 15px; top:204px;  color: #AAAAAA; position: absolute; width: 100px;">Mobilnr.</label>
                             <div id="pay_error" style="float: left; left: 120px;width: 150px;display: none; color: #ffffff; background: #ff0000; border: solid 1px #ffffff; padding: 0px; font-size: 10px; text-align: center;">Husk at udfylde alle felter!</div>
                           </div>
                           <div style="clar:both"></div>
