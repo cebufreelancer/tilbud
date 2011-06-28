@@ -169,7 +169,7 @@
           <li></li>
           <li><h3><?php echo __(LBL_PRICE_FOR_EMAIL);?></h3></li>
           <li><input type="text" name="price_for_email" value="<?php echo $price_for_email;?>"></li>
-          <li><h3><?php echo __(LBL_UPLOAD_IMAGE_FOR_EMAIL);?></h3></li>
+          <li><h3><?php echo __(LBL_UPLOAD_IMAGE_FOR_EMAIL);?></h3>(e.g: width: 455 height: 300)</li>
           <li>
           <?php
           if (isset($image_email) && $image_email != "") {
