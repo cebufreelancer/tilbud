@@ -380,7 +380,7 @@ class Controller_Admin_Emails extends Controller {
 				$DEALTITLE			= $deals->title;
 				$DEALURL				= HTML::anchor(Url::base(TRUE) . 'deals/view/' . $deals->ID, 
 													HTML::Image(Url::base(TRUE) . 'images/bestil.png', array('alt' => 'Order Now',
-																																										 'style' => 'margin-bottom: 5px;')));
+																																										 'style' => 'margin-bottom: 15px;')));
 				$DEALREGPRICE		= $deals->regular_price;
 				$DEALPRICE			= ($deals->regular_price * (100 - $deals->discount)) / 100;
 				$DEALCLASS			= strlen($DEALPRICE) > 5 ? ' font-size: 45px;' : '';
@@ -412,9 +412,9 @@ class Controller_Admin_Emails extends Controller {
         for($i=0; $i<sizeof($addresses); $i++){
           $address_list .= html_entity_decode($addresses[$i]['company_name']);
           $address_list .= "<br/>";
-				  $address_list .=  html_entity_decode($addresses[$i]['address']) . '"';
+				  $address_list .=  html_entity_decode($addresses[$i]['address']) ;
 				  $address_list .= "<br/>";
-				  $address_list .=  html_entity_decode($addresses[$i]['telephone']) . '"';
+				  $address_list .=  html_entity_decode($addresses[$i]['telephone']) ;
 				  $address_list .= "<br/>";
 				}
 
