@@ -45,19 +45,14 @@ fclose($fp);
 
     $result = DB::select()->from('users')->where('email', '=', $_REQUEST['email'])->execute()->as_array();
 
-    // get the first and only record
-    $user = $result[0];
-    
-    //set the user roles manually
-    DB::insert('roles_users', array('user_id', 'role_id'))->values(array($user['id'], 1))->execute();
-
-    $orm_user = ORM::factory('user');
-    $password = $orm_user->generate_password(42);
-    echo $password;
-		$user = ORM::factory('user')->where('email', '=', $email)->find();
+    $password = rand(9999, 999999);
+		$user = ORM::factory('user')->where('email', '=', $_REQUEST['email'])->find();
 		$clean['password'] = $password;
 		$clean['password_confirm'] = $password;
 		$user->update_user($clean, array('password'));
+
+    // get the first and only record
+    $user = $result[0];
 
     // creating an order
     $order['deal_id'] = $_REQUEST['deal_id'];
