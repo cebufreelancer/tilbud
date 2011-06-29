@@ -6,7 +6,7 @@ Tak for din bestilling
 <br />
 Vi har registreret din bestilling af Dagens Tilbud "<b><?php echo html_entity_decode(strip_tags($this_deal->description)); ?></b>", og du har fået ordernummer <?= $order->ID; ?> <br />
 OBS: Dette er dit ordernummer og ikke dit refferancenummer. 
-<br />
+<br /><br />
 LOGIN INFORMATION: <br/>
 username: <?= $user->email;?><br/>
 password: <?= $password;?><br/>
