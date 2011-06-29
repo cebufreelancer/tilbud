@@ -10,7 +10,7 @@ $newprice = $deal['regular_price'] - ($deal['regular_price']*($deal['discount']/
 
         
   	    <div id="div_flow_steps" style="height: 40px; background-color: #1A5370; height: 30px">
-              <span style="color: white; font-size: 18px; letter-spacing: 5px">Betaling</span>
+              <span style="color: white; font-size: 18px; letter-spacing: 5px; line-height: 32px">Betaling</span>
             </div>
   
             <form action="https://www.moneybookers.com/app/payment.pl"  name="payment-form" id="payment-form" method="post" target="content">
@@ -42,7 +42,7 @@ $newprice = $deal['regular_price'] - ($deal['regular_price']*($deal['discount']/
              <input type="hidden" name="confirmation_note" value="Tak for din ordre hos Tilbudibyen.dk"> <!-- Confirmation message to be shown after payment has been made -->
 
                     <div id="div_content" style="display: none;">
-                      <iframe name="content" allowtransparency="true" id="content" style="height: 590px; width: 720px; border: solid 0px #ff0000; overflow: auto;" scrolling="yes"></iframe>
+                      <iframe name="content" allowtransparency="true" id="content" style="height: 590px; width:404px; border: solid 0px #ff0000; overflow: auto;float: left" scrolling="yes"></iframe>
                     </div>
 
                     <div id="infobox" style="padding: 10px; border: solid 0px #ff0000;">
@@ -56,39 +56,32 @@ $newprice = $deal['regular_price'] - ($deal['regular_price']*($deal['discount']/
                           <?php } ?>
                           </select>
                           &nbsp; &nbsp;x kr. <?php echo $newprice;?>&nbsp; &nbsp;<span style="font-weight: bold;">Total kr. </span>
-                          <input type="text" id="amount" name="amount" value="<?php echo $newprice;?>" style="border: none; background: none; font-weight: bold; width: 100px;" readonly="">
+                          <input type="text" id="amount" name="amount" value="<?php echo $newprice;?>" style="border: none; background: none; font-weight: bold; width: 100px; font-size: 12px" readonly="">
                           <br><br>
                           <div style="padding-bottom: 0px;">
-                            <input type="text" id="pay_from_email" name="pay_from_email" style="width: 250px"  autocomplete="off">
-                            <label for="pay_from_email" style="left: 15px; top:91px; color: #AAAAAA; position: absolute; width: 100px;"><?php echo __(LBL_EMAIL);?></label>
+                            <input type="text" id="pay_from_email" name="pay_from_email" style="width: 250px"  autocomplete="off" placeholder="<?php echo __(LBL_EMAIL) ?>">
                           </div>
                           <div style="clar:both"></div>
                           
                           <div style="padding-bottom: 5px;">
-                            <input type="text" id="firstname" name="firstname" value=""  style="padding-bottom: 3px; color: #515151; border: solid 1px #686868; width: 100px;">
-                            <label for="firstname" style="left: 15px;  top:115px; color: #AAAAAA; position: absolute;">Fornavn</label>
-                            <input type="text" id="lastname" name="lastname" value="" style="padding-bottom: 3px; color: #515151; border: solid 1px #686868; width: 210px; margin-left: 8px;">
-                            <label for="lastname" style="left: 135px;  top:115px; color: #AAAAAA; position: absolute;">Efternavn</label>
+                            <input type="text" id="firstname" name="firstname" value=""  style="padding-bottom: 3px; color: #515151; border: solid 1px #686868; width: 100px;" placeholder="Fornavn">
+                            <input type="text" id="lastname" name="lastname" value="" style="padding-bottom: 3px; color: #515151; border: solid 1px #686868; width: 210px; margin-left: 8px;" placeholder="Efternavn">
                           </div>
                           <div style="clar:both"></div>
                           
                           <div style="padding-bottom: 5px;">
-                            <input type="text" id="address" name="address" value=""  style="padding-bottom: 3px; color: #515151; border: solid 1px #686868; width: 320px;">
-                            <label for="address" style="left: 15px;  top:146px; color: #AAAAAA; position: absolute; width: 100px;">Adresse</label>
+                            <input type="text" id="address" name="address" value=""  style="padding-bottom: 3px; color: #515151; border: solid 1px #686868; width: 320px;" placeholder="Adresse">
                           </div>
                           <div style="clar:both"></div>
                           
                           <div style="padding-bottom: 5px;">
-                            <input type="text" id="postal_code" name="postal_code" value=""  style="padding-bottom: 3px; color: #515151; border: solid 1px #686868;; width: 60px;">
-                            <label for="postal_code" style="left: 15px;  top:172px; color: #AAAAAA; position: absolute; width: 100px;">Postnr.</label>
-                            <input type="text" id="city" name="city" value=""  style="padding-bottom: 3px; color: #515151; border: solid 1px #686868; width: 250px; margin-left: 8px;">
-                            <label for="city" style="left: 90px; top:172px;  color: #AAAAAA; position: absolute; width: 100px;">By</label>
+                            <input type="text" id="postal_code" name="postal_code" value=""  style="padding-bottom: 3px; color: #515151; border: solid 1px #686868;; width: 60px;" placeholder="Postnr.">
+                            <input type="text" id="city" name="city" value=""  style="padding-bottom: 3px; color: #515151; border: solid 1px #686868; width: 250px; margin-left: 8px;" placeholder="By">
                           </div>
                           <div style="clar:both"></div>
                           
                           <div style="padding-bottom: 5px;">
-                            <input type="text" id="phone_number" name="phone_number" value=""  maxlength="8" style="padding-bottom: 3px; color: #515151; border: solid 1px #686868; width: 120px; ">
-                            <label for="phone_number" style="left: 15px; top:204px;  color: #AAAAAA; position: absolute; width: 100px;">Mobilnr.</label>
+                            <input type="text" id="phone_number" name="phone_number" value=""  maxlength="8" style="padding-bottom: 3px; color: #515151; border: solid 1px #686868; width: 120px; " placeholder="Mobilnr.">
                             <div id="pay_error" style="float: left; left: 120px;width: 150px;display: none; color: #ffffff; background: #ff0000; border: solid 1px #ffffff; padding: 0px; font-size: 10px; text-align: center;">Husk at udfylde alle felter!</div>
                           </div>
                           <div style="clar:both"></div>
@@ -120,72 +113,6 @@ $newprice = $deal['regular_price'] - ($deal['regular_price']*($deal['discount']/
 
   <script type="text/javascript">
 
-    $("#pay_from_email").focus(function() {
-      $("label[for='pay_from_email']").hide();
-    });
-    $("#pay_from_email").blur(function() {
-      if ($("#pay_from_email").val().length < 1) {
-        $("label[for='pay_from_email']").show();
-      }
-    });
-    
-    $("#lastname").focus(function() {
-      $("label[for='lastname']").hide();
-    });
-    $("#lastname").blur(function() {
-      if ($("#lastname").val().length < 1) {
-        $("label[for='lastname']").show();
-      }
-    });
-    
-    
-    $("#firstname").focus(function() {
-      $("label[for='firstname']").hide();
-    });
-    $("#firstname").blur(function() {
-      if ($("#firstname").val().length < 1) {
-        $("label[for='firstname']").show();
-      }
-    });
-    
-    
-    $("#address").focus(function() {
-      $("label[for='address']").hide();
-    });
-    $("#address").blur(function() {
-      if ($("#address").val().length < 1) {
-        $("label[for='address']").show();
-      }
-    });            
-    
-    
-    $("#postal_code").focus(function() {
-      $("label[for='postal_code']").hide();
-    });
-    $("#postal_code").blur(function() {
-      if ($("#postal_code").val().length < 1) {
-        $("label[for='postal_code']").show();
-      }
-    });
-    
-    $("#city").focus(function() {
-      $("label[for='city']").hide();
-    });
-    $("#city").blur(function() {
-      if ($("#city").val().length < 1) {
-        $("label[for='city']").show();
-      }
-    });        
-
-    $("#phone_number").focus(function() {
-      $("label[for='phone_number']").hide();
-    });
-    $("#phone_number").blur(function() {
-      if ($("#phone_number").val().length < 1) {
-        $("label[for='phone_number']").show();
-      }
-    });
-        
     function computeTotal(qty) {
       var amount = parseFloat($('#pricepcs').val());
       var total = parseInt(qty.value) * amount;
