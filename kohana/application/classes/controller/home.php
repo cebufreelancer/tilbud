@@ -38,11 +38,25 @@ fclose($fp);
       
       $result = DB::insert('users', array('firstname','lastname', 'email', 'address', 'postal_code', 'city', 'mobile', 'status', 'username'))
               ->values(array($firstname, $lastname, $email, $address, $postal_code, $city, $mobile, 'active', $email))->execute();
+      $result = DB::select()->from('users')->where('email', '=', $_REQUEST['email'])->execute()->as_array();
+      $user = $result[0];
+      DB::insert('roles_users', array('user_id', 'role_id'))->values(array(user['id'], 1))->execute();
     }
 
     $result = DB::select()->from('users')->where('email', '=', $_REQUEST['email'])->execute()->as_array();
+
     // get the first and only record
     $user = $result[0];
+    
+    //set the user roles manually
+    DB::insert('roles_users', array('user_id', 'role_id'))->values(array(user['id'], 1))->execute();
+
+    $orm_user = ORM::factory('user');
+    $password = $orm_user->generate_password(42);
+    $param_by_ref = array('password' => $password, 'password_confirm' => $password);
+    $orm_user = ORM::factory('users')->where('email', '=', $_REQUEST['email'])->find();
+    $orm_user->change_password($param_by_ref, FALSE);
+    $orm_user->save();
 
     // creating an order
     $order['deal_id'] = $_REQUEST['deal_id'];

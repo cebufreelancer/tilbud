@@ -7,6 +7,13 @@ Tak for din bestilling
 Vi har registreret din bestilling af Dagens Tilbud "<b><?php echo html_entity_decode(strip_tags($this_deal->description)); ?></b>", og du har fået ordernummer <?= $order->ID; ?> <br />
 OBS: Dette er dit ordernummer og ikke dit refferancenummer. 
 <br />
+LOGIN INFORMATION: <br/>
+username: <?= $user->email;?><br/>
+password: <?= $password;?><br/>
+Login page: <a href="http://tilbudibyen.com/user/login">http://tilbudibyen.com/user/login</a> 
+<br/><br/>
+If you have already an account and forgot the password, please copy and paste the link below to your browser:<br/>
+<a href="http://www.tilbudibyen.com/home/forgot">http://www.tilbudibyen.com/home/forgot</a>
 <br />
 <b>Hvornår får jeg mit værdibevis?</b>
 <ul>
