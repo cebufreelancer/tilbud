@@ -220,6 +220,10 @@
 
   	jQuery(document).ready(function() {
 
+  	  <?php if (isset($_REQUEST['video']) && $_REQUEST['video'] == 'play') {?>
+      $('#youtubevideo').trigger('click');
+      <?php } ?>
+      
   		$("#login2").fancybox({
   			'scrolling'		: false,
   			'titleShow'		: false,

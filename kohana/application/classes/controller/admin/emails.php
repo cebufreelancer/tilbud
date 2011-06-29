@@ -405,7 +405,7 @@ class Controller_Admin_Emails extends Controller {
 																		'height' => 284, 
 																		'style' => 'margin-bottom: 20px;'));
 				$DEALCONTENTS 	= $deals->contents;
-				$SEE_VIDEO_DEALS = mb_convert_encoding("Se dagens tilbud på video - klik her.", "ISO-8859-1", "UTF-8");
+				$SEE_VIDEO_DEALS = mb_convert_encoding("Se dagens tilbud på video - <a href=\"http://www.tilbudibyen.com/deals/view/" . $DEALID . "?video=play\">klik her</a>.", "ISO-8859-1", "UTF-8");
 
         $addresses = unserialize($deals->addresses);
         $address_list = "";
