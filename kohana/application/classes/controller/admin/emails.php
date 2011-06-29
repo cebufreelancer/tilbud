@@ -379,8 +379,8 @@ class Controller_Admin_Emails extends Controller {
 				
 				$DEALTITLE			= $deals->title;
 				$DEALURL				= HTML::anchor(Url::base(TRUE) . 'deals/view/' . $deals->ID, 
-													HTML::Image(Url::base(TRUE) . 'images/ordernow.png', array('alt' => 'Order Now',
-																																										 'style' => 'margin-bottom: 20px;')));
+													HTML::Image(Url::base(TRUE) . 'images/bestil.png', array('alt' => 'Order Now',
+																																										 'style' => 'margin-bottom: 5px;')));
 				$DEALREGPRICE		= $deals->regular_price;
 				$DEALPRICE			= ($deals->regular_price * (100 - $deals->discount)) / 100;
 				$DEALCLASS			= strlen($DEALPRICE) > 5 ? ' font-size: 45px;' : '';
@@ -401,8 +401,8 @@ class Controller_Admin_Emails extends Controller {
 
         $one_image_path = ($deals->image_email != "") ? ('uploads/' . $deals->ID . '/' . $deals->image_email) : "";
 				$IMAGE_FOR_EMAIL			= HTML::Image(Url::base(TRUE) . $one_image_path,
-															array('width' => 445, 
-																		'height' => 300, 
+															array('width' => 421, 
+																		'height' => 284, 
 																		'style' => 'margin-bottom: 20px;'));
 				$DEALCONTENTS 	= $deals->contents;
 				$SEE_VIDEO_DEALS = mb_convert_encoding("Se dagens tilbud på video - klik her.", "ISO-8859-1", "UTF-8");
