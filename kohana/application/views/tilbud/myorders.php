@@ -54,7 +54,7 @@
              '<div>' . ORM::factory('user', $order['user_id'])->firstname . ' ' . ORM::factory('user', $order['user_id'])->lastname . '</div>' .
            '</td>';
       echo '<td align="center">' . $order['quantity'] . '</td>';
-      echo '<td align="right">' . $order['total_count'] . '</td>';
+      echo '<td align="right">' . $order['total_count'] . 'DKK</td>';
       echo '<td>' . ucwords($status) . '</td>';
       echo '<td>' . date("M j, Y", strtotime($order['date_created'])) . '</td>';
       echo '</tr>';
@@ -65,7 +65,7 @@
     </tfoot>
     </table>
   
-  	<p style="font-size: 18px; font-weight: bold; color: #090;"><?php echo LBL_TOTAL . ' : ' . $total; ?>
+  	<p style="font-size: 18px; font-weight: bold; color: #090;"><?php echo LBL_TOTAL . ' : ' . $total; ?> DKK
   <?php 
     echo ($show_pager) ? $paging->render() : ''; 
   } else { ?>
