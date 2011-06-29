@@ -5,7 +5,7 @@
 <?php echo "Tak for din bestilling"; ?>
 <br />
 <?php echo "Vi har registreret din bestilling af Dagens Tilbud \"<b>" .  html_entity_decode(strip_tags($this_deal->description)) . "</b>\", og du har fået ordernummer " . $order->ID . "<br />
-OBS: Dette er dit ordernummer og ikke dit refferancenummer. ";
+OBS: Dette er dit ordernummer og ikke dit refferancenummer. ";?>
 <br /><br />
 <?php echo LBL_LOGIN_INFORMATION?>: <br/>
 <?php echo LBL_USERNAME;?>: <?= $user->email;?><br/>
