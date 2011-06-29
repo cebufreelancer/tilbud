@@ -314,7 +314,7 @@ define("LBL_PRICE_FOR_EMAIL", "tilbuds pris, i e-mail");
 define("LBL_SET_USER", "Se log ind");
 define("LBL_LOGIN_INFORMATION", "Login Information");
 define("LBL_LOGIN_PAGE", "Login Page");
-define("LBL_IFHAVE_ACCOUNT_TEXT", "If you have already an account and forgot the password, please copy and paste the link below to your browser:");
+define("LBL_IFHAVE_ACCOUNT_TEXT", "Har du allerede en konto, men har glemt din adgangskode, så tryk venligst på linket herunder.");
 
 // RESTAURANTS 
 define("LBL_REF_CODE_ALREADY_USED", "Koden er allerede brugt en gang.");
