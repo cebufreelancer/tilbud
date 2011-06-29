@@ -289,8 +289,8 @@ TilbudIbyen.com
 
 	public function action_fb($id = null)
 	{
-    $deal = ORM::factory('deal')->get_featured();  
-    $url = "http://www.addthis.com/bookmark.php?v=250&winname=addthis&pub=ra-4d6e3a782d6e35f6&source=tbx-250&lng=da&s=facebook&url=" . url::base(true) . "deals/view/" . $deal->ID;
+    $deal = ORM::factory('deal')->get_featured();
+    $url = "http://www.addthis.com/bookmark.php?v=250&winname=addthis&pub=ra-4d6e3a782d6e35f6&source=tbx-250&lng=da&s=facebook&url=" . url::base(true) . "deals/view/" . $deal['ID'];
 	  
     $this->request->redirect($url);
 	}
