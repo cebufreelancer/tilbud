@@ -48,20 +48,19 @@
 	
   <?php echo HTML::Image(Url::base(TRUE).'images/arrow.jpg', array('align' => 'right')); ?>
   
-	<p><?php echo mb_convert_encoding("Mange tak for din tilmelding til TilbudiByen.dk
-For at undgå misbrug vil vi bede dig til at bekræfte din tilmelding ved at klikke på nedenstående link:", "ISO-8859-1", "UTF-8"); ?></p>
+	<p><?php echo "Mange tak for din tilmelding til TilbudiByen.dk For at undgå misbrug vil vi bede dig til at bekræfte din tilmelding ved at klikke på nedenstående link:"; ?></p>
   
-  <?php echo HTML::anchor($confirm_url, mb_convert_encoding('Klik her for at bekræfte din tilmelding','ISO-8859-1', 'UTF-8') , array('style' => 'font-size: 20px; font-weight: bold; color: #f22b2e;')); ?>
+  <?php echo HTML::anchor($confirm_url, 'Klik her for at bekræfte din tilmelding' , array('style' => 'font-size: 20px; font-weight: bold; color: #f22b2e;')); ?>
   
-  <p><?php echo mb_convert_encoding("Hvis du ikke ønsker at tilmelde dig nyhedsbrevet fra Tilbudibyen.dk så kan du blot se bort fra denne mail.", "iso-8859-1", "UTF-8");?></p>
+  <p><?php echo "Hvis du ikke ønsker at tilmelde dig nyhedsbrevet fra Tilbudibyen.dk så kan du blot se bort fra denne mail.";?></p>
   
-  <p><?php echo mb_convert_encoding("Du vil kun blive tilmeldt hvis du bekræfter din tilmelding ved at klikke på linket herover.", "ISO-8859-1", "UTF-8");?> </p>
+  <p><?php echo "Du vil kun blive tilmeldt hvis du bekræfter din tilmelding ved at klikke på linket herover.";?> </p>
   
   <?php echo HTML::Image(Url::base(TRUE).'images/email-confirm.jpg', array('align' => 'center')); ?>
   
 </div>
 
-<p style="text-align: center; font-size: 11px;"><?php echo  mb_convert_encoding("Du modtager denne e-mail fordi du er tilmeldt nyhedsbrevet hos TilbudiByen.dk.Hvis du ikke ønsker at modtage Dagens Tilbud i Byen på e-mail længere kan du altid afmelde dig ved at klike her.", "ISO-8859-1", "UTF-8");?></p>
+<p style="text-align: center; font-size: 11px;"><?php echo  "Du modtager denne e-mail fordi du er tilmeldt nyhedsbrevet hos TilbudiByen.dk. Hvis du ikke ønsker at modtage Dagens Tilbud i Byen på e-mail længere kan du altid afmelde dig ved at klike her.";?></p>
 
-<p style="text-align: center; font-size: 11px;"><?php echo  mb_convert_encoding("Nyhedsbrevet udsendes af Tilbudibyen.dk ApS - Nørregade 7B - 1165 København K", "ISO-8859-1", "UTF-8");?></p>
+<p style="text-align: center; font-size: 11px;"><?php echo  "Nyhedsbrevet udsendes af Tilbudibyen.dk ApS - Nørregade 7B - 1165 København K";?></p>
 </div>
