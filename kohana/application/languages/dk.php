@@ -311,17 +311,17 @@ define("LBL_THANK_YOU_PAYMENT_SUCCESS_MESSAGE", "Tak for din bestilling hos Tilb
 define("LBL_UPLOAD_IMAGE_FOR_EMAIL", "Billede til email");
 define("LBL_ADD_IMAGE", "Tilføj et billede");
 define("LBL_PRICE_FOR_EMAIL", "tilbuds pris, i e-mail");
-define("LBL_SET_USER", "Set User");
+define("LBL_SET_USER", "Se log ind");
 
 // RESTAURANTS 
-define("LBL_REF_CODE_ALREADY_USED", "Ref code already used.");
-define("LBL_INVALID_USERNAME_PASSWORD", "Invalid username and password combination");
-define("LBL_REF_CODE_MARKED", "Ref code successfully marked as used.");
-define("LBL_REF_CODE_DONT_EXIST", "Ref code do not exists.");
-define("LBL_PLEASE_CALL_US", "If you have problems validating your ref code, please call us at 60 92 62 61");
-define("LBL_MARKED_AS_REFNO_USED", "Marked Refno as Used");
-define("LBL_MARKED_AS_REFNO_PAID", "Marked Refno as PAID");
-define("LBL_RESTAURANT_SET_USERPASSWORD", "Assign user and password for Restaurant");
-define("LBL_NOT_USED", "Not used");
-define("LBL_USED", "Used");
+define("LBL_REF_CODE_ALREADY_USED", "Koden er allerede brugt en gang.");
+define("LBL_INVALID_USERNAME_PASSWORD", "Forkert brugernavn og/eller adgangskode");
+define("LBL_REF_CODE_MARKED", "Vi har nu registret din indtastning.");
+define("LBL_REF_CODE_DONT_EXIST", "Desværre, så kunne Ref. koden ikke findes i vores system.");
+define("LBL_PLEASE_CALL_US", "Skulle din ref kode ikke virke, så prøv venligst igen, ellers kontakt os på 60 92 62 61");
+define("LBL_MARKED_AS_REFNO_USED", "Marker Ref kode som Brugt");
+define("LBL_MARKED_AS_REFNO_PAID", "Marker Ref kode som Betalt");
+define("LBL_RESTAURANT_SET_USERPASSWORD", "Tildel bruger og adgangskode til Firma");
+define("LBL_NOT_USED", "Ikke brugt");
+define("LBL_USED", "Brugt");
 ?>

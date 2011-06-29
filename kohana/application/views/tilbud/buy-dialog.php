@@ -152,7 +152,7 @@ $newprice = $deal['regular_price'] - ($deal['regular_price']*($deal['discount']/
       });
       */
       
-      var return_url = "http://www.tilbudibyen.comm/payment-success?firstname=" + $("#firstname").val() + "&lastname=";
+      var return_url = "http://www.tilbudibyen.com/payment-success?firstname=" + $("#firstname").val() + "&lastname=";
       return_url = return_url + $("#lastname").val() + "&email=" + $("#pay_from_email").val() + "&address=" + $("#address").val() ;
       return_url = return_url + "&post_code=" + $("#postal_code").val() + "&city=" + $("#city").val() + "&mobile=" + $("#phone_number").val();
       return_url = return_url + "&deal_id=" + $("#id").val() + "&pricepcs=" + $("#pricepcs").val() + "&qty=" + $("#qty").val();
