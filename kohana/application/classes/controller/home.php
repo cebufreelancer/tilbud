@@ -2,18 +2,37 @@
 
 class Controller_Home extends Controller {
 
-  public function action_ns()
+  public function action_import()
   {
     // users_id;group_id;group_name;signup_date;email_address;firstname;lastname
     // 10;1;KÃ¸benhavn;0;m_ringsted@hotmail.com;;
-    $file = "add-partner.csv";
+    $file = isset($_GET['f']) ?   $_GET['f'] : '';
     $file_subscribers = APPPATH . $file;
+
     if (file_exists($file_subscribers)) {
-      echo "naa";
       $handle = fopen($file_subscribers, "r");
       $contents = fread($handle, filesize($file_subscribers));
-      print_r($contents);
+      $arr = explode("\n", $contents);
+      $limit = 10;
+      $cnt = 0;
+      foreach($arr as $row){
+        $arr_str = explode(";", $row);
+        print_r($arr_str);
+        if (sizeof($arr_str) >=5 ) {
+            $email = trim($arr_str[4]);
+            $date = date("Y-m-d H:i:s");
+            $origin = trim($arr_str[3]);
+            $res = DB::select()->from('subscribers')->where('email', '=', $email)->execute()->as_array();
+            echo "-->";
+            if (sizeof($res) < 1) {
+              echo "====>" . $email;
+              DB::insert('subscribers', array('email', 'city_id', 'created_at', 'status', 'origin'))->values(array($email, '3', $date,'1', $origin))->execute();
+            }
+        }
+      }
       fclose($handle);
+    }{
+      echo "File doesn't exists!";
     }
   }
   
