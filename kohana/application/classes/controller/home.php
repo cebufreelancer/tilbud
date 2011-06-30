@@ -17,7 +17,6 @@ class Controller_Home extends Controller {
       $cnt = 0;
       foreach($arr as $row){
         $arr_str = explode(";", $row);
-        print_r($arr_str);
         if (sizeof($arr_str) >=5 ) {
             $email = trim($arr_str[4]);
             $date = date("Y-m-d H:i:s");
@@ -25,7 +24,7 @@ class Controller_Home extends Controller {
             $res = DB::select()->from('subscribers')->where('email', '=', $email)->execute()->as_array();
             echo "-->";
             if (sizeof($res) < 1) {
-              echo "====>" . $email;
+              echo "====>" . $email . " - " . $origin .  "<br/>";
               DB::insert('subscribers', array('email', 'city_id', 'created_at', 'status', 'origin'))->values(array($email, '3', $date,'1', $origin))->execute();
             }
         }
