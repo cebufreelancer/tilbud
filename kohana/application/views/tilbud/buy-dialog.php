@@ -59,29 +59,29 @@ $newprice = $deal['regular_price'] - ($deal['regular_price']*($deal['discount']/
                           <input type="text" id="amount" name="amount" value="<?php echo $newprice;?>" style="border: none; background: none; font-weight: bold; width: 100px; font-size: 12px" readonly="">
                           <br><br>
                           <div style="padding-bottom: 0px;">
-                            <input type="text" id="pay_from_email" name="pay_from_email" style="width: 250px"  autocomplete="off" placeholder="<?php echo __(LBL_EMAIL) ?>">
+                            <input type="text" id="pay_from_email" name="pay_from_email" style="width: 250px"  autocomplete="off"   onfocus="if (this.value == '<?php echo __(LBL_EMAIL) ?>') {this.value = '';}" onblur="if (this.value == '') {this.value = '<?php echo __(LBL_EMAIL) ?>';}" value="<?php echo __(LBL_EMAIL) ?>">
                           </div>
                           <div style="clar:both"></div>
                           
                           <div style="padding-bottom: 5px;">
-                            <input type="text" id="firstname" name="firstname" value=""  style="padding-bottom: 3px; color: #515151; border: solid 1px #686868; width: 100px;" placeholder="Fornavn">
-                            <input type="text" id="lastname" name="lastname" value="" style="padding-bottom: 3px; color: #515151; border: solid 1px #686868; width: 210px; margin-left: 8px;" placeholder="Efternavn">
+                            <input type="text" id="firstname" name="firstname" value="Fornavn"  style="padding-bottom: 3px; color: #515151; border: solid 1px #686868; width: 100px;"  onfocus="if (this.value == 'Fornavn') {this.value = '';}" onblur="if (this.value == '') {this.value = 'Fornavn';}" >
+                            <input type="text" id="lastname" name="lastname" value="Efternavn" style="padding-bottom: 3px; color: #515151; border: solid 1px #686868; width: 210px; margin-left: 8px;"   onfocus="if (this.value == 'Efternavn') {this.value = '';}" onblur="if (this.value == '') {this.value = 'Efternavn';}" >
                           </div>
                           <div style="clar:both"></div>
                           
                           <div style="padding-bottom: 5px;">
-                            <input type="text" id="address" name="address" value=""  style="padding-bottom: 3px; color: #515151; border: solid 1px #686868; width: 320px;" placeholder="Adresse">
+                            <input type="text" id="address" name="address" value="Adresse"  style="padding-bottom: 3px; color: #515151; border: solid 1px #686868; width: 320px;"  onfocus="if (this.value == 'Adresse') {this.value = '';}" onblur="if (this.value == '') {this.value = 'Adresse';}" >
                           </div>
                           <div style="clar:both"></div>
                           
                           <div style="padding-bottom: 5px;">
-                            <input type="text" id="postal_code" name="postal_code" value=""  style="padding-bottom: 3px; color: #515151; border: solid 1px #686868;; width: 60px;" placeholder="Postnr.">
-                            <input type="text" id="city" name="city" value=""  style="padding-bottom: 3px; color: #515151; border: solid 1px #686868; width: 250px; margin-left: 8px;" placeholder="By">
+                            <input type="text" id="postal_code" name="postal_code" value="Postnr."  style="padding-bottom: 3px; color: #515151; border: solid 1px #686868;; width: 60px;" onfocus="if (this.value == 'Postnr.') {this.value = '';}" onblur="if (this.value == '') {this.value = 'Postnr.';}">
+                            <input type="text" id="city" name="city" value="By"  style="padding-bottom: 3px; color: #515151; border: solid 1px #686868; width: 250px; margin-left: 8px;"  onfocus="if (this.value == 'By') {this.value = '';}" onblur="if (this.value == '') {this.value = 'By';}">
                           </div>
                           <div style="clar:both"></div>
                           
                           <div style="padding-bottom: 5px;">
-                            <input type="text" id="phone_number" name="phone_number" value=""  maxlength="8" style="padding-bottom: 3px; color: #515151; border: solid 1px #686868; width: 120px; " placeholder="Mobilnr.">
+                            <input type="text" id="phone_number" name="phone_number" value="Mobilnr."  maxlength="8" style="padding-bottom: 3px; color: #515151; border: solid 1px #686868; width: 120px; "  onfocus="if (this.value == 'Mobilnr.') {this.value = '';}" onblur="if (this.value == '') {this.value = 'Mobilnr.';}">
                             <div id="pay_error" style="float: left; left: 120px;width: 150px;display: none; color: #ffffff; background: #ff0000; border: solid 1px #ffffff; padding: 0px; font-size: 10px; text-align: center;">Husk at udfylde alle felter!</div>
                           </div>
                           <div style="clar:both"></div>
