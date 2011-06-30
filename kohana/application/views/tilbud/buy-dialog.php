@@ -13,7 +13,7 @@ $newprice = $deal['regular_price'] - ($deal['regular_price']*($deal['discount']/
               <span style="color: white; font-size: 18px; letter-spacing: 5px; line-height: 32px">Betaling</span>
             </div>
   
-            <form action="https://www.moneybookers.com/app/payment.pl"  name="payment-form" id="payment-form" method="post" target="content">
+            <form action="https://www.moneybookers.com/app/payment.pl"  name="payment-form" id="payment-form" method="post" target="content" accept-charset="ISO-8859-1">
           
               <input type="hidden" name="title" value="<?php echo $deal['title'];?>">
               <input type="hidden" name="id" id="id" value="<?php echo $deal['ID'];?>">
@@ -28,7 +28,7 @@ $newprice = $deal['regular_price'] - ($deal['regular_price']*($deal['discount']/
               <input type="hidden" name="detail1_description" value="<?php echo mb_convert_encoding(html_entity_decode($deal['title']), "ISO_8859-1", "UTF-8");?>">
               <input type="hidden" name="detail1_text" value="<?php echo mb_convert_encoding(html_entity_decode($deal['contents_title']), "ISO_8859-1", "UTF-8");?>">
 
-             <input type="hidden" name="pay_to_email" value="test1@tilbudibyen.dk">
+             <input type="hidden" name="pay_to_email" value="info@tilbudibyen.dk">
              <input type="hidden" name="return_url" id="return_url" value="http://www.tilbudibyen.com"> <!-- URL to redirect after payment success -->
              <input type="hidden" name="cancel_url" value="http://www.tilbudibyen.com">  <!-- URL to redirect after payment cancel -->
              <input type="hidden" name="status_url" id="status_url"  value="http://www.tilbudibyen.com/payment-success"> <!-- URL to get the payment response (not visible to user, called on backend) -->
@@ -137,21 +137,6 @@ $newprice = $deal['regular_price'] - ($deal['regular_price']*($deal['discount']/
         return false;
       }
       
-      /*
-      $.get("/payments/pay", { 
-        firstname: $("#firstname").val(), 
-        lastname: $("#lastname").val(), 
-        email: $("#pay_from_email").val(), 
-        address: $("#address").val(), 
-        postal_code: $("#postal_code").val(), 
-        city: $("#city").val(), 
-        mobile: $("#phone_number").val(),
-        deal_id: $("#id").val(),
-        pricepcs: $("#pricepcs").val(),
-        qty: $("#qty").val()
-      });
-      */
-      
       var return_url = "http://www.tilbudibyen.com/payment-success?firstname=" + $("#firstname").val() + "&lastname=";
       return_url = return_url + $("#lastname").val() + "&email=" + $("#pay_from_email").val() + "&address=" + $("#address").val() ;
       return_url = return_url + "&post_code=" + $("#postal_code").val() + "&city=" + $("#city").val() + "&mobile=" + $("#phone_number").val();
@@ -167,7 +152,7 @@ $newprice = $deal['regular_price'] - ($deal['regular_price']*($deal['discount']/
     $("#buy-button").fancybox({
         'autoDimensions'    : false,
         'height'            : 600,
-        'width'             : 750,
+        'width'             : 710,
     		'scrolling' : 'no',
     		'padding'   : 0,
     		'titleShow'	: false,
