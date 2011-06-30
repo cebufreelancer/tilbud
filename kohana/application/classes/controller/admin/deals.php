@@ -260,7 +260,7 @@ class Controller_Admin_Deals extends Controller {
 			$deals->city_id 	 	= (int)$posts['deal_city'];
 			$deals->group_id		= (int)$posts['deal_group'];
 			$deals->regular_price = number_format($posts['deal_regular_price'], 2, '.', '');
-			$deals->discount  	= (int)$posts['deal_discount'];
+			$deals->discount  	= (float)$posts['deal_discount'];
 			//$deals->vouchers 	 	= (int)$posts['deal_vouchers'];
 			$deals->reference_no= htmlentities($posts['deal_refno']);
 
@@ -445,7 +445,7 @@ class Controller_Admin_Deals extends Controller {
 			$deals->city_id 	 	= (int)$posts['deal_city'];
 			$deals->group_id		= (int)$posts['deal_group'];
 			$deals->regular_price = number_format($posts['deal_regular_price'], 2, '.', '');
-			$deals->discount  	= (int)$posts['deal_discount'];
+			$deals->discount  	= (float)$posts['deal_discount'];
 			$deals->reference_no= htmlentities($posts['deal_refno']);
 			$deals->price_for_email = $posts['price_for_email'];
 
