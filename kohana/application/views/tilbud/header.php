@@ -292,10 +292,11 @@
 			<?php 
 			// Check if visitor has already visited the website
 			// Cookie expiration is set to 2 weeks or 
-			if (is_null(Cookie::get('tib'))) { ?>
+			if (!isset($_COOKIE['tilbud_user_cookie'])) { 
+			?>
         <script type="text/javascript">
         $(document).ready(function() {
-          $("#renamed_newvisitor").fancybox({
+          $("#newvisitor").fancybox({
             'scrolling'		: false,
             'titleShow'		: false,
             'autoScale'	: false,

@@ -31,7 +31,6 @@ class Model_Subscriber extends ORM {
 												->and_where('city_id', '=', $city)
 												->execute()
 												->as_array();
-		
 		return !empty($email) ? TRUE : FALSE;
 	}
 	
