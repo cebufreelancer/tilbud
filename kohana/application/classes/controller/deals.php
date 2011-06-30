@@ -5,7 +5,7 @@ class Controller_Deals extends Controller {
 	{	
 		//$deals = ORM::factory('deal')->get_active_deals('active', 20);
 		$orders = ORM::factory('order');
-		$deals = ORM::factory('deal')->where('status', '=', 'active')->and_where("end_date", "<", "CURDATE()" )->find_all();
+		$deals = ORM::factory('deal')->where('status', '=', 'active')->find_all();
 
 		$this->response->body(View::factory('tilbud/deals')
                    ->set('deals', $deals)
