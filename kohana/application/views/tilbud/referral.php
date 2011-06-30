@@ -26,6 +26,18 @@
   </div>
 </div>
 <script type="text/javascript">
+function setCookie(c_name,value,exdays)
+{
+  var exdate=new Date();
+  exdate.setDate(exdate.getDate() + exdays);
+  var c_value=escape(value) + ((exdays==null) ? "" : "; expires="+exdate.toUTCString());
+  document.cookie=c_name + "=" + c_value;
+}
+  setCookie("tilbud_user_cookie", "1", 14);
+
+
+
+
 jQuery(document).ready(function() {
 	$("#signup-button").click(function() {
 			$("#email-sent").hide();

@@ -1,7 +1,22 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
 class Controller_Home extends Controller {
- 
+
+  public function action_ns()
+  {
+    // users_id;group_id;group_name;signup_date;email_address;firstname;lastname
+    // 10;1;KÃ¸benhavn;0;m_ringsted@hotmail.com;;
+    $file = "add-partner.csv";
+    $file_subscribers = APPPATH . $file;
+    if (file_exists($file_subscribers)) {
+      echo "naa";
+      $handle = fopen($file_subscribers, "r");
+      $contents = fread($handle, filesize($file_subscribers));
+      print_r($contents);
+      fclose($handle);
+    }
+  }
+  
   public function action_sendsms()
   {
    /*
@@ -317,6 +332,7 @@ TilbudIbyen.com
 
 	public function action_signup()
 	{
+	  setcookie("tilbud_user_cookie", '1', time() + (86400 * 14));
 		$page			= View::factory('tilbud/signupform');
 		$citylist = Kohana::config('global.cities');
 		
