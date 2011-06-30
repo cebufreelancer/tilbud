@@ -55,7 +55,7 @@
               	  ?>
               	  <div class="buy-label">
               	    <p class="huge buy-label" style="width: 200px; min-width: 200px; float: left;">
-              	    <?php echo $newprice; ?>,-
+              	    <?php echo number_format($deal['price_for_email'],0,'.',',' ); ?>,-
               	    </p>
 
                       <?php if(strtotime($deal['end_date']) > strtotime(date("Y-m-d H:i:s")) ) {?>
@@ -99,7 +99,7 @@
               </div>
 							
               <div class="buy-container" style="z-index: 100; position: relative" >
-              	<p class="discounts" style="text-align: left">Værdi <?php echo number_format($deal['regular_price'], 2, '.', ''); ?>,- <span style="float:right;">Rabat <?php echo number_format($deal['discount'], 0, '.', ''); ?>%</span></p>
+              	<p class="discounts" style="text-align: left">Værdi <?php echo number_format($deal['regular_price'], 2, '.', ''); ?>,- <span style="float:right;">Rabat <?php echo number_format($deal['discount'],0, '.', ''); ?>%</span></p>
               </div>
             
               <div style="z-index: 151; position: relative">

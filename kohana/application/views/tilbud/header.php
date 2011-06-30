@@ -303,7 +303,7 @@
 			<?php 
 			// Check if visitor has already visited the website
 			// Cookie expiration is set to 2 weeks or 
-			if (!isset($_COOKIE['tilbud_user_cookie'])) { 
+			if (!isset($_COOKIE['xtilbud_user_cookie'])) { 
 			?>
         <script type="text/javascript">
         $(document).ready(function() {
@@ -319,7 +319,7 @@
             'showCloseButton' : true,
             'enableEscapeButton' : false,
             'hideOnOverlayClick' : false
-          }).trigger('click');
+          });
         });
         </script>
       <?php } ?>
