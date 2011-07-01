@@ -25,7 +25,7 @@
 
               <div class="recentDealblock">
                 <div class="dealTitle">
-                  <p class="date"><?php echo strftime("%d/%m/%Y", strtotime($deal->date_create) ); ?></p>
+                  <p class="date"><?php echo strftime("%d/%m/%Y", strtotime($deal->end_date) ); ?></p>
                   <h4><a href="/deals/view/<?= $deal->ID;?>" ><?php echo $title;?></a></h4>
         	      </div>
                 <div class="dealDetails">
