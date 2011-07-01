@@ -219,7 +219,7 @@ class Controller_Admin_Orders extends Controller {
 						
 						// Update Total Sold
 						if($order->status == 'delivered') {
-							$this->send_mail_template($oid, $status);
+							$this->send_mail_template($oid, $order->status);
 						}
 					}
 	
@@ -324,7 +324,8 @@ class Controller_Admin_Orders extends Controller {
 	
 	public function before() 
 	{
-	  
+	  //michael
+	  Auth::instance()->force_login("admin");
 		// This codeblock is very useful in development sites:
 		// What it does is get rid of invalid sessions which cause exceptions, which may happen
 		// 1) when you make errors in your code.
@@ -487,18 +488,47 @@ class Controller_Admin_Orders extends Controller {
 				$mailer->subject = "Tillykke med dit " . mb_convert_encoding("køb", "ISO-8859-1", "UTF-8") . ": " . html_entity_decode($deal->contents_title) . " hos TilbudiByen.com (Ordrenummer {$order->ID})";
 				$mailer->message = $message;
 				
-				ob_start();
-				include_once(APPPATH . 'views/tilbud/template_order_pdf.php');
-				$content = ob_get_clean();
+
+				// get ref numbers
+				$refs = DB::select()->from('refnumbers')->where('order_id', '=', $id)->execute()->as_array();
+        if (sizeof($refs) > 0) {
+    				foreach($refs as $ref){
+    				  $pdf_refno = $ref['refno'];
+    				  $newrefno = $order->generate_reference_no(8, $deal->ID);
+				  
+      				ob_start();
+      				include_once(APPPATH . 'views/tilbud/template_order_pdf.php');
+      				$content = ob_get_clean();
 				
-				$html2pdf = new HTML2PDF('P','A4','en');
-				$html2pdf->WriteHTML($content, false);
+      				$html2pdf = new HTML2PDF('P','A4','en');
+      				$html2pdf->WriteHTML($content, false);
 				
-				$html2out = $html2pdf->Output('','S');
-				$filename = mb_convert_encoding("Værdibevis-" . $order->refno . ".pdf", "ISO-8859-1", "UTF-8");
-				$mailer->addAttachment($filename, $html2out);
-				
-				$mailer->send();
+      				$html2out = $html2pdf->Output('','S');
+      				$filename = mb_convert_encoding("Værdibevis-" . $newrefno . ".pdf", "ISO-8859-1", "UTF-8");
+              $mailer->addAttachment($filename, $html2out);
+              DB::insert('refnumbers', array('refno', 'order_id'))->values(array($newrefno,$order->ID))->execute();
+    				}
+  			}else {
+  				for($i=1; $i<= $order->quantity; $i++){ 
+  				  // creating new ones
+  				  $pdf_refno = $order->generate_reference_no(8, $deal->ID);
+            DB::insert('refnumbers', array('refno', 'order_id'))->values(array($pdf_refno,$order->ID))->execute();
+
+    				ob_start();
+    				include_once(APPPATH . 'views/tilbud/template_order_pdf.php');
+    				$content = ob_get_clean();
+
+    				$html2pdf = new HTML2PDF('P','A4','en');
+    				$html2pdf->WriteHTML($content, false);
+
+    				$html2out = $html2pdf->Output('','S');
+    				$filename = mb_convert_encoding("Værdibevis-" . $pdf_refno . ".pdf", "ISO-8859-1", "UTF-8");
+            $mailer->addAttachment($filename, $html2out);
+
+  				}
+  			}
+  			
+  			$mailer->send();
 
 				break;
 				

@@ -42,7 +42,7 @@
   $order_status = $order->status;
   if ($order_status == "delivered") {
     $ostatus = "Leveret";
-  }else
+  }else{
     $ostatus = $order_status;
   }
   ?>

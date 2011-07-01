@@ -23,7 +23,7 @@
   </table>
   <hr />
   
-  <p><b>Referencenummer:</b> <span style="padding-left: 25px; font-size: 18px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?= $order->refno; ?></span></p>
+  <p><b>Referencenummer:</b> <span style="padding-left: 25px; font-size: 18px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?= $pdf_refno; ?></span></p>
   
   <p style="font-size: 14px;"><b>Det med småt</b><br/>
 Kan indløses man-lør 11-15.<br/>
