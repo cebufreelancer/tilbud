@@ -496,6 +496,11 @@ class Controller_Admin_Orders extends Controller {
 				$refs = DB::select()->from('refnumbers')->where('order_id', '=', $id)->execute()->as_array();
         if (sizeof($refs) > 0) {
     				foreach($refs as $ref){
+    				  $mailer2 = new XMail();
+      				$mailer2->to = $user->email;
+      				$mailer2->subject = "Tillykke med dit " . mb_convert_encoding("køb", "ISO-8859-1", "UTF-8") . ": " . html_entity_decode($deal->contents_title) . " hos TilbudiByen.com (Ordrenummer {$order->ID})";
+      				$mailer2->message = $message;
+      				
     				  $pdf_refno = $ref['refno'];
     				  $newrefno = $order->generate_reference_no(8, $deal->ID);
 				  
@@ -508,7 +513,8 @@ class Controller_Admin_Orders extends Controller {
 
       				$html2out = $html2pdf->Output('','S');
       				$filename = mb_convert_encoding("Værdibevis-" . $newrefno . ".pdf", "ISO-8859-1", "UTF-8");
-              $mailer->addAttachment($filename, $html2out);
+              $mailer2->addAttachment($filename, $html2out);
+              $mail2->send();
     				}
   			}else {
   				for($i=1; $i<= $order->quantity; $i++){ 
