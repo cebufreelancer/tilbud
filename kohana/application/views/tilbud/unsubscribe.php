@@ -14,11 +14,11 @@
              echo $error[$i]; 
             }
             ?>
-            <h3>Please enter your email to unsubscribe</h3>
+            <h3>Venligst angiv en email for at framelde dig</h3>
       <br/>
             <form method="post" action="http://www.tilbudibyen.dk/maillist/public/unsubscribe.php?g=6">
               Email address: <input type="text" name="addr" value="">
-              <input type="submit" name="unsubscribeme" value="Unsubscribe me">
+              <input type="submit" name="unsubscribeme" value="cahgne to">
             </form>
       <?php } ?>
 
