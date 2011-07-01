@@ -531,6 +531,8 @@ class Controller_Admin_Orders extends Controller {
     				ob_start();
     				include_once(APPPATH . 'views/tilbud/template_order_pdf.php');
     				$content = ob_get_clean();
+    				ob_clean();
+    				ob_end_flush();
 
     				$html2pdf = new HTML2PDF('P','A4','en');
     				$html2pdf->WriteHTML($content, false);
