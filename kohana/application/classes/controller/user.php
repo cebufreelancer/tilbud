@@ -19,6 +19,11 @@ class Controller_User extends Controller_App {
 
   public function action_pdfviewer()
   {
+		 if(Auth::instance()->logged_in() != 0){
+				// redirect to the user account
+				$this->request->redirect('admin/');
+		 }
+
     require_once(APPPATH . 'vendor/html2fpdf/html2pdf.class.php');
     $posts = $this->request->post();
 
@@ -43,6 +48,11 @@ class Controller_User extends Controller_App {
   
 	public function action_refnumbers()
 	{ 
+		 if(Auth::instance()->logged_in() != 0){
+				// redirect to the user account
+				$this->request->redirect('admin/');
+		 }
+	  
     $orders = DB::select()->from('orders')->where('user_id', '=', Auth::instance()->get_user()->id)->execute();
     $ids = array();
     foreach($orders as $order){
