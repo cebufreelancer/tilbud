@@ -16,7 +16,47 @@ class Controller_User extends Controller_App {
 			$this->request->redirect('user/myaccount');
 		}
 	}
-	
+
+  public function action_pdfviewer()
+  {
+    $posts = $this->request->post();
+    if (isset($posts['action'])) {
+      $refno = $_REQUEST['refno'];
+      $res = DB::select()->from('refnumbers')->where('refno', '=', $reno)->execute()->as_array();
+      $pdf_refno = $res['refno'];
+      $user = Auth::instance()->get_user();
+      $deal = ORM::factory('deal', $res['deal_id']);
+    
+      ob_start();
+      include_once(APPPATH . 'views/tilbud/template_order_pdf.php');
+      $content = ob_get_clean();
+      ob_clean();
+      ob_end_flush();
+
+      $html2pdf = new HTML2PDF('P','A4','en');
+      $html2pdf->WriteHTML($content, false);
+
+      $html2out = $html2pdf->Output('','S');
+    }
+  }
+  
+	public function action_refnumbers()
+	{ 
+    //$orders = DB::select()->from('orders')->where('user_id', '=', Auth::instance()->get_user()->ID)->execute();
+    $orders = DB::select()->from('orders')->where('user_id', '=', 82)->execute();
+    $ids = array();
+    foreach($orders as $order){
+      $ids[] = $order['ID'];
+    }
+    $ids = array('30','31','32');
+      $refnumbers = DB::select()->from('refnumbers')->where('order_id', 'IN', $ids)->and_where('is_claimed', '=', '0')->execute()->as_array();
+      
+  		$view = View::factory('tilbud/refnumbers');
+  		$view->set('user', Auth::instance()->get_user());
+  		$view->refnumbers;
+  		$this->template->content = $view;
+      
+	}
 	public function action_login()
 	{
 		// ajax login

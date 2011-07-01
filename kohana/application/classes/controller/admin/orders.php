@@ -478,74 +478,26 @@ class Controller_Admin_Orders extends Controller {
 				
 			case 'delivered':
 				require_once(APPPATH . 'vendor/html2fpdf/html2pdf.class.php');
-				
 
 				ob_start();
 				include_once(APPPATH . 'views/tilbud/template_order.php');
 				$message = ob_get_clean();
-									
+
 				$mailer = new XMail();
 				$mailer->to = $user->email;
 				$mailer->subject = "Tillykke med dit " . mb_convert_encoding("køb", "ISO-8859-1", "UTF-8") . ": " . html_entity_decode($deal->contents_title) . " hos TilbudiByen.com (Ordrenummer {$order->ID})";
 				$mailer->message = $message;
 				$mailer->send();
 
-
-        
 				// get ref numbers
 				$refs = DB::select()->from('refnumbers')->where('order_id', '=', $id)->execute()->as_array();
-        if (sizeof($refs) > 0) {
-    				foreach($refs as $ref){
-    				  $mailer2 = new XMail();
-      				$mailer2->to = $user->email;
-      				$mailer2->subject = "Tillykke med dit " . mb_convert_encoding("køb", "ISO-8859-1", "UTF-8") . ": " . html_entity_decode($deal->contents_title) . " hos TilbudiByen.com (Ordrenummer {$order->ID})";
-      				$mailer2->message = $message;
-      				
-    				  $pdf_refno = $ref['refno'];
-    				  $newrefno = $order->generate_reference_no(8, $deal->ID);
-				  
-      				ob_start();
-      				include_once(APPPATH . 'views/tilbud/template_order_pdf.php');
-      				$content = ob_get_clean();
-				
-      				$html2pdf = new HTML2PDF('P','A4','en');
-      				$html2pdf->WriteHTML($content, false);
-
-      				$html2out = $html2pdf->Output('','S');
-      				$filename = mb_convert_encoding("Værdibevis-" . $newrefno . ".pdf", "ISO-8859-1", "UTF-8");
-              $mailer2->addAttachment($filename, $html2out);
-              $mailer2->send();
-    				}
-  			}else {
-  				for($i=1; $i<= $order->quantity; $i++){
-
-    				$mailer2 = new XMail();
-    				$mailer2->to = $user->email;
-    				$mailer2->subject = "Tillykke med dit " . mb_convert_encoding("køb", "ISO-8859-1", "UTF-8") . ": " . html_entity_decode($deal->contents_title) . " hos TilbudiByen.com (Ordrenummer {$order->ID})";
-    				$mailer2->message = $message;
-
+        if (sizeof($refs) == 0) {
   				  // creating new ones
-  				  $pdf_refno = $order->generate_reference_no(8, $deal->ID);
-            DB::insert('refnumbers', array('refno', 'order_id', 'deal_id'))->values(array($pdf_refno,$order->ID, $deal->ID))->execute();
-  				  
-    				ob_start();
-    				include_once(APPPATH . 'views/tilbud/template_order_pdf.php');
-    				$content = ob_get_clean();
-    				ob_clean();
-    				ob_end_flush();
-
-    				$html2pdf = new HTML2PDF('P','A4','en');
-    				$html2pdf->WriteHTML($content, false);
-
-    				$html2out = $html2pdf->Output('','S');
-    				$filename = mb_convert_encoding("Værdibevis-" . $pdf_refno . ".pdf", "ISO-8859-1", "UTF-8");
-            $mailer2->addAttachment($filename, $html2out);
-            $mailer2->send();
-
-  				}
+  				  for($i=1; $i <= $order->quantity; $i++) {
+  				    $pdf_refno = $order->generate_reference_no(8, $deal->ID);
+              DB::insert('refnumbers', array('refno', 'order_id', 'deal_id'))->values(array($pdf_refno,$order->ID, $deal->ID))->execute();
+            }
   			}
-  			$mailer2->send();
-
 
 				break;
 				
