@@ -21,10 +21,16 @@ class Controller_Admin_Deals extends Controller {
   public function action_refcode($id)
   {
     $page = View::factory('tilbud/admin/deals/refcode');
-    //$orders = DB::select()->from('orders')->where('deal_id', '=', $id)->and_where('status', 'IN',array('delivered','new'))->execute()->as_array();
     $orders = DB::select()->from('orders')->where('deal_id', '=', $id)->and_where('status', '=', 'delivered')->execute()->as_array();
+    $order_ids = array();
+
+    foreach($orders as $order){
+      $order_ids[] = $order['ID'];
+    }
+    $refnumbers = DB::select()->from('refnumbers')->where('order_id', 'IN', $order_ids)->execute()->as_array();
 
     $page->orders = $orders;
+    $page->refnumbers = $refnumbers;
 		$this->response->body($page);
   }
 	public function action_index()

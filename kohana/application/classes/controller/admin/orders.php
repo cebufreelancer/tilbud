@@ -196,6 +196,8 @@ class Controller_Admin_Orders extends Controller {
 				$posts['action'] = 'sendpdf';
 			} else if ($posts['action'] == __(LBL_MARKED_AS_REFNO_PAID)) {
 			  $posts['action'] = 'refno_paid';
+			} else {
+			  $posts['action'] = 'set';
 			}
 
 			$action = strtolower(str_replace(" ", "", $posts['action']));
