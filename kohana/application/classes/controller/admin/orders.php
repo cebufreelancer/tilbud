@@ -506,14 +506,13 @@ class Controller_Admin_Orders extends Controller {
       				$html2out = $html2pdf->Output('','S');
       				$filename = mb_convert_encoding("Værdibevis-" . $newrefno . ".pdf", "ISO-8859-1", "UTF-8");
               $mailer->addAttachment($filename, $html2out);
-              DB::insert('refnumbers', array('refno', 'order_id'))->values(array($newrefno,$order->ID))->execute();
     				}
   			}else {
   				for($i=1; $i<= $order->quantity; $i++){ 
   				  // creating new ones
   				  $pdf_refno = $order->generate_reference_no(8, $deal->ID);
             DB::insert('refnumbers', array('refno', 'order_id', 'deal_id'))->values(array($pdf_refno,$order->ID, $deal->ID))->execute();
-
+  				  
     				ob_start();
     				include_once(APPPATH . 'views/tilbud/template_order_pdf.php');
     				$content = ob_get_clean();
