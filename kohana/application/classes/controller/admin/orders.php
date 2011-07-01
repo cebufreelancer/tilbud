@@ -512,7 +512,7 @@ class Controller_Admin_Orders extends Controller {
   				for($i=1; $i<= $order->quantity; $i++){ 
   				  // creating new ones
   				  $pdf_refno = $order->generate_reference_no(8, $deal->ID);
-            DB::insert('refnumbers', array('refno', 'order_id'))->values(array($pdf_refno,$order->ID))->execute();
+            DB::insert('refnumbers', array('refno', 'order_id', 'deal_id'))->values(array($pdf_refno,$order->ID, $deal->ID))->execute();
 
     				ob_start();
     				include_once(APPPATH . 'views/tilbud/template_order_pdf.php');

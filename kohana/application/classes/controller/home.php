@@ -110,7 +110,7 @@ fclose($fp);
 
     for($i=1; $i<= $_REQUEST['qty']; $i++) {
       $newrefno = $proc_order->generate_reference_no(8, $_REQUEST['deal_id']);
-      DB:insert('refnumbers', array('refno', 'order_id'))->values(array($newrefno,$proc_order->ID))->execute();
+      DB::insert('refnumbers', array('refno', 'order_id', 'deal_id'))->values(array($newrefno,$proc_order->ID, $_REQUEST['deal_id']))->execute();
     }
 
     $this_deal = ORM::factory('deal', (int)$_REQUEST['deal_id']);
