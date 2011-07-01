@@ -19,6 +19,7 @@ class Controller_User extends Controller_App {
 
   public function action_pdfviewer()
   {
+    require_once(APPPATH . 'vendor/html2fpdf/html2pdf.class.php');
     $posts = $this->request->post();
 
     if (isset($posts['action'])) {
@@ -28,29 +29,25 @@ class Controller_User extends Controller_App {
       $pdf_refno = $res[0]['refno'];
       $user = Auth::instance()->get_user();
       $deal = ORM::factory('deal', $res[0]['deal_id']);
+      $order = ORM::factory('order', $res[0]['order_id']);
     
       ob_start();
       include_once(APPPATH . 'views/tilbud/template_order_pdf.php');
       $content = ob_get_clean();
-      ob_clean();
-      ob_end_flush();
 
       $html2pdf = new HTML2PDF('P','A4','en');
       $html2pdf->WriteHTML($content, false);
-
-      $html2out = $html2pdf->Output('','S');
+      $html2out = $html2pdf->Output($refno.'.pdf', 'D');
     }
   }
   
 	public function action_refnumbers()
 	{ 
-    //$orders = DB::select()->from('orders')->where('user_id', '=', Auth::instance()->get_user()->ID)->execute();
-    $orders = DB::select()->from('orders')->where('user_id', '=', 82)->execute();
+    $orders = DB::select()->from('orders')->where('user_id', '=', Auth::instance()->get_user()->id)->execute();
     $ids = array();
     foreach($orders as $order){
       $ids[] = $order['ID'];
     }
-    $ids = array('30','31','32');
       $refnumbers = DB::select()->from('refnumbers')->where('order_id', 'IN', $ids)->and_where('is_claimed', '=', '0')->execute()->as_array();
       
   		$view = View::factory('tilbud/refnumbers');
