@@ -24,6 +24,18 @@
   <hr />
   
   <p><b>Referencenummer:</b> <span style="padding-left: 25px; font-size: 18px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?= $pdf_refno; ?></span></p>
+  <hr/>
+  
+  <table>
+    <tr>
+      <td width="50%">
+        <?php $deal->whatyouget; ?>
+      </td>
+      <td width="50%">
+        <?php $deal->information;?>
+      </td>
+    </tr>
+  </table>
   
   <p style="font-size: 14px;"><b>Det med småt</b><br/>
 Kan indløses man-lør 11-15.<br/>
