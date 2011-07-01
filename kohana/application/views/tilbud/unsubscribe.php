@@ -16,8 +16,8 @@
             ?>
             <h3>Please enter your email to unsubscribe</h3>
       <br/>
-            <form method="post" action="">
-              Email address: <input type="text" name="email" value="">
+            <form method="post" action="http://www.tilbudibyen.dk/maillist/public/unsubscribe.php?g=6">
+              Email address: <input type="text" name="addr" value="">
               <input type="submit" name="unsubscribeme" value="Unsubscribe me">
             </form>
       <?php } ?>
