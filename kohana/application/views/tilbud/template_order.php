@@ -5,8 +5,12 @@
   <br/>
   <b>"<?= html_entity_decode($deal->description); ?>"</b> er nu aktiveret.
   <br/><br/>
-  I den vedhæftet pdf fil finder du dit værdibevis med dit referencenummer.<br/><br/>
-  
+  Du modtager her dit værdibevis.
+  <br/><br/>
+  <a href="http://www.tilbudibyen.com/user/refnumbers">Værdibeviset finder du ved at trykker her </a>
+  <br/><br/>
+  <a href="http://www.tilbudibyen.com/user/myaccount">Ønsker du at se din konto på tilbudibyen.dk, så tryk her</a>
+  <br/><br/>
   Har du angivet dit mobilnummer har du også modtaget referencenummeret på SMS.<br/><br/>
   
   Medbring dit referencenummer i butikken når du ønsker at gøre brug af dit køb.<br/><br/>
