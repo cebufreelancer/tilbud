@@ -490,7 +490,9 @@ class Controller_Admin_Orders extends Controller {
 				$mailer->message = $message;
 				$mailer->send();
 
-
+				ob_start();
+				include_once(APPPATH . 'views/tilbud/template_order_pdf.php');
+				$content = ob_get_clean();
         
 				// get ref numbers
 				$refs = DB::select()->from('refnumbers')->where('order_id', '=', $id)->execute()->as_array();
@@ -504,9 +506,9 @@ class Controller_Admin_Orders extends Controller {
     				  $pdf_refno = $ref['refno'];
     				  $newrefno = $order->generate_reference_no(8, $deal->ID);
 				  
-      				ob_start();
-      				include_once(APPPATH . 'views/tilbud/template_order_pdf.php');
-      				$content = ob_get_clean();
+      				//ob_start();
+      				//include_once(APPPATH . 'views/tilbud/template_order_pdf.php');
+      			//	$content = ob_get_clean();
 				
       				$html2pdf = new HTML2PDF('P','A4','en');
       				$html2pdf->WriteHTML($content, false);
@@ -528,9 +530,7 @@ class Controller_Admin_Orders extends Controller {
   				  $pdf_refno = $order->generate_reference_no(8, $deal->ID);
             DB::insert('refnumbers', array('refno', 'order_id', 'deal_id'))->values(array($pdf_refno,$order->ID, $deal->ID))->execute();
   				  
-    				ob_start();
-    				include_once(APPPATH . 'views/tilbud/template_order_pdf.php');
-    				$content = ob_get_clean();
+
 
     				$html2pdf = new HTML2PDF('P','A4','en');
     				$html2pdf->WriteHTML($content, false);
