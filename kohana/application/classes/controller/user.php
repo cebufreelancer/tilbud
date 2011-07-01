@@ -20,12 +20,14 @@ class Controller_User extends Controller_App {
   public function action_pdfviewer()
   {
     $posts = $this->request->post();
+
     if (isset($posts['action'])) {
       $refno = $_REQUEST['refno'];
-      $res = DB::select()->from('refnumbers')->where('refno', '=', $reno)->execute()->as_array();
-      $pdf_refno = $res['refno'];
+      $res = DB::select()->from('refnumbers')->where('refno', '=', $refno)->execute()->as_array();
+      
+      $pdf_refno = $res[0]['refno'];
       $user = Auth::instance()->get_user();
-      $deal = ORM::factory('deal', $res['deal_id']);
+      $deal = ORM::factory('deal', $res[0]['deal_id']);
     
       ob_start();
       include_once(APPPATH . 'views/tilbud/template_order_pdf.php');
@@ -53,7 +55,7 @@ class Controller_User extends Controller_App {
       
   		$view = View::factory('tilbud/refnumbers');
   		$view->set('user', Auth::instance()->get_user());
-  		$view->refnumbers;
+  		$view->set('refnumbers', $refnumbers);
   		$this->template->content = $view;
       
 	}
