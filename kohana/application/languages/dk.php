@@ -57,7 +57,7 @@ define("LBL_SAVE", "Gem");
 define("LBL_CANCEL", "Annuller");
 define("LBL_UPDATE", "Opdatere");
 define("LBL_ENTER_USERNAME_PASSWORD", "Indtast din e-mail og adgangskode for at logge ind");
-define("LBL_USERNAME", "Brugernavn");
+define("LBL_USERNAME", "E-mail");
 define("LBL_PASSWORD", "Adgangskode");
 define("LBL_CONFIRM_PASSWORD", "Bekræft adgangskode");
 define("LBL_FORGOT_PASSWORD", "Glemt dit adgangskode?");

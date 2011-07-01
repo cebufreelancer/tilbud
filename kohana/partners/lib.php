@@ -27,7 +27,8 @@ if (isset($_POST['action']) && $_POST['action'] == "LOGIN")
 if (isset($_POST['action']) && $_POST['action'] == "UPDATE")
 {
   $ref_code = trim($_POST['ref_code']);
-  $sql = sprintf("SELECT * FROM orders where refno='%s' AND deal_id=%d limit 0,1", $ref_code, $_SESSION['b_deal_id']);
+  $sql = sprintf("SELECT * FROM refnumbers where refno='%s' AND deal_id=%d limit 0,1", $ref_code, $_SESSION['b_deal_id']);
+
   $result = mysql_query($sql, $conn) or die(mysql_error());
 
   if (mysql_num_rows($result) > 0) {
@@ -37,7 +38,7 @@ if (isset($_POST['action']) && $_POST['action'] == "UPDATE")
       $error = LBL_REF_CODE_ALREADY_USED;
     }else{
       $date = date("Y-m-d H:i:s");
-      $sql = sprintf("UPDATE orders set is_claimed=1, claimed_at='%s' WHERE id=%d", $date, $row['ID']);
+      $sql = sprintf("UPDATE refnumbers set is_claimed=1, claimed_at='%s' WHERE id=%d", $date, $row['ID']);
       mysql_query($sql, $conn) or die(mysql_error());
       echo "<script>\n
       location.replace('index.php?s=1')\n
