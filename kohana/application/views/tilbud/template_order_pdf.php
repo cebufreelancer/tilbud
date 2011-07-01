@@ -5,7 +5,7 @@
   <hr />
   <table style="margin-top: 10px; margin-bottom: 10px;">
     <tr><td width="670"><span style="font-size: 26px; font-weight: bold;"><?= $deal->title; ?></span></td></tr>
-    <tr><td style="font-size: 24px;"><?= $deal->description; ?> (Værdi: <?= $deal->regular_price ?> kr.)</td></tr>
+    <tr><td width="670" style="font-size: 24px; text-align: justify"><?= $deal->description; ?> (Værdi: <?= $deal->regular_price ?> kr.)</td></tr>
   </table>
   
   <hr />
@@ -28,42 +28,25 @@
   
   <table>
     <tr>
-      <td width="50%">
-        <?php $deal->whatyouget; ?>
+      <td width="330">
+        <?php echo html_entity_decode($deal->whatyouget); ?>
       </td>
-      <td width="50%">
-        <?php $deal->information;?>
+      <td width="300">
+        <?php echo html_entity_decode($deal->information);?>
       </td>
     </tr>
   </table>
   
-  <p style="font-size: 14px;"><b>Det med småt</b><br/>
-Kan indløses man-lør 11-15.<br/>
-Jailhouse Cph, Studiestræde 12, kld, 1455 København K. Tlf. 33152255</p>
-	
 </div>
 
 <div style="font-family: Arial, Helvetica, sans-serif;">
 
-  <p style="font-size: 20px;">
-    <b>Sådan bruger du dit værdibevis</b>
-    <ul>
-      <li>Print værdibeviset ud</li>
-      <li>Hæng det op på køleskabet eller læg det i din pung</li>
-      <li>Nyd oplevelsen med dine venner eller familie</li>
-    </ul>
-    </p>
-  
-    <p style="font-size: 20px;"><b>Tilbudibyen kundeservice</b><br/>
-  Telefon: +45 51 90 14 53<br/>
-  Mail: kundeservice@tilbudibyen.com<br/><br/>
-  <b>Vi ses på www.tilbudibyen.com</b></p>
+    <p style="font-size: 20px;">
+  <b>Tilbudibyen kundeservice</b><br/>
+  Telefon: +45 60 92 62 61<br/>
+  Mail: kundeservice@tilbudibyen.dk<br/><br/>
+  <b>Vi ses på www.tilbudibyen.dk</b>
+  </p>
 
 	<hr />
-  
-  <div style="margin: 15px 0px; padding: 25px; text-align: center; background: #333333; color: #FFFFFF;">
-  	<h2>ANNONCE</h2>
-    <p>Få din annoncen vist her - ring på +45 51 90 14 53</p>
-  </div>
-
 </div>
