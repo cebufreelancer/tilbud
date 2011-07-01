@@ -1,5 +1,5 @@
 <?php
-$newprice = $deal['regular_price'] - ($deal['regular_price']*($deal['discount']/100) );
+$newprice = floor($deal['regular_price'] - ($deal['regular_price']*($deal['discount']/100) ));
 ?>
 <div style="display:none">
 	<div id="buy-dialog" >
